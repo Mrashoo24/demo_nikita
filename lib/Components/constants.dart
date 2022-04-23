@@ -2,4 +2,4 @@ import 'package:flutter/material.dart';
 
 const kblack = Colors.black;
 
-const kgolder = Color(0xFFFFD700);
+const kgolder = Color(0xFFDBA82D);

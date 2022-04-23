@@ -116,11 +116,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  percent_indicator:
+    dependency: "direct main"
+    description:
+      name: percent_indicator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.99"
+  slide_digital_clock:
+    dependency: "direct main"
+    description:
+      name: slide_digital_clock
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   source_span:
     dependency: transitive
     description:
