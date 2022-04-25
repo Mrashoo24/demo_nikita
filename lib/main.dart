@@ -3,6 +3,8 @@ import 'package:demo_nikita/Splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
+import 'Courses/hrenrollcourses.dart';
+
 void main() {
 
   runApp(const MyApp());
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
 
       ),
 
-      home: SplashScreeen()
+      home: HrEnrollCourses()
 
     );
 
