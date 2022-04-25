@@ -92,6 +92,29 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                           border: Border.all(width: 3,color: kgolder)
                         ),
+                        child: Padding(
+                          padding:   EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 35,
+                                width: Get.width,
+                                child: Padding(
+                                  padding:   EdgeInsets.only(left: 8.0,top: 6),
+                                  child: Text("Courses One",style: TextStyle(fontWeight: FontWeight.bold),),
+                                ),
+                                decoration: BoxDecoration(
+                                    gradient:  LinearGradient(
+                                      colors: [Colors.yellow.shade100, kgolder  ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,),
+                                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                                    border: Border.all(width: 3,color: Colors.black)
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
 
                       ),
                     ],
