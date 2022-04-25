@@ -1,8 +1,9 @@
+import 'package:demo_nikita/Components/clockWidget.dart';
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:slide_digital_clock/slide_digital_clock.dart';
+
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -237,14 +238,29 @@ class _WelcomeState extends State<Welcome> {
                                     ),
                                   ),
                                   DigitalClock(
+                                    is24HourTimeFormat: false,
+                                    areaDecoration: BoxDecoration(
+                                      color: Colors.transparent
+                                    ),
+
+                                    hourMinuteDigitDecoration: BoxDecoration(
+                                      color: kgolder,
+                                      border: Border.all(color: Colors.black)
+
+                                    ),
+                                    secondDigitDecoration: BoxDecoration(
+                                      color: kgolder,
+                                        border: Border.all(color: Colors.black)
+
+                                    ),
                                     hourMinuteDigitTextStyle: TextStyle(
-                                      color: Colors.yellow,
-                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontSize: 24,
                                     ),
                                     secondDigitTextStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
+                                      color: Colors.black,
+                                      fontSize: 24,
+                                    ), seconds: '23', hour: '02', minute: '10', type: 'AM',
                                   ),
 
                                   Column(
