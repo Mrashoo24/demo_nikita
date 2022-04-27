@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:slide_digital_clock/helpers/spinner_text.dart';
 
@@ -68,6 +69,7 @@ class _DigitalClockState extends State<DigitalClock> {
 
   }
 
+
   @override
   void dispose() {
     _timer.cancel();
@@ -95,15 +97,21 @@ class _DigitalClockState extends State<DigitalClock> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             hour(0,1),
-            hour(0,1),
+            hour2(0,1),
             Container(
                 padding: EdgeInsets.symmetric(horizontal: 2),
                 child: SpinnerText(
                   text: ":",
-                  textStyle: widget.hourMinuteDigitTextStyle ?? null,
+                  textStyle: TextStyle(
+                      fontFamily: 'Alarm Clock',
+                      color: kgolder,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                  ),
+
                 )),
             minute(0,1),
-            minute(0,1),
+            minute2(0,1),
             second(0,1),
              second(0,1),
              _amPm,
@@ -127,13 +135,40 @@ class _DigitalClockState extends State<DigitalClock> {
     ),
   );
 
+  Widget hour2(index,index2) => Container(
+    padding: EdgeInsets.symmetric(horizontal: 2),
+    decoration: widget.hourMinuteDigitDecoration ??
+        BoxDecoration(
+            border: Border.all(color: Colors.white),
+            borderRadius: BorderRadius.circular(5)),
+    child: SpinnerText(
+      text: widget.hour.substring(1),
+      animationStyle: widget.digitAnimationStyle ?? null,
+      textStyle: widget.hourMinuteDigitTextStyle ?? null,
+    ),
+  );
+
   Widget  minute(index,index2) => Container(
+    padding: EdgeInsets.symmetric(horizontal: 2),
     decoration: widget.hourMinuteDigitDecoration ??
         BoxDecoration(
             border: Border.all(color: Colors.white),
             borderRadius: BorderRadius.circular(5)),
     child: SpinnerText(
       text: widget.minute.substring(index,index2),
+      animationStyle: widget.digitAnimationStyle ?? null,
+      textStyle: widget.hourMinuteDigitTextStyle ?? null,
+    ),
+  );
+
+  Widget  minute2(index,index2) => Container(
+    padding: EdgeInsets.symmetric(horizontal: 2),
+    decoration: widget.hourMinuteDigitDecoration ??
+        BoxDecoration(
+            border: Border.all(color: Colors.white),
+            borderRadius: BorderRadius.circular(5)),
+    child: SpinnerText(
+      text: widget.minute.substring(1),
       animationStyle: widget.digitAnimationStyle ?? null,
       textStyle: widget.hourMinuteDigitTextStyle ?? null,
     ),
@@ -162,7 +197,8 @@ class _DigitalClockState extends State<DigitalClock> {
       : Text("");
 
   Widget get _amPm => Container(
-    margin: EdgeInsets.only(bottom: 0, left: 4, right: 2),
+    padding: EdgeInsets.symmetric(horizontal: 2),
+    margin: EdgeInsets.only(bottom: 0, left: 3, right: 0),
     decoration: widget.secondDigitDecoration ??
         BoxDecoration(
             border: Border.all(color: Colors.white),
@@ -182,7 +218,8 @@ class _DigitalClockState extends State<DigitalClock> {
   );
 
   Widget get _amPm2 => Container(
-    margin: EdgeInsets.only(bottom: 0, left: 4, right: 2),
+    padding: EdgeInsets.symmetric(horizontal: 2),
+    margin: EdgeInsets.only(bottom: 0, left: 1, right: 2),
     decoration: widget.secondDigitDecoration ??
         BoxDecoration(
             border: Border.all(color: Colors.white),

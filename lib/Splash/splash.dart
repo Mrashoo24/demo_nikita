@@ -17,14 +17,17 @@ class _SplashScreeenState extends State<SplashScreeen> {
 
   @override
   void initState() {
+
     super.initState();
     Timer(Duration(milliseconds: 2000), (){
       Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2));
     });
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: kblack,
       body: Center(
@@ -38,5 +41,6 @@ class _SplashScreeenState extends State<SplashScreeen> {
 
       ),
     );
+
   }
 }

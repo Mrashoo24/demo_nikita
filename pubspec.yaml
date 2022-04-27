@@ -82,6 +82,9 @@ flutter:
     - family: Typo Round
       fonts:
         - asset: fonts/Typo_Round_Regular_Demo.otf
+    - family: Alarm Clock
+      fonts:
+        - asset: fonts/alarm clock.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
