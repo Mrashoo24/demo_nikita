@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'Courses/hrenrollcourses.dart';
+import 'Courses/requests.dart';
 
 void main() {
 
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
 
       ),
 
-      home: HrEnrollCourses()
+      home: Requests()
 
     );
 
