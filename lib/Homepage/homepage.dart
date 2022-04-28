@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../Components/Arrow/arrowclipper.dart';
+import '../Components/Arrow/test.dart';
 
 
 class Welcome extends StatefulWidget {
@@ -133,16 +134,13 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
               // ),
               Container(
               height: 100,
-                width: 300,
+                width: 100,
                 color: Colors.blueGrey,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView.count(
-                      crossAxisCount: 3,
-                    children: [
-                      buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
-                    ],
-                  ),
+                child: GridView.count(
+                    crossAxisCount: 3,
+                  children: [
+                    buildBNBCards3('Leave\nRequests', 'assets/icons/services.png', 4)
+                  ],
                 ),
               ),
             ],
@@ -205,9 +203,9 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 //                 ),
 //               ),
               Container(
-                height: 70,
+                height: 100,
                 decoration: BoxDecoration(
-                  color: Colors.green
+                  color: Colors.transparent
                   // image: DecorationImage(
                   //   image: AssetImage('assets/bg.jpg'),
                   //   fit: BoxFit.cover,
@@ -232,35 +230,8 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                           buildBNBCards('Reports','assets/icons/reports.png',3),
                           // buildBNBCards2('More','assets/icons/more.png',4),
                           CustomPopupMenu(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // selectedCard == title ?  Container(
-                                //
-                                //   decoration: BoxDecoration(
-                                //       shape: BoxShape.circle,
-                                //       color: Colors.black,
-                                //       border: Border.all(color: kgolder,width: 2)
-                                //   ),
-                                //   child: Container(
-                                //       padding: EdgeInsets.all(8),
-                                //       width: 60,
-                                //       height: 60,
-                                //       child: Image.asset(image,fit: BoxFit.fill,)
-                                //   ),
-                                // )  :
-                                Container(
-
-                                    width: 30,
-                                    height: 30,
-                                    child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)),
-                                Text('Reports',style: TextStyle(color: kgolder,fontSize:  14),),
-                              ],
-                            ),
                             menuBuilder: () => GestureDetector(
-                              child: _buildAvatar(true, 100),
+                              child: _buildAvatar(true, 300),
                               onLongPress: () {
                                 print("onLongPress");
                               },
@@ -270,9 +241,49 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                             ),
                             barrierColor: Colors.transparent,
                             pressType: PressType.singleClick,
-                            arrowColor:  Colors.black,
-                            arrowSize: 40,
+                            arrowColor:  kgolder,
+                            arrowSize: 15,
                             position: PreferredPosition.top,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                selectedCard == 'More' ?  Container(
+
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.black,
+                                      border: Border.all(color: kgolder,width: 2)
+                                  ),
+                                  child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      width: 60,
+                                      height: 60,
+                                      child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)
+                                  ),
+                                )  :
+                                InkWell(
+                                  onTap: (){
+                                    setState(() {
+                                      selectedCard = 'More';
+                                      //  index == 4 ?
+                                      // isMenuOpen ? closeMenu() :
+                                      //    openMenu()
+                                      //      :
+
+                                    });
+                                  },
+                                  child
+                                      : Container(
+
+                                      width: 30,
+                                      height: 30,
+                                      child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)),
+                                ),
+                                Text('More',style: TextStyle(color: kgolder,fontSize:  14),),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -292,13 +303,33 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: Container(
-        color: isMe ? Colors.black : Colors.pinkAccent,
-        width: size,
-        height: size,
-        child: Icon(
-          isMe ? Icons.face : Icons.tag_faces,
-          color: Colors.white,
+
+        decoration: BoxDecoration(
+
+          color:  Colors.black.withOpacity(0.8) ,
+          border: Border.all(color: kgolder,width: 3),
+          borderRadius: BorderRadius.circular(10)
         ),
+        width: Get.width*0.7,
+        height: Get.height*0.25,
+        child:GridView.count(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          crossAxisCount: 3,
+        children: [
+          buildBNBCards3('Leave Request', 'assets/icons/leaveRequest.png', 4),
+          buildBNBCards3('Courses', 'assets/icons/courses.png', 5),
+          buildBNBCards3('Admin Leave', 'assets/icons/admin_leave.png', 6),
+          buildBNBCards3('Faulty Attendence', 'assets/icons/faulty_attendence.png', 6),
+          buildBNBCards3('Bench List', 'assets/icons/benchlist.png', 7),
+          buildBNBCards3('Related Sites', 'assets/icons/related_site.png', 8),
+
+        ],
+        )
+
+        // Icon(
+        //   isMe ? Icons.face : Icons.tag_faces,
+        //   color: Colors.white,
+        // ),
       ),
     );
   }
@@ -438,30 +469,35 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
       child: Container(
 
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            selectedCard == title ?  Container(
-
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black,
-                  border: Border.all(color: kgolder,width: 2)
-              ),
-              child: Container(
-                  padding: EdgeInsets.all(8),
-                  width: 60,
-                  height: 60,
-                  child: Image.asset(image,fit: BoxFit.fill,)
-              ),
-            )  :
+            // selectedCard == title ?  Container(
+            //
+            //   decoration: BoxDecoration(
+            //       shape: BoxShape.circle,
+            //       color: Colors.black,
+            //       border: Border.all(color: kgolder,width: 2)
+            //   ),
+            //   child: Container(
+            //       padding: EdgeInsets.all(8),
+            //       width: 60,
+            //       height: 60,
+            //       child: Image.asset(image,fit: BoxFit.fill,)
+            //   ),
+            // )  :
             Container(
 
                 width: 30,
                 height: 30,
                 child: Image.asset(image,fit: BoxFit.fill,)),
-            Text(title,style: TextStyle(color: kgolder,fontSize:  selectedCard == title ? 16 : 14),),
+            Container(
+                width: 50,
+                height: 30,
+                child: Text(title,style: TextStyle(color: kgolder,fontSize: 12,),
+                textAlign: TextAlign.center,
+                ),alignment:Alignment.center,),
           ],
         ),
       ),
