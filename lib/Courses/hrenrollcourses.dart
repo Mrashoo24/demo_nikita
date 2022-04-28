@@ -24,71 +24,121 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
       child: DefaultTabController(
       length: 2,
       child: Scaffold(
-
-        body: Container(
-          decoration: BoxDecoration(
-            gradient:  LinearGradient(
-              colors: [kgolder, Colors.yellow.shade100 ],
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,),
-
+        appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      kblack,
+                      kGray
+                    ]
+                )
+            ),
           ),
-          child: Column(
-            children: [
-              Container(
-                height: screenHeight / 5.5,
-                width: Get.width,
-                decoration: BoxDecoration(
-                  gradient:  LinearGradient(
-                    colors: [Colors.black, Colors.grey.shade600],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,),
-                  borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15)),
+          leading: Icon(Icons.arrow_back),
+          title: Text("Services",style: TextStyle(color: kgolder),),
+          titleSpacing: 5,
+          shadowColor: Colors.transparent,
+        ),
+        body: Stack(
+          children: [
+            Container(
+              height: screenHeight,
+              width: screenWidth,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/bg.jpg"),
+                      fit: BoxFit.cover
+                  )
               ),
-                child: Container(
+            ),
+            Column(
+              children: [
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    gradient:  LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
 
-                  child: Column(
-                    children: [
-                    SizedBox(height: 15),
-                      Row(
-                        children: [
-                          SizedBox( width: 10,),
-                          Icon(Icons.arrow_back,color: kgolder,),
-                          SizedBox(width: 10),
-                          Text("Courses",style: TextStyle(color: kgolder,fontSize: screenHeight / 22),)
-                        ],
-                      ),
-                      SizedBox(height: 8,),
-                      Padding(
-                        padding:   EdgeInsets.all(8.0),
-                        child: TabBar(labelStyle: TextStyle(
-                            fontSize: 25,
-                            fontWeight:FontWeight.w600),
-                          labelColor: Colors.black,
-                          indicator: BoxDecoration(
-                            color: kgolder,
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(12),
-                            bottomLeft: Radius.circular(12))
-                          ),
-                          tabs: [
-                          Tab(text: "HR Courses",),
-                          Tab(text: "Enroll Courses"),
-                        ],
-                        ),
-                      ),
-
-
+                        colors: [
+                          kblack,
+                          kGray
+                        ]
+                    ),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight:  Radius.circular(20)
+                    ),
+                  ),
+                  child: TabBar(
+                    labelColor: Colors.black,
+                    indicator: BoxDecoration(
+                        color: kgolder,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: kblack,width: 3)
+                    ),
+                    unselectedLabelColor: kgolder,
+                    tabs: [
+                      Text("HR Courses"),
+                      Text("Enrolled Courses"),
                     ],
                   ),
                 ),
-
-              ),
-              Container(
-
-                child: Expanded(
+                // Container(
+                //   height: screenHeight / 5.5,
+                //   width: Get.width,
+                //   decoration: BoxDecoration(
+                //     gradient:  LinearGradient(
+                //       colors: [Colors.black, Colors.grey.shade600],
+                //       begin: Alignment.topCenter,
+                //       end: Alignment.bottomCenter,),
+                //     borderRadius: BorderRadius.only(
+                //     bottomLeft: Radius.circular(15),
+                //     bottomRight: Radius.circular(15)),
+                // ),
+                //   child: Container(
+                //
+                //     child: Column(
+                //       children: [
+                //       SizedBox(height: 15),
+                //         Row(
+                //           children: [
+                //             SizedBox( width: 10,),
+                //             Icon(Icons.arrow_back,color: kgolder,),
+                //             SizedBox(width: 10),
+                //             Text("Courses",style: TextStyle(color: kgolder),)
+                //           ],
+                //         ),
+                //         SizedBox(height: 8,),
+                //         Padding(
+                //           padding:   EdgeInsets.all(8.0),
+                //           child: TabBar(labelStyle: TextStyle(
+                //               fontSize: 25,
+                //               fontWeight:FontWeight.w600),
+                //             labelColor: Colors.black,
+                //             indicator: BoxDecoration(
+                //               color: kgolder,
+                //               borderRadius: BorderRadius.only(
+                //                 bottomRight: Radius.circular(12),
+                //               bottomLeft: Radius.circular(12))
+                //             ),
+                //             tabs: [
+                //             Tab(text: "HR Courses",),
+                //             Tab(text: "Enroll Courses"),
+                //           ],
+                //           ),
+                //         ),
+                //
+                //
+                //       ],
+                //     ),
+                //   ),
+                //
+                // ),
+                Expanded(
 
                   child: TabBarView(
                       children: [
@@ -112,14 +162,13 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                           ],
                         )
 
-                        
+
                   ]
                   ),
-                ),
-
-              )
-            ],
-          ),
+                )
+              ],
+            ),
+          ],
         ),
       )
       ),
@@ -373,8 +422,8 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
-                                              Text("2022-01-15 07:00 am",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder, fontSize: 20),),
+                                              Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
+                                              Text("2022-01-15 07:00 am",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder, fontSize: 16),),
                                             ],
                                           ),
                                           Container(
@@ -384,8 +433,8 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
-                                                  Text("In: 11:46 pm",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                                                  Text("Out: 11:46 pm",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                                                  Text("In: 11:46 pm",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+                                                  Text("Out: 11:46 pm",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
                                                 ],
                                               ),
                                             ),

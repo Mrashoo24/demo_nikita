@@ -41,7 +41,8 @@ class _ServicesState extends State<Services> {
           shadowColor: Colors.transparent,
         ),
         body: Column(
-          children: [Stack(
+          children: [
+            Stack(
             children: [Container(
               height: H*0.07,
               width: W,
@@ -212,7 +213,8 @@ class _ServicesState extends State<Services> {
                     DefaultTabController(
                         length: 3,
                         child: Scaffold(
-                            appBar: AppBar(
+                            appBar:
+                            AppBar(
                                 shadowColor: Colors.transparent,
                                 flexibleSpace: Stack(
                                   children: [

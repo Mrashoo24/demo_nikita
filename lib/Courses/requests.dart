@@ -17,6 +17,8 @@ class _RequestsState extends State<Requests> {
   double screenHeight = 0;
   double screenWidth = 0;
 
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -59,7 +61,7 @@ class _RequestsState extends State<Requests> {
                               SizedBox( width: 10,),
                               Icon(Icons.arrow_back,color: kgolder,),
                               SizedBox(width: 10),
-                              Text("Requests",style: TextStyle(color: kgolder,fontSize: screenHeight / 22),)
+                              Text("Leaves Request",style: TextStyle(color: kgolder,fontSize: 17),)
                             ],
                           ),
                           SizedBox(height: 8,),
@@ -77,9 +79,9 @@ class _RequestsState extends State<Requests> {
                                       bottomLeft: Radius.circular(12))
                               ),
                               tabs: [
-                                Tab(text: "Summary",),
-                                Tab(text: "Requests"),
-                                Tab(text: "History"),
+                                Tab(child: Text("Summary",style: TextStyle(fontSize: 16),),),
+                                Tab(child: Text("Request",style: TextStyle(fontSize: 16),),),
+                                Tab(child: Text("History",style: TextStyle(fontSize: 16),),),
                               ],
                             ),
                           ),
@@ -111,12 +113,108 @@ class _RequestsState extends State<Requests> {
 
                               ],
                             ),
-                            ListView(
-                              children: [
-                                History(),
+                            DefaultTabController(
+                                length: 3,
+                                child: Scaffold(
+                                    appBar: AppBar(
+                                        shadowColor: Colors.transparent,
+                                        flexibleSpace: Stack(
+                                          children: [
+                                            Container(
+                                              height: screenHeight*0.5,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: AssetImage("assets/bg.jpg"),
+                                                      fit: BoxFit.cover
+                                                  )
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.all(8),
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                  color: kgolder,
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(10)
+                                                  ),
+                                                  border: Border.all(color: kblack,width: 2)
+                                              ),
+                                              child: TabBar(
+                                                labelColor: kgolder,
+                                                indicator: BoxDecoration(
+                                                  color: kGray3,
+                                                  borderRadius: BorderRadius.circular(5),
+                                                ),
+                                                unselectedLabelColor: kblack,
+                                                tabs: [
+                                                  Text("Pending"),
+                                                  Text("Accepted"),
+                                                  Text("Rejected",style: TextStyle(fontSize: 13),)
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    body:TabBarView(
+                                      children: [
+                                        Container(
+                                          height: screenHeight,
+                                          width: screenWidth,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage("assets/bg.jpg"),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
+                                          child: ListView.builder(
+                                            itemCount: 4,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return buildCertificateName();
 
-                              ],
-                            ),
+                                            },
+
+                                          ),
+                                        ),
+                                        Container(
+                                          height: screenHeight,
+                                          width: screenWidth,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage("assets/bg.jpg"),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
+                                          child: ListView.builder(
+                                            itemCount: 4,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return buildCertificateName();
+
+                                            },
+
+                                          ),
+                                        ),
+                                        Container(
+                                          height: screenHeight,
+                                          width: screenWidth,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage("assets/bg.jpg"),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
+                                          child: ListView.builder(
+                                            itemCount: 4,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return buildCertificateReject();
+
+                                            },
+
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                )),
 
 
                           ]
@@ -174,147 +272,23 @@ class _RequestsState extends State<Requests> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text("Title :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                  Container(
-                                                    height: 35,
-                                                    width: 200,
+                                                  Expanded(
+                                                    child: Container(
+                                                      height: 35,
 
-                                                    child: Padding(
-                                                      padding:   EdgeInsets.all(4),
-                                                      child: Text("Courses One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                        color: kgolder,
-                                                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                        border: Border.all(width: 3,color: Colors.black)
+                                                      child: Padding(
+                                                        padding:   EdgeInsets.all(4),
+                                                        child: Text("Courses One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                          color: kgolder,
+                                                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                                                          border: Border.all(width: 3,color: Colors.black)
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("Date :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                  Container(
-                                                    height: 35,
-                                                    width: 200,
-
-                                                    child: Padding(
-                                                      padding:   EdgeInsets.all(4),
-                                                      child: Text("63847",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                        color: kgolder,
-                                                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                        border: Border.all(width: 3,color: Colors.black)
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("From :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                  Container(
-                                                    height: 35,
-                                                    width: 200,
-
-                                                    child: Padding(
-                                                      padding:   EdgeInsets.all(4),
-                                                      child: Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                        color: kgolder,
-                                                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                        border: Border.all(width: 3,color: Colors.black)
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("To :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                  Container(
-                                                    height: 35,
-                                                    width: 200,
-
-                                                    child: Padding(
-                                                      padding:   EdgeInsets.all(4),
-                                                      child: Text("2022-01-15- 07:00 AM",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                        color: kgolder,
-                                                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                        border: Border.all(width: 3,color: Colors.black)
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                children: [
-                                                  Text("Reason :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                  Container(
-                                                     width: 200,
-
-                                                    child: Padding(
-                                                      padding:   EdgeInsets.all(4),
-                                                      child: Text("Do more with MultiQRCreate unlimited branded QR codes and start accepting payments for FREE. T&C apply.",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                        color: kgolder,
-                                                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                        border: Border.all(width: 2,color: Colors.black)
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("Hours :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                  Container(
-                                                    height: 35,
-                                                    width: 200,
-
-                                                    child: Padding(
-                                                      padding:   EdgeInsets.all(4),
-                                                      child: Text("07:00",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                        color: kgolder,
-                                                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                        border: Border.all(width: 3,color: Colors.black)
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("Identity :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                  Container(
-                                                    height: 35,
-                                                    width: 200,
-
-                                                    child: Padding(
-                                                      padding:   EdgeInsets.all(4),
-                                                      child: Text("Lore Posem",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                        color: kgolder,
-                                                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                        border: Border.all(width: 3,color: Colors.black)
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-
 
                                               SizedBox(height : 40,),
 
@@ -396,20 +370,304 @@ class _RequestsState extends State<Requests> {
   }
   DefaultTabController History (){
     return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient:  LinearGradient(
-              colors: [kgolder, Colors.yellow.shade100 ],
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,),
-          ),
+        length: 3,
+        child: Scaffold(
+            appBar: AppBar(
+                shadowColor: Colors.transparent,
+                flexibleSpace: Stack(
+                  children: [
+                    Container(
+                      height: screenHeight*0.5,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/bg.jpg"),
+                              fit: BoxFit.cover
+                          )
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(8),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: kgolder,
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10)
+                          ),
+                          border: Border.all(color: kblack,width: 2)
+                      ),
+                      child: TabBar(
+                        labelColor: kgolder,
+                        indicator: BoxDecoration(
+                          color: kGray3,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        unselectedLabelColor: kblack,
+                        tabs: [
+                          Text("Pending"),
+                          Text("Accepted"),
+                          Text("Rejected",style: TextStyle(fontSize: 13),)
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+            ),
+            body:TabBarView(
+              children: [
+                Container(
+                  height: screenHeight,
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/bg.jpg"),
+                          fit: BoxFit.cover
+                      )
+                  ),
+                  child: ListView.builder(
+                    itemCount: 4,
+                    itemBuilder: (BuildContext context, int index) {
+                      return buildCertificateName();
 
+                    },
+
+                  ),
+                ),
+                Container(
+                  height: screenHeight,
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/bg.jpg"),
+                          fit: BoxFit.cover
+                      )
+                  ),
+                  child: ListView.builder(
+                    itemCount: 4,
+                    itemBuilder: (BuildContext context, int index) {
+                      return buildCertificateName();
+
+                    },
+
+                  ),
+                ),
+                Container(
+                  height: screenHeight,
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/bg.jpg"),
+                          fit: BoxFit.cover
+                      )
+                  ),
+                  child: ListView.builder(
+                    itemCount: 4,
+                    itemBuilder: (BuildContext context, int index) {
+                      return buildCertificateReject();
+
+                    },
+
+                  ),
+                ),
+              ],
+            )
+        ));
+
+  }
+
+  Container buildCertificateName() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  kGray,
+                  kblack
+                ]
+            ),
+            borderRadius:BorderRadius.circular(10),
+            border: Border.all(color: kgolder,width: 3)
         ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Title:",style: TextStyle(color: kgolder),),
+                Text("Date:",style: TextStyle(color: kgolder)),
+                Text("From:",style: TextStyle(color: kgolder)),
+                Text("To:",style: TextStyle(color: kgolder))
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+
+              children: [
+                Text("Personal Leave",style: TextStyle(color: kgolder)),
+                Text("19/04/2022",style: TextStyle(color: kgolder)),
+                Text("19/04/2022",style: TextStyle(color: kgolder)),
+                Text("19/04/2022",style: TextStyle(color: kgolder))
+              ],
+            )
+          ],
+        )
+    );
+  }
+  Container buildCertificateMoreRequest() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  kGray,
+                  kblack
+                ]
+            ),
+            borderRadius:BorderRadius.circular(10),
+            border: Border.all(color: kgolder,width: 3)
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Date:",style: TextStyle(color: kgolder)),
+                Text("Status:",style: TextStyle(color: kgolder))
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+
+              children: [
+                Text("12/04/2022",style: TextStyle(color: kgolder)),
+                Text("Pending from HR",style: TextStyle(color: kgolder))
+              ],
+            )
+          ],
+        )
+    );
+  }
+  Container buildCertificateReject() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  kGray,
+                  kblack
+                ]
+            ),
+            borderRadius:BorderRadius.circular(10),
+            border: Border.all(color: kgolder,width: 3)
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Certificate Name:",style: TextStyle(color: kgolder),),
+                Text(""),
+                Text("Date:",style: TextStyle(color: kgolder)),
+                Text("Status:",style: TextStyle(color: kgolder)),
+                Text("Reason:",style: TextStyle(color: kgolder))
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+
+              children: [
+                Text("Certificate With",style: TextStyle(color: kgolder)),
+                Text("Detail Salary",style: TextStyle(color: kgolder)),
+                Text("12/04/2022",style: TextStyle(color: kgolder)),
+                Text("Pending from HR",style: TextStyle(color: kgolder)),
+                Text("xyz",style: TextStyle(color: kgolder)),
+              ],
+            )
+          ],
+        )
+    );
+  }
+
+  Container buildCertificate(double H, double W) {
+    return Container(
+      height: H*.1,
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: W*.03,vertical: H*0.008),
+      decoration: BoxDecoration(
+          border: Border.all(color: kgolder,width: 3),
+          gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                kblack ,
+                kGray
+              ]
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(8))
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text("Certificate With Detail Salary",style: TextStyle(color: kgolder),),
+          ElevatedButton(
+            onPressed: (){
+              Get.defaultDialog(
+                  title: "Request for the service?",
+
+                  titlePadding: EdgeInsets.only(right: W*.1,top: H*0.03,left: W*0.04),
+                  contentPadding:EdgeInsets.only(right: W*.03,top: H*0.03,left: W*0.06) ,
+                  radius: 10,
+                  backgroundColor: kgolder,
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Are you sure do you want to request for \nthe service?",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                      SizedBox(height: H*0.05,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 10,right: 10,top: 8,),
+                            height: H*0.05,
+                            decoration: BoxDecoration(
+                                color: kGray3,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(color: kblack)
+                            ),
+                            child: Text("Request",style: TextStyle(
+                                fontSize: 15,
+                                color: kgolder),),
+
+                          ),
+                          SizedBox(width: 10,),
+                          Text("Cancel",style: TextStyle(fontWeight: FontWeight.w500),)
+                        ],
+                      )
+                    ],
+
+                  )
+              );
+            },
+            child: Text("Request"),
+            style: ElevatedButton.styleFrom(
+                primary: kgolder,
+                onPrimary: kblack
+            ),
+          )
+        ],
       ),
     );
-
   }
 
   Padding Summary(String title) {
@@ -458,23 +716,29 @@ class _RequestsState extends State<Requests> {
                       children: [
                         Column(
                           children: [
-                            Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
-                            Divider(color: kgolder,thickness: 3,),
-                            Text("6 Hours",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
+                            Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
+                            SizedBox(height: 5,),
+                            Container(color: kgolder,height: 3,width: 100,),
+                            SizedBox(height: 5,),
+                            Text("6 Hours",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
                           ],
                         ),
                         Column(
                           children: [
-                            Text("Consumed",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
-                            Divider(color: kgolder,thickness: 3,),
-                            Text("6 Hours",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
+                            Text("Consumed",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
+                            SizedBox(height: 5,),
+                            Container(color: kgolder,height: 3,width: 100,),
+                            SizedBox(height: 5,),
+                            Text("6 Hours",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
                           ],
                         ),
                         Column(
                           children: [
-                            Text("Balance",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
-                            Divider(color: kgolder,thickness: 3,),
-                            Text("6 Hours",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
+                            Text("Balance",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
+                            SizedBox(height: 5,),
+                            Container(color: kgolder,height: 3,width: 100,),
+                            SizedBox(height: 5,),
+                            Text("6 Hours",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
                           ],
                         ),
                       ],

@@ -3,7 +3,11 @@ import 'dart:async';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:demo_nikita/Components/clockWidget.dart';
 import 'package:demo_nikita/Components/constants.dart';
+import 'package:demo_nikita/Courses/hrenrollcourses.dart';
+import 'package:demo_nikita/Courses/requests.dart';
 import 'package:demo_nikita/Homepage/mainhomepage.dart';
+import 'package:demo_nikita/Related%20sites/related_sites.dart';
+import 'package:demo_nikita/Reports/reports.dart';
 import 'package:demo_nikita/Services/Services.dart';
 import 'package:demo_nikita/demo.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +17,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../Components/Arrow/arrowclipper.dart';
 import '../Components/Arrow/test.dart';
+import '../Enquiry.dart';
 
 
 class Welcome extends StatefulWidget {
@@ -95,10 +100,15 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
   var listofwidget = [
     Services(),
-    Container(),
+    EnquiryChat(),
     MainHomePage(),
-    Container(),
-    Container(),
+    Reports(),
+    Requests(),//Leave
+    HrEnrollCourses(),
+    Container(),//Admin,
+    Container(),//faulty,
+    Container(),//benchlist,
+    RelatedSites()
   ];
 
   findButton() {
@@ -319,9 +329,9 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
           buildBNBCards3('Leave Request', 'assets/icons/leaveRequest.png', 4),
           buildBNBCards3('Courses', 'assets/icons/courses.png', 5),
           buildBNBCards3('Admin Leave', 'assets/icons/admin_leave.png', 6),
-          buildBNBCards3('Faulty Attendence', 'assets/icons/faulty_attendence.png', 6),
-          buildBNBCards3('Bench List', 'assets/icons/benchlist.png', 7),
-          buildBNBCards3('Related Sites', 'assets/icons/related_site.png', 8),
+          buildBNBCards3('Faulty Attendence', 'assets/icons/faulty_attendence.png', 7),
+          buildBNBCards3('Bench List', 'assets/icons/benchlist.png', 8),
+          buildBNBCards3('Related Sites', 'assets/icons/related_site.png', 9),
 
         ],
         )
