@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:demo_nikita/Components/clockWidget.dart';
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:demo_nikita/Homepage/mainhomepage.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+
+import '../Components/Arrow/arrowclipper.dart';
 
 
 class Welcome extends StatefulWidget {
@@ -33,6 +36,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   late Animation _arrowAnimation;
 
   var selectedCard = 'Home';
+  var selectedIndex = 2;
 
 
 
@@ -40,6 +44,16 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
   bool panelOpen2 = false;
 
+
+  //For overlaying menu
+  GlobalKey _key = LabeledGlobalKey("button_icon");
+  late OverlayEntry _overlayEntry;
+  late Size buttonSize;
+  late Offset buttonPosition;
+  bool isMenuOpen = false;
+
+
+// For overlau
 
 
   @override
@@ -82,11 +96,80 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     Services(),
     Container(),
     MainHomePage(),
-
+    Container(),
+    Container(),
   ];
+
+  findButton() {
+    RenderBox renderBox = _key.currentContext!.findRenderObject() as RenderBox;
+    buttonSize = renderBox.size;
+    buttonPosition = renderBox.localToGlobal(Offset.zero);
+
+    print('size = $buttonSize postion = $buttonPosition');
+  }
+
+  OverlayEntry _overlayEntryBuilder() {
+    return OverlayEntry(builder: (context) {
+      return Positioned(
+        top: buttonPosition.dy - buttonSize.height,
+        left: buttonPosition.dx,
+        width:buttonSize.width,
+        child: Material(
+          color: Colors.transparent,
+          child:  Stack(
+            children: [
+              // Align(
+              //   alignment: Alignment.bottomCenter,
+              //   child:
+              //     Icon(Icons.keyboard_arrow_down_sharp,color: Colors.green,size: 100,)
+              //   // ClipPath(
+              //   //   clipper: ArrowClipper(),
+              //   //   child: Container(
+              //   //     width: 100,
+              //   //     height: 100,
+              //   //     color: Colors.green,
+              //   //   ),
+              //   // ),
+              // ),
+              Container(
+              height: 100,
+                width: 300,
+                color: Colors.blueGrey,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView.count(
+                      crossAxisCount: 3,
+                    children: [
+                      buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )
+
+        ),
+      );
+    },
+    );
+  }
+
+
+
+  void openMenu() {
+    findButton();
+    _overlayEntry = _overlayEntryBuilder();
+    Overlay.of(context)!.insert(_overlayEntry);
+    isMenuOpen = !isMenuOpen;
+  }
+  void closeMenu() {
+    _overlayEntry.remove();
+    isMenuOpen = !isMenuOpen;
+  }
 
   @override
   Widget build(BuildContext context) {
+
 
     return SafeArea(
         child: Scaffold(
@@ -96,11 +179,35 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
           Stack(
             alignment: Alignment.bottomCenter,
             children: [
-
+              listofwidget[selectedIndex],
+//               Positioned(
+//                 bottom: 100,
+//                 child: Container(
+//                   height: 100,
+//                   width: 300,
+//                   color: Colors.blueGrey,
+//                   child: Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: GridView.count(
+//                       crossAxisCount: 3,
+//                       children: [
+//                         buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
+//                       ,                        buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
+// ,                        buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
+// ,                        buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
+// ,                        buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
+// ,                        buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
+// ,                        buildBNBCards3('Leave Requests', 'assets/icons/services.png', 4)
+//
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
               Container(
-                height: 100,
+                height: 70,
                 decoration: BoxDecoration(
-                  color: Colors.transparent
+                  color: Colors.green
                   // image: DecorationImage(
                   //   image: AssetImage('assets/bg.jpg'),
                   //   fit: BoxFit.cover,
@@ -119,11 +226,54 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          buildBNBCards('Services','assets/icons/services.png'),
-                          buildBNBCards('Enquiry','assets/icons/enquiry.png'),
-                          buildBNBCards('Home','assets/icons/home.png'),
-                          buildBNBCards('Reports','assets/icons/reports.png'),
-                          buildBNBCards('More','assets/icons/more.png'),
+                          buildBNBCards('Services','assets/icons/services.png',0),
+                          buildBNBCards('Enquiry','assets/icons/enquiry.png',1),
+                          buildBNBCards('Home','assets/icons/home.png',2),
+                          buildBNBCards('Reports','assets/icons/reports.png',3),
+                          // buildBNBCards2('More','assets/icons/more.png',4),
+                          CustomPopupMenu(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // selectedCard == title ?  Container(
+                                //
+                                //   decoration: BoxDecoration(
+                                //       shape: BoxShape.circle,
+                                //       color: Colors.black,
+                                //       border: Border.all(color: kgolder,width: 2)
+                                //   ),
+                                //   child: Container(
+                                //       padding: EdgeInsets.all(8),
+                                //       width: 60,
+                                //       height: 60,
+                                //       child: Image.asset(image,fit: BoxFit.fill,)
+                                //   ),
+                                // )  :
+                                Container(
+
+                                    width: 30,
+                                    height: 30,
+                                    child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)),
+                                Text('Reports',style: TextStyle(color: kgolder,fontSize:  14),),
+                              ],
+                            ),
+                            menuBuilder: () => GestureDetector(
+                              child: _buildAvatar(true, 100),
+                              onLongPress: () {
+                                print("onLongPress");
+                              },
+                              onTap: () {
+                                print("onTap");
+                              },
+                            ),
+                            barrierColor: Colors.transparent,
+                            pressType: PressType.singleClick,
+                            arrowColor:  Colors.black,
+                            arrowSize: 40,
+                            position: PreferredPosition.top,
+                          )
                         ],
                       ),
                     )
@@ -138,12 +288,33 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     );
   }
 
-   buildBNBCards(title,image) {
+  Widget _buildAvatar(bool isMe, double size) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: Container(
+        color: isMe ? Colors.black : Colors.pinkAccent,
+        width: size,
+        height: size,
+        child: Icon(
+          isMe ? Icons.face : Icons.tag_faces,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+   buildBNBCards(title,image,index) {
     return Expanded(
       child: InkWell(
+
         onTap: (){
           setState(() {
             selectedCard = title;
+           //  index == 4 ?
+           // isMenuOpen ? closeMenu() :
+           //    openMenu()
+           //      :
+            selectedIndex = index;
           });
         },
         child: Container(
@@ -175,6 +346,123 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
               Text(title,style: TextStyle(color: kgolder,fontSize:  selectedCard == title ? 16 : 14),),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  buildBNBCards2(title,image,index) {
+
+
+
+
+    return Expanded(
+      child:
+      CustomPopupMenu(
+        child: InkWell(
+          key: _key,
+          onTap: (){
+            setState(() {
+              selectedCard = title;
+              // selectedIndex = index;
+            });
+
+          },
+          child: Container(
+
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                selectedCard == title ?  Container(
+
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black,
+                      border: Border.all(color: kgolder,width: 2)
+                  ),
+                  child: Container(
+
+                      padding: EdgeInsets.all(8),
+                      width: 60,
+                      height: 60,
+                      child: Image.asset(image,fit: BoxFit.fill,)
+                  ),
+                )  :
+                Container(
+
+                    width: 30,
+                    height: 30,
+                    child: Image.asset(image,fit: BoxFit.fill,)),
+                Text(title,style: TextStyle(color: kgolder,fontSize:  selectedCard == title ? 16 : 14),),
+              ],
+            ),
+          ),
+        ),
+        menuBuilder: () => GestureDetector(
+          child: Center(child: Container(
+              width: 100,
+              height: 100,
+              child: Icon(Icons.add)),),
+          onLongPress: () {
+            print("onLongPress");
+          },
+          onTap: () {
+            print("onTap");
+          },
+        ),
+        barrierColor: Colors.transparent,
+        pressType: PressType.singleClick,
+        arrowColor: Colors.blueAccent ,
+        position: PreferredPosition.top,
+      ),
+
+
+    );
+  }
+
+  buildBNBCards3(title,image,index) {
+    return InkWell(
+
+      onTap: (){
+        setState(() {
+          selectedCard = title;
+          //  index == 4 ?
+          // isMenuOpen ? closeMenu() :
+          //    openMenu()
+          //      :
+          selectedIndex = index;
+        });
+      },
+      child: Container(
+
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            selectedCard == title ?  Container(
+
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black,
+                  border: Border.all(color: kgolder,width: 2)
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(8),
+                  width: 60,
+                  height: 60,
+                  child: Image.asset(image,fit: BoxFit.fill,)
+              ),
+            )  :
+            Container(
+
+                width: 30,
+                height: 30,
+                child: Image.asset(image,fit: BoxFit.fill,)),
+            Text(title,style: TextStyle(color: kgolder,fontSize:  selectedCard == title ? 16 : 14),),
+          ],
         ),
       ),
     );

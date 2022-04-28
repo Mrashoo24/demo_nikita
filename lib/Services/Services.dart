@@ -101,6 +101,7 @@ class _ServicesState extends State<Services> {
                        )
                      ),
                      child: ListView.builder(
+                       itemCount: 4,
                        itemBuilder: (BuildContext context, int index) {
                          return  buildCertificate(H, W);
                        },
@@ -162,6 +163,7 @@ class _ServicesState extends State<Services> {
                                 )
                             ),
                             child: ListView.builder(
+                              itemCount: 4,
                               itemBuilder: (BuildContext context, int index) {
                                 return buildCertificateName();
 
@@ -179,6 +181,7 @@ class _ServicesState extends State<Services> {
                                 )
                             ),
                             child: ListView.builder(
+                              itemCount: 4,
                               itemBuilder: (BuildContext context, int index) {
                                 return buildCertificateName();
 
@@ -196,6 +199,7 @@ class _ServicesState extends State<Services> {
                                 )
                             ),
                             child: ListView.builder(
+                              itemCount: 4,
                               itemBuilder: (BuildContext context, int index) {
                                 return buildCertificateReject();
 
@@ -261,6 +265,7 @@ class _ServicesState extends State<Services> {
                                       )
                                   ),
                                   child: ListView.builder(
+                                    itemCount: 4,
                                     itemBuilder: (BuildContext context, int index) {
                                       return buildCertificateMoreRequest();
 
@@ -278,6 +283,7 @@ class _ServicesState extends State<Services> {
                                       )
                                   ),
                                   child: ListView.builder(
+                                    itemCount: 4,
                                     itemBuilder: (BuildContext context, int index) {
                                       return buildCertificateMoreRequest();
 
@@ -286,8 +292,11 @@ class _ServicesState extends State<Services> {
                                   ),
                                 ),
                                 Container(
+
                                   height: H,
+
                                   width: W,
+
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage("assets/bg.jpg"),
@@ -295,6 +304,8 @@ class _ServicesState extends State<Services> {
                                       )
                                   ),
                                   child: ListView.builder(
+
+                                    itemCount: 4,
                                     itemBuilder: (BuildContext context, int index) {
                                       return buildCertificateMoreRequest();
 
