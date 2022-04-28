@@ -1,4 +1,5 @@
 import 'package:demo_nikita/Authentication/loginpage.dart';
+import 'package:demo_nikita/Reports/reports.dart';
 import 'package:demo_nikita/Splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
 
       ),
 
-      home: Services()
+      home: Reports()
 
     );
 

@@ -28,7 +28,6 @@ class _ServicesState extends State<Services> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-
                   colors: [
                     kblack,
                     kGray
