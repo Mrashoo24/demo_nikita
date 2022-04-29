@@ -17,11 +17,13 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../Components/Arrow/arrowclipper.dart';
 import '../Components/Arrow/test.dart';
+import '../Components/models.dart';
 import '../Enquiry.dart';
 
 
 class Welcome extends StatefulWidget {
-  const Welcome({Key? key}) : super(key: key);
+  final UserModel? userModel;
+  const Welcome({Key? key, this.userModel}) : super(key: key);
 
   @override
   _WelcomeState createState() => _WelcomeState();

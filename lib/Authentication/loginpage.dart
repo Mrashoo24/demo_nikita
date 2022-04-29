@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:demo_nikita/Homepage/homepage.dart';
 import 'package:demo_nikita/demo.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Components/api.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,6 +24,19 @@ class _LoginPageState extends State<LoginPage> {
 
   TextEditingController password = TextEditingController();
 
+  bool loading = false;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool _trySubmit() {
+    var isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    if (isValid) {
+      _formKey.currentState!.save();
+    }
+    return isValid;
+  }
+
   bool selectedRemember = false;
 
   @override
@@ -28,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
          backgroundColor: Colors.transparent,
         body: Container(
+          height: Get.height,
           width: Get.width,
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -35,96 +55,183 @@ class _LoginPageState extends State<LoginPage> {
 
                 image: AssetImage('assets/bg.png'))
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: Get.height*0.12,top: Get.height * 0.15),
-                width: 150,
-                height: 100,
-                child: Hero(tag:'logo',child: ClipRRect(child: Image.asset('assets/hudurlogo.png',fit: BoxFit.fill,),)),
-              ),
-
-
-
-              Card(
-                color: Colors.grey.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: Get.height*0.12,top: Get.height * 0.15),
+                  width: 150,
+                  height: 100,
+                  child: Hero(tag:'logo',child: ClipRRect(child: Image.asset('assets/hudurlogo.png',fit: BoxFit.fill,),)),
                 ),
-                child: Container(
-                  width: Get.width*0.8,
 
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(width: 2,color: kgolder),
-                    borderRadius: BorderRadius.circular(20)
+
+
+                Card(
+                  color: Colors.grey.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)
                   ),
+                  child: Container(
+                    width: Get.width*0.8,
 
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(vertical: 25.0,horizontal: 15),
-                    child: Column(
-                      children: [
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      border: Border.all(width: 2,color: kgolder),
+                      borderRadius: BorderRadius.circular(20)
+                    ),
 
-                        buildTextFormField(email,'Email Id',Icons.email ),
+                    child: Padding(
+                      padding:  EdgeInsets.symmetric(vertical: 25.0,horizontal: 15),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
 
-                        buildTextFormField(password,'Password',Icons.lock),
+                            buildTextFormField(email,'Email Id',Icons.email ),
 
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 25.0,top: 25.0),
-                            child: InkWell(
-                                onTap: (){
+                            buildTextFormField(password,'Password',Icons.lock),
 
-                                  print('Clicked');
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 25.0,top: 25.0),
+                                child: InkWell(
+                                    onTap: (){
 
-                                },
-                                child: Text('Forgot Password ?',style: TextStyle(fontSize: 12,color: kgolder),),
-                            ),
-                          ),
-                        ),
+                                      print('Clicked');
 
-
-                        InkWell(
-                          onTap: (){
-                            Get.to(Welcome(),transition: Transition.rightToLeft);
-                          },
-                          child: Container(
-                            width: Get.width,
-
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage('assets/cardbg.png')
-
+                                    },
+                                    child: Text('Forgot Password ?',style: TextStyle(fontSize: 12,color: kgolder),),
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(3),
-                              color: Colors.transparent,
-                              // gradient: LinearGradient(colors: [kgolder,Colors.white.withOpacity(0.2),kgolder],
-                              //   stops: [
-                              //     0.1,
-                              //     0.3,
-                              //     0.9
-                              //   ])
-
-
-
                             ),
-                            child: Center(child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('LOGIN',style: TextStyle(letterSpacing: 2,color: Colors.black,fontWeight: FontWeight.bold),),
-                            )),
-                          ),
-                        )
 
-                      ],
+
+                         loading ? kprogressbar :   InkWell(
+                              onTap: () async {
+
+                                var canSignIn = _trySubmit();
+                                if (canSignIn) {
+                                  setState(() {
+                                    loading = true;
+                                  });
+
+                                  var result =
+                                      await AllApi().getUser(email.text);
+
+                                  if (password.text == result.pass &&
+                                      email.text == result.email) {
+                                    if(result.designation == 'hr' || result.designation == 'manager'){
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                          Text('You cannot login with this email'),
+                                        ),
+                                      );
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                    }else{
+                                      var token = await FirebaseMessaging
+                                          .instance
+                                          .getToken();
+                                      var tokenResult =
+                                          await AllApi().putToken(
+                                        email: email.text,
+                                        token: token,
+                                      );
+                                      if (tokenResult == 'success') {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content:
+                                            Text('Sign in succesful.'),
+                                          ),
+                                        );
+
+                                        var pref = await SharedPreferences.getInstance();
+
+                                        pref.setBool("loggedin", true);
+
+                                        pref.setString(
+                                            "user", jsonEncode(result));
+
+                                        setState(() {
+                                          loading = false;
+                                        });
+
+                                        Get.to(Welcome(    userModel: result,),transition: Transition.rightToLeft);
+
+                                      } else {
+                                        setState(() {
+                                          loading = false;
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Something went wrong. Try again.',
+                                            ),
+                                          ),
+                                        );
+                                      }}
+                                  } else {
+                                    setState(() {
+                                      loading = false;
+                                    });
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'Incorrect User id or password.'),
+                                      ),
+                                    );
+                                  }
+                                }
+
+
+
+                              },
+                              child: Container(
+                                width: Get.width,
+
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage('assets/cardbg.png')
+
+                                  ),
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: Colors.transparent,
+                                  // gradient: LinearGradient(colors: [kgolder,Colors.white.withOpacity(0.2),kgolder],
+                                  //   stops: [
+                                  //     0.1,
+                                  //     0.3,
+                                  //     0.9
+                                  //   ])
+
+
+
+                                ),
+                                child: Center(child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text('LOGIN',style: TextStyle(letterSpacing: 2,color: Colors.black,fontWeight: FontWeight.bold),),
+                                )),
+                              ),
+                            )
+
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              )
+                )
 
-            ],
+              ],
+            ),
           ),
 
 
@@ -148,9 +255,16 @@ class _LoginPageState extends State<LoginPage> {
   TextFormField buildTextFormField(controller,hint,image) {
     return TextFormField(
       controller: controller,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please input correct details';
+        }
+
+        return null;
+      },
+      style: TextStyle(color: kgolder),
       decoration: InputDecoration(
           hintText: hint,
-
           prefixIcon: Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: Icon(image,color: kgolder,size: 20,),

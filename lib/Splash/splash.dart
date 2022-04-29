@@ -20,7 +20,12 @@ class _SplashScreeenState extends State<SplashScreeen> {
 
     super.initState();
     Timer(Duration(milliseconds: 2000), (){
+
+
+
       Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2));
+
+
     });
 
   }

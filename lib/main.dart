@@ -1,15 +1,54 @@
+import 'dart:convert';
+
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:demo_nikita/Authentication/loginpage.dart';
 import 'package:demo_nikita/Splash/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Components/api.dart';
+import 'Components/models.dart';
 import 'Homepage/homepage.dart';
 import 'Related sites/related_sites.dart';
 import 'Services/Services.dart';
 
-void main() {
 
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel', // id
+  'High Importance Notifications', // title
+  description: 'This channel is used for important notifications.',
+  importance: Importance.max,
+  playSound: true,
+  // sound: RawResourceAndroidNotificationSound('notification'),
+  enableLights: true,
+);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
+Future<void> firebaseMessgaingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
+
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(firebaseMessgaingBackgroundHandler);
+
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+      AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true, // Required to display a heads up notification
+    badge: true,
+    sound: true,
+  );
   runApp(const MyApp());
 
 }
@@ -28,10 +67,49 @@ void main() {
 //   ItemModel(this.title, this.icon);
 // }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  var listofuser = [];
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.onMessage.listen(
+          (RemoteMessage message) {
+        RemoteNotification? notification = message.notification;
+        AndroidNotification? android = message.notification!.android;
+
+        if (notification != null && android != null) {
+          flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channelDescription: channel.description,
+                // sound:
+                //     const RawResourceAndroidNotificationSound('notification'),
+                // other properties...
+                importance: channel.importance,
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -56,7 +134,47 @@ class MyApp extends StatelessWidget {
 
       ),
 
-      home: SplashScreeen()
+      home:FutureBuilder<SharedPreferences>(
+          future: SharedPreferences.getInstance(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: Image.asset("assets/Images/loading.gif"),
+              );
+            }
+
+            SharedPreferences pref = snapshot.requireData;
+
+            var usersString = pref.getString("user");
+
+            var converted = usersString == null ? "" : jsonDecode(usersString);
+
+            Map<String, dynamic>? converted1 = usersString == null
+                ? null
+                : json.decode(json.encode(converted)) as Map<String, dynamic>;
+
+            var users =
+            usersString == null ? "" : UserModel().fromJson(converted1!);
+
+            var loggein = pref.getBool("loggedin");
+
+            return loggein == true
+                ? FutureBuilder<UserModel>(
+                future: AllApi().getUser(users.email),
+                builder: (context, snapshot1) {
+
+                  if (!snapshot1.hasData) {
+                    return Center(
+                      child: Image.asset("assets/Images/loading.gif"),
+                    );
+                  }
+                  UserModel? user1 = snapshot1.requireData;
+
+                  return Welcome(userModel: user1);
+                }
+            )
+                : const LoginPage();
+          })
 
     );
 
