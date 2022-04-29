@@ -5,6 +5,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'Courses/hrenrollcourses.dart';
 import 'Courses/requests.dart';
+import 'HomeManager/manager.dart';
 
 void main() {
 
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
 
       ),
 
-      home: Requests()
+      home: ManagerScreen()
 
     );
 
