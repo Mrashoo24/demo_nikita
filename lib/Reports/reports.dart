@@ -55,127 +55,146 @@ class _ReportsState extends State<Reports> {
             ],
           )
         ),
-        body: Column(
+        body: Stack(
           children: [
-              Container(
-                margin: EdgeInsets.all(8),
-                height: 50,
-                decoration: BoxDecoration(
-                  color: kgolder,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  border: Border.all(color: Colors.black,width: 2)
-                ),
-                child: TabBar(
-                  labelColor: kgolder,
-                  indicator: BoxDecoration(
+            Container(
+              height: H,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/bg.jpg"),
+                      fit: BoxFit.cover
+                  )
+              ),
+
+            ),
+            Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(8),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: kgolder,
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      border: Border.all(color: Colors.black,width: 2)
+                  ),
+                  child: TabBar(
+                    labelColor: kgolder,
+                    indicator: BoxDecoration(
                       color: kGray,
                       borderRadius: BorderRadius.circular(4),
+                    ),
+                    unselectedLabelColor: kblack,
+                    tabs: [
+                      Text("All"),
+                      Text("Perfect"),
+                      Text("Early",style: TextStyle(fontSize: 13),),
+                      Text("Late")
+                    ],
                   ),
-                  unselectedLabelColor: kblack,
-                  tabs: [
-                    Text("All"),
-                    Text("Perfect"),
-                    Text("Early",style: TextStyle(fontSize: 13),),
-                    Text("Late")
-                  ],
                 ),
-              ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  Column(
+                Expanded(
+                  child: TabBarView(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      Column(
                         children: [
-                        Container(
-                          child: Column(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text("From"),
-                              SizedBox(height: 10,),
                               Container(
-                                padding: EdgeInsets.all(5),
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color: kGray,
-                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                  border: Border.all(color: Colors.black)
-                                ),
-                                child: Row(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("DD/MM/YYYY"),SizedBox(width: 5,),
-                                    CircleAvatar(
-                                      backgroundColor: kgolder,
-                                      minRadius: 5,
-                                      child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
-                                  ],
-                                ),
-                              )
+                                    Text("From"),
+                                    SizedBox(height: 10,),
+                                    Container(
+                                      padding: EdgeInsets.all(5),
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                          color: kGray,
+                                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                                          border: Border.all(color: Colors.black)
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Text("DD/MM/YYYY"),SizedBox(width: 5,),
+                                          CircleAvatar(
+                                              backgroundColor: kgolder,
+                                              minRadius: 5,
+                                              child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                        ],
+                                      ),
+                                    )
 
-                            ],
-                          ),
-                        ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("To"),
-                              SizedBox(height: 10,),
-                              Container(
-                                padding: EdgeInsets.all(5),
-                                height: 25,
-                                decoration: BoxDecoration(
-                                    color: kGray,
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                                    border: Border.all(color: Colors.black)
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text("DD/MM/YYYY"),SizedBox(width: 5,),
-                                    CircleAvatar(
-                                        backgroundColor: kgolder,
-                                        minRadius: 5,
-                                        child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
                                   ],
                                 ),
                               ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("To"),
+                                  SizedBox(height: 10,),
+                                  Container(
+                                    padding: EdgeInsets.all(5),
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                        color: kGray,
+                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                        border: Border.all(color: Colors.black)
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text("DD/MM/YYYY"),SizedBox(width: 5,),
+                                        CircleAvatar(
+                                            backgroundColor: kgolder,
+                                            minRadius: 5,
+                                            child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                      ],
+                                    ),
+                                  ),
 
 
+                                ],
+                              ),
+                              Icon(Icons.abc_sharp),
+                              Icon(Icons.star)
                             ],
-                          ),
-                          Icon(Icons.abc_sharp),
-                          Icon(Icons.star)
+                          ),SizedBox(height: 10,),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: 5,
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return buildReportContainer();
+                              },),
+                          )
                         ],
                       ),
-                      ListView.builder(
-                        itemBuilder: (BuildContext context, int index) {
-                          return buildReportContainer();
-                        },)
+                      Container(
+                        child: Center(
+                          child: Text("das"),
+                        ),
+                      ),
+                      Container(
+                        child: Center(
+                          child: Text("das"),
+                        ),
+                      ),
+                      Container(
+                        child: Center(
+                          child: Text("das"),
+                        ),
+                      ),
                     ],
                   ),
-                  Container(
-                    child: Center(
-                      child: Text("das"),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Text("das"),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Text("das"),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+
+
+              ],
             ),
-
-
           ],
-        ),
+        )
+
       ),
     );
   }
