@@ -40,7 +40,6 @@ class _ReportsState extends State<Reports> {
                 ),
               ),
               Container(
-
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
@@ -65,7 +64,6 @@ class _ReportsState extends State<Reports> {
                       fit: BoxFit.cover
                   )
               ),
-
             ),
             Column(
               children: [
@@ -125,7 +123,6 @@ class _ReportsState extends State<Reports> {
                                         ],
                                       ),
                                     )
-
                                   ],
                                 ),
                               ),
@@ -152,8 +149,6 @@ class _ReportsState extends State<Reports> {
                                       ],
                                     ),
                                   ),
-
-
                                 ],
                               ),
                               Icon(Icons.abc_sharp),
@@ -188,8 +183,6 @@ class _ReportsState extends State<Reports> {
                     ],
                   ),
                 ),
-
-
               ],
             ),
           ],
@@ -213,7 +206,6 @@ class _ReportsState extends State<Reports> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         border: Border.all(color: kgolder,width: 3)
                       ),
-
                       child: Column(
                         children: [
                           Container(
@@ -236,7 +228,6 @@ class _ReportsState extends State<Reports> {
                                     Text("OT:2.45 Hrs")
                                   ],
                                 ),
-
                               ],
                             ),
                           ),
@@ -267,7 +258,6 @@ class _ReportsState extends State<Reports> {
                             ],
                           ),
                           SizedBox(height: 15,)
-
                         ],
                       ),
                     );
