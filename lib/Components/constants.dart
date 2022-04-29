@@ -7,3 +7,4 @@ const kGray =Color(0xFF7E7E7E);
 const kgolder2 = Color(0xFFAF860A);
 const kGray2 = Color(0xFF464646);
 const kGray3 = Color(0xFF545454);
+const kGreen = Color(0xFF4CD137);
