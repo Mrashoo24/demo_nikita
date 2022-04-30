@@ -1,11 +1,9 @@
-import 'package:demo_nikita/Authentication/loginpage.dart';
-import 'package:demo_nikita/Splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
+import 'Certificates/certificates.dart';
 import 'Courses/hrenrollcourses.dart';
 import 'Courses/requests.dart';
-import 'HomeManager/manager.dart';
 
 void main() {
 
@@ -41,7 +39,7 @@ class MyApp extends StatelessWidget {
 
       ),
 
-      home: ManagerScreen()
+      home: Certificates()
 
     );
 

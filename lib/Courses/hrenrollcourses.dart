@@ -63,7 +63,8 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                       SizedBox(height: 8,),
                       Padding(
                         padding:   EdgeInsets.all(8.0),
-                        child: TabBar(labelStyle: TextStyle(
+                        child: TabBar(
+                          labelStyle: TextStyle(
                             fontSize: 25,
                             fontWeight:FontWeight.w600),
                           labelColor: Colors.black,
