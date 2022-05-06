@@ -170,7 +170,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     var listofwidget = [
       Services(userModel: widget.userModel,),
-      EnquiryChat(),
+      EnquiryChat(userModel: widget.userModel,),
       MainHomePage(userModel: widget.userModel,),
       Reports(),
       Requests(),//Leave

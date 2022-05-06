@@ -2,17 +2,20 @@ import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'Components/api.dart';
+import 'Components/models.dart';
+
 
 class EnquiryChat extends StatefulWidget {
-  // final UserModel userModel;
-  const EnquiryChat({Key? key,}) : super(key: key);
+   final UserModel? userModel;
+  const EnquiryChat({Key? key, required this.userModel,}) : super(key: key);
 
   @override
   _EnquiryChatState createState() => _EnquiryChatState();
 }
 
 class _EnquiryChatState extends State<EnquiryChat> {
-  // final _allApi = AllApi();
+   final _allApi = AllApi();
   final _messageController = TextEditingController();
 
   var _message = '';
@@ -68,13 +71,27 @@ class _EnquiryChatState extends State<EnquiryChat> {
 
   Widget _chatWindow() {
     return Expanded(
-      child: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return _messageBox(
-            text: 'enquiries[index].description',
-            isMe: false,
-            timeStamp: 'enquiries[index].timeStamp',
+      child:
+      FutureBuilder<List<EnquiryModel>?>(
+        future: _allApi.getEnquiries(
+          empEmail: widget.userModel!.email!,
+          companyId: widget.userModel!.companyId!,
+        ),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return kprogressbar;
+          }
+          var enquiries = snapshot.data;
+          return ListView.builder(
+            reverse: true,
+            itemCount: enquiries!.length,
+            itemBuilder: (context, index) {
+              return _messageBox(
+                text: enquiries[index].description!,
+                isMe: !enquiries[index].subject!.contains('Reply'),
+                timeStamp: enquiries[index].timeStamp!,
+              );
+            },
           );
         },
       ),
@@ -151,7 +168,7 @@ class _EnquiryChatState extends State<EnquiryChat> {
                 Icons.send_rounded,
               ),
             ),
-            onPressed: _message.trim().isEmpty ? null : (){print('clicked');},
+            onPressed: _message.trim().isEmpty ? null : _sendMessage,
           ),
         ),
       ],
@@ -181,7 +198,7 @@ class _EnquiryChatState extends State<EnquiryChat> {
                 )
             ),
           ),
-          leading: Icon(Icons.arrow_back),
+          leading: SizedBox(width: 5,),
           title: Text("Enquiry",style: TextStyle(color: kgolder),),
           titleSpacing: 5,
           shadowColor: Colors.transparent,
@@ -198,36 +215,36 @@ class _EnquiryChatState extends State<EnquiryChat> {
     );
   }
 
-  // void _sendMessage() async {
-  //   var toEmail = '';
-  //   final _subject = 'Enquiry email by ${widget.userModel.name}';
-  //   FocusScope.of(context).unfocus();
-  //   var users = await _allApi.getAllUsers(
-  //     companyId: widget.userModel.companyId,
-  //   );
-  //   for (int i = 0; i < users.length; i++) {
-  //     if (users[i].empId == widget.userModel.hrId) {
-  //       toEmail = users[i].email;
-  //     }
-  //   }
-  //   await _allApi.postEnquiry(
-  //     empName: widget.userModel.name,
-  //     subject: _subject,
-  //     description: _message,
-  //     refId: widget.userModel.refId,
-  //     companyId: widget.userModel.companyId,
-  //     empEmail: widget.userModel.email,
-  //     hrId: widget.userModel.hrId,
-  //     hrName: widget.userModel.hrName,
-  //   );
-  //   await _allApi.sendEmail(
-  //     subject: _subject,
-  //     content: _message,
-  //     toEmail: toEmail,
-  //   );
-  //   _messageController.clear();
-  //   setState(() {
-  //     _message = '';
-  //   });
-  // }
+  void _sendMessage() async {
+    var toEmail = '';
+    final _subject = 'Enquiry email by ${widget.userModel!.name}';
+    FocusScope.of(context).unfocus();
+    var users = await _allApi.getAllUsers(
+      companyId: widget.userModel!.companyId!,
+    );
+    for (int i = 0; i < users!.length; i++) {
+      if (users[i].empId == widget.userModel!.hrId) {
+        toEmail = users[i].email!;
+      }
+    }
+    await _allApi.postEnquiry(
+      empName: widget.userModel!.name,
+      subject: _subject,
+      description: _message,
+      refId: widget.userModel!.refId,
+      companyId: widget.userModel!.companyId,
+      empEmail: widget.userModel!.email,
+      hrId: widget.userModel!.hrId,
+      hrName: widget.userModel!.hrName,
+    );
+    await _allApi.sendEmail(
+      subject: _subject,
+      content: _message,
+      toEmail: toEmail,
+    );
+    _messageController.clear();
+    setState(() {
+      _message = '';
+    });
+  }
 }

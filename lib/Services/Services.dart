@@ -24,6 +24,13 @@ class _ServicesState extends State<Services> {
 
   final _allApi = AllApi();
 
+  final _services = [
+    'Certificate with detailed salary',
+    'Certificate with total salary',
+    'Certificate without salary',
+  ];
+
+  var _isOpening = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +52,7 @@ class _ServicesState extends State<Services> {
               )
             ),
           ),
-          leading: Icon(Icons.arrow_back),
+          leading: SizedBox(width: 5,),
           title: Text("Services",style: TextStyle(color: kgolder),),
           titleSpacing: 5,
           shadowColor: Colors.transparent,
@@ -111,9 +118,9 @@ class _ServicesState extends State<Services> {
                        )
                      ),
                      child: ListView.builder(
-                       itemCount: 4,
+                       itemCount: _services.length,
                        itemBuilder: (BuildContext context, int index) {
-                         return  buildCertificate(H, W);
+                         return  buildCertificate(H, W,_services[index]);
                        },
 
                      ),
@@ -318,8 +325,7 @@ class _ServicesState extends State<Services> {
                     DefaultTabController(
                         length: 3,
                         child: Scaffold(
-                            appBar:
-                            AppBar(
+                            appBar: AppBar(
                                 shadowColor: Colors.transparent,
                                 flexibleSpace: Stack(
                                   children: [
@@ -361,63 +367,178 @@ class _ServicesState extends State<Services> {
                             ),
                             body:TabBarView(
                               children: [
-                                Container(
-                                  height: H,
-                                  width: W,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage("assets/bg.jpg"),
-                                          fit: BoxFit.cover
-                                      )
-                                  ),
-                                  child: ListView.builder(
-                                    itemCount: 4,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return buildCertificateMoreRequest();
+                                FutureBuilder<List<DynamicServiceRequestModel>?>(
+                                    future: _allApi.getDynamicServiceRequest(
+                                      verify: '0',
+                                      companyId: widget.userModel!.companyId,
+                                      refId: widget.userModel!.refId,
+                                    ),
+                                    builder: (context, snapshot) {
 
-                                    },
+                                      if(!snapshot.hasData){
+                                        return kprogressbar;
+                                      }
 
-                                  ),
+
+                                      var list = snapshot.data as List<DynamicServiceRequestModel>;
+
+                                      return Container(
+                                        height: H,
+                                        width: W,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage("assets/bg.jpg"),
+                                                fit: BoxFit.cover
+                                            )
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              child: ListView.builder(
+                                                itemCount: list.length,
+                                                itemBuilder: (BuildContext context, int index) {
+                                                  return buildCertificateMoreRequest( list: list,
+                                                    index: index,
+                                                    onPressedView: () async {
+                                                      setState(() {
+                                                        _isOpening = true;
+                                                      });
+                                                      var file = await _allApi.loadFile(
+                                                        url:
+                                                        'http://faizeetech.com/pdf/${list[index].fileName}',
+                                                        fileName: list[index].fileName,
+                                                      );
+                                                      await OpenFile.open(file.path);
+                                                      setState(() {
+                                                        _isOpening = false;
+                                                      });
+                                                    },);
+
+                                                },
+
+                                              ),
+                                            ),
+                                            SizedBox(height: 80,)
+                                          ],
+                                        ),
+                                      );
+                                    }
                                 ),
-                                Container(
-                                  height: H,
-                                  width: W,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage("assets/bg.jpg"),
-                                          fit: BoxFit.cover
-                                      )
-                                  ),
-                                  child: ListView.builder(
-                                    itemCount: 4,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return buildCertificateMoreRequest();
 
-                                    },
+                                FutureBuilder<List<DynamicServiceRequestModel>?>(
+                                    future: _allApi.getDynamicServiceRequest(
+                                      verify: '1',
+                                      companyId: widget.userModel!.companyId,
+                                      refId: widget.userModel!.refId,
+                                    ),
+                                    builder: (context, snapshot) {
 
-                                  ),
+                                      if(!snapshot.hasData){
+                                        return kprogressbar;
+                                      }
+
+
+                                      var list = snapshot.data as List<DynamicServiceRequestModel>;
+
+                                      return Container(
+                                        height: H,
+                                        width: W,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage("assets/bg.jpg"),
+                                                fit: BoxFit.cover
+                                            )
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              child: ListView.builder(
+                                                itemCount: list.length,
+                                                itemBuilder: (BuildContext context, int index) {
+                                                  return buildCertificateMoreRequest( list: list,
+                                                    index: index,
+                                                    onPressedView: () async {
+                                                      setState(() {
+                                                        _isOpening = true;
+                                                      });
+                                                      var file = await _allApi.loadFile(
+                                                        url:
+                                                        'http://faizeetech.com/pdf/${list[index].fileName}',
+                                                        fileName: list[index].fileName,
+                                                      );
+                                                      await OpenFile.open(file.path);
+                                                      setState(() {
+                                                        _isOpening = false;
+                                                      });
+                                                    },);
+
+                                                },
+
+                                              ),
+                                            ),
+                                            SizedBox(height: 80,)
+                                          ],
+                                        ),
+                                      );
+                                    }
                                 ),
-                                Container(
 
-                                  height: H,
+                                FutureBuilder<List<DynamicServiceRequestModel>?>(
+                                    future: _allApi.getDynamicServiceRequest(
+                                      verify: '-1',
+                                      companyId: widget.userModel!.companyId,
+                                      refId: widget.userModel!.refId,
+                                    ),
+                                    builder: (context, snapshot) {
 
-                                  width: W,
+                                      if(!snapshot.hasData){
+                                        return kprogressbar;
+                                      }
 
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage("assets/bg.jpg"),
-                                          fit: BoxFit.cover
-                                      )
-                                  ),
-                                  child: ListView.builder(
 
-                                    itemCount: 4,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return buildCertificateMoreRequest();
+                                      var list = snapshot.data as List<DynamicServiceRequestModel>;
 
-                                    },
+                                      return Container(
+                                        height: H,
+                                        width: W,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage("assets/bg.jpg"),
+                                                fit: BoxFit.cover
+                                            )
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              child: ListView.builder(
+                                                itemCount: list.length,
+                                                itemBuilder: (BuildContext context, int index) {
+                                                  return buildCertificateMoreRequest( list: list,
+                                                    index: index,
+                                                    onPressedView: () async {
+                                                      setState(() {
+                                                        _isOpening = true;
+                                                      });
+                                                      var file = await _allApi.loadFile(
+                                                        url:
+                                                        'http://faizeetech.com/pdf/${list[index].fileName}',
+                                                        fileName: list[index].fileName,
+                                                      );
+                                                      await OpenFile.open(file.path);
+                                                      setState(() {
+                                                        _isOpening = false;
+                                                      });
+                                                    },);
 
-                                  ),
+                                                },
+
+                                              ),
+                                            ),
+                                            SizedBox(height: 80,)
+                                          ],
+                                        ),
+                                      );
+                                    }
                                 ),
                               ],
                             )
@@ -550,7 +671,9 @@ File isn't available. Wait for the HR to send the file.''',
   }
 
 
-  Container buildCertificateMoreRequest() {
+  Container buildCertificateMoreRequest({ required List<DynamicServiceRequestModel> list,
+    required int index,
+    required Function onPressedView,})  {
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
         padding: EdgeInsets.all(12),
@@ -572,18 +695,67 @@ File isn't available. Wait for the HR to send the file.''',
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Date:",style: TextStyle(color: kgolder)),
-                Text("Status:",style: TextStyle(color: kgolder))
+                // Row(
+                //   children: [
+                //     Text("Certificate Name:",style: TextStyle(color: kgolder),),
+                //     Text("${list[index].certificateName}",style: TextStyle(color: kgolder),),
+                //   ],
+                // ),
+                // Text(''),
+                Row(
+                  children: [
+                    Text("Date:",style: TextStyle(color: kgolder)),
+                    Text("${list[index].date}",style: TextStyle(color: kgolder)),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Status:",style: TextStyle(color: kgolder)),
+                    Text("${list[index].verify == '1'
+                        ? 'Accepted'
+                        : list[index].verify == '0'
+                        ? list[index].fileName == null
+                        ? 'Pending from HR'
+                        : 'Pending from Manager'
+                        : 'Rejected'}",style: TextStyle(color: kgolder)),
+                  ],
+                ),
+                if (list[index].verify == '1')
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                      child: const Text('View'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          kgolder,
+                        ),
+                        shape: MaterialStateProperty.all(
+                          const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      onPressed:  () {
+                        onPressedView;
+                      },
+                    ),
+                  ),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
 
-              children: [
-                Text("12/04/2022",style: TextStyle(color: kgolder)),
-                Text("Pending from HR",style: TextStyle(color: kgolder))
-              ],
-            )
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //
+            //   children: [
+            //     Text("Certificate With",style: TextStyle(color: kgolder)),
+            //     Text("Detail Salary",style: TextStyle(color: kgolder)),
+            //     Text("${list[index].date}",style: TextStyle(color: kgolder)),
+            //     Text("Pending from HR",style: TextStyle(color: kgolder))
+            //   ],
+            // )
           ],
         )
     );
@@ -667,7 +839,7 @@ File isn't available. Wait for the HR to send the file.''',
     );
   }
 
-  Container buildCertificate(double H, double W) {
+  Container buildCertificate(double H, double W,name) {
     return Container(
                        height: H*.1,
                        width: double.infinity,
@@ -687,7 +859,7 @@ File isn't available. Wait for the HR to send the file.''',
                        child: Row(
                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                          children: [
-                           Text("Certificate With Detail Salary",style: TextStyle(color: kgolder),),
+                           Text(name,style: TextStyle(color: kgolder),),
                            ElevatedButton(
                                onPressed: (){
                                 Get.defaultDialog(
@@ -707,7 +879,7 @@ File isn't available. Wait for the HR to send the file.''',
                                         children: [
                                           InkWell(
                                             onTap:(){
-                                              _onPressedRequest;
+                                              _onPressedRequest(certificateName: name);
                                 },
                                             child: Container(
                                               padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
