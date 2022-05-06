@@ -42,14 +42,14 @@ class _ServicesState extends State<Services> {
         appBar: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    kblack,
-                    kGray
-                  ]
-              )
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      kblack,
+                      kGray
+                    ]
+                )
             ),
           ),
           leading: SizedBox(width: 5,),
