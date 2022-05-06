@@ -36,11 +36,51 @@ class AllApi {
     @required String? date,
     @required String? companyId,
     @required String? designation,
+    @required int? hours,
     String? status,
     String? reason,
   }) async {
     var postCheckInUrl = Uri.parse(
         'https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugPostCheckIn');
+
+
+  if( checkOutTime != '-----'){
+      var checkOutDifference1 = DateFormat('hh:mm a')
+          .parse(checkOutTime!)
+          .difference(DateFormat('hh:mm a').parse(checkInTime!));
+
+      var differenceFinal =
+      ((checkOutDifference1.inSeconds / 3600)).toDouble().toPrecision(2);
+
+      print('differenc ${differenceFinal.toString()}');
+
+      var workingstatus = differenceFinal > double.parse(hours.toString())
+          ? 'extra'
+          : differenceFinal < double.parse(hours.toString())
+          ? 'early'
+          : 'perfect';
+
+
+      var response = await http.post(postCheckInUrl, body: {
+        'checkin': checkInTime,
+        'checkout': checkOutTime,
+        'refid': refId,
+        'date': date,
+        'companyid': companyId,
+        'reason': reason ?? '',
+        'status': status,
+        'designation': designation,
+        'check_out_difference': differenceFinal.toString(),
+        'workingstatus': workingstatus.toString(),
+
+
+      });
+      if (response.statusCode == 200) {
+        return;
+      } else {
+        Fluttertoast.showToast(msg: response.body);
+      }
+    }else{
 
     var response = await http.post(postCheckInUrl, body: {
       'checkin': checkInTime,
@@ -51,12 +91,17 @@ class AllApi {
       'reason': reason ?? '',
       'status': status,
       'designation': designation,
+      'check_out_difference': '',
+      'workingstatus': '',
     });
     if (response.statusCode == 200) {
       return;
     } else {
       Fluttertoast.showToast(msg: response.body);
     }
+  }
+
+
   }
 
   Future<dynamic> getCheckIn({
@@ -864,7 +909,7 @@ class AllApi {
     }
   }
 
-  Future getCompanyDetails({
+  Future<Map> getCompanyDetails({
     @required String? companyid,
   }) async {
     var url = Uri.parse(

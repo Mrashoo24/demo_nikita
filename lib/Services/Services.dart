@@ -2,9 +2,16 @@ import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
+
+import '../Components/api.dart';
+import '../Components/models.dart';
 
 class Services extends StatefulWidget {
-  const Services({Key? key}) : super(key: key);
+  final UserModel? userModel;
+
+  const Services({Key? key, this.userModel}) : super(key: key);
 
   @override
   _ServicesState createState() => _ServicesState();
@@ -14,6 +21,9 @@ class _ServicesState extends State<Services> {
   TextEditingController services = TextEditingController();
   TextEditingController request = TextEditingController();
   TextEditingController moreRequest = TextEditingController();
+
+  final _allApi = AllApi();
+
 
   @override
   Widget build(BuildContext context) {
@@ -153,59 +163,154 @@ class _ServicesState extends State<Services> {
                       ),
                       body:TabBarView(
                         children: [
-                          Container(
-                            height: H,
-                            width: W,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage("assets/bg.jpg"),
-                                    fit: BoxFit.cover
-                                )
-                            ),
-                            child: ListView.builder(
-                              itemCount: 4,
-                              itemBuilder: (BuildContext context, int index) {
-                                return buildCertificateName();
+                          FutureBuilder<List<ServicesModel>?>(
+                              future: _allApi.getServices(
+                                verify: '0',
+                                companyId: widget.userModel!.companyId,
+                                refId: widget.userModel!.refId,
+                              ),
+                            builder: (context, snapshot) {
 
-                              },
+                                if(!snapshot.hasData){
+                                  return kprogressbar;
+                                }
 
-                            ),
+
+                                var list = snapshot.data as List<ServicesModel>;
+
+                              return Container(
+                                height: H,
+                                width: W,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage("assets/bg.jpg"),
+                                        fit: BoxFit.cover
+                                    )
+                                ),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: ListView.builder(
+                                        itemCount: list.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return buildCertificateName( list: list,
+                                            index: index,
+                                            onPressedView: () {
+                                              _onPressedView(
+                                                list: list,
+                                                index: index,
+                                              );
+                                            },);
+
+                                        },
+
+                                      ),
+                                    ),
+                                    SizedBox(height: 80,)
+                                  ],
+                                ),
+                              );
+                            }
                           ),
-                          Container(
-                            height: H,
-                            width: W,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage("assets/bg.jpg"),
-                                    fit: BoxFit.cover
-                                )
-                            ),
-                            child: ListView.builder(
-                              itemCount: 4,
-                              itemBuilder: (BuildContext context, int index) {
-                                return buildCertificateName();
 
-                              },
+                          FutureBuilder<List<ServicesModel>?>(
+                              future: _allApi.getServices(
+                                verify: '1',
+                                companyId: widget.userModel!.companyId,
+                                refId: widget.userModel!.refId,
+                              ),
+                              builder: (context, snapshot) {
 
-                            ),
+                                if(!snapshot.hasData){
+                                  return kprogressbar;
+                                }
+
+
+                                var list = snapshot.data as List<ServicesModel>;
+
+                                return Container(
+                                  height: H,
+                                  width: W,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage("assets/bg.jpg"),
+                                          fit: BoxFit.cover
+                                      )
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        child: ListView.builder(
+                                          itemCount: list.length,
+                                          itemBuilder: (BuildContext context, int index) {
+                                            return buildCertificateName( list: list,
+                                              index: index,
+                                              onPressedView: () {
+                                                _onPressedView(
+                                                  list: list,
+                                                  index: index,
+                                                );
+                                              },);
+
+                                          },
+
+                                        ),
+                                      ),
+                                      SizedBox(height: 80,)
+                                    ],
+                                  ),
+                                );
+                              }
                           ),
-                          Container(
-                            height: H,
-                            width: W,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage("assets/bg.jpg"),
-                                    fit: BoxFit.cover
-                                )
-                            ),
-                            child: ListView.builder(
-                              itemCount: 4,
-                              itemBuilder: (BuildContext context, int index) {
-                                return buildCertificateReject();
 
-                              },
+                          FutureBuilder<List<ServicesModel>?>(
+                              future: _allApi.getServices(
+                                verify: '-1',
+                                companyId: widget.userModel!.companyId,
+                                refId: widget.userModel!.refId,
+                              ),
+                              builder: (context, snapshot) {
 
-                            ),
+                                if(!snapshot.hasData){
+                                  return kprogressbar;
+                                }
+
+
+                                var list = snapshot.data as List<ServicesModel>;
+
+                                return Container(
+                                  height: H,
+                                  width: W,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage("assets/bg.jpg"),
+                                          fit: BoxFit.cover
+                                      )
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        child: ListView.builder(
+                                          itemCount: list.length,
+                                          itemBuilder: (BuildContext context, int index) {
+                                            return buildCertificateReject( list: list,
+                                              index: index,
+                                              onPressedView: () {
+                                                _onPressedView(
+                                                  list: list,
+                                                  index: index,
+                                                );
+                                              },);
+
+                                          },
+
+                                        ),
+                                      ),
+                                      SizedBox(height: 80,)
+                                    ],
+                                  ),
+                                );
+                              }
                           ),
                         ],
                       )
@@ -325,7 +430,35 @@ class _ServicesState extends State<Services> {
     );
   }
 
-  Container buildCertificateName() {
+  void _onPressedView({
+    required List<ServicesModel> list,
+    required int index,
+  }) async {
+    if (list[index].fileName != null) {
+      var file = await _allApi.loadFile(
+        url: 'http://faizeetech.com/pdf/${list[index].fileName}',
+        fileName: list[index].fileName,
+      );
+      OpenFile.open(file.path);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            '''
+File isn't available. Wait for the HR to send the file.''',
+          ),
+        ),
+      );
+    }
+  }
+
+  Container buildCertificateName(
+  {
+    required List<ServicesModel> list,
+    required int index,
+    required Function onPressedView,
+}
+      ) {
     return Container(
                                 margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                                 padding: EdgeInsets.all(12),
@@ -347,26 +480,76 @@ class _ServicesState extends State<Services> {
                                     Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text("Certificate Name:",style: TextStyle(color: kgolder),),
-                                        Text(""),
-                                        Text("Date:",style: TextStyle(color: kgolder)),
-                                        Text("Status:",style: TextStyle(color: kgolder))
+                                        Row(
+                                          children: [
+                                            Text("Certificate Name:",style: TextStyle(color: kgolder),),
+                                            Text("${list[index].certificateName}",style: TextStyle(color: kgolder),),
+                                          ],
+                                        ),
+                                        Text(''),
+                                        Row(
+                                          children: [
+                                            Text("Date:",style: TextStyle(color: kgolder)),
+                                            Text("${list[index].date}",style: TextStyle(color: kgolder)),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Status:",style: TextStyle(color: kgolder)),
+                                            Text("${list[index].verify == '1'
+                                                ? 'Accepted'
+                                                : list[index].verify == '0'
+                                                ? list[index].fileName == null
+                                                ? 'Pending from HR'
+                                                : 'Pending from Manager'
+                                                : 'Rejected'}",style: TextStyle(color: kgolder)),
+                                          ],
+                                        ),
+                                        if (list[index].verify == '1')
+                                          Container(
+                                            alignment: Alignment.centerRight,
+                                            child: ElevatedButton(
+                                              child: const Text('View'),
+                                              style: ButtonStyle(
+                                                backgroundColor: MaterialStateProperty.all(
+                                                  kgolder,
+                                                ),
+                                                shape: MaterialStateProperty.all(
+                                                  const RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.all(
+                                                      Radius.circular(12.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              onPressed:  () {
+                                                _onPressedView(
+                                                  list: list,
+                                                  index: index,
+                                                );
+                                              },
+                                            ),
+                                          ),
                                       ],
                                     ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
 
-                                      children: [
-                                        Text("Certificate With",style: TextStyle(color: kgolder)),
-                                        Text("Detail Salary",style: TextStyle(color: kgolder)),
-                                        Text("12/04/2022",style: TextStyle(color: kgolder)),
-                                        Text("Pending from HR",style: TextStyle(color: kgolder))
-                                      ],
-                                    )
+                                    // Column(
+                                    //   crossAxisAlignment: CrossAxisAlignment.end,
+                                    //
+                                    //   children: [
+                                    //     Text("Certificate With",style: TextStyle(color: kgolder)),
+                                    //     Text("Detail Salary",style: TextStyle(color: kgolder)),
+                                    //     Text("${list[index].date}",style: TextStyle(color: kgolder)),
+                                    //     Text("Pending from HR",style: TextStyle(color: kgolder))
+                                    //   ],
+                                    // )
                                   ],
                                 )
                               );
   }
+
+
   Container buildCertificateMoreRequest() {
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
@@ -405,7 +588,14 @@ class _ServicesState extends State<Services> {
         )
     );
   }
-  Container buildCertificateReject() {
+
+  Container buildCertificateReject(
+      {
+        required List<ServicesModel> list,
+        required int index,
+        required Function onPressedView,
+      }
+      ) {
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
         padding: EdgeInsets.all(12),
@@ -427,24 +617,51 @@ class _ServicesState extends State<Services> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Certificate Name:",style: TextStyle(color: kgolder),),
-                Text(""),
-                Text("Date:",style: TextStyle(color: kgolder)),
-                Text("Status:",style: TextStyle(color: kgolder)),
-                Text("Reason:",style: TextStyle(color: kgolder))
+                Row(
+                  children: [
+                    Text("Certificate Name:",style: TextStyle(color: kgolder),),
+                    Text("${list[index].certificateName}",style: TextStyle(color: kgolder),),
+                  ],
+                ),
+                Text(''),
+                Row(
+                  children: [
+                    Text("Date:",style: TextStyle(color: kgolder)),
+                    Text("${list[index].date}",style: TextStyle(color: kgolder)),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Status:",style: TextStyle(color: kgolder)),
+                    Text("${list[index].verify == '1'
+                        ? 'Accepted'
+                        : list[index].verify == '0'
+                        ? list[index].fileName == null
+                        ? 'Pending from HR'
+                        : 'Pending from Manager'
+                        : 'Rejected'}",style: TextStyle(color: kgolder)),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Reason:",style: TextStyle(color: kgolder)),
+                    Text("${list[index].reason}",style: TextStyle(color: kgolder)),
+                  ],
+                )
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-
-              children: [
-                Text("Certificate With",style: TextStyle(color: kgolder)),
-                Text("Detail Salary",style: TextStyle(color: kgolder)),
-                Text("12/04/2022",style: TextStyle(color: kgolder)),
-                Text("Pending from HR",style: TextStyle(color: kgolder)),
-                Text("xyz",style: TextStyle(color: kgolder)),
-              ],
-            )
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //
+            //   children: [
+            //     Text("Certificate With",style: TextStyle(color: kgolder)),
+            //     Text("Detail Salary",style: TextStyle(color: kgolder)),
+            //     Text("${list[index].date}",style: TextStyle(color: kgolder)),
+            //     Text("Pending from HR",style: TextStyle(color: kgolder))
+            //   ],
+            // )
           ],
         )
     );
@@ -488,18 +705,23 @@ class _ServicesState extends State<Services> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
-                                          Container(
-                                            padding: EdgeInsets.only(left: 10,right: 10,top: 8,),
-                                            height: H*0.05,
-                                           decoration: BoxDecoration(
-                                             color: kGray3,
-                                             borderRadius: BorderRadius.circular(15),
-                                             border: Border.all(color: kblack)
-                                           ),
-                                            child: Text("Request",style: TextStyle(
-                                                fontSize: 15,
-                                                color: kgolder),),
+                                          InkWell(
+                                            onTap:(){
+                                              _onPressedRequest;
+                                },
+                                            child: Container(
+                                              padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
 
+                                             decoration: BoxDecoration(
+                                               color: kGray3,
+                                               borderRadius: BorderRadius.circular(15),
+                                               border: Border.all(color: kblack)
+                                             ),
+                                              child: Text("Request",style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: kgolder),),
+
+                                            ),
                                           ),
                                           SizedBox(width: 10,),
                                           Text("Cancel",style: TextStyle(fontWeight: FontWeight.w500),)
@@ -520,5 +742,119 @@ class _ServicesState extends State<Services> {
                        ),
                      );
   }
+
+  Future<void> _onPressedRequest({required String certificateName}) async {
+
+
+    var isLoading = false;
+
+    var result = await _allApi.postServices(
+        empName: widget.userModel!.name,
+        companyId: widget.userModel!.companyId,
+        date: DateFormat('yyyy-MM-dd').format(
+          DateTime.now(),
+        ),
+        refId: widget.userModel!.refId,
+        verify: '0',
+        certificateName: certificateName.toLowerCase(),
+        hr_refid: widget.userModel!.hrId,
+        manager_refid: widget.userModel!.managerid);
+
+    Navigator.of(context).pop();
+    if (result == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Request sent successfully.'),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to send request.'),
+        ),
+      );
+    }
+    // showDialog(
+    //   barrierDismissible: false,
+    //   context: context,
+    //   builder: (context) {
+    //     return StatefulBuilder(
+    //       builder: (context, setStateDialog) {
+    //         return AlertDialog(
+    //           title: isLoading
+    //               ? null
+    //               : const Text(
+    //             'Request for the service?',
+    //           ),
+    //           content: isLoading
+    //               ? Container(
+    //             height: MediaQuery.of(context).size.height * 0.05,
+    //             alignment: Alignment.center,
+    //             child: Row(
+    //               children: const [
+    //                 CircularProgressIndicator(),
+    //                 SizedBox(
+    //                   width: 30,
+    //                 ),
+    //                 Text('Please wait'),
+    //               ],
+    //             ),
+    //           )
+    //               : const Text(
+    //             'Are you sure you want to request for the service?',
+    //           ),
+    //           actions: isLoading
+    //               ? null
+    //               : [
+    //             TextButton(
+    //               child: const Text('Request'),
+    //               onPressed: () async {
+    //                 setStateDialog(() {
+    //                   isLoading = true;
+    //                 });
+    //                 var result = await _allApi.postServices(
+    //                     empName: widget.userModel!.name,
+    //                     companyId: widget.userModel!.companyId,
+    //                     date: DateFormat('yyyy-MM-dd').format(
+    //                       DateTime.now(),
+    //                     ),
+    //                     refId: widget.userModel!.refId,
+    //                     verify: '0',
+    //                     certificateName: certificateName.toLowerCase(),
+    //                     hr_refid: widget.userModel!.hrId,
+    //                     manager_refid: widget.userModel!.managerid);
+    //                 setStateDialog(() {
+    //                   isLoading = false;
+    //                 });
+    //                 Navigator.of(context).pop();
+    //                 if (result == 'success') {
+    //                   ScaffoldMessenger.of(context).showSnackBar(
+    //                     const SnackBar(
+    //                       content: Text('Request sent successfully.'),
+    //                     ),
+    //                   );
+    //                 } else {
+    //                   ScaffoldMessenger.of(context).showSnackBar(
+    //                     const SnackBar(
+    //                       content: Text('Failed to send request.'),
+    //                     ),
+    //                   );
+    //                 }
+    //               },
+    //             ),
+    //             TextButton(
+    //               child: const Text('Cancel'),
+    //               onPressed: () {
+    //                 Navigator.of(context).pop();
+    //               },
+    //             ),
+    //           ],
+    //         );
+    //       },
+    //     );
+    //   },
+    // );
+  }
+
 
 }

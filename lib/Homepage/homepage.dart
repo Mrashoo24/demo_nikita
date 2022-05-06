@@ -100,18 +100,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     });
   }
 
-  var listofwidget = [
-    Services(),
-    EnquiryChat(),
-    MainHomePage(),
-    Reports(),
-    Requests(),//Leave
-    HrEnrollCourses(),
-    Container(),//Admin,
-    Container(),//faulty,
-    Container(),//benchlist,
-    RelatedSites()
-  ];
+
 
   findButton() {
     RenderBox renderBox = _key.currentContext!.findRenderObject() as RenderBox;
@@ -179,7 +168,18 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
+    var listofwidget = [
+      Services(userModel: widget.userModel,),
+      EnquiryChat(),
+      MainHomePage(userModel: widget.userModel,),
+      Reports(),
+      Requests(),//Leave
+      HrEnrollCourses(),
+      Container(),//Admin,
+      Container(),//faulty,
+      Container(),//benchlist,
+      RelatedSites()
+    ];
 
     return SafeArea(
         child: Scaffold(

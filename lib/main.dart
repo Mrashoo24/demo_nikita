@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:demo_nikita/Authentication/loginpage.dart';
+import 'package:demo_nikita/Components/constants.dart';
 import 'package:demo_nikita/Splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -164,9 +165,7 @@ class _MyAppState extends State<MyApp> {
                 builder: (context, snapshot1) {
 
                   if (!snapshot1.hasData) {
-                    return Center(
-                      child: Image.asset("assets/Images/loading.gif"),
-                    );
+                    return kprogressbar;
                   }
                   UserModel? user1 = snapshot1.requireData;
 
