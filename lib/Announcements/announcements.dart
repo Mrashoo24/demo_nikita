@@ -17,21 +17,36 @@ class Announcements extends StatefulWidget {
 
 class _AnnouncementsState extends State<Announcements> {
   final _allApi = AllApi();
+
   late List<AnnounceModel> _announcementList;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/Images/background_image.jpg'),
+          image: AssetImage('assets/bg.jpg'),
           fit: BoxFit.fill,
         ),
       ),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kgolder2,
-          title: const Text('Announcements'),
-          centerTitle: true,
+        appBar:
+        AppBar(automaticallyImplyLeading: true,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      kblack,
+                      kGray
+                    ]
+                )
+            ),
+          ),
+          title: Text("Announcements",style: TextStyle(color: kgolder),),
+          titleSpacing: 5,
+          shadowColor: Colors.transparent,
         ),
         backgroundColor: Colors.transparent,
         body: FutureBuilder<List<AnnounceModel>>(
@@ -40,9 +55,7 @@ class _AnnouncementsState extends State<Announcements> {
           ),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return Center(
-                child: Image.asset("assets/Images/loading.gif"),
-              );
+              return kprogressbar;
             } else if (snapshot.data!.isEmpty) {
               return const Center(
                 child: Text('Nothing to show here.'),
@@ -78,6 +91,18 @@ class _AnnouncementsState extends State<Announcements> {
                         ),
                       ),
                       child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: kgolder,width: 3),
+                            gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  kblack ,
+                                  kGray
+                                ]
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(8))
+                        ),
                         width: MediaQuery.of(context).size.width,
                         // height: MediaQuery.of(context).size.height * 0.15,
                         padding: const EdgeInsets.all(12.0),
@@ -88,8 +113,9 @@ class _AnnouncementsState extends State<Announcements> {
                             ListTile(
                               title: Text(
                                 _announcementList[index].name!,
+                                style: TextStyle(color: kgolder),
                               ),
-                              leading: const Icon(Icons.notifications),
+                              leading: const Icon(Icons.notifications,color: kgolder,),
                             )
                             // Row(
                             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -15,10 +15,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../BenchList/benchlist_page.dart';
 import '../Components/Arrow/arrowclipper.dart';
 import '../Components/Arrow/test.dart';
 import '../Components/models.dart';
 import '../Enquiry.dart';
+import '../Leaves/administrative_leave.dart';
 
 
 class Welcome extends StatefulWidget {
@@ -38,7 +40,19 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     'Item4',
   ];
 
+//new
+//   var selectedBox = 'Home';
 
+  double x = 0.0;
+  double y = 0.0;
+
+  var scaling = 1.0;
+
+  bool isDragging = false;
+  
+  
+
+//new
 
   late AnimationController _animationController;
   late Animation _arrowAnimation;
@@ -168,28 +182,140 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+    var height =  MediaQuery.of(context).size.height;
+
+    var width =  MediaQuery.of(context).size.width;
+
+    print('selectedindex = $selectedIndex');
+
     var listofwidget = [
       Services(userModel: widget.userModel,),
       EnquiryChat(userModel: widget.userModel,),
-      MainHomePage(userModel: widget.userModel,),
-      Reports(),
-      Requests(),//Leave
-      HrEnrollCourses(),
-      Container(),//Admin,
+      MainHomePage(userModel: widget.userModel, function: (){
+
+        setState(() {
+          x = 180;
+          y = 20;
+
+          scaling = 0.9;
+        });
+
+      },),
+      Reports(userModel: widget.userModel,),
+      Requests(userModel: widget.userModel,),//Leave
+      HrEnrollCourses(userModel: widget.userModel,),
+      AdminstrativLeave(userModel: widget.userModel,),//Admin,
       Container(),//faulty,
-      Container(),//benchlist,
-      RelatedSites()
+      BenchList(userModel: widget.userModel),//benchlist,
+      RelatedSites(userModel: widget.userModel,)
     ];
 
     return SafeArea(
         child: Scaffold(
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/bg.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Container(
+
+              color: Colors.black.withOpacity(0.8),
+              child: Stack
+                (
+                children: [
+                  builDrawer(),
+                  AnimatedContainer(
+                    height: Get.height,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/bg.jpg'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    transform: Matrix4.translationValues(x ,y, 0)..scale(scaling),
+                    duration: Duration(milliseconds: 400),
+                    child: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          x = 0.0;
+                          y = 0.0;
+                          scaling = 1.0;
+                        });
+                      },
+
+                      onHorizontalDragStart: (detail)=>
+                      isDragging = true
+                      ,
+                      onHorizontalDragUpdate: (details){
+                        const delta = 1;
+
+                        if(details.delta.dx > delta){
+                          setState(() {
+                            x = 180;
+                            y = 50.0;
+
+                            scaling = 0.8;
+                          });
+                        }else if(details.delta.dx < -delta){
+                          setState(() {
+                            x = 0.0;
+                            y = -.0;
+
+                            scaling = 1.0;
+                          });
+
+                        }
+                      },
+                      // onVerticalDragStart: (detail) {
+                      //   isDragging = true;
+                      //   print('dradgdown ${detail}')
+                      //
+                      // }
+                      // ,
+                      // onVerticalDragUpdate: (details)
+                      // {
+                      //   const delta = 1;
+                      //
+                      //   print(details.delta.dy);
+                      //   print(details.delta.dy);
+                      //   if(details.delta.dy > delta){
+                      //     setState(() {
+                      //       // selectedCard = title;
+                      //       //  index == 4 ?
+                      //       // isMenuOpen ? closeMenu() :
+                      //       //    openMenu()
+                      //       //      :
+                      //       selectedIndex = selectedIndex > listofwidget.length ? 3 :selectedIndex -1;
+                      //     });
+                      //   }else if(details.delta.dy < -delta){
+                      //
+                      //     setState(() {
+                      //       // selectedCard = title;
+                      //       //  index == 4 ?
+                      //       // isMenuOpen ? closeMenu() :
+                      //       //    openMenu()
+                      //       //      :
+                      //       selectedIndex = selectedIndex > listofwidget.length ? 3 :selectedIndex +1;
+                      //     });
+                      //   }
+                      //
+                      // },
 
 
-          body:
-          Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              listofwidget[selectedIndex],
+                      child
+
+                          : Scaffold(
+
+
+                        body:
+                        Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+
+                            listofwidget[selectedIndex],
 //               Positioned(
 //                 bottom: 100,
 //                 child: Container(
@@ -214,98 +340,105 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 //                   ),
 //                 ),
 //               ),
-              Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.transparent
-                  // image: DecorationImage(
-                  //   image: AssetImage('assets/bg.jpg'),
-                  //   fit: BoxFit.cover,
-                  // ),
-                ),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        color: Colors.black,
-                        height: 60,
+                            Container(
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent
+                                // image: DecorationImage(
+                                //   image: AssetImage('assets/bg.jpg'),
+                                //   fit: BoxFit.cover,
+                                // ),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Container(
+                                      color: Colors.black,
+                                      height: 60,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        buildBNBCards('Services','assets/icons/services.png',0),
+                                        buildBNBCards('Enquiry','assets/icons/enquiry.png',1),
+                                        buildBNBCards('Home','assets/icons/home.png',2),
+                                        buildBNBCards('Reports','assets/icons/reports.png',3),
+                                        // buildBNBCards2('More','assets/icons/more.png',4),
+                                        CustomPopupMenu(
+                                          menuBuilder: () => GestureDetector(
+                                            child: _buildAvatar(true, 300),
+                                            onLongPress: () {
+                                              print("onLongPress");
+                                            },
+                                            onTap: () {
+                                              print("onTap");
+                                            },
+                                          ),
+                                          barrierColor: Colors.transparent,
+                                          pressType: PressType.singleClick,
+                                          arrowColor:  kgolder,
+                                          arrowSize: 15,
+                                          position: PreferredPosition.top,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              selectedCard == 'More' ?  Container(
+
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.black,
+                                                    border: Border.all(color: kgolder,width: 2)
+                                                ),
+                                                child: Container(
+                                                    padding: EdgeInsets.all(8),
+                                                    width: 60,
+                                                    height: 60,
+                                                    child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)
+                                                ),
+                                              )  :
+                                              InkWell(
+                                                onTap: (){
+                                                  setState(() {
+                                                    selectedCard = 'More';
+                                                    //  index == 4 ?
+                                                    // isMenuOpen ? closeMenu() :
+                                                    //    openMenu()
+                                                    //      :
+
+                                                  });
+                                                },
+                                                child
+                                                    : Container(
+
+                                                    width: 30,
+                                                    height: 30,
+                                                    child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)),
+                                              ),
+                                              Text('More',style: TextStyle(color: kgolder,fontSize:  14),),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        backgroundColor: Colors.transparent,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          buildBNBCards('Services','assets/icons/services.png',0),
-                          buildBNBCards('Enquiry','assets/icons/enquiry.png',1),
-                          buildBNBCards('Home','assets/icons/home.png',2),
-                          buildBNBCards('Reports','assets/icons/reports.png',3),
-                          // buildBNBCards2('More','assets/icons/more.png',4),
-                          CustomPopupMenu(
-                            menuBuilder: () => GestureDetector(
-                              child: _buildAvatar(true, 300),
-                              onLongPress: () {
-                                print("onLongPress");
-                              },
-                              onTap: () {
-                                print("onTap");
-                              },
-                            ),
-                            barrierColor: Colors.transparent,
-                            pressType: PressType.singleClick,
-                            arrowColor:  kgolder,
-                            arrowSize: 15,
-                            position: PreferredPosition.top,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                selectedCard == 'More' ?  Container(
-
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.black,
-                                      border: Border.all(color: kgolder,width: 2)
-                                  ),
-                                  child: Container(
-                                      padding: EdgeInsets.all(8),
-                                      width: 60,
-                                      height: 60,
-                                      child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)
-                                  ),
-                                )  :
-                                InkWell(
-                                  onTap: (){
-                                    setState(() {
-                                      selectedCard = 'More';
-                                      //  index == 4 ?
-                                      // isMenuOpen ? closeMenu() :
-                                      //    openMenu()
-                                      //      :
-
-                                    });
-                                  },
-                                  child
-                                      : Container(
-
-                                      width: 30,
-                                      height: 30,
-                                      child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)),
-                                ),
-                                Text('More',style: TextStyle(color: kgolder,fontSize:  14),),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-          backgroundColor: Colors.transparent,
         )
 
     );
@@ -367,7 +500,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-             selectedCard == title ?  Container(
+             selectedIndex == index ?  Container(
 
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -386,7 +519,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                   width: 30,
                   height: 30,
                   child: Image.asset(image,fit: BoxFit.fill,)),
-              Text(title,style: TextStyle(color: kgolder,fontSize:  selectedCard == title ? 16 : 14),),
+              Text(title,style: TextStyle(color: kgolder,fontSize:  selectedIndex == index ? 16 : 14),),
             ],
           ),
         ),
@@ -418,7 +551,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                selectedCard == title ?  Container(
+                selectedIndex == index ?  Container(
 
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
@@ -438,7 +571,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                     width: 30,
                     height: 30,
                     child: Image.asset(image,fit: BoxFit.fill,)),
-                Text(title,style: TextStyle(color: kgolder,fontSize:  selectedCard == title ? 16 : 14),),
+                Text(title,style: TextStyle(color: kgolder,fontSize:  selectedIndex == index ? 16 : 14),),
               ],
             ),
           ),
@@ -564,5 +697,88 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                                         color: Colors.black,
                                       ),
                                     );
+  }
+
+  SingleChildScrollView builDrawer() {
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 15,vertical: 30),
+        width: Get.width,
+        color: Colors.transparent,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('',style: TextStyle(
+                color: kgolder,fontWeight: FontWeight.w700,
+                fontSize: 20
+            ),),
+            SizedBox(height: 30,),
+            builDrawerWidget('Home',2),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Services',0),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Enquiry',1),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Reports',3),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Leave Request',4),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Courses',5),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Admin Leave',6),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Faulty Attenden',7),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Bench List',8),
+            Divider(color: kgolder,height: 20,),
+            builDrawerWidget('Related Sites',9),
+            Divider(color: kgolder,height: 20,),
+
+
+          ],
+        ),
+      ),
+    );
+  }
+
+   builDrawerWidget(title,index) {
+    return InkWell(
+      onTap: (){
+        setState(() {
+          selectedCard = title;
+          //  index == 4 ?
+          // isMenuOpen ? closeMenu() :
+          //    openMenu()
+          //      :
+          selectedIndex = index;
+        });
+      },
+      child: Container(
+        decoration: selectedIndex == index ? BoxDecoration(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(15),
+              topLeft: Radius.circular(15)),
+          color: Colors.grey.withOpacity(0.5),
+          border: Border.all(color: kgolder)
+        ) : BoxDecoration(
+            // borderRadius: BorderRadius.only(
+            //     bottomLeft: Radius.circular(15),
+            //     topLeft: Radius.circular(15)),
+            // color: Colors.grey.withOpacity(0.5),
+            // border: Border.all(color: kgolder)
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
+              child: Text(title,style: TextStyle(
+                        color: kgolder,fontWeight: FontWeight.w500,
+                        fontSize: 18
+                    ),),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

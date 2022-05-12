@@ -1,12 +1,17 @@
+import 'package:demo_nikita/Components/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../Components/constants.dart';
+import '../Components/models.dart';
 
 class HrEnrollCourses extends StatefulWidget {
-  const HrEnrollCourses({Key? key}) : super(key: key);
+  final UserModel? userModel;
+
+  const HrEnrollCourses({Key? key, this.userModel}) : super(key: key);
 
   @override
   _HrEnrollCoursesState createState() => _HrEnrollCoursesState();
@@ -24,7 +29,8 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
       child: DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
+        appBar:
+        AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -143,24 +149,61 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                   child: TabBarView(
                       children: [
 
-                      ListView(
+                      Column(
                         children: [
-                          buildHRcourses(),
-                          buildHRcourses(),
-                          buildHRcourses(),
-                          buildHRcourses(),
-                          buildHRcourses(),
+                          Expanded(
+                            child: FutureBuilder<List<CoursesModel>?>(
+                                future: AllApi().getCourses(widget.userModel!.companyId!),
+                              builder: (context, snapshot) {
+
+                                if (!snapshot.hasData) {
+                                  return kprogressbar;
+                                }
+
+                                var courseList = snapshot.data;
+
+                                return ListView.builder(
+                                  itemCount: courseList!.length,
+                                  itemBuilder: (context,index){
+                                   return buildHRcourses(courseList[index]);
+                                  },
+
+                                );
+                              }
+                            ),
+                          ),
+                          SizedBox(height: 80,),
                         ],
                       ),
-                        ListView(
+                        Column(
                           children: [
-                            buildERcourses(),
-                            buildERcourses(),
-                            buildERcourses(),
-                            buildERcourses(),
-                            buildERcourses(),
+                            Expanded(
+                              child: FutureBuilder<List<PresentCoursesModel>?>(
+                                  future: AllApi().getPresentCourses(
+                                    companyId: widget.userModel!.companyId,
+                                    empId: widget.userModel!.empId,
+                                  ),
+                                  builder: (context, snapshot) {
+
+                                    if (!snapshot.hasData) {
+                                      return kprogressbar;
+                                    }
+
+                                    var courseList = snapshot.data;
+
+                                    return ListView.builder(
+                                      itemCount: courseList!.length,
+                                      itemBuilder: (context,index){
+                                        return buildERcourses(courseList[index],index);
+                                      },
+
+                                    );
+                                  }
+                              ),
+                            ),
+                            SizedBox(height: 80,),
                           ],
-                        )
+                        ),
 
 
                   ]
@@ -175,7 +218,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
     );
   }
 
-  Padding buildERcourses( ) {
+  Padding buildERcourses(PresentCoursesModel presentCoursesModel ,index) {
     return Padding(
                         padding:   EdgeInsets.all(8.0),
                         child: Column(
@@ -184,176 +227,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                             InkWell(
                               onTap: (){
 
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return StatefulBuilder(
-                                          builder: (context, setState1){
-                                            return AlertDialog(
-                                              contentPadding: EdgeInsets.all(3),
-                                              backgroundColor: kgolder,
 
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(20)),),
-
-                                              content:SingleChildScrollView(
-                                                child: Column(
-                                                  children: [
-                                                    Container(
-
-                                                        decoration: BoxDecoration(
-                                                          gradient:  LinearGradient(
-                                                            colors: [Colors.black, Colors.grey.shade600],
-                                                            begin: Alignment.centerRight,
-                                                            end: Alignment.centerLeft,),
-
-                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:   EdgeInsets.all(8.0),
-                                                          child: Column(
-                                                              children: [
-
-                                                                Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                  children: [
-                                                                    Text("Title :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                                    Container(
-                                                                      height: 35,
-                                                                      width: 200,
-
-                                                                      child: Padding(
-                                                                        padding:   EdgeInsets.all(4),
-                                                                        child: Text("Courses One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                                      ),
-                                                                      decoration: BoxDecoration(
-                                                                          color: kgolder,
-                                                                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                                          border: Border.all(width: 3,color: Colors.black)
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(height: 5,),
-                                                                Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                  children: [
-                                                                    Text("ID :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                                    Container(
-                                                                      height: 35,
-                                                                      width: 200,
-
-                                                                      child: Padding(
-                                                                        padding:   EdgeInsets.all(4),
-                                                                        child: Text("63847",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                                      ),
-                                                                      decoration: BoxDecoration(
-                                                                          color: kgolder,
-                                                                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                                          border: Border.all(width: 3,color: Colors.black)
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(height: 5,),
-                                                                Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                  children: [
-                                                                    Text("Venue :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                                    Container(
-                                                                      height: 35,
-                                                                      width: 200,
-
-                                                                      child: Padding(
-                                                                        padding:   EdgeInsets.all(4),
-                                                                        child: Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                                      ),
-                                                                      decoration: BoxDecoration(
-                                                                          color: kgolder,
-                                                                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                                          border: Border.all(width: 3,color: Colors.black)
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(height: 5,),
-                                                                Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                  children: [
-                                                                    Text("Date :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                                    Container(
-                                                                      height: 35,
-                                                                      width: 200,
-
-                                                                      child: Padding(
-                                                                        padding:   EdgeInsets.all(4),
-                                                                        child: Text("2022-01-15- 07:00 AM",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                                      ),
-                                                                      decoration: BoxDecoration(
-                                                                          color: kgolder,
-                                                                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                                          border: Border.all(width: 3,color: Colors.black)
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(height: 5,),
-                                                                Row(
-                                                                  children: [
-                                                                    Text("Description :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                                  ],
-                                                                ),
-                                                                Container(
-
-                                                                  width: Get.width,
-
-                                                                  child: Padding(
-                                                                    padding:   EdgeInsets.all(4),
-                                                                    child: Text("Do more with MultiQRCreate unlimited branded QR codes and start accepting payments for FREE. T&C apply.",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                                  ),
-                                                                  decoration: BoxDecoration(
-                                                                      color: kgolder,
-                                                                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                                      border: Border.all(width: 2,color: Colors.black)
-                                                                  ),
-                                                                ),
-                                                                SizedBox(height : 40,),
-
-                                                                Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                                  children: [
-                                                                    Container(
-                                                                      child: Padding(
-                                                                        padding:   EdgeInsets.all(4),
-                                                                        child: Text("Register",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                                                                      ),
-                                                                      decoration: BoxDecoration(
-                                                                          color: kgolder,
-                                                                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                                          border: Border.all(width: 2,color: Colors.black)
-                                                                      ),
-                                                                    ),
-                                                                    InkWell(
-                                                                      onTap: () {
-                                                                        Get.back();
-                                                                      },
-                                                                      child: Padding(
-                                                                        padding:   EdgeInsets.all(4.0),
-                                                                        child: Text("Cancel",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: kgolder),),
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),]
-                                                          ),
-                                                        )
-                                                    )
-                                                  ],
-                                                ),
-                                              ) ,
-                                            );
-                                          }
-                                      );
-                                    });
                               },
                               child: Container(
                                 width: Get.width,
@@ -377,7 +251,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text("Courses One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                              Text(presentCoursesModel.title!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                               GestureDetector(
                                                 onTap: (){
                                                   Get.defaultDialog(
@@ -390,7 +264,25 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                                     cancelTextColor: Colors.black,
                                                     confirmTextColor: kgolder,
                                                     barrierDismissible: true,
+                                                    onCancel: () async {
+
+                                                      await AllApi()
+                                                          .removeRegisteration(
+                                                          courseId:
+                                                          presentCoursesModel.courseId,
+                                                          empId: widget.userModel!.empId)
+                                                          .then((value) {
+                                                        Fluttertoast.showToast(msg: value);
+
+                                                        Get.back();
+                                                        setState(() {});
+                                                      });
+                                                    },
+                                                    onConfirm: (){
+                                                      Get.back();
+                                                    }
                                                   );
+
                                                 },
                                                 child: Container(
 
@@ -422,8 +314,8 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
-                                              Text("2022-01-15 07:00 am",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder, fontSize: 16),),
+                                              Text(presentCoursesModel.venue!,style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 16 ),),
+                                              Text(presentCoursesModel.date!,style: TextStyle(fontWeight: FontWeight.bold,color: kgolder, fontSize: 16),),
                                             ],
                                           ),
                                           Container(
@@ -433,8 +325,17 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
-                                                  Text("In: 11:46 pm",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-                                                  Text("Out: 11:46 pm",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+                                                  Text(
+                                                    presentCoursesModel.checkIn == ''
+                                                        ? 'IN: -----'
+                                                        : 'IN: ' + presentCoursesModel.checkIn!,
+                                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+
+                                                  Text(
+                                                    presentCoursesModel.checkOut == ''
+                                                        ? 'OUT: -----'
+                                                        : 'OUT: ' + presentCoursesModel.checkOut!,
+                                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
                                                 ],
                                               ),
                                             ),
@@ -463,10 +364,11 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                       );
   }
 
-  Padding buildHRcourses() {
+  Padding buildHRcourses(CoursesModel coursesModel) {
     return Padding(
                     padding:   EdgeInsets.all(8.0),
-                    child: Column(
+                    child:
+                    Column(
 
                       children: [
                         InkWell(
@@ -475,8 +377,10 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                             showDialog(
                                 context: context,
                                 builder: (context) {
+
+                                  bool isLoading = false;
                                   return StatefulBuilder(
-                                      builder: (context, setState1){
+                                      builder: (context, setStateDialog){
                                         return AlertDialog(
                                           contentPadding: EdgeInsets.all(3),
                                           backgroundColor: kgolder,
@@ -512,7 +416,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
 
                                                                   child: Padding(
                                                                     padding:   EdgeInsets.all(4),
-                                                                    child: Text("Courses One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                                    child: Text(coursesModel.venue!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                                                   ),
                                                                   decoration: BoxDecoration(
                                                                       color: kgolder,
@@ -533,7 +437,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
 
                                                                   child: Padding(
                                                                     padding:   EdgeInsets.all(4),
-                                                                    child: Text("63847",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                                    child: Text(coursesModel.courseId!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                                                   ),
                                                                   decoration: BoxDecoration(
                                                                       color: kgolder,
@@ -554,7 +458,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
 
                                                                   child: Padding(
                                                                     padding:   EdgeInsets.all(4),
-                                                                    child: Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                                    child: Text(coursesModel.venue!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                                                   ),
                                                                   decoration: BoxDecoration(
                                                                       color: kgolder,
@@ -575,7 +479,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
 
                                                                   child: Padding(
                                                                     padding:   EdgeInsets.all(4),
-                                                                    child: Text("2022-01-15- 07:00 AM",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                                    child: Text(coursesModel.date!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                                                   ),
                                                                   decoration: BoxDecoration(
                                                                       color: kgolder,
@@ -585,40 +489,93 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                                                 ),
                                                               ],
                                                             ),
-                                                            SizedBox(height: 5,),
-                                                            Row(
-                                                              children: [
-                                                                Text("Description :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
-                                                              ],
-                                                            ),
-                                                            Container(
-
-                                                              width: Get.width,
-
-                                                              child: Padding(
-                                                                padding:   EdgeInsets.all(4),
-                                                                child: Text("Do more with MultiQRCreate unlimited branded QR codes and start accepting payments for FREE. T&C apply.",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                                              ),
-                                                              decoration: BoxDecoration(
-                                                                  color: kgolder,
-                                                                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                                  border: Border.all(width: 2,color: Colors.black)
-                                                              ),
-                                                            ),
+                                                            // SizedBox(height: 5,),
+                                                            // Row(
+                                                            //   children: [
+                                                            //     Text("Description :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
+                                                            //   ],
+                                                            // ),
+                                                            // Container(
+                                                            //
+                                                            //   width: Get.width,
+                                                            //
+                                                            //   child: Padding(
+                                                            //     padding:   EdgeInsets.all(4),
+                                                            //     child: Text(coursesModel.,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                                            //   ),
+                                                            //   decoration: BoxDecoration(
+                                                            //       color: kgolder,
+                                                            //       borderRadius: BorderRadius.all(Radius.circular(12)),
+                                                            //       border: Border.all(width: 2,color: Colors.black)
+                                                            //   ),
+                                                            // ),
                                                             SizedBox(height : 40,),
 
                                                             Row(
                                                               mainAxisAlignment: MainAxisAlignment.end,
                                                               children: [
-                                                                Container(
-                                                                  child: Padding(
-                                                                    padding:   EdgeInsets.all(4),
-                                                                    child: Text("Register",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                                                                  ),
-                                                                  decoration: BoxDecoration(
-                                                                      color: kgolder,
-                                                                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                                      border: Border.all(width: 2,color: Colors.black)
+                                                                InkWell(
+                                                                  onTap:() async {
+
+                                                                    setStateDialog(() {
+                                                                      isLoading = true;
+                                                                    });
+                                                                    var isRegistered =
+                                                                        await AllApi().checkIfRegisteredCourse(
+                                                                      courseId: coursesModel.courseId,
+                                                                      empId: widget.userModel!.empId,
+                                                                    );
+                                                                    if (isRegistered == 'not registered') {
+                                                                      var result = await AllApi().registerCourse(
+                                                                          coursesModel: coursesModel,
+                                                                          empName: widget.userModel!.name,
+                                                                          empId: widget.userModel!.empId,
+                                                                          empPhone: widget.userModel!.phoneNumber,
+                                                                          hr_id: widget.userModel!.hrId,
+                                                                          manager_id: widget.userModel!.managerid);
+                                                                      setStateDialog(() {
+                                                                        isLoading = false;
+                                                                      });
+                                                                      Navigator.of(context).pop();
+                                                                      if (result == 'registered') {
+                                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                                          const SnackBar(
+                                                                            content: Text('Registered successfully.'),
+                                                                          ),
+                                                                        );
+                                                                        setState(() {});
+                                                                      } else {
+                                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                                          const SnackBar(
+                                                                            content: Text('Failed to register.'),
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                    } else {
+                                                                      setStateDialog(() {
+                                                                        isLoading = false;
+                                                                      });
+                                                                      Navigator.of(context).pop();
+                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                        const SnackBar(
+                                                                          content: Text(
+                                                                            'You have already registered.',
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+
+                                                    },
+                                                                  child: Container(
+                                                                    child: Padding(
+                                                                      padding:   EdgeInsets.all(4),
+                                                                      child: Text("Register",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                                                                    ),
+                                                                    decoration: BoxDecoration(
+                                                                        color: kgolder,
+                                                                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                                                                        border: Border.all(width: 2,color: Colors.black)
+                                                                    ),
                                                                   ),
                                                                 ),
                                                                 InkWell(
@@ -671,7 +628,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                     width: Get.width,
                                     child: Padding(
                                       padding:   EdgeInsets.only(left: 8.0,top: 6),
-                                      child: Text("Courses One",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                      child: Text(coursesModel.title!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                     ),
                                     decoration: BoxDecoration(
                                         gradient:  LinearGradient(
@@ -685,13 +642,13 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                   SizedBox(height: 10,),
                                   Row(
                                     children: [
-                                      Text("Venue One",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
+                                      Text(coursesModel.venue!,style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
                                     ],
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("2022-01-15 07:00 am",style: TextStyle(fontWeight: FontWeight.bold,color: kgolder, fontSize: 20),),
+                                      Text(coursesModel.date!,style: TextStyle(fontWeight: FontWeight.bold,color: kgolder, fontSize: 20),),
 
                                       Container(
                                         child: Padding(

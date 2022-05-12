@@ -40,6 +40,7 @@ class _ServicesState extends State<Services> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -129,6 +130,7 @@ class _ServicesState extends State<Services> {
                     length: 3,
                     child: Scaffold(
                       appBar: AppBar(
+                        automaticallyImplyLeading: false,
                         shadowColor: Colors.transparent,
                         flexibleSpace: Stack(
                           children: [
@@ -326,6 +328,7 @@ class _ServicesState extends State<Services> {
                         length: 3,
                         child: Scaffold(
                             appBar: AppBar(
+                              automaticallyImplyLeading: false,
                                 shadowColor: Colors.transparent,
                                 flexibleSpace: Stack(
                                   children: [

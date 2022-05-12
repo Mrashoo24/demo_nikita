@@ -1,10 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:demo_nikita/Authentication/loginpage.dart';
 import 'package:demo_nikita/Components/constants.dart';
+import 'package:demo_nikita/Homepage/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Components/api.dart';
+import '../Components/models.dart';
 
 class SplashScreeen extends StatefulWidget {
   const SplashScreeen({Key? key}) : super(key: key);
@@ -19,11 +25,36 @@ class _SplashScreeenState extends State<SplashScreeen> {
   void initState() {
 
     super.initState();
-    Timer(Duration(milliseconds: 2000), (){
+    Timer(Duration(milliseconds: 2000), () async {
 
 
 
-      Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2));
+
+        SharedPreferences pref =   await SharedPreferences.getInstance();
+
+        var usersString = pref.getString("user");
+
+        var converted = usersString == null ? "" : jsonDecode(usersString);
+
+        Map<String, dynamic>? converted1 = usersString == null
+            ? null
+            : json.decode(json.encode(converted)) as Map<String, dynamic>;
+
+        var users =
+        usersString == null ? "" : UserModel().fromJson(converted1!);
+
+        var loggein = pref.getBool("loggedin");
+
+        UserModel? user1 =  loggein != true
+            ? null : await AllApi().getUser(users.email);
+
+
+
+        loggein != true
+            ?  Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
+        :
+        Get.to(Welcome(userModel: user1),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
+        ;
 
 
     });

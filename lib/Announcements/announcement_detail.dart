@@ -23,16 +23,30 @@ class _AnnouncementDetailState extends State<AnnouncementDetail> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/Images/background_image.jpg'),
+          image: AssetImage('assets/bg.jpg'),
           fit: BoxFit.fill,
         ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: kgolder,
-          title: Text(widget.announceModel!.name!),
-          centerTitle: true,
+        appBar:
+        AppBar(
+          automaticallyImplyLeading: true,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      kblack,
+                      kGray
+                    ]
+                )
+            ),
+          ),
+          title: Text(widget.announceModel!.name!,style: TextStyle(color: kgolder),),
+          titleSpacing: 5,
+          shadowColor: Colors.transparent,
         ),
         body: FutureBuilder(
           future: _allApi.loadFile(
@@ -41,9 +55,7 @@ class _AnnouncementDetailState extends State<AnnouncementDetail> {
           ),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return Center(
-                child: Image.asset("assets/Images/loading.gif"),
-              );
+              return kprogressbar;
             } else {
               var file = snapshot.data;
               return ListView(
@@ -59,19 +71,37 @@ class _AnnouncementDetailState extends State<AnnouncementDetail> {
                     height: 30,
                   ),
                   Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.announceModel!.text!,
-                            style: TextStyle(color: kgolder,fontWeight: FontWeight.bold),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8))
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: kgolder,width: 3),
+                          gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                kblack ,
+                                kGray
+                              ]
                           ),
-                          Text(
-                            widget.announceModel!.timestamp!,
-                          ),
-                        ],
+                          borderRadius: BorderRadius.all(Radius.circular(8))
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.announceModel!.text!,
+                              style: TextStyle(color: kgolder,fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              widget.announceModel!.timestamp!,
+                              style: TextStyle(color: kgolder),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

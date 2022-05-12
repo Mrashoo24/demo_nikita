@@ -1,9 +1,14 @@
+import 'package:demo_nikita/Components/api.dart';
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Components/models.dart';
+
 class RelatedSites extends StatefulWidget {
-  const RelatedSites({Key? key}) : super(key: key);
+  final UserModel? userModel;
+
+  const RelatedSites({Key? key, this.userModel}) : super(key: key);
 
   @override
   State<RelatedSites> createState() => _RelatedSitesState();
@@ -11,6 +16,7 @@ class RelatedSites extends StatefulWidget {
 
 class _RelatedSitesState extends State<RelatedSites> {
 var  selectedTitle = '';
+List<RelatedSitesModel>? _relatedSites;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ var  selectedTitle = '';
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight:Radius.circular(15) ),
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomLeft,
@@ -29,7 +35,7 @@ var  selectedTitle = '';
             )
           ),
         ),
-        leading: Icon(Icons.arrow_back),
+        leading: SizedBox(width: 10,),
         title: Text("Related sites",style: TextStyle(color: kgolder),),
         titleSpacing: -8,
         backgroundColor: kgolder2,
@@ -42,12 +48,31 @@ var  selectedTitle = '';
             fit: BoxFit.fill
           )
         ),
-        child: Column(
-          children: [
-              buildContainer("Mehendi","  Lorem ipsum dolor sit amet,consectetuer \nadipiscing elit,sed diam nonummy nibh \neuismod tincidunt","web-it-services.com"),
-            buildContainer("Facebook","  Lorem ipsum dolor sit amet,consectetuer \nadipiscing elit,sed diam nonummy nibh \neuismod tincidunt","facebook.com/"),
-            buildContainer("Twitter","  Lorem ipsum dolor sit amet,consectetuer \nadipiscing elit,sed diam nonummy nibh \neuismod tincidunt","twitter.com/i/flow/login"),
-          ],
+        child: FutureBuilder
+        <List<RelatedSitesModel>?>(
+            future: AllApi().getRelatedSites(
+              companyId: widget.userModel!.companyId,
+            ),
+          builder: (context, snapshot) {
+
+            if (!snapshot.hasData) {
+              return kprogressbar;
+            }
+            if (snapshot.data!.isEmpty) {
+              return const Text('Nothing to show here.');
+            }
+            var relatedSitesList = snapshot.data;
+
+
+            return ListView.builder(
+                itemCount: relatedSitesList!.length,
+                itemBuilder: (context, index) {
+                return
+                  buildContainer(relatedSitesList[index].name!,relatedSitesList[index].description!,relatedSitesList[index].url!);
+
+                }
+            );
+          }
         ),
       )
     );

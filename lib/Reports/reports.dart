@@ -1,198 +1,848 @@
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
+
+import '../Components/api.dart';
+import '../Components/models.dart';
 
 class Reports extends StatefulWidget {
-  const Reports({Key? key}) : super(key: key);
+  final UserModel? userModel;
+
+  const Reports({Key? key, this.userModel}) : super(key: key);
 
   @override
   _ReportsState createState() => _ReportsState();
 }
 
 class _ReportsState extends State<Reports> {
+
+  final _allApi = AllApi();
+
+  late String _selectedFilter;
+   String? dateSelected;
+   String? todateSelected;
+
   @override
   Widget build(BuildContext context) {
     var H = MediaQuery.of(context).size.height;
     var W = MediaQuery.of(context).size.width;
+
+    print('date = $todateSelected');
+
+
     return DefaultTabController(
       length: 4,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: Icon(Icons.arrow_back),
-          title: Text("Reports"),
-          titleSpacing: -5,
-          shadowColor: Colors.transparent,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right:20),
-              child: Icon(Icons.abc_sharp),
-            )
-          ],
-          flexibleSpace: Stack(
-            children: [
-              Container(
-                height: H*.5,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/bg.jpg"),
-                    fit: BoxFit.cover
-                  )
+      child: Builder(
+        builder: (context) {
+          print('idenc = ${DefaultTabController.of(context)!.index}');
+
+          var currentindex = DefaultTabController.of(context)!.index;
+          return Scaffold(
+              appBar:AppBar(
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            kblack,
+                            kGray
+                          ]
+                      )
+                  ),
                 ),
+                leading: SizedBox(width: 5,),
+                title: Text("Reports",style: TextStyle(color: kgolder),),
+                titleSpacing: 5,
+                shadowColor: Colors.transparent,
               ),
-              Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          kblack,kGray
-                        ]
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
-              ),
-            ],
-          )
-        ),
-        body: Stack(
-          children: [
-            Container(
-              height: H,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/bg.jpg"),
-                      fit: BoxFit.cover
-                  )
-              ),
-            ),
-            Column(
+            body: Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.all(8),
-                  height: 50,
+                  height: H,
                   decoration: BoxDecoration(
-                      color: kgolder,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      border: Border.all(color: Colors.black,width: 2)
-                  ),
-                  child: TabBar(
-                    labelColor: kgolder,
-                    indicator: BoxDecoration(
-                      color: kGray,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    unselectedLabelColor: kblack,
-                    tabs: [
-                      Text("All"),
-                      Text("Perfect"),
-                      Text("Early",style: TextStyle(fontSize: 13),),
-                      Text("Late")
-                    ],
+                      image: DecorationImage(
+                          image: AssetImage("assets/bg.jpg"),
+                          fit: BoxFit.cover
+                      )
                   ),
                 ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("From"),
-                                    SizedBox(height: 10,),
-                                    Container(
-                                      padding: EdgeInsets.all(5),
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                          color: kGray,
-                                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                                          border: Border.all(color: Colors.black)
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Text("DD/MM/YYYY"),SizedBox(width: 5,),
-                                          CircleAvatar(
-                                              backgroundColor: kgolder,
-                                              minRadius: 5,
-                                              child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("To"),
-                                  SizedBox(height: 10,),
-                                  Container(
-                                    padding: EdgeInsets.all(5),
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                        color: kGray,
-                                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                                        border: Border.all(color: Colors.black)
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text("DD/MM/YYYY"),SizedBox(width: 5,),
-                                        CircleAvatar(
-                                            backgroundColor: kgolder,
-                                            minRadius: 5,
-                                            child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Icon(Icons.abc_sharp),
-                              Icon(Icons.star)
-                            ],
-                          ),SizedBox(height: 10,),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: 5,
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext context, int index) {
-                                return buildReportContainer();
-                              },),
-                          )
+                Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(8),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: kgolder,
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          border: Border.all(color: Colors.black,width: 2)
+                      ),
+                      child: TabBar(
+                        labelColor: kgolder,
+                        indicator: BoxDecoration(
+                          color: kblack,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        unselectedLabelColor: kblack,
+                        tabs: [
+                          Text("All"),
+                          Text("Perfect"),
+                          Text("Early",style: TextStyle(fontSize: 13),),
+                          Text("Late")
                         ],
                       ),
-                      Container(
-                        child: Center(
-                          child: Text("das"),
-                        ),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now()
+                                              .subtract(const Duration(days: 120)),
+                                          maxTime: DateTime(2050, 6, 7), onChanged: (date) {
+                                            setState(() {
+                                              dateSelected = date.toString();
+                                            });
+                                          }, onConfirm: (date) {
+                                            setState(() {
+                                              dateSelected = date.toString();
+                                            });
+                                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("From"),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            padding: EdgeInsets.all(5),
+
+                                            decoration: BoxDecoration(
+                                                color: kGray,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                border: Border.all(color: Colors.black)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                   Text(
+
+                                                  dateSelected == null
+                                                      ? "dd-mm-yyyy"
+                                                      : DateFormat("yyyy-MM-dd")
+                                                      .parse(dateSelected!)
+                                                      .day
+                                                      .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(dateSelected!)
+                                                          .month
+                                                          .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(dateSelected!)
+                                                          .year
+                                                          .toString(),
+
+                                                )
+
+                                                ,
+                                                SizedBox(width: 5,),
+                                                CircleAvatar(
+                                                    backgroundColor: kgolder,
+                                                    minRadius: 5,
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: (){
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now().subtract(Duration(days: 365)),
+                                          maxTime: DateTime(2050, 6, 7), onChanged: (date) {
+                                            setState(() {
+                                              todateSelected = date.toString();
+                                            });
+                                          }, onConfirm: (date) {
+                                            setState(() {
+                                              todateSelected = date.toString();
+                                            });
+                                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("To"),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            padding: EdgeInsets.all(5),
+
+                                            decoration: BoxDecoration(
+                                                color: kGray,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                border: Border.all(color: Colors.black)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+
+                                                  todateSelected == null
+                                                      ? "dd-mm-yyyy"
+                                                      : DateFormat("yyyy-MM-dd")
+                                                      .parse(todateSelected!)
+                                                      .day
+                                                      .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(todateSelected!)
+                                                          .month
+                                                          .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(todateSelected!)
+                                                          .year
+                                                          .toString(),
+
+                                                )
+
+                                                ,
+                                                SizedBox(width: 5,),
+                                                CircleAvatar(
+                                                    backgroundColor: kgolder,
+                                                    minRadius: 5,
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(Icons.abc_sharp),
+                                  Icon(Icons.star)
+                                ],
+                              ),SizedBox(height: 10,),
+                              if (dateSelected != null && todateSelected != null)
+
+                                Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 80),
+                                  child: FutureBuilder<List<AttendanceReportModel>?>(
+                                      future: _allApi.getCheckInHistory(
+                                        empId: widget.userModel!.empId,
+                                        companyId: widget.userModel!.companyId,
+                                        status: currentindex == 0 ? 'perfect' : 'perfect',
+                                            // : _selectedFilter == 'Late'
+                                            // ? 'late'
+                                            // : 'perfect',
+                                        fromDate: dateSelected,
+                                        toDate: todateSelected,
+                                      ),
+                                    builder: (context, snapshot) {
+
+                                      if (!snapshot.hasData) {
+                                        return kprogressbar;
+                                      } else if (snapshot.data!.isEmpty) {
+                                        return const Center(
+                                          child: Text('Nothing to show.'),
+                                        );
+                                      }
+                                      var checkInHistoryList = snapshot.data;
+
+
+                                      return ListView.builder(
+                                        itemCount: checkInHistoryList!.length,
+                                        shrinkWrap: true,
+                                        itemBuilder: (BuildContext context, int index) {
+
+                                          return buildReportContainer(checkInHistoryList[index]);
+
+                                        },);
+                                    }
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now()
+                                              .subtract(const Duration(days: 120)),
+                                          maxTime: DateTime(2050, 6, 7), onChanged: (date) {
+                                            setState(() {
+                                              dateSelected = date.toString();
+                                            });
+                                          }, onConfirm: (date) {
+                                            setState(() {
+                                              dateSelected = date.toString();
+                                            });
+                                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("From"),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            padding: EdgeInsets.all(5),
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                color: kGray,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                border: Border.all(color: Colors.black)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+
+                                                  dateSelected == null
+                                                      ? "From Date"
+                                                      : DateFormat("yyyy-MM-dd")
+                                                      .parse(dateSelected!)
+                                                      .day
+                                                      .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(dateSelected!)
+                                                          .month
+                                                          .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(dateSelected!)
+                                                          .year
+                                                          .toString(),
+
+                                                )
+
+                                                ,
+                                                SizedBox(width: 5,),
+                                                CircleAvatar(
+                                                    backgroundColor: kgolder,
+                                                    minRadius: 5,
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: (){
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now().subtract(Duration(days: 365)),
+                                          maxTime: DateTime(2050, 6, 7), onChanged: (date) {
+                                            setState(() {
+                                              todateSelected = date.toString();
+                                            });
+                                          }, onConfirm: (date) {
+                                            setState(() {
+                                              todateSelected = date.toString();
+                                            });
+                                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("To"),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            padding: EdgeInsets.all(5),
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                color: kGray,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                border: Border.all(color: Colors.black)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+
+                                                  todateSelected == null
+                                                      ? "To Date"
+                                                      : DateFormat("yyyy-MM-dd")
+                                                      .parse(todateSelected!)
+                                                      .day
+                                                      .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(todateSelected!)
+                                                          .month
+                                                          .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(todateSelected!)
+                                                          .year
+                                                          .toString(),
+
+                                                ),
+                                                SizedBox(width: 5,),
+                                                CircleAvatar(
+                                                    backgroundColor: kgolder,
+                                                    minRadius: 5,
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(Icons.abc_sharp),
+                                  Icon(Icons.star)
+                                ],
+                              ),SizedBox(height: 10,),
+                              if (dateSelected != null && todateSelected != null)
+
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(bottom: 80),
+                                    child: FutureBuilder<List<AttendanceReportModel>?>(
+                                        future: _allApi.getCheckInHistory(
+                                          empId: widget.userModel!.empId,
+                                          companyId: widget.userModel!.companyId,
+                                          status:  'perfect',
+                                          // : _selectedFilter == 'Late'
+                                          // ? 'late'
+                                          // : 'perfect',
+                                          fromDate: dateSelected,
+                                          toDate: todateSelected,
+                                        ),
+                                        builder: (context, snapshot) {
+
+                                          if (!snapshot.hasData) {
+                                            return kprogressbar;
+                                          } else if (snapshot.data!.isEmpty) {
+                                            return const Center(
+                                              child: Text('Nothing to show.'),
+                                            );
+                                          }
+                                          var checkInHistoryList = snapshot.data;
+
+
+                                          return ListView.builder(
+                                            itemCount: checkInHistoryList!.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (BuildContext context, int index) {
+
+                                              return buildReportContainer(checkInHistoryList[index]);
+
+                                            },);
+                                        }
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now()
+                                              .subtract(const Duration(days: 120)),
+                                          maxTime: DateTime(2050, 6, 7), onChanged: (date) {
+                                            setState(() {
+                                              dateSelected = date.toString();
+                                            });
+                                          }, onConfirm: (date) {
+                                            setState(() {
+                                              dateSelected = date.toString();
+                                            });
+                                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("From"),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            padding: EdgeInsets.all(5),
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                color: kGray,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                border: Border.all(color: Colors.black)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+
+                                                  dateSelected == null
+                                                      ? "From Date"
+                                                      : DateFormat("yyyy-MM-dd")
+                                                      .parse(dateSelected!)
+                                                      .day
+                                                      .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(dateSelected!)
+                                                          .month
+                                                          .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(dateSelected!)
+                                                          .year
+                                                          .toString(),
+
+                                                )
+
+                                                ,
+                                                SizedBox(width: 5,),
+                                                CircleAvatar(
+                                                    backgroundColor: kgolder,
+                                                    minRadius: 5,
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: (){
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now().subtract(Duration(days: 365)),
+                                          maxTime: DateTime(2050, 6, 7), onChanged: (date) {
+                                            setState(() {
+                                              todateSelected = date.toString();
+                                            });
+                                          }, onConfirm: (date) {
+                                            setState(() {
+                                              todateSelected = date.toString();
+                                            });
+                                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("To"),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            padding: EdgeInsets.all(5),
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                color: kGray,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                border: Border.all(color: Colors.black)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+
+                                                  todateSelected == null
+                                                      ? "To Date"
+                                                      : DateFormat("yyyy-MM-dd")
+                                                      .parse(todateSelected!)
+                                                      .day
+                                                      .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(todateSelected!)
+                                                          .month
+                                                          .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(todateSelected!)
+                                                          .year
+                                                          .toString(),
+
+                                                )
+
+                                                ,
+                                                SizedBox(width: 5,),
+                                                CircleAvatar(
+                                                    backgroundColor: kgolder,
+                                                    minRadius: 5,
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(Icons.abc_sharp),
+                                  Icon(Icons.star)
+                                ],
+                              ),SizedBox(height: 10,),
+                              if (dateSelected != null && todateSelected != null)
+
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                      bottom: 80
+                                    ),
+                                    child: FutureBuilder<List<AttendanceReportModel>?>(
+                                        future: _allApi.getCheckInHistory(
+                                          empId: widget.userModel!.empId,
+                                          companyId: widget.userModel!.companyId,
+                                          status:  'early',
+                                          // : _selectedFilter == 'Late'
+                                          // ? 'late'
+                                          // : 'perfect',
+                                          fromDate: dateSelected,
+                                          toDate: todateSelected,
+                                        ),
+                                        builder: (context, snapshot) {
+
+                                          if (!snapshot.hasData) {
+                                            return kprogressbar;
+                                          } else if (snapshot.data!.isEmpty) {
+                                            return const Center(
+                                              child: Text('Nothing to show.'),
+                                            );
+                                          }
+                                          var checkInHistoryList = snapshot.data;
+
+
+                                          return ListView.builder(
+                                            itemCount: checkInHistoryList!.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (BuildContext context, int index) {
+
+                                              return buildReportContainer(checkInHistoryList[index]);
+
+                                            },);
+                                        }
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now()
+                                              .subtract(const Duration(days: 120)),
+                                          maxTime: DateTime(2050, 6, 7), onChanged: (date) {
+                                            setState(() {
+                                              dateSelected = date.toString();
+                                            });
+                                          }, onConfirm: (date) {
+                                            setState(() {
+                                              dateSelected = date.toString();
+                                            });
+                                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("From"),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            padding: EdgeInsets.all(5),
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                color: kGray,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                border: Border.all(color: Colors.black)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+
+                                                  dateSelected == null
+                                                      ? "From Date"
+                                                      : DateFormat("yyyy-MM-dd")
+                                                      .parse(dateSelected!)
+                                                      .day
+                                                      .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(dateSelected!)
+                                                          .month
+                                                          .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(dateSelected!)
+                                                          .year
+                                                          .toString(),
+
+                                                )
+
+                                                ,
+                                                SizedBox(width: 5,),
+                                                CircleAvatar(
+                                                    backgroundColor: kgolder,
+                                                    minRadius: 5,
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: (){
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now().subtract(Duration(days: 365)),
+                                          maxTime: DateTime(2050, 6, 7), onChanged: (date) {
+                                            setState(() {
+                                              todateSelected = date.toString();
+                                            });
+                                          }, onConfirm: (date) {
+                                            setState(() {
+                                              todateSelected = date.toString();
+                                            });
+                                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("To"),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            padding: EdgeInsets.all(5),
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                color: kGray,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                border: Border.all(color: Colors.black)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+
+                                                  todateSelected == null
+                                                      ? "To Date"
+                                                      : DateFormat("yyyy-MM-dd")
+                                                      .parse(todateSelected!)
+                                                      .day
+                                                      .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(todateSelected!)
+                                                          .month
+                                                          .toString() +
+                                                      "-" +
+                                                      DateFormat("yyyy-MM-dd")
+                                                          .parse(todateSelected!)
+                                                          .year
+                                                          .toString(),
+
+                                                )
+
+                                                ,
+                                                SizedBox(width: 5,),
+                                                CircleAvatar(
+                                                    backgroundColor: kgolder,
+                                                    minRadius: 5,
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(Icons.abc_sharp),
+                                  Icon(Icons.star)
+                                ],
+                              ),SizedBox(height: 10,),
+                              if (dateSelected != null && todateSelected != null)
+
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(bottom: 80),
+                                    child: FutureBuilder<List<AttendanceReportModel>?>(
+                                        future: _allApi.getCheckInHistory(
+                                          empId: widget.userModel!.empId,
+                                          companyId: widget.userModel!.companyId,
+                                          status:  'late',
+                                          // : _selectedFilter == 'Late'
+                                          // ? 'late'
+                                          // : 'perfect',
+                                          fromDate: dateSelected,
+                                          toDate: todateSelected,
+                                        ),
+                                        builder: (context, snapshot) {
+
+                                          if (!snapshot.hasData) {
+                                            return kprogressbar;
+                                          } else if (snapshot.data!.isEmpty) {
+                                            return const Center(
+                                              child: Text('Nothing to show.'),
+                                            );
+                                          }
+                                          var checkInHistoryList = snapshot.data;
+
+
+                                          return ListView.builder(
+                                            itemCount: checkInHistoryList!.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (BuildContext context, int index) {
+
+                                              return buildReportContainer(checkInHistoryList[index]);
+
+                                            },);
+                                        }
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
+                        ],
                       ),
-                      Container(
-                        child: Center(
-                          child: Text("das"),
-                        ),
-                      ),
-                      Container(
-                        child: Center(
-                          child: Text("das"),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
-            ),
-          ],
-        )
+            )
 
+          );
+        }
       ),
     );
   }
 
-  Container buildReportContainer() {
+  Container buildReportContainer(AttendanceReportModel checkInHistoryList) {
     return Container(
                       margin: EdgeInsets.all(4),
                       decoration: BoxDecoration(
@@ -221,11 +871,11 @@ class _ReportsState extends State<Reports> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Date : 28/01/2022"),
+                                Text("Date : ${checkInHistoryList.date}"),
                                 Row(
                                   children: [
                                     Icon(Icons.star),
-                                    Text("OT:2.45 Hrs")
+                                    Text("OT:${checkInHistoryList.checkOutDifference} Hrs")
                                   ],
                                 ),
                               ],
@@ -239,21 +889,21 @@ class _ReportsState extends State<Reports> {
                               Container(
                                 padding: EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
                                 decoration: BoxDecoration(
-                                  color: Colors.red,
+                                  color: checkInHistoryList.status == 'late' ? Colors.red : kGreen,
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                   border: Border.all(color: Colors.black)
                                 ),
-                                child: Text("04:30 AM"),
+                                child: Text("${checkInHistoryList.checkInTime}"),
                               ),
                               Text("Check Out:",style: TextStyle(color: kgolder)),
                               Container(
                                 padding: EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
                                 decoration: BoxDecoration(
-                                    color: kGreen,
+                                    color:checkInHistoryList.workingstatus == 'early' ? Colors.red : kGreen,
                                     borderRadius: BorderRadius.all(Radius.circular(10)),
                                     border: Border.all(color: Colors.black)
                                 ),
-                                child: Text("04:30 AM"),
+                                child: Text("${checkInHistoryList.checkOutTime}"),
                               )
                             ],
                           ),

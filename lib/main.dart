@@ -113,6 +113,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -135,45 +136,8 @@ class _MyAppState extends State<MyApp> {
 
       ),
 
-      home:FutureBuilder<SharedPreferences>(
-          future: SharedPreferences.getInstance(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: Image.asset("assets/Images/loading.gif"),
-              );
-            }
-
-            SharedPreferences pref = snapshot.requireData;
-
-            var usersString = pref.getString("user");
-
-            var converted = usersString == null ? "" : jsonDecode(usersString);
-
-            Map<String, dynamic>? converted1 = usersString == null
-                ? null
-                : json.decode(json.encode(converted)) as Map<String, dynamic>;
-
-            var users =
-            usersString == null ? "" : UserModel().fromJson(converted1!);
-
-            var loggein = pref.getBool("loggedin");
-
-            return loggein == true
-                ? FutureBuilder<UserModel>(
-                future: AllApi().getUser(users.email),
-                builder: (context, snapshot1) {
-
-                  if (!snapshot1.hasData) {
-                    return kprogressbar;
-                  }
-                  UserModel? user1 = snapshot1.requireData;
-
-                  return Welcome(userModel: user1);
-                }
-            )
-                : const LoginPage();
-          })
+      home:
+      SplashScreeen()
 
     );
 
