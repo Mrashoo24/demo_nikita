@@ -1,5 +1,6 @@
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import 'Components/api.dart';
@@ -86,10 +87,21 @@ class _EnquiryChatState extends State<EnquiryChat> {
             reverse: true,
             itemCount: enquiries!.length,
             itemBuilder: (context, index) {
-              return _messageBox(
-                text: enquiries[index].description!,
-                isMe: !enquiries[index].subject!.contains('Reply'),
-                timeStamp: enquiries[index].timeStamp!,
+
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(milliseconds: 700),
+                child: SlideAnimation(
+                  duration: Duration(milliseconds: 500),
+                  horizontalOffset: 200.0,
+                  child: FadeInAnimation(
+                    child: _messageBox(
+                      text: enquiries[index].description!,
+                      isMe: !enquiries[index].subject!.contains('Reply'),
+                      timeStamp: enquiries[index].timeStamp!,
+                    ),
+                  ),
+                ),
               );
             },
           );

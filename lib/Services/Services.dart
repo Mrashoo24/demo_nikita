@@ -1,6 +1,7 @@
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
@@ -39,6 +40,7 @@ class _ServicesState extends State<Services> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        backgroundColor: kgolder,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: Container(
@@ -121,7 +123,19 @@ class _ServicesState extends State<Services> {
                      child: ListView.builder(
                        itemCount: _services.length,
                        itemBuilder: (BuildContext context, int index) {
-                         return  buildCertificate(H, W,_services[index]);
+
+                       return AnimationConfiguration.staggeredList(
+                         position: index,
+                             duration: const Duration(milliseconds: 700),
+                             child: SlideAnimation(
+                               duration: Duration(milliseconds: 500),
+                               horizontalOffset: 200.0,
+                               child: FadeInAnimation(
+                                 child: buildCertificate(H, W,_services[index]),
+                               ),
+                             ),
+                       );
+                        
                        },
 
                      ),
@@ -202,14 +216,24 @@ class _ServicesState extends State<Services> {
                                       child: ListView.builder(
                                         itemCount: list.length,
                                         itemBuilder: (BuildContext context, int index) {
-                                          return buildCertificateName( list: list,
-                                            index: index,
-                                            onPressedView: () {
-                                              _onPressedView(
-                                                list: list,
-                                                index: index,
-                                              );
-                                            },);
+                                          return AnimationConfiguration.staggeredList(
+                                            position: index,
+                                            duration: const Duration(milliseconds: 700),
+                                            child: SlideAnimation(
+                                              duration: Duration(milliseconds: 500),
+                                              horizontalOffset: 200.0,
+                                              child: FadeInAnimation(
+                                                child: buildCertificateName( list: list,
+                                                  index: index,
+                                                  onPressedView: () {
+                                                    _onPressedView(
+                                                      list: list,
+                                                      index: index,
+                                                    );
+                                                  },),
+                                              ),
+                                            ),
+                                          );
 
                                         },
 
@@ -252,14 +276,25 @@ class _ServicesState extends State<Services> {
                                         child: ListView.builder(
                                           itemCount: list.length,
                                           itemBuilder: (BuildContext context, int index) {
-                                            return buildCertificateName( list: list,
-                                              index: index,
-                                              onPressedView: () {
-                                                _onPressedView(
-                                                  list: list,
-                                                  index: index,
-                                                );
-                                              },);
+
+                                            return AnimationConfiguration.staggeredList(
+                                              position: index,
+                                              duration: const Duration(milliseconds: 700),
+                                              child: SlideAnimation(
+                                                duration: Duration(milliseconds: 500),
+                                                horizontalOffset: 200.0,
+                                                child: FadeInAnimation(
+                                                  child: buildCertificateName( list: list,
+                                                    index: index,
+                                                    onPressedView: () {
+                                                      _onPressedView(
+                                                        list: list,
+                                                        index: index,
+                                                      );
+                                                    },),
+                                                ),
+                                              ),
+                                            );
 
                                           },
 
@@ -302,14 +337,24 @@ class _ServicesState extends State<Services> {
                                         child: ListView.builder(
                                           itemCount: list.length,
                                           itemBuilder: (BuildContext context, int index) {
-                                            return buildCertificateReject( list: list,
-                                              index: index,
-                                              onPressedView: () {
-                                                _onPressedView(
-                                                  list: list,
-                                                  index: index,
-                                                );
-                                              },);
+                                            return AnimationConfiguration.staggeredList(
+                                              position: index,
+                                              duration: const Duration(milliseconds: 700),
+                                              child: SlideAnimation(
+                                                duration: Duration(milliseconds: 500),
+                                                horizontalOffset: 200.0,
+                                                child: FadeInAnimation(
+                                                  child: buildCertificateReject( list: list,
+                                                    index: index,
+                                                    onPressedView: () {
+                                                      _onPressedView(
+                                                        list: list,
+                                                        index: index,
+                                                      );
+                                                    },),
+                                                ),
+                                              ),
+                                            );
 
                                           },
 
@@ -400,22 +445,33 @@ class _ServicesState extends State<Services> {
                                               child: ListView.builder(
                                                 itemCount: list.length,
                                                 itemBuilder: (BuildContext context, int index) {
-                                                  return buildCertificateMoreRequest( list: list,
-                                                    index: index,
-                                                    onPressedView: () async {
-                                                      setState(() {
-                                                        _isOpening = true;
-                                                      });
-                                                      var file = await _allApi.loadFile(
-                                                        url:
-                                                        'http://faizeetech.com/pdf/${list[index].fileName}',
-                                                        fileName: list[index].fileName,
-                                                      );
-                                                      await OpenFile.open(file.path);
-                                                      setState(() {
-                                                        _isOpening = false;
-                                                      });
-                                                    },);
+
+                                                  return AnimationConfiguration.staggeredList(
+                                                    position: index,
+                                                    duration: const Duration(milliseconds: 700),
+                                                    child: SlideAnimation(
+                                                      duration: Duration(milliseconds: 500),
+                                                      horizontalOffset: 200.0,
+                                                      child: FadeInAnimation(
+                                                        child: buildCertificateMoreRequest( list: list,
+                                                          index: index,
+                                                          onPressedView: () async {
+                                                            setState(() {
+                                                              _isOpening = true;
+                                                            });
+                                                            var file = await _allApi.loadFile(
+                                                              url:
+                                                              'http://faizeetech.com/pdf/${list[index].fileName}',
+                                                              fileName: list[index].fileName,
+                                                            );
+                                                            await OpenFile.open(file.path);
+                                                            setState(() {
+                                                              _isOpening = false;
+                                                            });
+                                                          },),
+                                                      ),
+                                                    ),
+                                                  );
 
                                                 },
 
@@ -458,22 +514,34 @@ class _ServicesState extends State<Services> {
                                               child: ListView.builder(
                                                 itemCount: list.length,
                                                 itemBuilder: (BuildContext context, int index) {
-                                                  return buildCertificateMoreRequest( list: list,
-                                                    index: index,
-                                                    onPressedView: () async {
-                                                      setState(() {
-                                                        _isOpening = true;
-                                                      });
-                                                      var file = await _allApi.loadFile(
-                                                        url:
-                                                        'http://faizeetech.com/pdf/${list[index].fileName}',
-                                                        fileName: list[index].fileName,
-                                                      );
-                                                      await OpenFile.open(file.path);
-                                                      setState(() {
-                                                        _isOpening = false;
-                                                      });
-                                                    },);
+
+                                                  return AnimationConfiguration.staggeredList(
+                                                    position: index,
+                                                    duration: const Duration(milliseconds: 700),
+                                                    child: SlideAnimation(
+                                                      duration: Duration(milliseconds: 500),
+                                                      horizontalOffset: 200.0,
+                                                      child: FadeInAnimation(
+                                                        child: buildCertificateMoreRequest( list: list,
+                                                          index: index,
+                                                          onPressedView: () async {
+                                                            setState(() {
+                                                              _isOpening = true;
+                                                            });
+                                                            var file = await _allApi.loadFile(
+                                                              url:
+                                                              'http://faizeetech.com/pdf/${list[index].fileName}',
+                                                              fileName: list[index].fileName,
+                                                            );
+                                                            await OpenFile.open(file.path);
+                                                            setState(() {
+                                                              _isOpening = false;
+                                                            });
+                                                          },),
+                                                      ),
+                                                    ),
+                                                  );
+                                                  
 
                                                 },
 
@@ -516,22 +584,32 @@ class _ServicesState extends State<Services> {
                                               child: ListView.builder(
                                                 itemCount: list.length,
                                                 itemBuilder: (BuildContext context, int index) {
-                                                  return buildCertificateMoreRequest( list: list,
-                                                    index: index,
-                                                    onPressedView: () async {
-                                                      setState(() {
-                                                        _isOpening = true;
-                                                      });
-                                                      var file = await _allApi.loadFile(
-                                                        url:
-                                                        'http://faizeetech.com/pdf/${list[index].fileName}',
-                                                        fileName: list[index].fileName,
-                                                      );
-                                                      await OpenFile.open(file.path);
-                                                      setState(() {
-                                                        _isOpening = false;
-                                                      });
-                                                    },);
+                                                  return AnimationConfiguration.staggeredList(
+                                                    position: index,
+                                                    duration: const Duration(milliseconds: 700),
+                                                    child: SlideAnimation(
+                                                      duration: Duration(milliseconds: 500),
+                                                      horizontalOffset: 200.0,
+                                                      child: FadeInAnimation(
+                                                        child: buildCertificateMoreRequest( list: list,
+                                                          index: index,
+                                                          onPressedView: () async {
+                                                            setState(() {
+                                                              _isOpening = true;
+                                                            });
+                                                            var file = await _allApi.loadFile(
+                                                              url:
+                                                              'http://faizeetech.com/pdf/${list[index].fileName}',
+                                                              fileName: list[index].fileName,
+                                                            );
+                                                            await OpenFile.open(file.path);
+                                                            setState(() {
+                                                              _isOpening = false;
+                                                            });
+                                                          },),
+                                                      ),
+                                                    ),
+                                                  );
 
                                                 },
 

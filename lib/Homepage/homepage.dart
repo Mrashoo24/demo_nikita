@@ -20,6 +20,7 @@ import '../Components/Arrow/arrowclipper.dart';
 import '../Components/Arrow/test.dart';
 import '../Components/models.dart';
 import '../Enquiry.dart';
+import '../FaultyAttendence/late_reason.dart';
 import '../Leaves/administrative_leave.dart';
 
 
@@ -192,6 +193,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     var listofwidget = [
       Services(userModel: widget.userModel,),
       EnquiryChat(userModel: widget.userModel,),
+
       MainHomePage(userModel: widget.userModel, function: (){
 
         setState(() {
@@ -202,11 +204,12 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
         });
 
       },),
+
       Reports(userModel: widget.userModel,),
       Requests(userModel: widget.userModel,),//Leave
       HrEnrollCourses(userModel: widget.userModel,),
       AdminstrativLeave(userModel: widget.userModel,),//Admin,
-      Container(),//faulty,
+      LateReason(userModel: widget.userModel!,),
       BenchList(userModel: widget.userModel),//benchlist,
       RelatedSites(userModel: widget.userModel,)
     ];

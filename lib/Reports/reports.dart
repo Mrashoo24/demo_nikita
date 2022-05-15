@@ -1,6 +1,7 @@
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 
 import '../Components/api.dart';
@@ -270,7 +271,19 @@ class _ReportsState extends State<Reports> {
                                         shrinkWrap: true,
                                         itemBuilder: (BuildContext context, int index) {
 
-                                          return buildReportContainer(checkInHistoryList[index]);
+                                        return  AnimationConfiguration.staggeredList(
+                                            position: index,
+                                            duration: const Duration(milliseconds: 700),
+                                            child: SlideAnimation(
+                                              duration: Duration(milliseconds: 500),
+                                              horizontalOffset: 200.0,
+                                              child: FadeInAnimation(
+                                                child: buildReportContainer(checkInHistoryList[index]),
+                                              ),
+                                            ),
+                                          );
+
+
 
                                         },);
                                     }
@@ -450,8 +463,19 @@ class _ReportsState extends State<Reports> {
                                             itemCount: checkInHistoryList!.length,
                                             shrinkWrap: true,
                                             itemBuilder: (BuildContext context, int index) {
+                                              return  AnimationConfiguration.staggeredList(
+                                                position: index,
+                                                duration: const Duration(milliseconds: 700),
+                                                child: SlideAnimation(
+                                                  duration: Duration(milliseconds: 500),
+                                                  horizontalOffset: 200.0,
+                                                  child: FadeInAnimation(
+                                                    child: buildReportContainer(checkInHistoryList[index]),
+                                                  ),
+                                                ),
+                                              );
 
-                                              return buildReportContainer(checkInHistoryList[index]);
+
 
                                             },);
                                         }
@@ -635,8 +659,19 @@ class _ReportsState extends State<Reports> {
                                             itemCount: checkInHistoryList!.length,
                                             shrinkWrap: true,
                                             itemBuilder: (BuildContext context, int index) {
+                                              return  AnimationConfiguration.staggeredList(
+                                                position: index,
+                                                duration: const Duration(milliseconds: 700),
+                                                child: SlideAnimation(
+                                                  duration: Duration(milliseconds: 500),
+                                                  horizontalOffset: 200.0,
+                                                  child: FadeInAnimation(
+                                                    child:buildReportContainer(checkInHistoryList[index]),
+                                                  ),
+                                                ),
+                                              );
 
-                                              return buildReportContainer(checkInHistoryList[index]);
+
 
                                             },);
                                         }
@@ -818,8 +853,19 @@ class _ReportsState extends State<Reports> {
                                             itemCount: checkInHistoryList!.length,
                                             shrinkWrap: true,
                                             itemBuilder: (BuildContext context, int index) {
+                                              return  AnimationConfiguration.staggeredList(
+                                                position: index,
+                                                duration: const Duration(milliseconds: 700),
+                                                child: SlideAnimation(
+                                                  duration: Duration(milliseconds: 500),
+                                                  horizontalOffset: 200.0,
+                                                  child: FadeInAnimation(
+                                                    child:buildReportContainer(checkInHistoryList[index]),
+                                                  ),
+                                                ),
+                                              );
 
-                                              return buildReportContainer(checkInHistoryList[index]);
+
 
                                             },);
                                         }

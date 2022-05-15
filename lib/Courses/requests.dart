@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -224,7 +225,18 @@ class _RequestsState extends State<Requests> {
                                                     return ListView.builder(
                                                       itemCount: list!.length,
                                                       itemBuilder: (BuildContext context, int index) {
-                                                        return buildCertificateName(list[index]);
+                                                        return  AnimationConfiguration.staggeredList(
+                                                          position: index,
+                                                          duration: const Duration(milliseconds: 700),
+                                                          child: SlideAnimation(
+                                                            duration: Duration(milliseconds: 500),
+                                                            horizontalOffset: 200.0,
+                                                            child: FadeInAnimation(
+                                                              child:buildCertificateName(list[index]),
+                                                            ),
+                                                          ),
+                                                        );
+
 
                                                       },
 
@@ -267,6 +279,17 @@ class _RequestsState extends State<Requests> {
                                                       return ListView.builder(
                                                         itemCount: list!.length,
                                                         itemBuilder: (BuildContext context, int index) {
+                                                          return  AnimationConfiguration.staggeredList(
+                                                            position: index,
+                                                            duration: const Duration(milliseconds: 700),
+                                                            child: SlideAnimation(
+                                                              duration: Duration(milliseconds: 500),
+                                                              horizontalOffset: 200.0,
+                                                              child: FadeInAnimation(
+                                                                child:buildCertificateName(list[index]),
+                                                              ),
+                                                            ),
+                                                          );
                                                           return buildCertificateName(list[index]);
 
                                                         },
@@ -310,7 +333,18 @@ class _RequestsState extends State<Requests> {
                                                       return ListView.builder(
                                                         itemCount: list!.length,
                                                         itemBuilder: (BuildContext context, int index) {
-                                                          return buildCertificateName(list[index]);
+                                                          return  AnimationConfiguration.staggeredList(
+                                                            position: index,
+                                                            duration: const Duration(milliseconds: 700),
+                                                            child: SlideAnimation(
+                                                              duration: Duration(milliseconds: 500),
+                                                              horizontalOffset: 200.0,
+                                                              child: FadeInAnimation(
+                                                                child: buildCertificateName(list[index]),
+                                                              ),
+                                                            ),
+                                                          );
+
 
                                                         },
 
@@ -371,13 +405,23 @@ class _RequestsState extends State<Requests> {
                   child: ListView.builder(
                     itemCount: leaveRequests!.length,
                     itemBuilder: (context, index) {
-                      return _radioListTile(
-                        title: leaveRequests[index].title!,
-                        subtitle: leaveRequests[index].subtitle!,
-                        value: index + 1,
-                        details: leaveRequests[index].details!,
-                        attachments: leaveRequests[index].attachments,
-                        leaves: leaveRequests[index],
+                      return  AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 700),
+                        child: SlideAnimation(
+                          duration: Duration(milliseconds: 500),
+                          horizontalOffset: 200.0,
+                          child: FadeInAnimation(
+                            child: _radioListTile(
+                              title: leaveRequests[index].title!,
+                              subtitle: leaveRequests[index].subtitle!,
+                              value: index + 1,
+                              details: leaveRequests[index].details!,
+                              attachments: leaveRequests[index].attachments,
+                              leaves: leaveRequests[index],
+                            ),
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -729,30 +773,40 @@ class _RequestsState extends State<Requests> {
                           child: ListView.builder(
                             itemCount: details.length,
                             itemBuilder: (ctx, index) {
-                              return TextFormField(
-                                decoration: InputDecoration(
-                                  hintText: details[index],
-                                    hintStyle: TextStyle(color: kgolder),
-                                  border: UnderlineInputBorder(borderSide: BorderSide(color: kgolder)),
-                                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-,
-                                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-,
-                                    disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                             return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 700),
+                                child: SlideAnimation(
+                                  duration: Duration(milliseconds: 500),
+                                  horizontalOffset: 200.0,
+                                  child: FadeInAnimation(
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                          hintText: details[index],
+                                          hintStyle: TextStyle(color: kgolder),
+                                          border: UnderlineInputBorder(borderSide: BorderSide(color: kgolder)),
+                                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                          ,
+                                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                          ,
+                                          disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
 
-
+                                      ),
+                                      style: TextStyle(color: kgolder),
+                                      onSaved: (value) {
+                                        textFieldValues.add(value);
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please fill out this field';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
                                 ),
-                                style: TextStyle(color: kgolder),
-                                onSaved: (value) {
-                                  textFieldValues.add(value);
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please fill out this field';
-                                  }
-                                  return null;
-                                },
                               );
+
                             },
                           ),
                         ),
@@ -776,17 +830,27 @@ class _RequestsState extends State<Requests> {
                             child: ListView.builder(
                               itemCount: attachments.length,
                               itemBuilder: (context, index) {
-                                return TextFormField(
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    hintText: attachments[index],
-                                      hintStyle: TextStyle(color: kgolder),
-                                      border: UnderlineInputBorder(borderSide: BorderSide(color: kgolder)),
-                                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-                                      ,
-                                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-                                      ,
-                                      disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 700),
+                                  child: SlideAnimation(
+                                    duration: Duration(milliseconds: 500),
+                                    horizontalOffset: 200.0,
+                                    child: FadeInAnimation(
+                                      child:TextFormField(
+                                        enabled: false,
+                                        decoration: InputDecoration(
+                                            hintText: attachments[index],
+                                            hintStyle: TextStyle(color: kgolder),
+                                            border: UnderlineInputBorder(borderSide: BorderSide(color: kgolder)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                            ,
+                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                            ,
+                                            disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 );
                               },

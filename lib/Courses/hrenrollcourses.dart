@@ -1,6 +1,7 @@
 import 'package:demo_nikita/Components/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -165,7 +166,17 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                 return ListView.builder(
                                   itemCount: courseList!.length,
                                   itemBuilder: (context,index){
-                                   return buildHRcourses(courseList[index]);
+                                    return AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration: const Duration(milliseconds: 700),
+                                      child: SlideAnimation(
+                                        duration: Duration(milliseconds: 500),
+                                        horizontalOffset: 200.0,
+                                        child: FadeInAnimation(
+                                          child:buildHRcourses(courseList[index]),
+                                        ),
+                                      ),
+                                    );
                                   },
 
                                 );
@@ -194,9 +205,18 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                     return ListView.builder(
                                       itemCount: courseList!.length,
                                       itemBuilder: (context,index){
-                                        return buildERcourses(courseList[index],index);
+                                        return AnimationConfiguration.staggeredList(
+                                          position: index,
+                                          duration: const Duration(milliseconds: 700),
+                                          child: SlideAnimation(
+                                            duration: Duration(milliseconds: 500),
+                                            horizontalOffset: 200.0,
+                                            child: FadeInAnimation(
+                                              child:buildERcourses(courseList[index],index),
+                                            ),
+                                          ),
+                                        );
                                       },
-
                                     );
                                   }
                               ),

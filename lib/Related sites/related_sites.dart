@@ -2,6 +2,7 @@ import 'package:demo_nikita/Components/api.dart';
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../Components/models.dart';
 
@@ -67,8 +68,19 @@ List<RelatedSitesModel>? _relatedSites;
             return ListView.builder(
                 itemCount: relatedSitesList!.length,
                 itemBuilder: (context, index) {
-                return
-                  buildContainer(relatedSitesList[index].name!,relatedSitesList[index].description!,relatedSitesList[index].url!);
+                  return  AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 700),
+                    child: SlideAnimation(
+                      duration: Duration(milliseconds: 500),
+                      horizontalOffset: 200.0,
+                      child: FadeInAnimation(
+                        child:   buildContainer(relatedSitesList[index].name!,relatedSitesList[index].description!,relatedSitesList[index].url!),
+                      ),
+                    ),
+                  );
+
+
 
                 }
             );

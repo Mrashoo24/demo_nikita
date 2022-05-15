@@ -2,6 +2,7 @@ import 'package:demo_nikita/Components/constants.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:intl/intl.dart';
@@ -528,92 +529,103 @@ class _BenchListState extends State<BenchList> {
                     child: ListView.builder(
                       itemCount: _historyList!.length,
                       itemBuilder: (context, index) {
-                        return Card(
-                          color: Colors.transparent,
-                          elevation: 8,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12.0),
-                            ),
-                          ),
-                          child: Container(
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 700),
+                          child: SlideAnimation(
+                            duration: Duration(milliseconds: 500),
+                            horizontalOffset: 200.0,
+                            child: FadeInAnimation(
+                              child:  Card(
+                                color: Colors.transparent,
+                                elevation: 8,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12.0),
+                                  ),
+                                ),
+                                child: Container(
 
-                            decoration: BoxDecoration(
-                              gradient:  LinearGradient(
-                                colors: [Colors.black, Colors.grey.shade600],
-                                begin: Alignment.centerRight,
-                                end: Alignment.centerLeft,),
+                                  decoration: BoxDecoration(
+                                    gradient:  LinearGradient(
+                                      colors: [Colors.black, Colors.grey.shade600],
+                                      begin: Alignment.centerRight,
+                                      end: Alignment.centerLeft,),
 
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                            ),
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Employee Name: ',
-                                      style: TextStyle(color: kgolder),
-                                    ),
-                                    Text(
-                                      _historyList![index].replacementName!,
-                                      style: TextStyle(color: kgolder),
-                                    ),
-                                  ],
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Employee Name: ',
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                          Text(
+                                            _historyList![index].replacementName!,
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Employee Id: ',
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                          Text(
+                                            _historyList![index].replacementEmpId!,
+                                            style: TextStyle(color: kgolder),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Date: ',
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                          Text(
+                                            _historyList![index].timeStamp!,
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Status: ',
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                          Text(
+                                            _historyList![index].verify == '1'
+                                                ? 'Accepted'
+                                                : _historyList![index].verify == '0'
+                                                ? 'Pending'
+                                                : 'Rejected',
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Employee Id: ',
-                                      style: TextStyle(color: kgolder),
-                                    ),
-                                    Text(
-                                      _historyList![index].replacementEmpId!,
-                                      style: TextStyle(color: kgolder),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Date: ',
-                                      style: TextStyle(color: kgolder),
-                                    ),
-                                    Text(
-                                      _historyList![index].timeStamp!,
-                                      style: TextStyle(color: kgolder),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Status: ',
-                                      style: TextStyle(color: kgolder),
-                                    ),
-                                    Text(
-                                      _historyList![index].verify == '1'
-                                          ? 'Accepted'
-                                          : _historyList![index].verify == '0'
-                                              ? 'Pending'
-                                              : 'Rejected',
-                                      style: TextStyle(color: kgolder),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         );
+
                       },
                     ),
                   ),
