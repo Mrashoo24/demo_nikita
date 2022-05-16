@@ -712,7 +712,7 @@ File isn't available. Wait for the HR to send the file.''',
                                           Container(
                                             alignment: Alignment.centerRight,
                                             child: ElevatedButton(
-                                              child: const Text('View'),
+                                              child: const Text('View',style: TextStyle(color:Colors.black),),
                                               style: ButtonStyle(
                                                 backgroundColor: MaterialStateProperty.all(
                                                   kgolder,
