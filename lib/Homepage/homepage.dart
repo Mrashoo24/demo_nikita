@@ -382,7 +382,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                                           ),
                                           barrierColor: Colors.transparent,
                                           pressType: PressType.singleClick,
-                                          arrowColor:  kgolder,
+                                          arrowColor:  Colors.black54,
                                           arrowSize: 15,
                                           position: PreferredPosition.top,
                                           child: Column(
@@ -408,6 +408,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                                                 onTap: (){
                                                   setState(() {
                                                     selectedCard = 'More';
+                                                    selectedIndex = 4;
                                                     //  index == 4 ?
                                                     // isMenuOpen ? closeMenu() :
                                                     //    openMenu()
@@ -425,7 +426,8 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                                               Text('More',style: TextStyle(color: kgolder,fontSize:  14),),
                                             ],
                                           ),
-                                        )
+                                        ),
+                                        SizedBox(width: 10,)
                                       ],
                                     ),
                                   )
@@ -448,9 +450,11 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   }
 
   Widget _buildAvatar(bool isMe, double size) {
-    return ClipRRect(
+    return
+      ClipRRect(
       borderRadius: BorderRadius.circular(5),
-      child: Container(
+      child:
+      Container(
 
         decoration: BoxDecoration(
 

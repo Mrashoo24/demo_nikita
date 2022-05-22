@@ -9,8 +9,11 @@ const kgolder2 = Color(0xFFAF860A);
 const kGray2 = Color(0xFF464646);
 const kGray3 = Color(0xFF545454);
 const kGreen = Color(0xFF4CD137);
+const kdarkyellow = Color(0xFFA97700);
 
-var kprogressbar = Container(
+var kprogressbar = Center(child: CircularProgressIndicator(color: kgolder,));
+
+var kprogressbarFull = Container(
   decoration: BoxDecoration(
       image: DecorationImage(
           image: AssetImage("assets/bg.jpg"),

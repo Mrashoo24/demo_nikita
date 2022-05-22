@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
+import 'dart:math' as math;
 
+
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:demo_nikita/Components/clockWidget.dart';
 import 'package:demo_nikita/Components/constants.dart';
@@ -10,6 +12,7 @@ import 'package:demo_nikita/demo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -18,6 +21,7 @@ import 'package:location/location.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../Announcements/announcements.dart';
+import '../Components/Arrow/arrowclipper.dart';
 import '../Components/api.dart';
 import '../Components/models.dart';
 
@@ -45,6 +49,8 @@ class _MainHomePageState extends State<MainHomePage>
   var convertedTime = 0.0  ;
 
   var selectedCard = 'Home';
+
+  var differenceintime = 0.0;
 
   bool panelOpen = false;
 
@@ -827,8 +833,20 @@ var workingStatus = '';
 var widthofcontainer = 20.0;
  late DateTime dateAndTime ;
 
+
   @override
   Widget build(BuildContext context) {
+    // Widget arrow = ClipPath(
+    //   child: Container(
+    //     width: 20,
+    //     height: 10,
+    //     color: Colors.black54,
+    //
+    //   ),
+    //   clipper: ArrowClipper(),
+    // );
+
+
     return SingleChildScrollView(
       child: FutureBuilder(
           future: Future.wait([
@@ -931,17 +949,21 @@ var widthofcontainer = 20.0;
 
                convertedTime  = double.parse(newTimeList[0] + '.' + newTimeList[1]);
 
-              var differenceintime = (convertedTime/double.parse(widget.userModel!.hoursOfShift!))/2 ;
+               differenceintime = (differenceTime.inMinutes/(double.parse(widget.userModel!.hoursOfShift!) * 60))/2 ;
 
               gotreason = report == "No Data" ? "-----" : report["reason"];
 
-                print(differenceTime);
+                print(differenceTime.inMinutes);
               print(differenceintime);
 
               //   setState(() {
               //
-                   widthofcontainer =  differenceintime > 0.44 ?
+                   widthofcontainer =
+                       // Get.width * 0.5;
+                   differenceintime > 0.44 ?
                    Get.width*0.45: Get.width*differenceintime;
+
+                   print('width = $widthofcontainer');
 
                    workingStatus = report["workingstatus"];
 
@@ -1025,26 +1047,31 @@ var widthofcontainer = 20.0;
                                     ),
                                   );
                                 },
-                                child: Stack(
-                                  children: [
-                                    Image(
-                                      image:
-                                          AssetImage("assets/icons/bell.png"),
-                                    ),
-                                    Container(
-                                      height: 10,
-                                      width: 10,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: kgolder),
-                                      child: Center(
-                                          child: Text(
-                                        '1',
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 8),
-                                      )),
-                                    )
-                                  ],
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Stack(
+                                    alignment: Alignment.topRight,
+                                    children: [
+                                      Image(
+                                        image:
+                                            AssetImage("assets/icons/bell.png"),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.red),
+                                        child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(3.0),
+                                              child: Text(
+                                          '03',
+                                          style: TextStyle(
+                                                color: Colors.white, fontSize: 8),
+                                        ),
+                                            )),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -1108,470 +1135,492 @@ var widthofcontainer = 20.0;
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(15),
-                    child: Column(
-                      children: AnimationConfiguration.toStaggeredList(
-                        duration: const Duration(milliseconds: 700),
-                        childAnimationBuilder: (widget) => SlideAnimation(
-                          duration: Duration(milliseconds: 500),
-                          verticalOffset: 200.0,
-                          child: FadeInAnimation(
-                            child: widget,
-                          ),
-                        ),
-                        children: [
-                          Container(
-                            height: 55,
-                            // width: Get.width * 0.85,
-                            decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.7),
-                              border: Border.all(
-                                width: 2,
-                                color: Colors.yellow,
+                  Stack(
+
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(15),
+                        child: Column(
+                          children: AnimationConfiguration.toStaggeredList(
+                            duration: const Duration(milliseconds: 700),
+                            childAnimationBuilder: (widget) => SlideAnimation(
+                              duration: Duration(milliseconds: 500),
+                              verticalOffset: 200.0,
+                              child: FadeInAnimation(
+                                child: widget,
                               ),
-                              borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Stack(
+                                alignment: Alignment.bottomRight,
                                 children: [
                                   Container(
-                                    height: 30,
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "${DateFormat('dd-MMM-yyyy').format(DateTime.now())}",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
+                                 
+                                    // width: Get.width * 0.85,
                                     decoration: BoxDecoration(
-                                      color: kgolder,
-                                      borderRadius: BorderRadius.circular(3),
+                                      color: Colors.black.withOpacity(0.7),
+                                      border: Border.all(
+                                        width: 2,
+                                        color: kdarkyellow,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                      width: Get.width*0.45,
-                                      key: _globalKeyContainer,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                          color: kgolder.withOpacity(0.6),
-                                          borderRadius: BorderRadius.circular(20),
-                                          border:
-                                          Border.all(color: kgolder, width: 3)),
-                                      child: Stack(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                            decoration: BoxDecoration(
-                                                color: kgolder.withOpacity(0.3),
-                                                borderRadius:
-                                                BorderRadius.circular(20)),
-                                            width: double.infinity,
-                                          ),
-                                          checkInTime == "-----" ? SizedBox() :      AnimatedContainer(
-
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  fit: BoxFit.fill,
-                                                  image: AssetImage(
-                                                      'assets/blackstrip.jpeg')),
-                                              borderRadius: BorderRadius.horizontal(
-                                                  left: Radius.circular(20)
-                                                  ,right: widthofcontainer > 0.43 ? Radius.circular( 20) : Radius.circular(0)
+                                            height: 30,
+                                            child: Center(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  "${DateFormat('dd-MMM-yyyy').format(DateTime.now())}",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
                                               ),
                                             ),
-                                            width: widthofcontainer,
-                                            duration: Duration(milliseconds: 500),
+                                            decoration: BoxDecoration(
+                                              color: kdarkyellow,
+                                              borderRadius: BorderRadius.circular(3),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Container(
+                                              width: Get.width*0.45,
+                                              key: _globalKeyContainer,
+                                              height: 25,
+                                              decoration: BoxDecoration(
+                                                  color: kgolder.withOpacity(0.6),
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  border:
+                                                  Border.all(color: kgolder, width: 3)),
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        color: kdarkyellow,
+                                                        borderRadius:
+                                                        BorderRadius.circular(20)),
+                                                    width: double.infinity,
+                                                  ),
+                                                  checkInTime == "-----" ? SizedBox() :      AnimatedContainer(
+
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          fit: BoxFit.fill,
+                                                          image: AssetImage(
+                                                              'assets/blackstrip.jpeg')),
+                                                      borderRadius: BorderRadius.horizontal(
+                                                          left: Radius.circular(20)
+                                                          ,right: widthofcontainer > 0.43 ? Radius.circular( 20) : Radius.circular(0)
+                                                      ),
+                                                    ),
+                                                    width: widthofcontainer,
+                                                    duration: Duration(milliseconds: 500),
+                                                  ),
+
+
+
+
+                                                ],
+                                              )
+                                            // LinearPercentIndicator(
+                                            //   width: 170.0,
+                                            //   animation: true,
+                                            //   animationDuration: 1000,
+                                            //   lineHeight: 20.0,
+                                            //   percent: 0.4,
+                                            //   linearStrokeCap: LinearStrokeCap.round,
+                                            //   progressColor: Colors.grey,
+                                            // ),
                                           ),
                                         ],
-                                      )
-                                    // LinearPercentIndicator(
-                                    //   width: 170.0,
-                                    //   animation: true,
-                                    //   animationDuration: 1000,
-                                    //   lineHeight: 20.0,
-                                    //   percent: 0.4,
-                                    //   linearStrokeCap: LinearStrokeCap.round,
-                                    //   progressColor: Colors.grey,
-                                    // ),
+                                      ),
+                                    ),
                                   ),
+                                
+
                                 ],
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            width: Get.width ,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 2, color: Colors.yellow),
-                                        color: Colors.black.withOpacity(0.8),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 15.0),
-                                            child: Padding(
-                                              padding:
-                                              const EdgeInsets.only(bottom: 2.0),
-                                              child: Text(
-                                                "In Time",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: kgolder,
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-                                            ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                width: Get.width ,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 2, color: kdarkyellow),
+                                            color: Colors.black.withOpacity(0.8),
+                                            borderRadius: BorderRadius.circular(8),
                                           ),
-                                          DigitalClock(
-                                            is24HourTimeFormat: false,
-                                            showSecondsDigit: false,
-                                            areaDecoration: BoxDecoration(
-                                                color: Colors.transparent),
-                                            hourMinuteDigitDecoration: BoxDecoration(
-                                                color: kgolder,
-                                                border:
-                                                Border.all(color: Colors.black)),
-                                            secondDigitDecoration: BoxDecoration(
-                                                color: kgolder,
-                                                border:
-                                                Border.all(color: Colors.black)),
-                                            hourMinuteDigitTextStyle: TextStyle(
-                                                fontFamily: 'Alarm Clock',
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                            secondDigitTextStyle: TextStyle(
-                                                fontFamily: 'Alarm Clock',
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                            seconds:checkInTime == "-----" ? '--' : checkInTime.toString().split(':')[0],
-                                            hour: checkInTime == "-----" ? '--' :checkInTime.toString().split(':')[0],
-                                            minute: checkInTime == "-----" ? '--' :checkInTime.toString().split(':')[1].split(' ')[0],
-                                            type:checkInTime == "--" ? '--' : 'AM',
-                                          ),
-                                          Column(
+                                          child: Column(
                                             children: [
-                                              Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 10),
-                                                width: 140,
-                                                height: 1,
-                                                color: kgolder,
-                                              ),
                                               Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 10.0),
-                                                child: Text(
-                                                  "In Status",
-                                                  style: TextStyle(
-                                                      fontSize: 15, color: kgolder),
+                                                padding: const EdgeInsets.only(top: 15.0),
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsets.only(bottom: 2.0),
+                                                  child: Text(
+                                                    "In Time",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: kdarkyellow,
+                                                        fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                              ),
+                                              DigitalClock(
+                                                is24HourTimeFormat: false,
+                                                showSecondsDigit: false,
+                                                areaDecoration: BoxDecoration(
+                                                    color: Colors.transparent),
+                                                hourMinuteDigitDecoration: BoxDecoration(
+                                                    color: kdarkyellow,
+                                                    border:
+                                                    Border.all(color: Colors.black)),
+                                                secondDigitDecoration: BoxDecoration(
+                                                    color: kdarkyellow,
+                                                    border:
+                                                    Border.all(color: Colors.black)),
+                                                hourMinuteDigitTextStyle: TextStyle(
+                                                    fontFamily: 'Alarm Clock',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold),
+                                                secondDigitTextStyle: TextStyle(
+                                                    fontFamily: 'Alarm Clock',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold),
+                                                seconds:checkInTime == "-----" ? '--' : checkInTime.toString().split(':')[0],
+                                                hour: checkInTime == "-----" ? '--' :checkInTime.toString().split(':')[0],
+                                                minute: checkInTime == "-----" ? '--' :checkInTime.toString().split(':')[1].split(' ')[0],
+                                                type:checkInTime == "--" ? '--' : 'AM',
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.symmetric(
+                                                        vertical: 10),
+                                                    width: 140,
+                                                    height: 1,
+                                                    color: kdarkyellow,
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        bottom: 10.0),
+                                                    child: Text(
+                                                      "In Status",
+                                                      style: TextStyle(
+                                                          fontSize: 15, color: kdarkyellow),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Container(
+                                                height: 25,
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    _status,
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: kdarkyellow,
+                                                  borderRadius: BorderRadius.circular(3),
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                    ),
+                                    Visibility(
+                                      visible: checkOutTime != "-----" ,
+                                      child: SizedBox(
+                                        width: 10,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: checkOutTime != "-----" ,
+                                      child: Expanded(
+                                        child: Container(
+                                            padding: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 2, color:kdarkyellow),
+                                              color: Colors.black.withOpacity(0.8),
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 15.0),
+                                                  child: Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(bottom: 2.0),
+                                                    child: Text(
+                                                      "Out Time",
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          color: kdarkyellow,
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                                DigitalClock(
+                                                  is24HourTimeFormat: false,
+                                                  showSecondsDigit: false,
+                                                  areaDecoration: BoxDecoration(
+                                                      color: Colors.transparent),
+                                                  hourMinuteDigitDecoration: BoxDecoration(
+                                                      color: kdarkyellow,
+                                                      border:
+                                                      Border.all(color: Colors.black)),
+                                                  secondDigitDecoration: BoxDecoration(
+                                                      color: kdarkyellow,
+                                                      border:
+                                                      Border.all(color: Colors.black)),
+                                                  hourMinuteDigitTextStyle: TextStyle(
+                                                      fontFamily: 'Alarm Clock',
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                  secondDigitTextStyle: TextStyle(
+                                                      fontFamily: 'Alarm Clock',
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                  seconds:checkOutTime == "-----" ? '--' : checkOutTime.toString().split(':')[0],
+                                                  hour: checkOutTime == "-----" ? '--' :checkOutTime.toString().split(':')[0],
+                                                  minute: checkOutTime == "-----" ? '--' :checkOutTime.toString().split(':')[1].split(' ')[0],
+                                                  type:checkOutTime == "--" ? '--' : 'AM',
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Container(
+                                                      margin: EdgeInsets.symmetric(
+                                                          vertical: 10),
+                                                      width: 140,
+                                                      height: 1,
+                                                      color: kdarkyellow,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(
+                                                          bottom: 10.0),
+                                                      child: Text(
+                                                        "Out Status",
+                                                        style: TextStyle(
+                                                            fontSize: 15, color: kdarkyellow),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Container(
+                                                  height: 25,
+                                                  width: 100,
+                                                  child: Center(
+                                                    child: Text(
+                                                      workingStatus,
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: kdarkyellow,
+                                                    borderRadius: BorderRadius.circular(3),
+                                                  ),
+                                                )
+                                              ],
+                                            )),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              InkWell(
+                                onTap: (){
+
+                                  if (checkInTime != "-----" && checkOutTime == "-----") {
+                                    if (checkInTime == "-----") {
+                                      showDialog(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (ctx) {
+                                          return AlertDialog(
+                                            title:  Text(
+                                              'You need to check-in first.',
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child:  Text(
+                                                  'Dismiss',
                                                 ),
                                               ),
                                             ],
-                                          ),
-                                          Container(
-                                            height: 25,
-                                            width: 100,
-                                            child: Center(
-                                              child: Text(
-                                                _status,
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold),
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      if (checkOutTime != "-----") {
+                                        showDialog(
+                                          barrierDismissible: false,
+                                          context: context,
+                                          builder: (ctx) {
+                                            return AlertDialog(
+                                              title:  Text(
+                                                'You have Checked out Already',
                                               ),
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: kgolder,
-                                              borderRadius: BorderRadius.circular(3),
-                                            ),
-                                          )
-                                        ],
-                                      )),
-                                ),
-                                Visibility(
-                                  visible: checkOutTime != "-----" ,
-                                  child: SizedBox(
-                                    width: 10,
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: checkOutTime != "-----" ,
-                                  child: Expanded(
-                                    child: Container(
-                                        padding: EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 2, color: Colors.yellow),
-                                          color: Colors.black.withOpacity(0.8),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(top: 15.0),
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsets.only(bottom: 2.0),
-                                                child: Text(
-                                                  "Out Time",
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: kgolder,
-                                                      fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                            ),
-                                            DigitalClock(
-                                              is24HourTimeFormat: false,
-                                              showSecondsDigit: false,
-                                              areaDecoration: BoxDecoration(
-                                                  color: Colors.transparent),
-                                              hourMinuteDigitDecoration: BoxDecoration(
-                                                  color: kgolder,
-                                                  border:
-                                                  Border.all(color: Colors.black)),
-                                              secondDigitDecoration: BoxDecoration(
-                                                  color: kgolder,
-                                                  border:
-                                                  Border.all(color: Colors.black)),
-                                              hourMinuteDigitTextStyle: TextStyle(
-                                                  fontFamily: 'Alarm Clock',
-                                                  color: Colors.black,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                              secondDigitTextStyle: TextStyle(
-                                                  fontFamily: 'Alarm Clock',
-                                                  color: Colors.black,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                              seconds:checkOutTime == "-----" ? '--' : checkOutTime.toString().split(':')[0],
-                                              hour: checkOutTime == "-----" ? '--' :checkOutTime.toString().split(':')[0],
-                                              minute: checkOutTime == "-----" ? '--' :checkOutTime.toString().split(':')[1].split(' ')[0],
-                                              type:checkOutTime == "--" ? '--' : 'AM',
-                                            ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                                  width: 140,
-                                                  height: 1,
-                                                  color: kgolder,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      bottom: 10.0),
-                                                  child: Text(
-                                                    "Out Status",
-                                                    style: TextStyle(
-                                                        fontSize: 15, color: kgolder),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child:  Text(
+                                                    'Dismiss',
                                                   ),
                                                 ),
                                               ],
-                                            ),
-                                            Container(
-                                              height: 25,
-                                              width: 100,
-                                              child: Center(
-                                                child: Text(
-                                                  workingStatus,
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: kgolder,
-                                                borderRadius: BorderRadius.circular(3),
-                                              ),
-                                            )
-                                          ],
-                                        )),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          InkWell(
-                            onTap: (){
-
-                              if (checkInTime != "-----" && checkOutTime == "-----") {
-                                if (checkInTime == "-----") {
-                                  showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (ctx) {
-                                      return AlertDialog(
-                                        title:  Text(
-                                          'You need to check-in first.',
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child:  Text(
-                                              'Dismiss',
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  if (checkOutTime != "-----") {
-                                    showDialog(
-                                      barrierDismissible: false,
-                                      context: context,
-                                      builder: (ctx) {
-                                        return AlertDialog(
-                                          title:  Text(
-                                            'You have Checked out Already',
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child:  Text(
-                                                'Dismiss',
-                                              ),
-                                            ),
-                                          ],
+                                            );
+                                          },
                                         );
-                                      },
-                                    );
+                                      } else {
+                                        _confirmCheckOutDialogBox(
+                                          checkin: checkInTime,
+                                          differenceFinal: convertedTime,
+                                        );
+                                      }
+                                    }
                                   } else {
-                                    _confirmCheckOutDialogBox(
-                                      checkin: checkInTime,
-                                      differenceFinal: convertedTime,
-                                    );
+                                    if (checkOutTime != "-----") {
+                                      Fluttertoast.showToast(msg: 'You have checkout already');
+                                    }else{
+                                      _confirmCheckInDialogBox();
+                                    }
+
                                   }
-                                }
-                              } else {
-                                if (checkOutTime != "-----") {
-                                  Fluttertoast.showToast(msg: 'You have checkout already');
-                                }else{
-                                  _confirmCheckInDialogBox();
-                                }
 
-                              }
+                                },
+                                child: Container(
+                                  // width: Get.width * 0.85,
+                                  height: 40,
 
-                            },
-                            child: Container(
-                              // width: Get.width * 0.85,
-                              height: 40,
-
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black, width: 2),
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: AssetImage(
-                                        'assets/cardbg.png',
-                                      ))),
-                              child: Center(
-                                child: Text(
-                                  checkInTime == "-----" ? 'Check In' : 'Check Out',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      letterSpacing: 2,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 2, color: kgolder),
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            // width: Get.width * 0.85,
-                            child: Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _handleOnPressed();
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Month Record",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: kgolder),
-                                        ),
-                                        AnimatedBuilder(
-                                          animation: _animationController,
-                                          builder: (context, child) => Transform.rotate(
-                                            angle: _arrowAnimation.value,
-                                            child: Icon(
-                                              !_animationController.isCompleted
-                                                  ? Icons.keyboard_arrow_down
-                                                  : Icons.keyboard_arrow_up,
-                                              size: 50.0,
-                                              color: kgolder,
-                                            ),
-                                          ),
-                                        ),
-                                        // AnimatedIcon(
-                                        //
-                                        //
-                                        //  icon: AnimatedIcons.view_list,
-                                        //   color: kgolder,
-                                        //   progress: _animationController,
-                                        // )
-                                      ],
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black, width: 2),
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: AssetImage(
+                                            'assets/cardbg.png',
+                                          ))),
+                                  child: Center(
+                                    child: Text(
+                                      checkInTime == "-----" ? 'Check In' : 'Check Out',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          letterSpacing: 2,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
                                     ),
                                   ),
                                 ),
-                                AnimatedContainer(
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 2, color: kdarkyellow),
+                                  color: Colors.black.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                // width: Get.width * 0.85,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
 
-                                  height: panelOpen ? null : 0,
-                                  duration: Duration(milliseconds: 600),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10.0, bottom: 10, right: 10, top: 10),
-                                    child: Visibility(
-                                      visible: panelOpen2,
-                                      child:
+                                        color: Colors.black.withOpacity(0.5),
+                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight:Radius.circular(8) ),
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            _handleOnPressed();
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Month Records",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kdarkyellow),
+                                              ),
+                                              AnimatedBuilder(
+                                                animation: _animationController,
+                                                builder: (context, child) => Transform.rotate(
+                                                  angle: _arrowAnimation.value,
+                                                  child: Icon(
+                                                    !_animationController.isCompleted
+                                                        ? Icons.keyboard_arrow_down
+                                                        : Icons.keyboard_arrow_up,
+                                                    size: 30.0,
+                                                    color: kdarkyellow,
+                                                  ),
+                                                ),
+                                              ),
+                                              // AnimatedIcon(
+                                              //
+                                              //
+                                              //  icon: AnimatedIcons.view_list,
+                                              //   color: kgolder,
+                                              //   progress: _animationController,
+                                              // )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    AnimatedContainer(
+                                      color: Colors.black.withOpacity(0.5),
+                                      height: panelOpen ? null : 0,
+                                      duration: Duration(milliseconds: 600),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10.0, bottom: 10, right: 10, top: 10),
+                                        child: Visibility(
+                                          visible: panelOpen2,
+                                          child:
 
 
-                                      Column(
-                                        children:
+                                          Column(
+                                            children:
             AnimationConfiguration.toStaggeredList(
             duration: const Duration(milliseconds: 700),
             childAnimationBuilder: (widget) => SlideAnimation(
@@ -1584,47 +1633,47 @@ var widthofcontainer = 20.0;
             children:   [
               Row(
                 children: [
-                  Text(
-                    "My Record for",
-                    style: TextStyle(
-                        fontSize: 15, color: kgolder),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  // Container(
-                  //   color: kgolder,
-                  //   height: 20,
-                  //   child: DropdownButton(
-                  //     dropdownColor: kgolder,
-                  //     hint: Text(
-                  //       'Febauray',
-                  //       style: TextStyle(
-                  //         fontSize: 13,
-                  //         color:
-                  //             Theme.of(context).hintColor,
-                  //       ),
-                  //     ),
-                  //     items: items
-                  //         .map((item) =>
-                  //             DropdownMenuItem<String>(
-                  //               value: item,
-                  //               child: Text(
-                  //                 item,
-                  //                 style: const TextStyle(
-                  //                   fontSize: 12,
-                  //                 ),
-                  //               ),
-                  //             ))
-                  //         .toList(),
-                  //     value: selectedValue,
-                  //     onChanged: (value) {
-                  //       setState(() {
-                  //         selectedValue = value as String;
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
+                      Text(
+                        "My Record for",
+                        style: TextStyle(
+                            fontSize: 15, color: kdarkyellow),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      // Container(
+                      //   color: kgolder,
+                      //   height: 20,
+                      //   child: DropdownButton(
+                      //     dropdownColor: kgolder,
+                      //     hint: Text(
+                      //       'Febauray',
+                      //       style: TextStyle(
+                      //         fontSize: 13,
+                      //         color:
+                      //             Theme.of(context).hintColor,
+                      //       ),
+                      //     ),
+                      //     items: items
+                      //         .map((item) =>
+                      //             DropdownMenuItem<String>(
+                      //               value: item,
+                      //               child: Text(
+                      //                 item,
+                      //                 style: const TextStyle(
+                      //                   fontSize: 12,
+                      //                 ),
+                      //               ),
+                      //             ))
+                      //         .toList(),
+                      //     value: selectedValue,
+                      //     onChanged: (value) {
+                      //       setState(() {
+                      //         selectedValue = value as String;
+                      //       });
+                      //     },
+                      //   ),
+                      // ),
                 ],
               ),
               SizedBox(
@@ -1633,11 +1682,11 @@ var widthofcontainer = 20.0;
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildAttendenceCard('Present',present.length.toString()),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  buildAttendenceCard('Absent',Absent.length.toString()),
+                      buildAttendenceCard('Present',present.length.toString(),0),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      buildAttendenceCard('Absent',Absent.length.toString(),1),
                 ],
               ),
               SizedBox(
@@ -1646,11 +1695,11 @@ var widthofcontainer = 20.0;
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildAttendenceCard('Leaves',leavesCount.toString()),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  buildAttendenceCard('Late Entry',lateentry.length.toString()),
+                      buildAttendenceCard('Leaves',leavesCount.toString(),3),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      buildAttendenceCard('Late Entry',lateentry.length.toString(),2),
                 ],
               ),
               SizedBox(
@@ -1659,31 +1708,62 @@ var widthofcontainer = 20.0;
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildAttendenceCard('Work(hrs)',workinghours.round().toString()),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  buildAttendenceCard('Early Exit',earlyexit.length.toString()),
+                      buildAttendenceCard('Work(hrs)',workinghours.round().toString(),4),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      buildAttendenceCard('Early Exit',earlyexit.length.toString(),5),
                 ],
               ),
             ],
             )
 
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+
+                              SizedBox(
+                                height: 200,
+                              )
+                            ],
                           ),
 
-                          SizedBox(
-                            height: 200,
-                          )
-                        ],
+                        ),
                       ),
-
-                    ),
+                      Positioned(
+                        top: Get.height*0.07,
+                        left:differenceintime > 0.43 ? differenceintime + Get.width *0.37 : differenceintime + Get.width *0.48 ,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Transform.rotate(
+                              angle: math.pi,
+                              child:   ClipPath(
+                                clipper: MessageClipper(borderRadius: 2),
+                                child: Container(
+                                  height: 40,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                      color:  Colors.black.withOpacity(0.8) ,
+                                      border: Border.all(color: kgolder,width: 1),
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  child: SizedBox(),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top:8.0),
+                              child: Text(convertedTime.toString().replaceAll('.', ':'),style: TextStyle(color: kgolder,fontSize: 20),),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
 
                 ],
@@ -1741,12 +1821,12 @@ var widthofcontainer = 20.0;
     );
   }
 
-  Expanded buildAttendenceCard(title,count) {
+  Expanded buildAttendenceCard(title, count,int index) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(width: 2, color: kgolder),
-          color: Colors.blueGrey.withOpacity(0.8),
+          border: Border.all(width: 2, color: kdarkyellow),
+          color:index.isEven ? Colors.white.withOpacity(0.3) : Colors.grey.withOpacity(0.2),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
@@ -1757,25 +1837,23 @@ var widthofcontainer = 20.0;
               child: Text(
                 title,
                 style: TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.bold, color: kgolder),
+                    fontSize: 20, fontWeight: FontWeight.bold, color: kdarkyellow),
               ),
             ),
             Align(
-              alignment: Alignment.centerRight,
+              alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.only(top: 12, right: 10),
                 child: Text(
                   count,
                   style: TextStyle(
                       fontSize: 90,
-                      color: kgolder,
+                      color: kdarkyellow,
                       fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            )
+
           ],
         ),
       ),
@@ -1792,4 +1870,33 @@ var widthofcontainer = 20.0;
       ),
     );
   }
+
+
+  Widget _buildAvatar(bool isMe, double size) {
+    return
+      ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child:
+        Container(
+
+            decoration: BoxDecoration(
+
+                color:  Colors.black.withOpacity(0.8) ,
+                border: Border.all(color: kgolder,width: 3),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            width: Get.width*0.7,
+            height: 50,
+            child: Container(
+              child: Text('s'),
+            )
+
+          // Icon(
+          //   isMe ? Icons.face : Icons.tag_faces,
+          //   color: Colors.white,
+          // ),
+        ),
+      );
+  }
+
 }
