@@ -10,6 +10,10 @@ const kGray2 = Color(0xFF464646);
 const kGray3 = Color(0xFF545454);
 const kGreen = Color(0xFF4CD137);
 const kdarkyellow = Color(0xFFA97700);
+const kgradientYellow = Color(0xFFFFE7AF);
+const kred = Color(0xFFE84118);
+const kGray7 = Color(0xFF7E7E7E);
+
 
 var kprogressbar = Center(child: CircularProgressIndicator(color: kgolder,));
 
@@ -26,3 +30,8 @@ var kprogressbarFull = Container(
 
 String mainurl = 'http://www.faizeetech.com/';
 String adminurl = 'http://admin.faizeetech.com';
+
+
+
+
+///astagfirullah astagfirullah astagfirullah astagfirullah astagfirullah

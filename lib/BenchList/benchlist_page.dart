@@ -106,7 +106,7 @@ class _BenchListState extends State<BenchList> {
                           _jobDescription = value as String;
                         },
                         decoration:  InputDecoration(
-                          label: Text('Job Description',style: TextStyle(color: kgolder),),
+                          label: Text('Job Description',style: TextStyle(color: kblack),),
                           hintText: 'Write details of the job to be assigned',
                           // icon: Image.asset('assets/Images/description.png',width: 40,height: 40,),
                         ),
@@ -384,7 +384,7 @@ class _BenchListState extends State<BenchList> {
                       ),
                     if (!_isLoading && _employeeDetails == null)
                       ElevatedButton(
-                        child: const Text('Search'),
+                        child: const Text('Search',style: TextStyle(color: kblack),),
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
                             kgolder,
@@ -652,6 +652,7 @@ class _BenchListState extends State<BenchList> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.black,
             title: const Text('Bench List',style: TextStyle(color: kgolder),),
             bottom: TabBar(

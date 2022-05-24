@@ -59,25 +59,7 @@ class _AdminstrativLeaveState extends State<AdminstrativLeave> {
                     return kprogressbar;
                   }
                   if (snapshot.data!.isEmpty) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/bg.jpg"),
-                              fit: BoxFit.cover
-                          ),
-
-                      ),
-                      alignment: Alignment.center,
-                      child: Center(
-                        child: const Text(
-                          'Nothing to show here.',
-                          style: TextStyle(
-                            fontSize: 22,
-                          ),
-                        ),
-                      ),
-                    );
+                    return kprogressbarFull;
                   }
 
                   var adminLeavesList = snapshot.data;

@@ -101,14 +101,16 @@ class _RequestsState extends State<Requests> {
                             children: [
                               // SizedBox( width: 10,),
                               // Icon(Icons.arrow_back,color: kgolder,),
-                              SizedBox(width: 10),
-                              Text("Leaves Request",style: TextStyle(color: kgolder,fontSize: 17),)
+                              SizedBox(width: 15),
+                              Text("Leaves Request",style: TextStyle(color: kgolder,fontSize: 18),)
                             ],
                           ),
                           SizedBox(height: 8,),
                           Padding(
                             padding:   EdgeInsets.all(8.0),
-                            child: TabBar(labelStyle: TextStyle(
+                            child: TabBar(
+
+                              labelStyle: TextStyle(
                                 fontSize: 20,
                                 fontWeight:FontWeight.w600),
                               labelColor: Colors.black,
@@ -120,9 +122,9 @@ class _RequestsState extends State<Requests> {
                                       bottomLeft: Radius.circular(12))
                               ),
                               tabs: [
-                                Tab(child: Text("Request",style: TextStyle(fontSize: 16),),),
+                                Tab(child: Text("Request",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),),
                                 // Tab(child: Text("Request",style: TextStyle(fontSize: 16),),),
-                                Tab(child: Text("History",style: TextStyle(fontSize: 16),),),
+                                Tab(child: Text("History",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),),
                               ],
                             ),
                           ),
@@ -176,9 +178,10 @@ class _RequestsState extends State<Requests> {
                                                   border: Border.all(color: kblack,width: 2)
                                               ),
                                               child: TabBar(
+                                                padding: EdgeInsets.all(2),
                                                 labelColor: kgolder,
                                                 indicator: BoxDecoration(
-                                                  color: kGray3,
+                                                  color: kGray2,
                                                   borderRadius: BorderRadius.circular(5),
                                                 ),
                                                 unselectedLabelColor: kblack,
@@ -466,7 +469,7 @@ class _RequestsState extends State<Requests> {
                            end: Alignment.bottomLeft,
                            colors: [
                              kblack ,
-                             kGray
+                             kGray2
                            ]
                          ),
               ),
@@ -1278,7 +1281,7 @@ class _RequestsState extends State<Requests> {
   //                     child: TabBar(
   //                       labelColor: kgolder,
   //                       indicator: BoxDecoration(
-  //                         color: kGray3,
+  //                         color: kGray23,
   //                         borderRadius: BorderRadius.circular(5),
   //                       ),
   //                       unselectedLabelColor: kblack,
@@ -1354,46 +1357,49 @@ class _RequestsState extends State<Requests> {
   //
   // }
 
-  Container buildCertificateName(EmployeeLeaveRequestsModel req) {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  kGray,
-                  kblack
-                ]
-            ),
-            borderRadius:BorderRadius.circular(10),
-            border: Border.all(color: kgolder,width: 3)
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Title:",style: TextStyle(color: kgolder),),
-                Text("Date:",style: TextStyle(color: kgolder)),
-                Text("From:",style: TextStyle(color: kgolder)),
-                Text("To:",style: TextStyle(color: kgolder))
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+   buildCertificateName(EmployeeLeaveRequestsModel req) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    kGray2,
+                    kblack
+                  ]
+              ),
+              borderRadius:BorderRadius.circular(10),
+              border: Border.all(color: kgolder,width: 3)
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Title:",style: TextStyle(color: kgolder),),
+                  Text("Date:",style: TextStyle(color: kgolder)),
+                  Text("From:",style: TextStyle(color: kgolder)),
+                  Text("To:",style: TextStyle(color: kgolder))
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
 
-              children: [
-                Text(req.title!,style: TextStyle(color: kgolder)),
-                Text(req.date!,style: TextStyle(color: kgolder)),
-                Text(req.from!,style: TextStyle(color: kgolder)),
-                Text(req.to!,style: TextStyle(color: kgolder))
-              ],
-            )
-          ],
-        )
+                children: [
+                  Text(req.title!,style: TextStyle(color: kgolder)),
+                  Text(req.date!,style: TextStyle(color: kgolder)),
+                  Text(req.from!,style: TextStyle(color: kgolder)),
+                  Text(req.to!,style: TextStyle(color: kgolder))
+                ],
+              )
+            ],
+          )
+      ),
     );
   }
   Container buildCertificateMoreRequest() {
@@ -1405,7 +1411,7 @@ class _RequestsState extends State<Requests> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  kGray,
+                  kGray2,
                   kblack
                 ]
             ),
@@ -1443,7 +1449,7 @@ class _RequestsState extends State<Requests> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  kGray,
+                  kGray2,
                   kblack
                 ]
             ),
@@ -1491,7 +1497,7 @@ class _RequestsState extends State<Requests> {
               end: Alignment.bottomLeft,
               colors: [
                 kblack ,
-                kGray
+                kGray2
               ]
           ),
           borderRadius: BorderRadius.all(Radius.circular(8))
@@ -1521,7 +1527,7 @@ class _RequestsState extends State<Requests> {
                             padding: EdgeInsets.only(left: 10,right: 10,top: 8,),
                             height: H*0.05,
                             decoration: BoxDecoration(
-                                color: kGray3,
+                                color: kGray2,
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(color: kblack)
                             ),

@@ -45,20 +45,22 @@ class _ServicesState extends State<Services> {
           automaticallyImplyLeading: false,
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      kblack,
-                      kGray
-                    ]
-                )
+              color: kblack
+                // gradient: LinearGradient(
+                //     begin: Alignment.topLeft,
+                //     end: Alignment.bottomRight,
+                //     colors: [
+                //       kblack,
+                //       kGray
+                //     ]
+                // )
             ),
           ),
-          leading: SizedBox(width: 5,),
-          title: Text("Services",style: TextStyle(color: kgolder),),
+
+          title: Container(margin:EdgeInsets.only(left: 15),child: Text("Services",style: TextStyle(color: kgolder),)),
           titleSpacing: 5,
           shadowColor: Colors.transparent,
+
         ),
         body: Column(
           children: [
@@ -77,8 +79,8 @@ class _ServicesState extends State<Services> {
                 height: 50,
                 decoration: BoxDecoration(
                   gradient:  LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
 
                       colors: [
                         kblack,
@@ -99,9 +101,9 @@ class _ServicesState extends State<Services> {
                   ),
                   unselectedLabelColor: kgolder,
                   tabs: [
-                    Text("Services"),
-                    Text("Requests"),
-                    Text("More Requests",style: TextStyle(fontSize: 13),)
+                    Text("Services",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),
+                    Text("Requests",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight:FontWeight.w400),),
+                    Text("More Requests",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),)
                   ],
                 ),
               ),
@@ -168,9 +170,10 @@ class _ServicesState extends State<Services> {
                                   border: Border.all(color: kblack,width: 2)
                               ),
                               child: TabBar(
+                                padding: EdgeInsets.all(2),
                                 labelColor: kgolder,
                                 indicator: BoxDecoration(
-                                  color: kGray3,
+                                  color: kGray2,
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 unselectedLabelColor: kblack,
@@ -195,7 +198,7 @@ class _ServicesState extends State<Services> {
                             builder: (context, snapshot) {
 
                                 if(!snapshot.hasData){
-                                  return kprogressbar;
+                                  return kprogressbarFull;
                                 }
 
 
@@ -255,7 +258,7 @@ class _ServicesState extends State<Services> {
                               builder: (context, snapshot) {
 
                                 if(!snapshot.hasData){
-                                  return kprogressbar;
+                                  return kprogressbarFull;
                                 }
 
 
@@ -316,7 +319,7 @@ class _ServicesState extends State<Services> {
                               builder: (context, snapshot) {
 
                                 if(!snapshot.hasData){
-                                  return kprogressbar;
+                                  return kprogressbarFull;
                                 }
 
 
@@ -397,6 +400,7 @@ class _ServicesState extends State<Services> {
                                           border: Border.all(color: kblack,width: 2)
                                       ),
                                       child: TabBar(
+                                        padding: EdgeInsets.all(2),
                                         labelColor: kgolder,
                                         indicator: BoxDecoration(
                                           color: kGray3,
@@ -424,7 +428,7 @@ class _ServicesState extends State<Services> {
                                     builder: (context, snapshot) {
 
                                       if(!snapshot.hasData){
-                                        return kprogressbar;
+                                        return kprogressbarFull;
                                       }
 
 
@@ -493,7 +497,7 @@ class _ServicesState extends State<Services> {
                                     builder: (context, snapshot) {
 
                                       if(!snapshot.hasData){
-                                        return kprogressbar;
+                                        return kprogressbarFull;
                                       }
 
 
@@ -563,7 +567,7 @@ class _ServicesState extends State<Services> {
                                     builder: (context, snapshot) {
 
                                       if(!snapshot.hasData){
-                                        return kprogressbar;
+                                        return kprogressbarFull;
                                       }
 
 
@@ -941,55 +945,59 @@ File isn't available. Wait for the HR to send the file.''',
                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                          children: [
                            Text(name,style: TextStyle(color: kgolder),),
-                           ElevatedButton(
-                               onPressed: (){
-                                Get.defaultDialog(
-                                  title: "Request for the service?",
+                           Container(
+                             height: 25,
+                             child: ElevatedButton(
+                                 onPressed: (){
+                                  Get.defaultDialog(
+                                    title: "Request for the service?",
 
-                                  titlePadding: EdgeInsets.only(right: W*.1,top: H*0.03,left: W*0.04),
-                                  contentPadding:EdgeInsets.only(right: W*.03,top: H*0.03,left: W*0.06) ,
-                                  radius: 10,
-                                  backgroundColor: kgolder,
-                                  content: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Are you sure do you want to request for \nthe service?",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                                      SizedBox(height: H*0.05,),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          InkWell(
-                                            onTap:(){
-                                              _onPressedRequest(certificateName: name);
-                                },
-                                            child: Container(
-                                              padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                                    titlePadding: EdgeInsets.only(right: W*.1,top: H*0.03,left: W*0.04),
+                                    contentPadding:EdgeInsets.only(right: W*.03,top: H*0.03,left: W*0.06) ,
+                                    radius: 10,
+                                    backgroundColor: kdarkyellow,
+                                    content: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Are you sure do you want to request for \nthe service?",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                        SizedBox(height: H*0.05,),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            InkWell(
+                                              onTap:(){
+                                                _onPressedRequest(certificateName: name);
+                                  },
+                                              child: Container(
+                                                padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
 
-                                             decoration: BoxDecoration(
-                                               color: kGray3,
-                                               borderRadius: BorderRadius.circular(15),
-                                               border: Border.all(color: kblack)
-                                             ),
-                                              child: Text("Request",style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: kgolder),),
+                                               decoration: BoxDecoration(
+                                                 color: kGray3,
+                                                 borderRadius: BorderRadius.circular(15),
+                                                 border: Border.all(color: kblack)
+                                               ),
+                                                child: Text("Request",style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: kgolder),),
 
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(width: 10,),
-                                          Text("Cancel",style: TextStyle(fontWeight: FontWeight.w500),)
-                                        ],
-                                      )
-                                    ],
+                                            SizedBox(width: 10,),
+                                            Text("Cancel",style: TextStyle(fontWeight: FontWeight.w500),)
+                                          ],
+                                        )
+                                      ],
 
-                                  )
-                                );
-                               },
-                               child: Text("Request"),
-                              style: ElevatedButton.styleFrom(
-                                primary: kgolder,
-                                onPrimary: kblack
-                              ),
+                                    )
+                                  );
+                                 },
+                                 child: Text("Request",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400),),
+                                style: ElevatedButton.styleFrom(
+                                  primary: kgolder,
+                                  onPrimary: kblack,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                                ),
+                             ),
                            )
                          ],
                        ),

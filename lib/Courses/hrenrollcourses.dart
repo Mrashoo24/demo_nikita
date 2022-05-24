@@ -32,20 +32,13 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
       child: Scaffold(
         appBar:
         AppBar(
+          automaticallyImplyLeading: false,
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      kblack,
-                      kGray
-                    ]
-                )
+                color: kblack
             ),
           ),
-          leading: Icon(Icons.arrow_back),
-          title: Text("Services",style: TextStyle(color: kgolder),),
+          title: Container(margin:EdgeInsets.only(left: 15),child: Text("Courses",style: TextStyle(color: kgolder),)),
           titleSpacing: 5,
           shadowColor: Colors.transparent,
         ),
@@ -67,8 +60,8 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                   height: 50,
                   decoration: BoxDecoration(
                     gradient:  LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
 
                         colors: [
                           kblack,
@@ -89,8 +82,8 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                     ),
                     unselectedLabelColor: kgolder,
                     tabs: [
-                      Text("HR Courses"),
-                      Text("Enrolled Courses"),
+                      Text("HR Courses",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),
+                      Text("Enrolled Courses",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),
                     ],
                   ),
                 ),
@@ -253,9 +246,14 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                 width: Get.width,
                                 decoration: BoxDecoration(
                                     gradient:  LinearGradient(
-                                      colors: [Colors.grey, Colors.black  ],
+                                      colors: [kGray7, kblack ],
                                       begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,),
+                                      end: Alignment.centerRight,
+                                    stops: [
+                                      0.2,
+                                      1.3
+                                    ]
+                                    ),
                                     borderRadius: BorderRadius.all(Radius.circular(12)),
                                     border: Border.all(width: 3,color: kgolder)
                                 ),
@@ -320,9 +318,14 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                         ),
                                         decoration: BoxDecoration(
                                             gradient:  LinearGradient(
-                                              colors: [Colors.yellow.shade100, kgolder  ],
+                                              colors: [kgradientYellow, kgolder  ],
                                               begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,),
+                                              end: Alignment.centerRight,
+                                            stops: [
+                                              0.1,
+                                              1.3
+                                            ]
+                                            ),
                                             borderRadius: BorderRadius.all(Radius.circular(12)),
                                             border: Border.all(width: 3,color: Colors.black)
                                         ),
@@ -415,7 +418,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
 
                                                     decoration: BoxDecoration(
                                                       gradient:  LinearGradient(
-                                                        colors: [Colors.black, Colors.grey.shade600],
+                                                        colors: [Colors.black, kGray7],
                                                         begin: Alignment.centerRight,
                                                         end: Alignment.centerLeft,),
 

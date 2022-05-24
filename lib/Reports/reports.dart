@@ -41,20 +41,21 @@ class _ReportsState extends State<Reports> {
           var currentindex = DefaultTabController.of(context)!.index;
           return Scaffold(
               appBar:AppBar(
+                automaticallyImplyLeading: false,
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                           colors: [
                             kblack,
                             kGray
-                          ]
+                          ],
+
                       )
                   ),
                 ),
-                leading: SizedBox(width: 5,),
-                title: Text("Reports",style: TextStyle(color: kgolder),),
+                title: Container(margin:EdgeInsets.only(left: 15),child: Text("Reports",style: TextStyle(color: kgolder),)),
                 titleSpacing: 5,
                 shadowColor: Colors.transparent,
               ),
@@ -73,24 +74,25 @@ class _ReportsState extends State<Reports> {
                   children: [
                     Container(
                       margin: EdgeInsets.all(8),
-                      height: 50,
+                      height: 40,
                       decoration: BoxDecoration(
                           color: kgolder,
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           border: Border.all(color: Colors.black,width: 2)
                       ),
                       child: TabBar(
+                        padding: EdgeInsets.all(2),
                         labelColor: kgolder,
                         indicator: BoxDecoration(
-                          color: kblack,
+                          color: kGray2,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         unselectedLabelColor: kblack,
                         tabs: [
-                          Text("All"),
-                          Text("Perfect"),
-                          Text("Early",style: TextStyle(fontSize: 13),),
-                          Text("Late")
+                          Text("All",style: TextStyle(fontSize: 16,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),
+                          Text("Perfect",style: TextStyle(fontSize: 16,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),
+                          Text("Early",style: TextStyle(fontSize: 16,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),
+                          Text("Late",style: TextStyle(fontSize: 16,fontFamily:'Typo Round',fontWeight: FontWeight.w400),)
                         ],
                       ),
                     ),
@@ -129,7 +131,7 @@ class _ReportsState extends State<Reports> {
                                             padding: EdgeInsets.all(5),
 
                                             decoration: BoxDecoration(
-                                                color: kGray,
+                                                color: kGray2,
                                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                                 border: Border.all(color: Colors.black)
                                             ),
@@ -138,7 +140,7 @@ class _ReportsState extends State<Reports> {
                                                    Text(
 
                                                   dateSelected == null
-                                                      ? "dd-mm-yyyy"
+                                                      ? "DD-MM-YYYY"
                                                       : DateFormat("yyyy-MM-dd")
                                                       .parse(dateSelected!)
                                                       .day
@@ -152,7 +154,8 @@ class _ReportsState extends State<Reports> {
                                                       DateFormat("yyyy-MM-dd")
                                                           .parse(dateSelected!)
                                                           .year
-                                                          .toString(),
+                                                          .toString()
+          ,style: TextStyle(color: kgolder),
 
                                                 )
 
@@ -161,7 +164,7 @@ class _ReportsState extends State<Reports> {
                                                 CircleAvatar(
                                                     backgroundColor: kgolder,
                                                     minRadius: 5,
-                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray2,)),
                                               ],
                                             ),
                                           )
@@ -194,7 +197,7 @@ class _ReportsState extends State<Reports> {
                                             padding: EdgeInsets.all(5),
 
                                             decoration: BoxDecoration(
-                                                color: kGray,
+                                                color: kGray2,
                                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                                 border: Border.all(color: Colors.black)
                                             ),
@@ -203,7 +206,7 @@ class _ReportsState extends State<Reports> {
                                                 Text(
 
                                                   todateSelected == null
-                                                      ? "dd-mm-yyyy"
+                                                      ? "DD-MM-YYYY"
                                                       : DateFormat("yyyy-MM-dd")
                                                       .parse(todateSelected!)
                                                       .day
@@ -217,7 +220,8 @@ class _ReportsState extends State<Reports> {
                                                       DateFormat("yyyy-MM-dd")
                                                           .parse(todateSelected!)
                                                           .year
-                                                          .toString(),
+                                                          .toString()
+          ,style: TextStyle(color: kgolder),
 
                                                 )
 
@@ -226,7 +230,7 @@ class _ReportsState extends State<Reports> {
                                                 CircleAvatar(
                                                     backgroundColor: kgolder,
                                                     minRadius: 5,
-                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray2,)),
                                               ],
                                             ),
                                           )
@@ -234,8 +238,7 @@ class _ReportsState extends State<Reports> {
                                       ),
                                     ),
                                   ),
-                                  Icon(Icons.abc_sharp),
-                                  Icon(Icons.star)
+
                                 ],
                               ),SizedBox(height: 10,),
                               if (dateSelected != null && todateSelected != null)
@@ -322,9 +325,9 @@ class _ReportsState extends State<Reports> {
                                           SizedBox(height: 10,),
                                           Container(
                                             padding: EdgeInsets.all(5),
-                                            height: 25,
+
                                             decoration: BoxDecoration(
-                                                color: kGray,
+                                                color: kGray2,
                                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                                 border: Border.all(color: Colors.black)
                                             ),
@@ -333,7 +336,7 @@ class _ReportsState extends State<Reports> {
                                                 Text(
 
                                                   dateSelected == null
-                                                      ? "From Date"
+                                                      ? "DD-MM-YYYY"
                                                       : DateFormat("yyyy-MM-dd")
                                                       .parse(dateSelected!)
                                                       .day
@@ -347,7 +350,8 @@ class _ReportsState extends State<Reports> {
                                                       DateFormat("yyyy-MM-dd")
                                                           .parse(dateSelected!)
                                                           .year
-                                                          .toString(),
+                                                          .toString()
+                                                  ,style: TextStyle(color: kgolder),
 
                                                 )
 
@@ -356,7 +360,7 @@ class _ReportsState extends State<Reports> {
                                                 CircleAvatar(
                                                     backgroundColor: kgolder,
                                                     minRadius: 5,
-                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray2,)),
                                               ],
                                             ),
                                           )
@@ -387,9 +391,9 @@ class _ReportsState extends State<Reports> {
                                           SizedBox(height: 10,),
                                           Container(
                                             padding: EdgeInsets.all(5),
-                                            height: 25,
+
                                             decoration: BoxDecoration(
-                                                color: kGray,
+                                                color: kGray2,
                                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                                 border: Border.all(color: Colors.black)
                                             ),
@@ -398,7 +402,7 @@ class _ReportsState extends State<Reports> {
                                                 Text(
 
                                                   todateSelected == null
-                                                      ? "To Date"
+                                                      ? "DD-MM-YYYY"
                                                       : DateFormat("yyyy-MM-dd")
                                                       .parse(todateSelected!)
                                                       .day
@@ -412,14 +416,17 @@ class _ReportsState extends State<Reports> {
                                                       DateFormat("yyyy-MM-dd")
                                                           .parse(todateSelected!)
                                                           .year
-                                                          .toString(),
+                                                          .toString()
+                                                  ,style: TextStyle(color: kgolder),
 
-                                                ),
+                                                )
+
+                                                ,
                                                 SizedBox(width: 5,),
                                                 CircleAvatar(
                                                     backgroundColor: kgolder,
                                                     minRadius: 5,
-                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray2,)),
                                               ],
                                             ),
                                           )
@@ -427,8 +434,7 @@ class _ReportsState extends State<Reports> {
                                       ),
                                     ),
                                   ),
-                                  Icon(Icons.abc_sharp),
-                                  Icon(Icons.star)
+
                                 ],
                               ),SizedBox(height: 10,),
                               if (dateSelected != null && todateSelected != null)
@@ -514,9 +520,9 @@ class _ReportsState extends State<Reports> {
                                           SizedBox(height: 10,),
                                           Container(
                                             padding: EdgeInsets.all(5),
-                                            height: 25,
+
                                             decoration: BoxDecoration(
-                                                color: kGray,
+                                                color: kGray2,
                                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                                 border: Border.all(color: Colors.black)
                                             ),
@@ -525,7 +531,7 @@ class _ReportsState extends State<Reports> {
                                                 Text(
 
                                                   dateSelected == null
-                                                      ? "From Date"
+                                                      ? "DD-MM-YYYY"
                                                       : DateFormat("yyyy-MM-dd")
                                                       .parse(dateSelected!)
                                                       .day
@@ -539,7 +545,8 @@ class _ReportsState extends State<Reports> {
                                                       DateFormat("yyyy-MM-dd")
                                                           .parse(dateSelected!)
                                                           .year
-                                                          .toString(),
+                                                          .toString()
+                                                  ,style: TextStyle(color: kgolder),
 
                                                 )
 
@@ -548,7 +555,7 @@ class _ReportsState extends State<Reports> {
                                                 CircleAvatar(
                                                     backgroundColor: kgolder,
                                                     minRadius: 5,
-                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray2,)),
                                               ],
                                             ),
                                           )
@@ -579,9 +586,9 @@ class _ReportsState extends State<Reports> {
                                           SizedBox(height: 10,),
                                           Container(
                                             padding: EdgeInsets.all(5),
-                                            height: 25,
+
                                             decoration: BoxDecoration(
-                                                color: kGray,
+                                                color: kGray2,
                                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                                 border: Border.all(color: Colors.black)
                                             ),
@@ -590,7 +597,7 @@ class _ReportsState extends State<Reports> {
                                                 Text(
 
                                                   todateSelected == null
-                                                      ? "To Date"
+                                                      ? "DD-MM-YYYY"
                                                       : DateFormat("yyyy-MM-dd")
                                                       .parse(todateSelected!)
                                                       .day
@@ -604,7 +611,8 @@ class _ReportsState extends State<Reports> {
                                                       DateFormat("yyyy-MM-dd")
                                                           .parse(todateSelected!)
                                                           .year
-                                                          .toString(),
+                                                          .toString()
+                                                  ,style: TextStyle(color: kgolder),
 
                                                 )
 
@@ -613,7 +621,7 @@ class _ReportsState extends State<Reports> {
                                                 CircleAvatar(
                                                     backgroundColor: kgolder,
                                                     minRadius: 5,
-                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray2,)),
                                               ],
                                             ),
                                           )
@@ -621,8 +629,8 @@ class _ReportsState extends State<Reports> {
                                       ),
                                     ),
                                   ),
-                                  Icon(Icons.abc_sharp),
-                                  Icon(Icons.star)
+                                  // Icon(Icons.abc_sharp),
+                                  // Icon(Icons.star)
                                 ],
                               ),SizedBox(height: 10,),
                               if (dateSelected != null && todateSelected != null)
@@ -710,9 +718,9 @@ class _ReportsState extends State<Reports> {
                                           SizedBox(height: 10,),
                                           Container(
                                             padding: EdgeInsets.all(5),
-                                            height: 25,
+
                                             decoration: BoxDecoration(
-                                                color: kGray,
+                                                color: kGray2,
                                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                                 border: Border.all(color: Colors.black)
                                             ),
@@ -721,7 +729,7 @@ class _ReportsState extends State<Reports> {
                                                 Text(
 
                                                   dateSelected == null
-                                                      ? "From Date"
+                                                      ? "DD-MM-YYYY"
                                                       : DateFormat("yyyy-MM-dd")
                                                       .parse(dateSelected!)
                                                       .day
@@ -735,7 +743,8 @@ class _ReportsState extends State<Reports> {
                                                       DateFormat("yyyy-MM-dd")
                                                           .parse(dateSelected!)
                                                           .year
-                                                          .toString(),
+                                                          .toString()
+                                                  ,style: TextStyle(color: kgolder),
 
                                                 )
 
@@ -744,7 +753,7 @@ class _ReportsState extends State<Reports> {
                                                 CircleAvatar(
                                                     backgroundColor: kgolder,
                                                     minRadius: 5,
-                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray2,)),
                                               ],
                                             ),
                                           )
@@ -775,9 +784,9 @@ class _ReportsState extends State<Reports> {
                                           SizedBox(height: 10,),
                                           Container(
                                             padding: EdgeInsets.all(5),
-                                            height: 25,
+
                                             decoration: BoxDecoration(
-                                                color: kGray,
+                                                color: kGray2,
                                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                                 border: Border.all(color: Colors.black)
                                             ),
@@ -786,7 +795,7 @@ class _ReportsState extends State<Reports> {
                                                 Text(
 
                                                   todateSelected == null
-                                                      ? "To Date"
+                                                      ? "DD-MM-YYYY"
                                                       : DateFormat("yyyy-MM-dd")
                                                       .parse(todateSelected!)
                                                       .day
@@ -800,7 +809,8 @@ class _ReportsState extends State<Reports> {
                                                       DateFormat("yyyy-MM-dd")
                                                           .parse(todateSelected!)
                                                           .year
-                                                          .toString(),
+                                                          .toString()
+                                                  ,style: TextStyle(color: kgolder),
 
                                                 )
 
@@ -809,7 +819,7 @@ class _ReportsState extends State<Reports> {
                                                 CircleAvatar(
                                                     backgroundColor: kgolder,
                                                     minRadius: 5,
-                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray,)),
+                                                    child: Image.asset("assets/icons/dropdown.png",color: kGray2,)),
                                               ],
                                             ),
                                           )
@@ -817,8 +827,7 @@ class _ReportsState extends State<Reports> {
                                       ),
                                     ),
                                   ),
-                                  Icon(Icons.abc_sharp),
-                                  Icon(Icons.star)
+
                                 ],
                               ),SizedBox(height: 10,),
                               if (dateSelected != null && todateSelected != null)
@@ -908,19 +917,29 @@ class _ReportsState extends State<Reports> {
                             margin: EdgeInsets.only(left: 6,right: 6,top: 5,bottom: 5),
                             padding: EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/bg.jpg"),
-                                fit: BoxFit.cover
+
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    kgradientYellow,kgolder
+                                  ],
+                                stops: [
+                                  0.1,
+                                  1.3
+                                ]
                               ),
-                              borderRadius: BorderRadius.all(Radius.circular(8))
                             ),
+
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Date : ${checkInHistoryList.date}"),
                                 Row(
                                   children: [
-                                    Icon(Icons.star),
+                                    Container(height: 20,width: 1.3,color: kblack,),
+                                    SizedBox(width: 10,),
                                     Text("OT:${checkInHistoryList.checkOutDifference} Hrs")
                                   ],
                                 ),
@@ -935,7 +954,7 @@ class _ReportsState extends State<Reports> {
                               Container(
                                 padding: EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
                                 decoration: BoxDecoration(
-                                  color: checkInHistoryList.status == 'late' ? Colors.red : kGreen,
+                                  color: checkInHistoryList.status == 'late' ? kred : kGreen,
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                   border: Border.all(color: Colors.black)
                                 ),
@@ -945,7 +964,7 @@ class _ReportsState extends State<Reports> {
                               Container(
                                 padding: EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
                                 decoration: BoxDecoration(
-                                    color:checkInHistoryList.workingstatus == 'early' ? Colors.red : kGreen,
+                                    color:checkInHistoryList.workingstatus == 'early' ? kred : kGreen,
                                     borderRadius: BorderRadius.all(Radius.circular(10)),
                                     border: Border.all(color: Colors.black)
                                 ),

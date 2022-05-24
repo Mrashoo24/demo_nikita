@@ -1005,9 +1005,10 @@ var widthofcontainer = 20.0;
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.black, Colors.grey.shade600],
+                        colors: [Colors.black, kGray7],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
+                        
                       ),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(15),
@@ -1022,9 +1023,11 @@ var widthofcontainer = 20.0;
                             children: [
                               InkWell(
                                 onTap: widget.function,
-                                child: Icon(
-                                  Icons.menu,
-                                  color: kgolder,
+                                child: Image.
+                        asset(
+                                  'assets/icons/more.png',
+                                  width: 20,
+                                  height: 20,
                                 ),
                               ),
                               Container(
@@ -1825,7 +1828,7 @@ var widthofcontainer = 20.0;
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(width: 2, color: kdarkyellow),
+          border: Border.all(width: 2, color: kgolder),
           color:index.isEven ? Colors.white.withOpacity(0.3) : Colors.grey.withOpacity(0.2),
           borderRadius: BorderRadius.circular(15),
         ),
@@ -1837,7 +1840,7 @@ var widthofcontainer = 20.0;
               child: Text(
                 title,
                 style: TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.bold, color: kdarkyellow),
+                    fontSize: 20, fontWeight: FontWeight.bold, color: kgolder),
               ),
             ),
             Align(
@@ -1848,7 +1851,7 @@ var widthofcontainer = 20.0;
                   count,
                   style: TextStyle(
                       fontSize: 90,
-                      color: kdarkyellow,
+                      color: kgolder,
                       fontWeight: FontWeight.bold),
                 ),
               ),

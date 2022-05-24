@@ -129,7 +129,7 @@ class _EnquiryChatState extends State<EnquiryChat> {
             minLines: null,
             expands: true,
             decoration:  InputDecoration(
-              hintText: 'Type your message...',
+              hintText: 'Type your message',
               filled: true,
               fillColor: Colors.transparent,
               enabledBorder:OutlineInputBorder(
@@ -201,8 +201,8 @@ class _EnquiryChatState extends State<EnquiryChat> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                     colors: [
                       kblack,
                       kGray
@@ -210,8 +210,8 @@ class _EnquiryChatState extends State<EnquiryChat> {
                 )
             ),
           ),
-          leading: SizedBox(width: 5,),
-          title: Text("Enquiry",style: TextStyle(color: kgolder),),
+          automaticallyImplyLeading: false,
+          title: Container(margin:EdgeInsets.only(left: 15),child: Text("Enquiry",style: TextStyle(color: kgolder),)),
           titleSpacing: 5,
           shadowColor: Colors.transparent,
         ),

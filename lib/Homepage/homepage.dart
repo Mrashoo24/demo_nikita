@@ -364,6 +364,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         buildBNBCards('Services','assets/icons/services.png',0),
                                         buildBNBCards('Enquiry','assets/icons/enquiry.png',1),
@@ -421,7 +422,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
                                                     width: 30,
                                                     height: 30,
-                                                    child: Image.asset('assets/icons/reports.png',fit: BoxFit.fill,)),
+                                                    child: Image.asset('assets/icons/more.png',fit: BoxFit.fill,)),
                                               ),
                                               Text('More',style: TextStyle(color: kgolder,fontSize:  14),),
                                             ],

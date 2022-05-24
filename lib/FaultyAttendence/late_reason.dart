@@ -93,27 +93,27 @@ Write in your reason with your details in the description box with subject.''',
                   TextFormField(
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: kgolder),
+                        borderSide: BorderSide(color: kblack),
                         borderRadius: BorderRadius.all(
                           Radius.circular(8.0),
                         ),
 
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: kgolder),
+                        borderSide: BorderSide(color: kblack),
                         borderRadius: BorderRadius.all(
                           Radius.circular(8.0),
                         ),
 
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: kgolder),
+                        borderSide: BorderSide(color: kblack),
                         borderRadius: BorderRadius.all(
                           Radius.circular(8.0),
                         ),
 
                       ),
-                      label: Text('Subject',style: TextStyle(color: kgolder),),
+                      label: Text('Subject',style: TextStyle(color: kblack),),
                       hintText: 'Enter the subject of your enquiry email.',
                     ),
                     validator: (value) {
@@ -140,27 +140,27 @@ Write in your reason with your details in the description box with subject.''',
                       maxLines: null,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: kgolder),
+                          borderSide: BorderSide(color: kblack),
                           borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
                           ),
 
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: kgolder),
+                          borderSide: BorderSide(color: kblack),
                           borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
                           ),
 
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: kgolder),
+                          borderSide: BorderSide(color: kblack),
                           borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
                           ),
 
                         ),
-                        label: Text('Description',style: TextStyle(color: kgolder),),
+                        label: Text('Description',style: TextStyle(color: kblack),),
                         hintText:
                             'Enter the description of your enquiry email.',
                       ),

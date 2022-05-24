@@ -130,8 +130,19 @@ class _MyAppState extends State<MyApp> {
         // is not restarted.
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
+          bodyText1:TextStyle(fontFamily: 'Typo Round'),
           bodyText2:TextStyle(fontFamily: 'Typo Round'),
           button: TextStyle(fontFamily: 'Typo Round'),
+             headline1:TextStyle(fontFamily:'Typo Round'),   
+             headline2:TextStyle(fontFamily:'Typo Round'),  
+             headline3:TextStyle(fontFamily:'Typo Round'), 
+             headline4:TextStyle(fontFamily:'Typo Round'), 
+             headline5:TextStyle(fontFamily:'Typo Round'), 
+             headline6:TextStyle(fontFamily:'Typo Round'),  
+             subtitle1:TextStyle(fontFamily:'Typo Round'),  
+             subtitle2:TextStyle(fontFamily:'Typo Round'),
+             caption:TextStyle(fontFamily:'Typo Round'),
+             overline:TextStyle(fontFamily:'Typo Round'),
         )
 
       ),
