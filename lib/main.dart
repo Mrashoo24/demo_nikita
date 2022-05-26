@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:demo_nikita/Authentication/loginpage.dart';
@@ -34,6 +35,17 @@ Future<void> firebaseMessgaingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 }
 
+class MyHttpOverrides extends HttpOverrides{
+
+
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
+
+
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,8 +60,11 @@ Future<void> main() async {
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true, // Required to display a heads up notification
     badge: true,
-    sound: true,
+    sound: true
   );
+
+  HttpOverrides.global =  MyHttpOverrides();
+
   runApp(const MyApp());
 
 }

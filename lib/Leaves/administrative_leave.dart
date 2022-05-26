@@ -67,7 +67,9 @@ class _AdminstrativLeaveState extends State<AdminstrativLeave> {
 
                   return ListView.builder(
                       itemCount: adminLeavesList!.length,
-                      itemBuilder: (context, index) {                    var adminleave= adminLeavesList[index];
+                      itemBuilder: (context, index) {
+                        var adminleave= adminLeavesList[index];
+
                         return AnimationConfiguration.staggeredList(
                           position: index,
                           duration: const Duration(milliseconds: 700),
