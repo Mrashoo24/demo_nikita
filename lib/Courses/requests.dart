@@ -37,7 +37,7 @@ class _RequestsState extends State<Requests> {
   var _selectedToDate = '';
   final List _filters = [
     'Pending',
-    'Accepted',
+    ' ',
     'Rejected',
   ];
   String _selectedFilter = 'Pending';
@@ -128,12 +128,9 @@ class _RequestsState extends State<Requests> {
                               ],
                             ),
                           ),
-
-
                         ],
                       ),
                     ),
-
                   ),
                   Container(
 
