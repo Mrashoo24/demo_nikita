@@ -49,7 +49,7 @@ class _AdminstrativLeaveState extends State<AdminstrativLeave> {
               FutureBuilder<List<AdminLeavesModel>?>(
                   future: AllApi().getAdminLeaves(
                     verify: '1',
-                    companyId: widget.userModel!.companyId,
+                    companyId: widget.userModel?.companyId,
                     refId: widget.userModel!.refId,
                   ),
                 builder: (context, snapshot) {
@@ -77,7 +77,8 @@ class _AdminstrativLeaveState extends State<AdminstrativLeave> {
                             duration: Duration(milliseconds: 500),
                             horizontalOffset: 200.0,
                             child: FadeInAnimation(
-                              child: Container(
+                              child:
+                              Container(
                                 margin: EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                     gradient: LinearGradient(
