@@ -6,14 +6,14 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../Components/constants.dart';
 
-class NewAdmin extends StatefulWidget {
-  const NewAdmin({Key? key}) : super(key: key);
+class Tanleave extends StatefulWidget {
+  const Tanleave({Key? key}) : super(key: key);
 
   @override
   _NewAdminState createState() => _NewAdminState();
 }
 
-class _NewAdminState extends State<NewAdmin> {
+class _NewAdminState extends State<Tanleave> {
 
   var _isLoading = false;
   var _employeeName = 'Select Employee';
@@ -25,37 +25,36 @@ class _NewAdminState extends State<NewAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
+        appBar:  AppBar(
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: kgolder,
+              ),
+              onPressed: () {
+                // do something
+              },
+            )
+          ],
+          title: Text('Administrative Leave',style: TextStyle(color:kgolder),),
 
-         leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: kgolder,
+
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      kblack,
+                      kblack,
+                    ]
+                )
             ),
-            onPressed: () {
-              // do something
-            },
-          ),
-        leadingWidth: 25,
-
-        title: Text('Administrative Leave',style: TextStyle(color:kgolder),),
-
-
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    kblack,
-                    kblack,
-                  ]
-              )
           ),
         ),
-      ),
 
-      body:
+        body:
 
 //       Container(
 //       decoration: BoxDecoration(
@@ -141,56 +140,52 @@ class _NewAdminState extends State<NewAdmin> {
                   ),
                   SizedBox(height: 10,),
                   InkWell(
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(border: Border.all(color: kgolder),color:kblack,borderRadius: BorderRadius.all(Radius.circular(9),),
-                          ),
-                          child: DropdownSearch(
-                            emptyBuilder: (context, searchEntry) => Center(
-                              child: Text(
-                                "No results found for '$searchEntry'",
-                              ),
-                            ),
-                            mode: Mode.MENU,
-                            items: [],
-                            showSearchBox: true,
-                            // onChanged: (String? value) {
-                            //   setState(() {
-                            //     _employeeName = value as String;
-                            //   });
-                            // },
-                            selectedItem: _employeeName,
-                            dropdownSearchDecoration:  InputDecoration(
-                              label: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Employee',style:TextStyle(color:kgolder,fontSize: 28),),
-                              ),
-                              // icon: Image.asset('assets/Images/employee.png',width: 40,height: 40,),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        Container(
-                          height: 45,
-                          width: Get.width*0.3,
-                          decoration: BoxDecoration(border: Border.all(color: kblack,width: 3),color:kgolder,borderRadius: BorderRadius.all(Radius.circular(17),),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('Search',style: TextStyle(color: kblack,fontSize: 19),),
-
+                    child: Container(
+                      width: Get.width*0.9,
+                      decoration: BoxDecoration(border: Border.all(color: kgolder),color:kblack,borderRadius: BorderRadius.all(Radius.circular(9),),
+                      ),
+                      child: Column(
+                        children: [
+                          Card(
+                            child: ExpansionTile(
+                              tilePadding: EdgeInsets.only(left: 16),
+                              collapsedBackgroundColor:kblack,
+                              backgroundColor: kblack,
+                              title: Text('Select Employee',style: TextStyle(color: kgolder),),
+                              children: <Widget>[
+                                Text('Department :',style: TextStyle(color: kgolder),),
+                                Text('Designation :',style: TextStyle(color: kgolder),),
+                                Text('Employee ID :',style: TextStyle(color: kgolder),),
+                                Text('Email :',style: TextStyle(color: kgolder),),
+                                Text('Phone number :',style: TextStyle(color: kgolder),),
+                                Text('Office :',style: TextStyle(color: kgolder),),
+                                Text('Admin Leaves',style: TextStyle(color: kgolder),),
                               ],
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 10,),
+
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 10,),
+                  Container(
+                    height: 45,
+                    width: Get.width*0.3,
+                    decoration: BoxDecoration(border: Border.all(color: kblack,width: 3),color:kgolder,borderRadius: BorderRadius.all(Radius.circular(17),),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Search',style: TextStyle(color: kblack,fontSize: 19),),
+
+                        ],
+                      ),
+                    ),
+                  ),
 
                 ],
               ),
