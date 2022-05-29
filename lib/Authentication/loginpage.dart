@@ -45,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
          backgroundColor: Colors.transparent,
         body: Container(
           height: Get.height,

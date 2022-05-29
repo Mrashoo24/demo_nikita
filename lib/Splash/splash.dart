@@ -25,7 +25,7 @@ class _SplashScreeenState extends State<SplashScreeen> {
   void initState() {
 
     super.initState();
-    Timer(Duration(milliseconds: 2000), () async {
+    Timer(Duration(milliseconds: 1000), () async {
 
 
 
@@ -51,9 +51,9 @@ class _SplashScreeenState extends State<SplashScreeen> {
 
 
         loggein != true
-            ?  Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
+            ?  Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 1))
         :
-        Get.to(Welcome(userModel: user1),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
+        Get.to(Welcome(userModel: user1),transition: Transition.rightToLeft,duration: Duration(seconds: 1))
         ;
 
 

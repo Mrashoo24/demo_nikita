@@ -2,6 +2,7 @@ import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import 'Components/api.dart';
 import 'Components/models.dart';
@@ -83,16 +84,24 @@ class _EnquiryChatState extends State<EnquiryChat> {
             return kprogressbar;
           }
           var enquiries = snapshot.data;
+
+          enquiries!.sort((a, b) {
+            return DateFormat('yyyy-MM-dd hh:mm a').format(DateFormat('dd-MM-yyyy hh:mm a').parse(b.timeStamp.toString())).compareTo(DateFormat('yyyy-MM-dd hh:mm a').format(DateFormat('dd-MM-yyyy hh:mm a').parse(a.timeStamp.toString())));
+          });
+
           return ListView.builder(
             reverse: true,
             itemCount: enquiries!.length,
             itemBuilder: (context, index) {
 
+
+
+
               return AnimationConfiguration.staggeredList(
                 position: index,
-                duration: const Duration(milliseconds: 700),
+                duration: const Duration(milliseconds: 100),
                 child: SlideAnimation(
-                  duration: Duration(milliseconds: 500),
+                  duration: Duration(milliseconds: 100),
                   horizontalOffset: 200.0,
                   child: FadeInAnimation(
                     child: _messageBox(

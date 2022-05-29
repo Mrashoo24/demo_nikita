@@ -35,11 +35,13 @@ class _RequestsState extends State<Requests> {
   var textFieldValues = [];
   var _selectedFromDate = '';
   var _selectedToDate = '';
+
   final List _filters = [
     'Pending',
     'Accepted',
     'Rejected',
   ];
+
   String _selectedFilter = 'Pending';
   late List<EmployeeLeaveRequestsModel> _historyList;
 

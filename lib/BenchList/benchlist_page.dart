@@ -68,7 +68,7 @@ class _BenchListState extends State<BenchList> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
 
-                    DropdownSearch(
+                    DropdownSearch<String?>(
                       emptyBuilder: (context, searchEntry) => Center(
                         child: Text(
                           "No results found for '$searchEntry'",
@@ -77,11 +77,16 @@ class _BenchListState extends State<BenchList> {
                       mode: Mode.MENU,
                       items: employeeList.map((e) => e.name).toList(),
                       showSearchBox: true,
-                      // onChanged: (String? value) {
-                      //   setState(() {
-                      //     _employeeName = value as String;
-                      //   });
-                      // },
+                      onChanged: (String? value) {
+                        setState(() {
+                          _employeeName = value as String;
+                        });
+                      },
+                      onSaved: (value){
+                          setState(() {
+                            _employeeName = value as String;
+                          });
+                      },
                       selectedItem: _employeeName,
                       dropdownSearchDecoration:  InputDecoration(
                         label: Text('Select Employee'),
@@ -256,6 +261,7 @@ class _BenchListState extends State<BenchList> {
                               ),
                             ),
                             child: Container(
+                              color: kgolder,
                               width: MediaQuery.of(context).size.width,
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -332,7 +338,7 @@ class _BenchListState extends State<BenchList> {
                                 ),
                               ),
                             ),
-                            child: const Text('Submit'),
+                            child: const Text('Submit',style: TextStyle(color: Colors.black),),
                             onPressed: () async {
                               final canSubmit = _trySubmit();
                               if (canSubmit) {
@@ -379,9 +385,7 @@ class _BenchListState extends State<BenchList> {
                         ],
                       ),
                     if (_isLoading)
-                      Center(
-                        child: Image.asset("assets/Images/loading.gif"),
-                      ),
+                     kprogressbar,
                     if (!_isLoading && _employeeDetails == null)
                       ElevatedButton(
                         child: const Text('Search',style: TextStyle(color: kblack),),
@@ -399,6 +403,7 @@ class _BenchListState extends State<BenchList> {
                         ),
                         onPressed: () async {
                           final canSearch = _trySubmit();
+                          print( '$canSearch + $_employeeName' );
                           if (canSearch && _employeeName != 'Select Employee') {
                             setState(() {
                               _isLoading = true;
@@ -500,9 +505,7 @@ class _BenchListState extends State<BenchList> {
             ),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Center(
-                  child: Image.asset("assets/Images/loading.gif"),
-                );
+                return kprogressbar;
               } else if (snapshot.data!.isEmpty) {
                 return const Center(
                   child: Text('Nothing to show here.'),

@@ -84,7 +84,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 100));
 
     _arrowAnimation =
         Tween(begin: 0.0, end: 0.0).animate(_animationController);
