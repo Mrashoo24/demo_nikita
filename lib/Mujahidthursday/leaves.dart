@@ -262,59 +262,61 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                         ),
                                                                           child: Padding(
                                                                             padding:   EdgeInsets.all(10),
-                                                                            child: Column(
-                                                                              children: [
-                                                                                Row(
-                                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                                  children: [
-                                                                                    Column(
-                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                      children: [
-                                                                                        Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
-                                                                                        SizedBox(height: 15),
-                                                                                        Text("Emp ID: ",style: TextStyle(color:kgolder ),),
-                                                                                        Text("Designation: ",style: TextStyle(color:kgolder ),),
-                                                                                        Text("Phone: ",style: TextStyle(color:kgolder ),),
-                                                                                        Text("Email : ",style: TextStyle(color:kgolder ),),
-                                                                                        SizedBox(height: 15),
-                                                                                        Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
-                                                                                          style: TextStyle(color:kgolder ),),
+                                                                            child: SingleChildScrollView(
+                                                                              child: Column(
+                                                                                children: [
+                                                                                  Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Column(
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                                          SizedBox(height: 15),
+                                                                                          Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                                          Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                                          Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                                          Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                                          SizedBox(height: 15),
+                                                                                          Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                                            style: TextStyle(color:kgolder ),),
 
-                                                                                      ],
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                                SizedBox(height: 15),
-                                                                                Row(
-                                                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                                                  children: [
-                                                                                    Container(
-                                                                                      height: 30,
-                                                                                      decoration: BoxDecoration(
-                                                                                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                                                          color: kgolder,
-
+                                                                                        ],
                                                                                       ),
-                                                                                      child:Padding(
-                                                                                        padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                        child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
-                                                                                      ) ,
-                                                                                    ),
-                                                                                    Container(
-                                                                                      height: 30,
-                                                                                      decoration: BoxDecoration(
-                                                                                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                    ],
+                                                                                  ),
+                                                                                  SizedBox(height: 15),
+                                                                                  Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        height: 30,
+                                                                                        decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                            color: kgolder,
 
-
+                                                                                        ),
+                                                                                        child:Padding(
+                                                                                          padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                          child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                        ) ,
                                                                                       ),
-                                                                                      child:Padding(
-                                                                                        padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                        child: Center(child: Text("Cancl",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                                                      ) ,
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ],
+                                                                                      Container(
+                                                                                        height: 30,
+                                                                                        decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+
+
+                                                                                        ),
+                                                                                        child:Padding(
+                                                                                          padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                          child: Center(child: Text("Cancl",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                        ) ,
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ],
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),
@@ -414,7 +416,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                            child: Center(child: Text("Reject",style: TextStyle(color: kblack,fontSize:18),)),
                                                                                           ) ,
                                                                                         ),
                                                                                         Container(
@@ -426,7 +428,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancl",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
                                                                                           ) ,
                                                                                         ),
                                                                                       ],
@@ -610,19 +612,17 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,),)),
                                                                                           ) ,
                                                                                         ),
                                                                                         Container(
                                                                                           height: 30,
                                                                                           decoration: BoxDecoration(
                                                                                             borderRadius: BorderRadius.all(Radius.circular(10)),
-
-
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancl",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,),)),
                                                                                           ) ,
                                                                                         ),
                                                                                       ],
@@ -727,7 +727,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                            child: Center(child: Text("Reject",style: TextStyle(color: kblack),)),
                                                                                           ) ,
                                                                                         ),
                                                                                         Container(
@@ -739,7 +739,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancl",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                            child: Center(child: Text("Cancl",style: TextStyle(color: kgolder),)),
                                                                                           ) ,
                                                                                         ),
                                                                                       ],
@@ -833,24 +833,30 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
+                                                                    Text("Request :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                    Text("Personal Leave",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
                                                                     Text("Date :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                                                                    Text("16/04/2022",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                    Text("16/08/2022",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
                                                                   ],
                                                                 ),
                                                                 Row(
                                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+
                                                                   children: [
-                                                                    Text("From :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                                                                    Text("12:00 AM",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                                                                  ],
-                                                                ),
-                                                                Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    Text("To :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                                                                    Text("12:00 AM",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                    Column(
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: [
+                                                                        Text("Details: ",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                        Text("In publishing and graphic design, Lorem epsum\nIpsum is a placeholder text xommonly",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                      ],
+                                                                    ),
+
                                                                   ],
                                                                 ),
                                                                 SizedBox(height: 15),
@@ -917,19 +923,17 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,),)),
                                                                                           ) ,
                                                                                         ),
                                                                                         Container(
                                                                                           height: 30,
                                                                                           decoration: BoxDecoration(
                                                                                             borderRadius: BorderRadius.all(Radius.circular(10)),
-
-
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancl",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,),)),
                                                                                           ) ,
                                                                                         ),
                                                                                       ],
@@ -1034,7 +1038,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                            child: Center(child: Text("Reject",style: TextStyle(color: kblack),)),
                                                                                           ) ,
                                                                                         ),
                                                                                         Container(
@@ -1046,7 +1050,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancl",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                            child: Center(child: Text("Cancl",style: TextStyle(color: kgolder),)),
                                                                                           ) ,
                                                                                         ),
                                                                                       ],
@@ -1089,9 +1093,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                             ],
                                           ),
                                         ),
-                                      )
-
-
+                                      ),
                                     ],
                                   )
                               ),
