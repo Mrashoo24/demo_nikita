@@ -15,6 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Components/api.dart';
 import 'Components/models.dart';
 import 'Homepage/homepage.dart';
+import 'Leaves/tanishq/adminleaves.dart';
+import 'Leaves/tanishq/tanleaves.dart';
 import 'Related sites/related_sites.dart';
 import 'Services/Services.dart';
 
@@ -163,7 +165,7 @@ class _MyAppState extends State<MyApp> {
       ),
 
       home:
-      SplashScreeen()
+      NewAdmin()
 
     );
 
