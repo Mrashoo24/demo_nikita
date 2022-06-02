@@ -167,7 +167,8 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                                     color: kgolder,
                                   ),
                                   child: Center(
-                                      child: Image.asset("assets/icon2.png",fit: BoxFit.fitWidth,)),
+                                      child: Image.asset("assets/icons/benchlist.png",fit: BoxFit.fitWidth,)
+                                  ),
                                 )
                             ),
                           ),
@@ -176,30 +177,12 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                       ],
                     ),
 
-
-
-                    // Container(
-                    //     width:50,
-                    //     height: 50,
-                    //     decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.all(Radius.circular(50)),
-                    //       color: kgolder,
-                    //       boxShadow:  [ BoxShadow(
-                    //         color: kgolder,
-                    //         blurRadius: 20.0,
-                    //       ),]
-                    //     ),
-                    //     child: FittedBox(child: ClipRRect(child: Image.asset("assets/icon.png",fit: BoxFit.fitWidth,)))),
                   ],
                 ),
-
-
-
               ]
           ),
         ),
       ),
-
     );
   }
 
