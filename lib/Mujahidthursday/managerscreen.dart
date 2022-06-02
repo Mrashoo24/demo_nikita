@@ -137,6 +137,7 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
 
 
                         SizedBox(height: 20,),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -146,6 +147,7 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                         ),
 
                         SizedBox(height: 30),
+
                         Padding(
                           padding:  EdgeInsets.only(left: 295.0),
                           child: Container(
@@ -158,7 +160,6 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                             child: FittedBox(
                                 fit: BoxFit.none,
                                 child: Container(
-
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
@@ -167,12 +168,13 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                                     color: kgolder,
                                   ),
                                   child: Center(
-                                      child: Image.asset("assets/icons/benchlist.png",fit: BoxFit.fitWidth,)
-                                  ),
+                                      child: Image.asset("assets/IMG_20220603_021601.png",fit: BoxFit.fitWidth,)),
                                 )
                             ),
                           ),
                         ),
+
+
 
                       ],
                     ),
