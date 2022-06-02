@@ -41,7 +41,7 @@ class _BenchListNewState extends State<BenchListNew> {
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(8),
                     bottomLeft: Radius.circular(8))),
-            toolbarHeight: 65,
+            toolbarHeight: 55,
             flexibleSpace: Container(
 
               decoration: BoxDecoration(
@@ -180,13 +180,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                           fontSize: 18,
                                                           fontFamily: 'Typo Round',
                                                           fontWeight:
-                                                          FontWeight.w400),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
+                                                          FontWeight.w400),),),],),),),
                                         ),
                                         SizedBox(
                                           height: 5,
