@@ -12,10 +12,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'BenchList/benchlist_page.dart';
 import 'Components/api.dart';
 import 'Components/models.dart';
 import 'Homepage/homepage.dart';
 import 'Leaves/administrative_leave.dart';
+import 'Mujahidthursday/benchlist.dart';
 import 'Mujahidthursday/leaves.dart';
 import 'Related sites/related_sites.dart';
 import 'Services/Services.dart';
@@ -165,7 +167,7 @@ class _MyAppState extends State<MyApp> {
       ),
 
       home:
-      AdminstrativLeave()
+      BenchListNew()
 
     );
 
