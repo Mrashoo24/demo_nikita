@@ -20,6 +20,7 @@ import 'Leaves/administrative_leave.dart';
 import 'Mujahidthursday/adminleave.dart';
 import 'Mujahidthursday/benchlist.dart';
 import 'Mujahidthursday/leaves.dart';
+import 'Mujahidthursday/managerscreen.dart';
 import 'Related sites/related_sites.dart';
 import 'Services/Services.dart';
 
@@ -168,7 +169,7 @@ class _MyAppState extends State<MyApp> {
       ),
 
       home:
-      AdminLeavesss()
+      ManagerScreeen()
 
     );
 
