@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../Components/constants.dart';
+import 'adminleave.dart';
+import 'benchlist.dart';
+import 'leaves.dart';
 
 class ManagerScreeen extends StatefulWidget {
   const ManagerScreeen({Key? key}) : super(key: key);
@@ -32,15 +35,10 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                           Colors.black,
                           //add more colors for gradient
                         ],
-                        begin: Alignment.topCenter, //begin of the gradient color
-                        end: Alignment.bottomCenter, //end of the gradient color
-                        stops: [0, 0.2, 0.6,11] //stops for individual color
-                      //set the stops number equal to numbers of color
+                        begin: Alignment.topRight, //begin of the gradient color
+                        end: Alignment.bottomLeft,
                     ),
-
                   ),
-
-
 
                 ),
                 Column(
@@ -122,32 +120,48 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            buildContainer("assets/certifcts.png","Certificates"),
+                            InkWell(
+                                onTap: (){
+                                },
+                                child: buildContainer("assets/certifcts.png","Certificates")),
                             buildContainer("assets/report.png","Reports"),
                           ],
                         ),
+
                         SizedBox(height: 20,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            buildContainer("assets/benchlist.png","Benchlist"),
-                            buildContainer("assets/adminleaves.png","Administrative Leave"),
+                            InkWell(
+                                onTap: (){
+                                  Get.to(BenchListNew());
+                                },
+                                child: buildContainer("assets/benchlist.png","Benchlist")),
+                            InkWell(
+                                onTap: (){
+                                  Get.to(AdminLeavesss());
+                                },
+                                child: buildContainer("assets/adminleaves.png","Administrative Leave")),
                           ],
                         ),
 
 
                         SizedBox(height: 20,),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            buildContainer("assets/leaves.png","Leaves"),
+                            InkWell(
+                                onTap: (){
+
+                                    Get.to(LeaveRequest1());
+
+                                },
+                                child: buildContainer("assets/leaves.png","Leaves")),
                             buildContainer("assets/othersrv.png","Other Services"),
                           ],
                         ),
 
                         SizedBox(height: 30),
-
                         Padding(
                           padding:  EdgeInsets.only(left: 295.0),
                           child: Container(
