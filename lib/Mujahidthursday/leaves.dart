@@ -275,8 +275,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                         ),
                                                                                         child:Padding(
                                                                                           padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                          child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                                                        ) ,
+                                                                                          child: Center(
+                                                                                              child: InkWell(
+                                                                                                  onTap: () {
+                                                                                                    Get.back();
+                                                                                                  },
+                                                                                                  child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                        ),
                                                                                       ),
                                                                                     ],
                                                                                   ),
@@ -393,8 +398,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -578,8 +588,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                                 ),
                                                                                                 child:Padding(
                                                                                                   padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                                  child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                                                                ) ,
+                                                                                                  child: Center(
+                                                                                                      child: InkWell(
+                                                                                                          onTap: () {
+                                                                                                            Get.back();
+                                                                                                          },
+                                                                                                          child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                                ),
                                                                                               ),
                                                                                             ],
                                                                                           ),
@@ -696,8 +711,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                               ),
                                                                                               child:Padding(
                                                                                                 padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                                child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                                                              ) ,
+                                                                                                child: Center(
+                                                                                                    child: InkWell(
+                                                                                                        onTap: () {
+                                                                                                          Get.back();
+                                                                                                        },
+                                                                                                        child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                              ),
                                                                                             ),
                                                                                           ],
                                                                                         ),
@@ -890,8 +910,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1007,8 +1032,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1195,8 +1225,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1312,8 +1347,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1506,8 +1546,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1623,8 +1668,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1811,8 +1861,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -1928,8 +1983,13 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                                                           ),
                                                                                           child:Padding(
                                                                                             padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder),)),
-                                                                                          ) ,
+                                                                                            child: Center(
+                                                                                                child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
