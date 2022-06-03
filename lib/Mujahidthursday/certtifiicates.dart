@@ -264,17 +264,14 @@ class _CerttifiicatesState extends State<Certtifiicates> {
                                                                                                 child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
                                                                                               ) ,
                                                                                             ),
-                                                                                            Container(
-                                                                                              height: 30,
-                                                                                              decoration: BoxDecoration(
-                                                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
-
-
-                                                                                              ),
-                                                                                              child:Padding(
-                                                                                                padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                                child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                                                              ) ,
+                                                                                            Padding(
+                                                                                              padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                              child: Center(
+                                                                                                  child: InkWell(
+                                                                                                      onTap: () {
+                                                                                                        Get.back();
+                                                                                                      },
+                                                                                                      child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
                                                                                             ),
                                                                                           ],
                                                                                         ),
@@ -391,8 +388,13 @@ class _CerttifiicatesState extends State<Certtifiicates> {
                                                                                             ),
                                                                                             child:Padding(
                                                                                               padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                              child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                                                            ) ,
+                                                                                              child: Center(
+                                                                                                  child: InkWell(
+                                                                                                      onTap: () {
+                                                                                                        Get.back();
+                                                                                                      },
+                                                                                                      child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
+                                                                                            ),
                                                                                           ),
                                                                                         ],
                                                                                       ),
@@ -576,7 +578,11 @@ class _CerttifiicatesState extends State<Certtifiicates> {
                                                                                               ),
                                                                                               child:Padding(
                                                                                                 padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                                child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                                child: Center(child: InkWell(
+                                                                                                    onTap: () {
+                                                                                                      Get.back();
+                                                                                                    },
+                                                                                                    child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
                                                                                               ) ,
                                                                                             ),
                                                                                           ],
@@ -694,7 +700,11 @@ class _CerttifiicatesState extends State<Certtifiicates> {
                                                                                             ),
                                                                                             child:Padding(
                                                                                               padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                              child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                              child: Center(child: InkWell(
+                                                                                                  onTap: () {
+                                                                                                    Get.back();
+                                                                                                  },
+                                                                                                  child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),))),
                                                                                             ) ,
                                                                                           ),
                                                                                         ],
