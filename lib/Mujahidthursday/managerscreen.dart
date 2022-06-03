@@ -1,3 +1,4 @@
+import 'package:demo_nikita/Mujahidthursday/reeeports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../Components/constants.dart';
 import 'adminleave.dart';
 import 'benchlist.dart';
+import 'certtifiicates.dart';
 import 'leaves.dart';
 
 class ManagerScreeen extends StatefulWidget {
@@ -27,173 +29,181 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
 
                   decoration: BoxDecoration(
                     gradient:LinearGradient(
-                        colors: [
-                          Colors.grey,
-                          Colors.black,
+                      colors: [
+                        Colors.grey,
+                        Colors.black,
 
-                          Colors.grey,
-                          Colors.black,
-                          //add more colors for gradient
-                        ],
-                        begin: Alignment.topRight, //begin of the gradient color
-                        end: Alignment.bottomLeft,
+                        Colors.grey,
+                        Colors.black,
+                        //add more colors for gradient
+                      ],
+                      begin: Alignment.topRight, //begin of the gradient color
+                      end: Alignment.bottomLeft,
                     ),
                   ),
 
                 ),
-                Column(
-                  children: [
-                    Container(
-                      height: 60,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),
-                        gradient:LinearGradient(
-                            colors: [
-                              kgolder,
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),
+                          gradient:LinearGradient(
+                              colors: [
+                                kgolder,
 
 
-                              Colors.yellow.shade200,
-                              kgolder,
-                              //add more colors for gradient
+                                Colors.yellow.shade200,
+                                kgolder,
+                                //add more colors for gradient
+                              ],
+                              begin: Alignment.centerLeft, //begin of the gradient color
+                              end: Alignment.centerRight, //end of the gradient color
+                              stops: [0,  0.6,11] //stops for individual color
+                            //set the stops number equal to numbers of color
+                          ),
+                        ),
+                        child: Padding(
+                          padding:  EdgeInsets.only(left: 80),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text("todaytix",style: TextStyle(
+                                  color: Colors.redAccent[400],
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold
+
+                              ),),
+                              Stack(
+                                  children:[
+                                    Icon(Icons.notifications,size: 30,),
+                                    Padding(
+                                      padding:  EdgeInsets.only(left: 17,top: 4),
+                                      child: CircleAvatar(
+                                        radius: 7,
+                                        backgroundColor: Colors.redAccent[400],
+                                        child: Text("54",style: TextStyle(color: Colors.white,fontSize: 8),),
+                                      ),
+                                    )
+                                  ])
                             ],
-                            begin: Alignment.centerLeft, //begin of the gradient color
-                            end: Alignment.centerRight, //end of the gradient color
-                            stops: [0,  0.6,11] //stops for individual color
-                          //set the stops number equal to numbers of color
+                          ),
                         ),
                       ),
-                      child: Padding(
-                        padding:  EdgeInsets.only(left: 80),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text("todaytix",style: TextStyle(
-                                color: Colors.redAccent[400],
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold
+                      SizedBox(height: 20),
+                      Container(
+                        height: 35,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          gradient:LinearGradient(
+                              colors: [
+                                kgolder,
 
-                            ),),
-                            Stack(
-                                children:[
-                                  Icon(Icons.notifications,size: 30,),
-                                  Padding(
-                                    padding:  EdgeInsets.only(left: 17,top: 4),
-                                    child: CircleAvatar(
-                                      radius: 7,
-                                      backgroundColor: Colors.redAccent[400],
-                                      child: Text("54",style: TextStyle(color: Colors.white,fontSize: 8),),
-                                    ),
-                                  )
-                                ])
-                          ],
+
+                                Colors.yellow.shade200,
+                                kgolder,
+                                //add more colors for gradient
+                              ],
+                              begin: Alignment.centerLeft, //begin of the gradient color
+                              end: Alignment.centerRight, //end of the gradient color
+                              stops: [0,  0.6,11] //stops for individual color
+                            //set the stops number equal to numbers of color
+                          ),
                         ),
+                        child: Center(child: Text("Manager",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),)),
                       ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      height: 35,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        gradient:LinearGradient(
-                            colors: [
-                              kgolder,
 
-
-                              Colors.yellow.shade200,
-                              kgolder,
-                              //add more colors for gradient
+                      SizedBox(height: 20),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InkWell(
+                                  onTap: (){
+                                  },
+                                  child: InkWell(
+                                      onTap: (){
+                                        Get.to(Certtifiicates());
+                                      },
+                                      child: buildContainer("assets/certificate.png","Certificates"))),
+                              InkWell(
+                                  onTap: (){
+                                    Get.to(Reeports());
+                                  },
+                                  child: buildContainer("assets/reporhhts.png","Reports")),
                             ],
-                            begin: Alignment.centerLeft, //begin of the gradient color
-                            end: Alignment.centerRight, //end of the gradient color
-                            stops: [0,  0.6,11] //stops for individual color
-                          //set the stops number equal to numbers of color
-                        ),
-                      ),
-                      child: Center(child: Text("Manager",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),)),
-                    ),
+                          ),
 
-                    SizedBox(height: 20),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                                onTap: (){
-                                },
-                                child: buildContainer("assets/certifcts.png","Certificates")),
-                            buildContainer("assets/report.png","Reports"),
-                          ],
-                        ),
-
-                        SizedBox(height: 20,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                                onTap: (){
-                                  Get.to(BenchListNew());
-                                },
-                                child: buildContainer("assets/benchlist.png","Benchlist")),
-                            InkWell(
-                                onTap: (){
-                                  Get.to(AdminLeavesss());
-                                },
-                                child: buildContainer("assets/adminleaves.png","Administrative Leave")),
-                          ],
-                        ),
+                          SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InkWell(
+                                  onTap: (){
+                                    Get.to(BenchListNew());
+                                  },
+                                  child: buildContainer("assets/bennnchlist.png","Benchlist")),
+                              InkWell(
+                                  onTap: (){
+                                    Get.to(AdminLeavesss());
+                                  },
+                                  child: buildContainer("assets/adminleave.png","Administrative Leave")),
+                            ],
+                          ),
 
 
-                        SizedBox(height: 20,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                                onTap: (){
+                          SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InkWell(
+                                  onTap: (){
 
                                     Get.to(LeaveRequest1());
 
-                                },
-                                child: buildContainer("assets/leaves.png","Leaves")),
-                            buildContainer("assets/othersrv.png","Other Services"),
-                          ],
-                        ),
+                                  },
+                                  child: buildContainer("assets/leavess.png","Leaves")),
+                              buildContainer("assets/otherservice.png","Other Services"),
+                            ],
+                          ),
 
-                        SizedBox(height: 30),
-                        Padding(
-                          padding:  EdgeInsets.only(left: 295.0),
-                          child: Container(
+                          SizedBox(height: 30),
+                          Padding(
+                            padding:  EdgeInsets.only(left: 295.0),
+                            child: Container(
 
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: FittedBox(
-                                fit: BoxFit.none,
-                                child: Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                                    boxShadow: [BoxShadow(color: kgolder,blurRadius: 15)],
-                                    color: kgolder,
-                                  ),
-                                  child: Center(
-                                      child: Image.asset("assets/IMG_20220603_021601.png",fit: BoxFit.fitWidth,)),
-                                )
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(50)),
+                              ),
+                              child: FittedBox(
+                                  fit: BoxFit.none,
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                                      boxShadow: [BoxShadow(color: kgolder,blurRadius: 15)],
+                                      color: kgolder,
+                                    ),
+                                    child: Center(
+                                        child: Image.asset("assets/bgcircle.png",fit: BoxFit.fitWidth,)),
+                                  )
+                              ),
                             ),
                           ),
-                        ),
+                          SizedBox(height: 30),
+                        ],
+                      ),
 
-
-
-                      ],
-                    ),
-
-                  ],
+                    ],
+                  ),
                 ),
               ]
           ),

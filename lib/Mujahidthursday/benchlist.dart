@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
- import '../Components/constants.dart';
+import '../Components/constants.dart';
 
 class BenchListNew extends StatefulWidget {
   const BenchListNew({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _BenchListNewState extends State<BenchListNew> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: kDarkGolder,
+          backgroundColor: kGray3,
           appBar: AppBar(
             leading: InkWell(
               onTap: () {
@@ -28,14 +28,14 @@ class _BenchListNewState extends State<BenchListNew> {
               },
               child: Padding(
                 padding: EdgeInsets.only(left: 10.0),
-                child: Icon(Icons.arrow_back, color: kgradientYellow),
+                child: Icon(Icons.arrow_back, color: kblack),
               ),
             ),
             leadingWidth: 35,
             title: Text(
               "Bench list ",
               style: TextStyle(
-                  color: kgolder, fontSize: 20, fontWeight: FontWeight.bold),
+                  color: kblack, fontSize: 20, fontWeight: FontWeight.bold),
             ),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -43,28 +43,29 @@ class _BenchListNewState extends State<BenchListNew> {
                     bottomLeft: Radius.circular(8))),
             toolbarHeight: 55,
             flexibleSpace: Container(
-
               decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    kblack,
-                    kGray,
-                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(8),
-                      bottomLeft: Radius.circular(8))),
+                  gradient: LinearGradient(
+                      colors: [kgolder2,kgradientYellow,kgolder2]
+                  ),
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),bottomLeft: Radius.circular(15))
+              ),
             ),
+              backgroundColor: kGray3,
           ),
           body: Container(
+
             child: DefaultTabController(
               length: 1,
               child: Scaffold(
+                backgroundColor: kGray2,
                 body: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
                         colors: [
-                          kgolder,kgradientYellow,kgolder,kgradientYellow
+                          kGray3,
+                          kblack,
                         ],
                       )),
                   child: Column(
@@ -120,19 +121,17 @@ class _BenchListNewState extends State<BenchListNew> {
                                             height: 45,
                                             width: Get.width,
                                             decoration: BoxDecoration(
-                                                color: kgolder,
-                                                // gradient: LinearGradient(
-                                                //     colors: [
-                                                //       kgolder2,
-                                                //       kgradientYellow,
-                                                //       kgolder2
-                                                //     ]),
+                                                gradient: LinearGradient(
+                                                    colors: [kgolder2,kgradientYellow,kgolder2]
+                                                ),
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(8)),
                                                 border: Border.all(
                                                   color: kblack,
                                                   width: 2,
-                                                )),
+                                                )
+                                            ),
+
                                             child: Padding(
                                               padding:   EdgeInsets.all(1.0),
                                               child: TabBar(
@@ -198,24 +197,16 @@ class _BenchListNewState extends State<BenchListNew> {
                                                           EdgeInsets.all(10),
                                                           child: Container(
                                                             width: Get.width,
-                                                            decoration:
-                                                            BoxDecoration(
-                                                                gradient:
-                                                                LinearGradient(
-                                                                    colors: [
-                                                                      kGray2,
-                                                                      kGray3
-                                                                    ]),
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                    .circular(
-                                                                    8)),
-                                                                border:
-                                                                Border.all(
-                                                                  color:
-                                                                  kgolder,
+                                                            decoration: BoxDecoration(
+                                                                gradient: LinearGradient(
+                                                                    colors: [ kgradientYellow,kgolder2]
+                                                                ),
+                                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                border: Border.all(
+                                                                  color:kgolder,
                                                                   width: 2,
-                                                                )),
+                                                                )
+                                                            ),
                                                             child: Padding(
                                                               padding:
                                                               EdgeInsets.all(8),
@@ -236,8 +227,8 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                         gradient:
                                                                         LinearGradient(
                                                                             colors: [
-                                                                              kgradientYellow,
-                                                                              kgolder
+                                                                              kGray2,
+                                                                              kblack
                                                                             ]),
                                                                         border:
                                                                         Border
@@ -260,7 +251,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             Text(
                                                                               "Fahad kharadi",
                                                                               style: TextStyle(
-                                                                                  color: kblack,
+                                                                                  color: kgolder,
                                                                                   fontSize: 20),
                                                                             ),
                                                                           ),
@@ -284,7 +275,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Phone:",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -294,7 +285,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "9553439168",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -314,7 +305,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "From",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -324,7 +315,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "16/08/2022 12.00 am",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -344,7 +335,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "To",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -354,7 +345,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "25/08/2022 12.00 am",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -371,7 +362,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacment type ",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -381,7 +372,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Temporary",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -400,87 +391,87 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                           InkWell(
                                                                             onTap:
                                                                                 () {
-                                                                                  Get.defaultDialog(
-                                                                                      title: "",
+                                                                              Get.defaultDialog(
+                                                                                  title: "",
 
-                                                                                      titleStyle: TextStyle(color: kgolder),
-                                                                                      titlePadding: EdgeInsets.only(right: 100,top: 5),
-                                                                                      backgroundColor: Colors.transparent,
+                                                                                  titleStyle: TextStyle(color: kgolder),
+                                                                                  titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                                                                  backgroundColor: Colors.transparent,
 
-                                                                                      content: Container(
-                                                                                        width: Get.width,
-                                                                                        decoration: BoxDecoration(
-                                                                                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                                                          gradient: LinearGradient(
-                                                                                              colors: [ kGray3,kblack]
-                                                                                          ),
-                                                                                          border: Border.all(
-                                                                                            color:kgolder,
-                                                                                            width: 2,
-                                                                                          ),
-                                                                                        ),
-                                                                                        child: Padding(
-                                                                                          padding:   EdgeInsets.all(10),
-                                                                                          child: SingleChildScrollView(
-                                                                                            child: Column(
+                                                                                  content: Container(
+                                                                                    width: Get.width,
+                                                                                    decoration: BoxDecoration(
+                                                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                      gradient: LinearGradient(
+                                                                                          colors: [ kGray3,kblack]
+                                                                                      ),
+                                                                                      border: Border.all(
+                                                                                        color:kgolder,
+                                                                                        width: 2,
+                                                                                      ),
+                                                                                    ),
+                                                                                    child: Padding(
+                                                                                      padding:   EdgeInsets.all(10),
+                                                                                      child: SingleChildScrollView(
+                                                                                        child: Column(
+                                                                                          children: [
+                                                                                            Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.start,
                                                                                               children: [
-                                                                                                Row(
-                                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                Column(
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                                                                   children: [
-                                                                                                    Column(
-                                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                                      children: [
-                                                                                                        Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
-                                                                                                        SizedBox(height: 15),
-                                                                                                        Text("Emp ID: ",style: TextStyle(color:kgolder ),),
-                                                                                                        Text("Designation: ",style: TextStyle(color:kgolder ),),
-                                                                                                        Text("Phone: ",style: TextStyle(color:kgolder ),),
-                                                                                                        Text("Email : ",style: TextStyle(color:kgolder ),),
-                                                                                                        SizedBox(height: 15),
-                                                                                                        Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
-                                                                                                          style: TextStyle(color:kgolder ),),
+                                                                                                    Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                                                    SizedBox(height: 15),
+                                                                                                    Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                                                    Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                                                    Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                                                    Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                                                    SizedBox(height: 15),
+                                                                                                    Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                                                      style: TextStyle(color:kgolder ),),
 
-                                                                                                      ],
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                                SizedBox(height: 15),
-                                                                                                Row(
-                                                                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                                                                  children: [
-                                                                                                    Container(
-                                                                                                      height: 30,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                                                                        color: kgolder,
-
-                                                                                                      ),
-                                                                                                      child:Padding(
-                                                                                                        padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                                        child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
-                                                                                                      ) ,
-                                                                                                    ),
-                                                                                                    Container(
-                                                                                                      height: 30,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        borderRadius: BorderRadius.all(Radius.circular(10)),
-
-
-                                                                                                      ),
-                                                                                                      child:Padding(
-                                                                                                        padding:  EdgeInsets.only(left: 8,right: 8),
-                                                                                                        child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                                                                      ) ,
-                                                                                                    ),
                                                                                                   ],
                                                                                                 ),
                                                                                               ],
                                                                                             ),
-                                                                                          ),
+                                                                                            SizedBox(height: 15),
+                                                                                            Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                                                              children: [
+                                                                                                Container(
+                                                                                                  height: 30,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                                    color: kgolder,
+
+                                                                                                  ),
+                                                                                                  child:Padding(
+                                                                                                    padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                                    child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                                  ) ,
+                                                                                                ),
+                                                                                                Container(
+                                                                                                  height: 30,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+
+
+                                                                                                  ),
+                                                                                                  child:Padding(
+                                                                                                    padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                                    child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                                  ) ,
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ],
                                                                                         ),
                                                                                       ),
-                                                                                      radius: 50
-                                                                                  );
+                                                                                    ),
+                                                                                  ),
+                                                                                  radius: 50
+                                                                              );
                                                                             },
                                                                             child:
                                                                             Container(
@@ -492,7 +483,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                                       Radius
                                                                                           .circular(
                                                                                           10)),
-                                                                                  color: kgolder,
+                                                                                  color: kGray3,
                                                                                   border: Border
                                                                                       .all(
                                                                                     color: kblack,
@@ -509,7 +500,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                                     child: Text(
                                                                                       "Approve",
                                                                                       style: TextStyle(
-                                                                                          color: kblack,
+                                                                                          color: kgolder,
                                                                                           fontSize: 18),
                                                                                     )),
                                                                               ),
@@ -704,7 +695,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                                       Radius
                                                                                           .circular(
                                                                                           10)),
-                                                                                  color: kgolder,
+                                                                                  color: kGray3,
                                                                                   border: Border
                                                                                       .all(
                                                                                     color: kblack,
@@ -721,7 +712,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                                     child: Text(
                                                                                       "Reject",
                                                                                       style: TextStyle(
-                                                                                          color: kblack,
+                                                                                          color: kgolder,
                                                                                           fontSize: 18),
                                                                                     )),
                                                                               ),
@@ -752,8 +743,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                 gradient:
                                                                 LinearGradient(
                                                                     colors: [
-                                                                      kGray2,
-                                                                      kGray3
+                                                                      kgradientYellow,kgolder2
                                                                     ]),
                                                                 borderRadius: BorderRadius
                                                                     .all(Radius
@@ -785,8 +775,8 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                         gradient:
                                                                         LinearGradient(
                                                                             colors: [
-                                                                              kgradientYellow,
-                                                                              kgolder
+                                                                              kGray2,
+                                                                              kblack
                                                                             ]),
                                                                         border:
                                                                         Border
@@ -809,7 +799,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             Text(
                                                                               "Fahad kharadi",
                                                                               style: TextStyle(
-                                                                                  color: kblack,
+                                                                                  color: kgolder,
                                                                                   fontSize: 20),
                                                                             ),
                                                                           ),
@@ -833,7 +823,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "User employee",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -843,7 +833,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "121213",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -863,7 +853,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacement name:",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -873,7 +863,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "fahad shaik",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -893,7 +883,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacement employee ID:",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -903,7 +893,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "25136",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -919,7 +909,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacment phone: ",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -929,7 +919,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "862559693",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -946,7 +936,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacment type: ",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -956,7 +946,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Temporary",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -973,7 +963,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Status:",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -983,7 +973,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Accepted",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1017,8 +1007,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                 gradient:
                                                                 LinearGradient(
                                                                     colors: [
-                                                                      kGray2,
-                                                                      kGray3
+                                                                      kgradientYellow,kgolder2
                                                                     ]),
                                                                 borderRadius: BorderRadius
                                                                     .all(Radius
@@ -1050,8 +1039,8 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                         gradient:
                                                                         LinearGradient(
                                                                             colors: [
-                                                                              kgradientYellow,
-                                                                              kgolder
+                                                                              kGray2,
+                                                                              kblack
                                                                             ]),
                                                                         border:
                                                                         Border
@@ -1074,7 +1063,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             Text(
                                                                               "Fahad kharadi",
                                                                               style: TextStyle(
-                                                                                  color: kblack,
+                                                                                  color: kgolder,
                                                                                   fontSize: 20),
                                                                             ),
                                                                           ),
@@ -1098,7 +1087,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "User employee",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1108,7 +1097,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "121213",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1128,7 +1117,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacement name:",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1138,7 +1127,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "fahad shaik",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1158,7 +1147,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacement employee ID:",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1168,7 +1157,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "25136",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1184,7 +1173,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacment phone: ",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1194,7 +1183,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "862559693",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1211,7 +1200,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Replacment type: ",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1221,7 +1210,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Temporary",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
@@ -1238,17 +1227,17 @@ class _BenchListNewState extends State<BenchListNew> {
                                                                             "Status:",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,
                                                                                 fontSize: 18),
                                                                           ),
                                                                           Text(
-                                                                            "Rejected",
+                                                                            "Accepted",
                                                                             style: TextStyle(
                                                                                 color:
-                                                                                kgolder,
+                                                                                kblack,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .bold,

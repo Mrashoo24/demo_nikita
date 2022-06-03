@@ -167,12 +167,8 @@ class _MyAppState extends State<MyApp> {
         )
 
       ),
-
-      home:
-      ManagerScreeen()
-
+      home: ManagerScreeen()
     );
-
   }
 }
 
