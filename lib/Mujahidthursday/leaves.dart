@@ -43,7 +43,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [kdarkyellow,kgradientYellow,kdarkyellow]
+                colors: [kgolder2,kgradientYellow,kgolder2]
               ),
               borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),bottomLeft: Radius.circular(15))
             ),
@@ -69,41 +69,6 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
 
                 child: Column(
                   children: [
-                    // Container(
-                    //
-                    //   width: Get.width,
-                    //   decoration: BoxDecoration(
-                    //     gradient:  LinearGradient(
-                    //       colors: [Colors.black, Colors.grey.shade600],
-                    //       begin: Alignment.topCenter,
-                    //       end: Alignment.bottomCenter,),
-                    //     borderRadius: BorderRadius.only(
-                    //         bottomLeft: Radius.circular(10),
-                    //         bottomRight: Radius.circular(10)),
-                    //   ),
-                    //   child: Container(
-                    //     child: Column(
-                    //       children: [
-                    //         // Padding(
-                    //         //   padding:   EdgeInsets.only(left: 15.0),
-                    //         //   child: Row(
-                    //         //     children: [
-                    //         //       Icon(Icons.keyboard_backspace,color: kgolder),
-                    //         //       SizedBox(width: 5),
-                    //         //       Text("Leaves Request",style: TextStyle(color: kgolder,fontSize: 18),),
-                    //         //     ],
-                    //         //   ),
-                    //         // ),////
-                    //         ///old///leave
-                    //         SizedBox(height: 8,),
-                    //         Container(
-                    //           height: 50,
-                    //
-                    //         ),///request/history//tapbar
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),///request/history//tapbar
                     SizedBox(height: 10),
                     Container(
                       child: Expanded(
@@ -465,6 +430,309 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                 ),
                                               ),
                                                       ),
+                                                      Padding(
+                                                        padding:   EdgeInsets.all(10),
+                                                        child: Container(
+                                                          width: Get.width,
+
+                                                          decoration: BoxDecoration(
+                                                              gradient: LinearGradient(
+                                                                  colors: [ kgradientYellow,kgolder2]
+                                                              ),
+                                                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                              border: Border.all(
+                                                                color:kgolder,
+                                                                width: 2,
+                                                              )
+                                                          ),
+                                                          child: Padding(
+                                                            padding:   EdgeInsets.all(5),
+                                                            child: Column(
+                                                              children: [
+                                                                Container(
+                                                                  height: 35,
+
+                                                                  width: Get.width,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                      gradient: LinearGradient(
+                                                                          colors: [ kGray3,kblack]
+                                                                      ),
+                                                                      border: Border.all(
+                                                                        color:kgolder,
+                                                                        width: 2,
+                                                                      )
+                                                                  ),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      Center(
+                                                                        child: Padding(
+                                                                          padding:   EdgeInsets.only(left: 10.0),
+                                                                          child: Text("Personal Leave",style: TextStyle(color: kgolder,fontSize:20),),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(height: 10),
+                                                                Column(
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: [
+                                                                        Text("Date :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                        Text("16/04/2022",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: [
+                                                                        Text("From :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                        Text("12:00 AM",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: [
+                                                                        Text("To :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                        Text("12:00 AM",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                      ],
+                                                                    ),
+                                                                    SizedBox(height: 15),
+
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                      children: [
+                                                                        InkWell(
+                                                                          onTap: () {
+
+                                                                            Get.defaultDialog(
+                                                                                title: "",
+
+                                                                                titleStyle: TextStyle(color: kgolder),
+                                                                                titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                                                                backgroundColor: Colors.transparent,
+
+                                                                                content: Container(
+                                                                                  width: Get.width,
+                                                                                  decoration: BoxDecoration(
+                                                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                    gradient: LinearGradient(
+                                                                                        colors: [ kGray3,kblack]
+                                                                                    ),
+                                                                                    border: Border.all(
+                                                                                      color:kgolder,
+                                                                                      width: 2,
+                                                                                    ),
+                                                                                  ),
+                                                                                  child: Padding(
+                                                                                    padding:   EdgeInsets.all(10),
+                                                                                    child: SingleChildScrollView(
+                                                                                      child: Column(
+                                                                                        children: [
+                                                                                          Row(
+                                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                                            children: [
+                                                                                              Column(
+                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                children: [
+                                                                                                  Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                                                  SizedBox(height: 15),
+                                                                                                  Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                                                  Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                                                  Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                                                  Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                                                  SizedBox(height: 15),
+                                                                                                  Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                                                    style: TextStyle(color:kgolder ),),
+
+                                                                                                ],
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                          SizedBox(height: 15),
+                                                                                          Row(
+                                                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                                                            children: [
+                                                                                              Container(
+                                                                                                height: 30,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                                  color: kgolder,
+
+                                                                                                ),
+                                                                                                child:Padding(
+                                                                                                  padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                                  child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                                ) ,
+                                                                                              ),
+                                                                                              Container(
+                                                                                                height: 30,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+
+
+                                                                                                ),
+                                                                                                child:Padding(
+                                                                                                  padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                                  child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                                ) ,
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                radius: 50
+                                                                            );
+                                                                          },
+                                                                          child: Container(
+                                                                            height: 30,
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                color: kGray2,
+                                                                                border: Border.all(
+                                                                                  color:kblack,
+                                                                                  width: 2,
+                                                                                )
+                                                                            ),
+                                                                            child:Padding(
+                                                                              padding:   EdgeInsets.only(left: 8,right: 8),
+                                                                              child: Center(child: Text("Approve",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                            ) ,
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(width: 10,),
+                                                                        InkWell(
+                                                                          onTap: () {
+                                                                            Get.defaultDialog(
+                                                                                title: "",
+
+                                                                                titleStyle: TextStyle(color: kgolder),
+                                                                                titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                                                                backgroundColor: Colors.transparent,
+
+                                                                                content: Container(
+                                                                                  width: Get.width,
+                                                                                  decoration: BoxDecoration(
+                                                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                    gradient: LinearGradient(
+                                                                                        colors: [ kGray3,kblack]
+                                                                                    ),
+                                                                                    border: Border.all(
+                                                                                      color:kgolder,
+                                                                                      width: 2,
+                                                                                    ),
+                                                                                  ),
+                                                                                  child: Padding(
+                                                                                    padding:   EdgeInsets.all(10),
+                                                                                    child: Column(
+                                                                                      children: [
+                                                                                        Row(
+                                                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                                                          children: [
+                                                                                            Column(
+                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                                                SizedBox(height: 15),
+                                                                                                Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                                                Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                                                Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                                                Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                                                SizedBox(height: 15),
+                                                                                                Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                                                  style: TextStyle(color:kgolder ),),
+
+                                                                                              ],
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                        SizedBox(height: 15),
+                                                                                        Container(
+                                                                                          width: Get.width,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                            gradient: LinearGradient(
+                                                                                                colors: [ kgradientYellow,kgolder2]
+                                                                                            ),
+                                                                                            border: Border.all(
+                                                                                              color:kgolder,
+                                                                                              width: 2,
+                                                                                            ),
+                                                                                          ),
+                                                                                          child: Padding(
+                                                                                            padding:   EdgeInsets.all(10.0),
+                                                                                            child: Text("Reason:\nLoremipsum dola sit \namet connector adsipising elit "),
+                                                                                          ),
+                                                                                        ),
+                                                                                        SizedBox(height: 15),
+                                                                                        Row(
+                                                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                                                          children: [
+                                                                                            Container(
+                                                                                              height: 30,
+                                                                                              decoration: BoxDecoration(
+                                                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                                color: kgolder,
+
+                                                                                              ),
+                                                                                              child:Padding(
+                                                                                                padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                                child: Center(child: Text("Reject",style: TextStyle(color: kblack,fontSize:18),)),
+                                                                                              ) ,
+                                                                                            ),
+                                                                                            Container(
+                                                                                              height: 30,
+                                                                                              decoration: BoxDecoration(
+                                                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+
+
+                                                                                              ),
+                                                                                              child:Padding(
+                                                                                                padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                                child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                                              ) ,
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                radius: 50
+                                                                            );
+                                                                          },
+                                                                          child: Container(
+                                                                            height: 30,
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                color: kGray2,
+                                                                                border: Border.all(
+                                                                                  color:kblack,
+                                                                                  width: 2,
+                                                                                )
+                                                                            ),
+                                                                            child:Padding(
+                                                                              padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                              child: Center(child: Text("Reject",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                            ) ,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ],
                                                   )
                                               ),
@@ -776,12 +1044,622 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                       ),
                                                     ),
                                                   ),
+                                                  Padding(
+                                                    padding:   EdgeInsets.all(10),
+                                                    child: Container(
+                                                      width: Get.width,
+
+                                                      decoration: BoxDecoration(
+                                                          gradient: LinearGradient(
+                                                              colors: [ kgradientYellow,kgolder2]
+                                                          ),
+                                                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                          border: Border.all(
+                                                            color:kgolder,
+                                                            width: 2,
+                                                          )
+                                                      ),
+                                                      child: Padding(
+                                                        padding:   EdgeInsets.all(5),
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              height: 35,
+
+                                                              width: Get.width,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                  gradient: LinearGradient(
+                                                                      colors: [ kGray3,kblack]
+                                                                  ),
+                                                                  border: Border.all(
+                                                                    color:kgolder,
+                                                                    width: 2,
+                                                                  )
+                                                              ),
+                                                              child: Row(
+                                                                children: [
+                                                                  Center(
+                                                                    child: Padding(
+                                                                      padding:   EdgeInsets.only(left: 10.0),
+                                                                      child: Text("Personal Leave",style: TextStyle(color: kgolder,fontSize:20),),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: 10),
+                                                            Column(
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text("Request :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                    Text("Personal Leave",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text("Date :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                    Text("16/08/2022",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                                                  children: [
+                                                                    Column(
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: [
+                                                                        Text("Details: ",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                        Text("In publishing and graphic design, Lorem epsum\nIpsum is a placeholder text xommonly",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                      ],
+                                                                    ),
+
+                                                                  ],
+                                                                ),
+                                                                SizedBox(height: 15),
+
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap: () {
+
+                                                                        Get.defaultDialog(
+                                                                            title: "",
+
+                                                                            titleStyle: TextStyle(color: kgolder),
+                                                                            titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                                                            backgroundColor: Colors.transparent,
+
+                                                                            content: Container(
+                                                                              width: Get.width,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                gradient: LinearGradient(
+                                                                                    colors: [ kGray3,kblack]
+                                                                                ),
+                                                                                border: Border.all(
+                                                                                  color:kgolder,
+                                                                                  width: 2,
+                                                                                ),
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding:   EdgeInsets.all(10),
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                      children: [
+                                                                                        Column(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                          children: [
+                                                                                            Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                                            SizedBox(height: 15),
+                                                                                            Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                                            SizedBox(height: 15),
+                                                                                            Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                                              style: TextStyle(color:kgolder ),),
+
+                                                                                          ],
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    SizedBox(height: 15),
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          height: 30,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                            color: kgolder,
+
+                                                                                          ),
+                                                                                          child:Padding(
+                                                                                            padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,),)),
+                                                                                          ) ,
+                                                                                        ),
+                                                                                        Container(
+                                                                                          height: 30,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                          ),
+                                                                                          child:Padding(
+                                                                                            padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,),)),
+                                                                                          ) ,
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            radius: 50
+                                                                        );
+                                                                      },
+                                                                      child: Container(
+                                                                        height: 30,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                            color: kGray2,
+                                                                            border: Border.all(
+                                                                              color:kblack,
+                                                                              width: 2,
+                                                                            )
+                                                                        ),
+                                                                        child:Padding(
+                                                                          padding:   EdgeInsets.only(left: 8,right: 8),
+                                                                          child: Center(child: Text("Approve",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                        ) ,
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(width: 10,),
+                                                                    InkWell(
+                                                                      onTap: () {
+                                                                        Get.defaultDialog(
+                                                                            title: "",
+
+                                                                            titleStyle: TextStyle(color: kgolder),
+                                                                            titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                                                            backgroundColor: Colors.transparent,
+
+                                                                            content: Container(
+                                                                              width: Get.width,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                gradient: LinearGradient(
+                                                                                    colors: [ kGray3,kblack]
+                                                                                ),
+                                                                                border: Border.all(
+                                                                                  color:kgolder,
+                                                                                  width: 2,
+                                                                                ),
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding:   EdgeInsets.all(10),
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                      children: [
+                                                                                        Column(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                          children: [
+                                                                                            Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                                            SizedBox(height: 15),
+                                                                                            Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                                            SizedBox(height: 15),
+                                                                                            Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                                              style: TextStyle(color:kgolder ),),
+
+                                                                                          ],
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    SizedBox(height: 15),
+                                                                                    Container(
+                                                                                      width: Get.width,
+                                                                                      decoration: BoxDecoration(
+                                                                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                        gradient: LinearGradient(
+                                                                                            colors: [ kgradientYellow,kgolder2]
+                                                                                        ),
+                                                                                        border: Border.all(
+                                                                                          color:kgolder,
+                                                                                          width: 2,
+                                                                                        ),
+                                                                                      ),
+                                                                                      child: Padding(
+                                                                                        padding:   EdgeInsets.all(10.0),
+                                                                                        child: Text("Reason:\nLoremipsum dola sit \namet connector adsipising elit "),
+                                                                                      ),
+                                                                                    ),
+                                                                                    SizedBox(height: 15),
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          height: 30,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                            color: kgolder,
+
+                                                                                          ),
+                                                                                          child:Padding(
+                                                                                            padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                            child: Center(child: Text("Reject",style: TextStyle(color: kblack),)),
+                                                                                          ) ,
+                                                                                        ),
+                                                                                        Container(
+                                                                                          height: 30,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+
+
+                                                                                          ),
+                                                                                          child:Padding(
+                                                                                            padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder),)),
+                                                                                          ) ,
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            radius: 50
+                                                                        );
+                                                                      },
+                                                                      child: Container(
+                                                                        height: 30,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                            color: kGray2,
+                                                                            border: Border.all(
+                                                                              color:kblack,
+                                                                              width: 2,
+                                                                            )
+                                                                        ),
+                                                                        child:Padding(
+                                                                          padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                          child: Center(child: Text("Reject",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                        ) ,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ],
                                               )
                                               ),
                                               DefaultTabController(
                                                   length: 1, child:Column(
                                                 children: [
+                                                  Padding(
+                                                    padding:   EdgeInsets.all(10),
+                                                    child: Container(
+                                                      width: Get.width,
+
+                                                      decoration: BoxDecoration(
+                                                          gradient: LinearGradient(
+                                                              colors: [ kgradientYellow,kgolder2]
+                                                          ),
+                                                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                          border: Border.all(
+                                                            color:kgolder,
+                                                            width: 2,
+                                                          )
+                                                      ),
+                                                      child: Padding(
+                                                        padding:   EdgeInsets.all(5),
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              height: 35,
+
+                                                              width: Get.width,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                  gradient: LinearGradient(
+                                                                      colors: [ kGray3,kblack]
+                                                                  ),
+                                                                  border: Border.all(
+                                                                    color:kgolder,
+                                                                    width: 2,
+                                                                  )
+                                                              ),
+                                                              child: Row(
+                                                                children: [
+                                                                  Center(
+                                                                    child: Padding(
+                                                                      padding:   EdgeInsets.only(left: 10.0),
+                                                                      child: Text("Personal Leave",style: TextStyle(color: kgolder,fontSize:20),),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: 10),
+                                                            Column(
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text("Request :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                    Text("Personal Leave",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text("Date :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                    Text("16/08/2022",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                                                  children: [
+                                                                    Column(
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: [
+                                                                        Text("Details: ",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                        Text("In publishing and graphic design, Lorem epsum\nIpsum is a placeholder text xommonly",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                      ],
+                                                                    ),
+
+                                                                  ],
+                                                                ),
+                                                                SizedBox(height: 15),
+
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap: () {
+
+                                                                        Get.defaultDialog(
+                                                                            title: "",
+
+                                                                            titleStyle: TextStyle(color: kgolder),
+                                                                            titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                                                            backgroundColor: Colors.transparent,
+
+                                                                            content: Container(
+                                                                              width: Get.width,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                gradient: LinearGradient(
+                                                                                    colors: [ kGray3,kblack]
+                                                                                ),
+                                                                                border: Border.all(
+                                                                                  color:kgolder,
+                                                                                  width: 2,
+                                                                                ),
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding:   EdgeInsets.all(10),
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                      children: [
+                                                                                        Column(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                          children: [
+                                                                                            Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                                            SizedBox(height: 15),
+                                                                                            Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                                            SizedBox(height: 15),
+                                                                                            Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                                              style: TextStyle(color:kgolder ),),
+
+                                                                                          ],
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    SizedBox(height: 15),
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          height: 30,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                            color: kgolder,
+
+                                                                                          ),
+                                                                                          child:Padding(
+                                                                                            padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,),)),
+                                                                                          ) ,
+                                                                                        ),
+                                                                                        Container(
+                                                                                          height: 30,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                          ),
+                                                                                          child:Padding(
+                                                                                            padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,),)),
+                                                                                          ) ,
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            radius: 50
+                                                                        );
+                                                                      },
+                                                                      child: Container(
+                                                                        height: 30,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                            color: kGray2,
+                                                                            border: Border.all(
+                                                                              color:kblack,
+                                                                              width: 2,
+                                                                            )
+                                                                        ),
+                                                                        child:Padding(
+                                                                          padding:   EdgeInsets.only(left: 8,right: 8),
+                                                                          child: Center(child: Text("Approve",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                        ) ,
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(width: 10,),
+                                                                    InkWell(
+                                                                      onTap: () {
+                                                                        Get.defaultDialog(
+                                                                            title: "",
+
+                                                                            titleStyle: TextStyle(color: kgolder),
+                                                                            titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                                                            backgroundColor: Colors.transparent,
+
+                                                                            content: Container(
+                                                                              width: Get.width,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                gradient: LinearGradient(
+                                                                                    colors: [ kGray3,kblack]
+                                                                                ),
+                                                                                border: Border.all(
+                                                                                  color:kgolder,
+                                                                                  width: 2,
+                                                                                ),
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding:   EdgeInsets.all(10),
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                      children: [
+                                                                                        Column(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                          children: [
+                                                                                            Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                                            SizedBox(height: 15),
+                                                                                            Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                                            Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                                            SizedBox(height: 15),
+                                                                                            Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                                              style: TextStyle(color:kgolder ),),
+
+                                                                                          ],
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    SizedBox(height: 15),
+                                                                                    Container(
+                                                                                      width: Get.width,
+                                                                                      decoration: BoxDecoration(
+                                                                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                                        gradient: LinearGradient(
+                                                                                            colors: [ kgradientYellow,kgolder2]
+                                                                                        ),
+                                                                                        border: Border.all(
+                                                                                          color:kgolder,
+                                                                                          width: 2,
+                                                                                        ),
+                                                                                      ),
+                                                                                      child: Padding(
+                                                                                        padding:   EdgeInsets.all(10.0),
+                                                                                        child: Text("Reason:\nLoremipsum dola sit \namet connector adsipising elit "),
+                                                                                      ),
+                                                                                    ),
+                                                                                    SizedBox(height: 15),
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          height: 30,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                            color: kgolder,
+
+                                                                                          ),
+                                                                                          child:Padding(
+                                                                                            padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                            child: Center(child: Text("Reject",style: TextStyle(color: kblack),)),
+                                                                                          ) ,
+                                                                                        ),
+                                                                                        Container(
+                                                                                          height: 30,
+                                                                                          decoration: BoxDecoration(
+                                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+
+
+                                                                                          ),
+                                                                                          child:Padding(
+                                                                                            padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder),)),
+                                                                                          ) ,
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            radius: 50
+                                                                        );
+                                                                      },
+                                                                      child: Container(
+                                                                        height: 30,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                            color: kGray2,
+                                                                            border: Border.all(
+                                                                              color:kblack,
+                                                                              width: 2,
+                                                                            )
+                                                                        ),
+                                                                        child:Padding(
+                                                                          padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                          child: Center(child: Text("Reject",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                                        ) ,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
                                                   Padding(
                                                     padding:   EdgeInsets.all(10),
                                                     child: Container(
