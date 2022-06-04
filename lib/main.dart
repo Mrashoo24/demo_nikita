@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
@@ -15,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'BenchList/benchlist_page.dart';
 import 'Components/api.dart';
 import 'Components/models.dart';
+
 import 'Homepage/homepage.dart';
 import 'Leaves/administrative_leave.dart';
 import 'Mujahidthursday/adminleave.dart';
@@ -23,6 +25,7 @@ import 'Mujahidthursday/leaves.dart';
 import 'Mujahidthursday/managerscreen.dart';
 import 'Related sites/related_sites.dart';
 import 'Services/Services.dart';
+import 'mannan HR screen/hrservies.dart';
 
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -167,7 +170,7 @@ class _MyAppState extends State<MyApp> {
         )
 
       ),
-      home: ManagerScreeen()
+      home: HRservies()
     );
   }
 }
