@@ -221,8 +221,6 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
         gradient:LinearGradient(
             colors: [
               kgolder,
-
-
               Colors.yellow.shade200,
               kgolder,
               //add more colors for gradient
