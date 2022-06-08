@@ -26,6 +26,7 @@ import 'Mujahidthursday/managerscreen.dart';
 import 'Related sites/related_sites.dart';
 import 'Services/Services.dart';
 import 'mannan HR screen/hrservies.dart';
+import 'mannan HR screen/services2.dart';
 
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -170,7 +171,7 @@ class _MyAppState extends State<MyApp> {
         )
 
       ),
-      home: HRservies()
+      home: Services2()
     );
   }
 }
