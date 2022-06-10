@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../Components/constants.dart';
+import 'announcement.dart';
 import 'hrreporrts.dart';
 
 class HRDassboard extends StatefulWidget {
@@ -126,18 +127,20 @@ class _HRDassboardState extends State<HRDassboard> {
                                   },
                                   child: InkWell(
                                       onTap: (){
-                                        Get.back();
+                                        Get.to(Anounncement());
                                        },
-                                      child: buildContainer("assets/certificate.png","Certificates"))),
+                                      child: buildContainer("assets/certificate.png","Announcement"))),
                               InkWell(
                                   onTap: (){
                                     Get.back();
                                   },
-                                  child: buildContainer("assets/reporhhts.png","Reports")),
+                                  child: buildContainer("assets/leavess.png","Reports")),
                             ],
                           ),
 
                           SizedBox(height: 20,),
+
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -165,7 +168,7 @@ class _HRDassboardState extends State<HRDassboard> {
                                     Get.to(HRReport());
 
                                   },
-                                  child: buildContainer("assets/leavess.png","Reports")),
+                                  child: buildContainer("assets/reporhhts.png","Leaves")),
                               buildContainer("assets/otherservice.png","Other Services"),
                             ],
                           ),
