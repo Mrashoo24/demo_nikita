@@ -17,6 +17,8 @@ import 'Components/api.dart';
 import 'Components/models.dart';
 import 'Homepage/homepage.dart';
 import 'Leaves/administrative_leave.dart';
+import 'MujahidHR/hrdasshboard.dart';
+import 'MujahidHR/hrreporrts.dart';
 import 'Mujahidthursday/adminleave.dart';
 import 'Mujahidthursday/benchlist.dart';
 import 'Mujahidthursday/hrenqquiry.dart';
@@ -168,7 +170,7 @@ class _MyAppState extends State<MyApp> {
         )
 
       ),
-      home: Enqquiry()
+      home: HRDassboard()
     );
   }
 }
