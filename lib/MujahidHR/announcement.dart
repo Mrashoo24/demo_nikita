@@ -24,7 +24,7 @@ class _AnounncementState extends State<Anounncement> {
               },
               child: Padding(
                 padding: EdgeInsets.only(left: 14.0),
-                child: Icon(Icons.arrow_back, color: kgradientYellow),
+                child: Icon(Icons.arrow_back, color: kblack),
               ),
             ),
             leadingWidth: 40,
@@ -66,7 +66,7 @@ class _AnounncementState extends State<Anounncement> {
 
                 Padding(
                   padding: const EdgeInsets.all( 10.0),
-                  child: Container( height: 150,
+                  child: Container(
                     width: Get.width,
                     child:  Column(
                       children: [SizedBox(height: 5,),

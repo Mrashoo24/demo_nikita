@@ -4,8 +4,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../Components/constants.dart';
+import '../Mujahidthursday/leaves.dart';
+import '../Mujahidthursday/reeeports.dart';
 import 'announcement.dart';
+import 'hrleavees.dart';
 import 'hrreporrts.dart';
+import 'hrservices.dart';
 
 class HRDassboard extends StatefulWidget {
   const HRDassboard({Key? key}) : super(key: key);
@@ -42,7 +46,6 @@ class _HRDassboardState extends State<HRDassboard> {
                       end: Alignment.bottomLeft,
                     ),
                   ),
-
                 ),
                 SingleChildScrollView(
                   child: Column(
@@ -129,12 +132,12 @@ class _HRDassboardState extends State<HRDassboard> {
                                       onTap: (){
                                         Get.to(Anounncement());
                                        },
-                                      child: buildContainer("assets/certificate.png","Announcement"))),
+                                      child: buildContainer("assets/certificate.png","HR Announcement\nTS"))),
                               InkWell(
                                   onTap: (){
-                                    Get.back();
+                                    Get.to(HRLeaaves());
                                   },
-                                  child: buildContainer("assets/leavess.png","Reports")),
+                                  child: buildContainer("assets/bennnchlist.png","HR Enquiry")),
                             ],
                           ),
 
@@ -144,32 +147,40 @@ class _HRDassboardState extends State<HRDassboard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              InkWell(
-                                  onTap: (){
-                                    Get.back();
-                                  },
-                                  child: buildContainer("assets/bennnchlist.png","Benchlist")),
-                              InkWell(
-                                  onTap: (){
-                                    Get.back();
-                                  },
-                                  child: buildContainer("assets/adminleave.png","Administrative Leave")),
-                            ],
-                          ),
-
-
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
+                              // InkWell(
+                              //     onTap: (){
+                              //       Get.back();
+                              //     },
+                              //     child: buildContainer("assets/leavess.png","HR ")),
                               InkWell(
                                   onTap: (){
 
                                     Get.to(HRReport());
 
                                   },
-                                  child: buildContainer("assets/reporhhts.png","Leaves")),
-                              buildContainer("assets/otherservice.png","Other Services"),
+                                  child: buildContainer("assets/reporhhts.png","HR Reports")),
+                              InkWell(
+                                  onTap: (){
+                                    Get.back();
+                                  },
+                                  child: buildContainer("assets/adminleave.png","HR Courses")),
+                            ],
+                          ),
+
+
+                          SizedBox(height: 20,),
+
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+
+                              InkWell(
+                                onTap: (){
+                                  Get.to(HrSerrvices());
+                                },
+                                  child: buildContainer("assets/otherservice.png","HR Services")),
+                              Text("                                          "),
                             ],
                           ),
 
@@ -237,7 +248,7 @@ class _HRDassboardState extends State<HRDassboard> {
         child: Column(
           children: [
             Image.asset(image,color: Colors.black),
-            SizedBox(height: 10,),
+            SizedBox(height: 5,),
             Text(tabname)
           ],
         ),
