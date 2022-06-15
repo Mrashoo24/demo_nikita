@@ -60,6 +60,7 @@ dependencies:
   custom_pop_up_menu: ^1.2.3+1
   flutter_staggered_animations: ^1.0.0
   flutter_custom_clippers: ^2.0.0
+  grouped_list: ^5.1.1
 
 
 

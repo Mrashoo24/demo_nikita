@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,12 +9,13 @@ import '../Components/constants.dart';
 
 class Corses extends StatefulWidget {
   const Corses({Key? key}) : super(key: key);
-
   @override
   _CorsesState createState() => _CorsesState();
 }
 
 class _CorsesState extends State<Corses> {
+  DateTime dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,13 +52,33 @@ class _CorsesState extends State<Corses> {
           ),
           backgroundColor: kGray3,
         ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: kgolder2,
+          onPressed: (){
+            Get.defaultDialog(
+              title: "Add Courses",
+                content: Container(
+                height: Get.height*0.4,
+                  child: Column(
+                    children: [
+                      buildTextFormField("Title"),
+                      buildTextFormField("Venue"),
+                      Expanded(child: builDatePicket()),
+
+
+                    ],
+                  ),
+              ),
+            );
+          },
+          child: Icon(Icons.add),
+        ),
         body: Container(
           decoration: BoxDecoration(
               gradient:LinearGradient(
                 colors: [
                   Colors.grey,
                   Colors.black,
-
                   Colors.grey,
                   Colors.black,
                   //add more colors for gradient
@@ -72,525 +95,529 @@ class _CorsesState extends State<Corses> {
                 child: Column(
                   children: [
                     Container(
-                      height: 180,
+                      // height: 180,
                       width: Get.width,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 35,
-                            width:
-                            Get.width,
-                            decoration:
-                            BoxDecoration(
-                                borderRadius:
-                                BorderRadius
-                                    .all(
-                                    Radius
-                                        .circular(
-                                        8)),
-                                gradient:
-                                LinearGradient(
-                                    colors: [
-                                      kGray2,
-                                      kblack
-                                    ]),
-                                border:
-                                Border
-                                    .all(
-                                  color:
-                                  kgolder,
-                                  width:
-                                  2,
-                                )),
-                            child: Row(
-                              children: [
-                                Center(
-                                  child:
-                                  Padding(
-                                    padding:
-                                    EdgeInsets
-                                        .only(
-                                        left: 10.0),
-                                    child:
-                                    Text(
-                                      "Courses 1",
-                                      style: TextStyle(
-                                          color: kgolder,
-                                          fontSize: 20),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 5,),
-                          Column(
+                      child: Padding(
+                        padding:  EdgeInsets.all(8.0),
+                        child: Column(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-                                children: [
-                                  Text(
-                                    "Phone:",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "9553439168",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-                                children: [
-                                  Text(
-                                    "From",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "16/08/2022 12.00 am",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-                                children: [
-                                  Text(
-                                    "To",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "25/08/2022 12.00 am",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                children: [
-                                  Text(
-                                    "Replacment type ",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "Temporary",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                  height:
-                                  15),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .end,
-                                children: [
-                                  InkWell(
-                                    onTap:
-                                        () {
-                                      Get.defaultDialog(
-                                          title: "",
-
-                                          titleStyle: TextStyle(color: kgolder),
-                                          titlePadding: EdgeInsets.only(right: 100,top: 5),
-                                          backgroundColor: Colors.transparent,
-
-                                          content: Container(
-                                            width: Get.width,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                                              gradient: LinearGradient(
-                                                  colors: [ kGray3,kblack]
-                                              ),
-                                              border: Border.all(
-                                                color:kgolder,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding:   EdgeInsets.all(10),
-                                              child: SingleChildScrollView(
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                      children: [
-                                                        Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
-                                                            SizedBox(height: 15),
-                                                            Text("Emp ID: ",style: TextStyle(color:kgolder ),),
-                                                            Text("Designation: ",style: TextStyle(color:kgolder ),),
-                                                            Text("Phone: ",style: TextStyle(color:kgolder ),),
-                                                            Text("Email : ",style: TextStyle(color:kgolder ),),
-                                                            SizedBox(height: 15),
-                                                            Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
-                                                              style: TextStyle(color:kgolder ),),
-
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 15),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: [
-                                                        Container(
-                                                          height: 30,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                            color: kgolder,
-
-                                                          ),
-                                                          child:Padding(
-                                                            padding:  EdgeInsets.only(left: 8,right: 8),
-                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
-                                                          ) ,
-                                                        ),
-                                                        InkWell(
-                                                          onTap: (){
-                                                            Get.back();
-                                                          },
-                                                          child: Padding(
-                                                            padding:  EdgeInsets.only(left: 8,right: 8),
-                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          radius: 50
-                                      );
-                                    },
-                                    child:
-                                    Container(
-                                      height:
-                                      30,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius
-                                              .all(
-                                              Radius
-                                                  .circular(
-                                                  10)),
-                                          color: kGray3,
-                                          border: Border
-                                              .all(
-                                            color: kblack,
-                                            width: 2,
-                                          )),
+                              Container(
+                                height: 35,
+                                width:
+                                Get.width,
+                                decoration:
+                                BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius
+                                        .all(
+                                        Radius
+                                            .circular(
+                                            8)),
+                                    gradient:
+                                    LinearGradient(
+                                        colors: [
+                                          kGray2,
+                                          kblack
+                                        ]),
+                                    border:
+                                    Border
+                                        .all(
+                                      color:
+                                      kgolder,
+                                      width:
+                                      2,
+                                    )),
+                                child: Row(
+                                  children: [
+                                    Center(
                                       child:
                                       Padding(
                                         padding:
                                         EdgeInsets
                                             .only(
-                                            left: 8,
-                                            right: 8),
-                                        child: Center(
-                                            child: Text(
-                                              "Approve",
-                                              style: TextStyle(
-                                                  color: kgolder,
-                                                  fontSize: 18),
-                                            )),
+                                            left: 10.0),
+                                        child:
+                                        Text(
+                                          "Courses 1",
+                                          style: TextStyle(
+                                              color: kgolder,
+                                              fontSize: 20),
+                                        ),
                                       ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 5,),
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment
+                                        .spaceBetween,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment
+                                        .start,
+                                    children: [
+                                      Text(
+                                        "Phone:",
+                                        style: TextStyle(
+                                            color:
+                                            kblack,
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 18),
+                                      ),
+                                      Text(
+                                        "9553439168",
+                                        style: TextStyle(
+                                            color:
+                                            kblack,
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment
+                                        .spaceBetween,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment
+                                        .start,
+                                    children: [
+                                      Text(
+                                        "From",
+                                        style: TextStyle(
+                                            color:
+                                            kblack,
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 18),
+                                      ),
+                                      Text(
+                                        "16/08/2022 12.00 am",
+                                        style: TextStyle(
+                                            color:
+                                            kblack,
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment
+                                        .spaceBetween,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment
+                                        .start,
+                                    children: [
+                                      Text(
+                                        "To",
+                                        style: TextStyle(
+                                            color:
+                                            kblack,
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 18),
+                                      ),
+                                      Text(
+                                        "25/08/2022 12.00 am",
+                                        style: TextStyle(
+                                            color:
+                                            kblack,
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment
+                                        .spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Replacment type ",
+                                        style: TextStyle(
+                                            color:
+                                            kblack,
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 18),
+                                      ),
+                                      Text(
+                                        "Temporary",
+                                        style: TextStyle(
+                                            color:
+                                            kblack,
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 18),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
-                                    width:
-                                    10,
-                                  ),
-                                  InkWell(
-                                    onTap:
-                                        () {
-                                      Get
-                                          .defaultDialog(
-                                          title: "",
-                                          titleStyle: TextStyle(
-                                              color: kgolder),
-                                          titlePadding: EdgeInsets
-                                              .only(
-                                              right: 100,
-                                              top: 5),
-                                          backgroundColor: Colors
-                                              .transparent,
-                                          content: Container(
-                                            width: Get
-                                                .width,
-                                            decoration: BoxDecoration(
+                                      height:
+                                      15),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment
+                                        .end,
+                                    children: [
+                                      InkWell(
+                                        onTap:
+                                            () {
+                                          Get.defaultDialog(
+                                              title: "",
+
+                                              titleStyle: TextStyle(color: kgolder),
+                                              titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                              backgroundColor: Colors.transparent,
+
+                                              content: Container(
+                                                width: Get.width,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                  gradient: LinearGradient(
+                                                      colors: [ kGray3,kblack]
+                                                  ),
+                                                  border: Border.all(
+                                                    color:kgolder,
+                                                    width: 2,
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding:   EdgeInsets.all(10),
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                                SizedBox(height: 15),
+                                                                Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                                Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                                Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                                Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                                SizedBox(height: 15),
+                                                                Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                  style: TextStyle(color:kgolder ),),
+
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(height: 15),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            Container(
+                                                              height: 30,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                color: kgolder,
+
+                                                              ),
+                                                              child:Padding(
+                                                                padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                              ) ,
+                                                            ),
+                                                            InkWell(
+                                                              onTap: (){
+                                                                Get.back();
+                                                              },
+                                                              child: Padding(
+                                                                padding:  EdgeInsets.only(left: 8,right: 8),
+                                                                child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              radius: 50
+                                          );
+                                        },
+                                        child:
+                                        Container(
+                                          height:
+                                          30,
+                                          decoration: BoxDecoration(
                                               borderRadius: BorderRadius
                                                   .all(
                                                   Radius
                                                       .circular(
-                                                      8)),
-                                              gradient: LinearGradient(
-                                                  colors: [
-                                                    kGray3,
-                                                    kblack
-                                                  ]),
+                                                      10)),
+                                              color: kGray3,
                                               border: Border
                                                   .all(
-                                                color: kgolder,
+                                                color: kblack,
                                                 width: 2,
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets
-                                                  .all(
-                                                  10),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .start,
+                                              )),
+                                          child:
+                                          Padding(
+                                            padding:
+                                            EdgeInsets
+                                                .only(
+                                                left: 8,
+                                                right: 8),
+                                            child: Center(
+                                                child: Text(
+                                                  "Approve",
+                                                  style: TextStyle(
+                                                      color: kgolder,
+                                                      fontSize: 18),
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                        10,
+                                      ),
+                                      InkWell(
+                                        onTap:
+                                            () {
+                                          Get
+                                              .defaultDialog(
+                                              title: "",
+                                              titleStyle: TextStyle(
+                                                  color: kgolder),
+                                              titlePadding: EdgeInsets
+                                                  .only(
+                                                  right: 100,
+                                                  top: 5),
+                                              backgroundColor: Colors
+                                                  .transparent,
+                                              content: Container(
+                                                width: Get
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .all(
+                                                      Radius
+                                                          .circular(
+                                                          8)),
+                                                  gradient: LinearGradient(
+                                                      colors: [
+                                                        kGray3,
+                                                        kblack
+                                                      ]),
+                                                  border: Border
+                                                      .all(
+                                                    color: kgolder,
+                                                    width: 2,
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsets
+                                                      .all(
+                                                      10),
+                                                  child: Column(
                                                     children: [
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment
                                                             .start,
                                                         children: [
-                                                          Text(
-                                                            "Fahad Kharadi",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          SizedBox(
-                                                              height: 15),
-                                                          Text(
-                                                            "Emp ID: ",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          Text(
-                                                            "Designation: ",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          Text(
-                                                            "Phone: ",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          Text(
-                                                            "Email : ",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          SizedBox(
-                                                              height: 15),
-                                                          Text(
-                                                            "Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
-                                                            style: TextStyle(
-                                                                color: kgolder),
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment
+                                                                .start,
+                                                            children: [
+                                                              Text(
+                                                                "Fahad Kharadi",
+                                                                style: TextStyle(
+                                                                    color: kgolder),
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 15),
+                                                              Text(
+                                                                "Emp ID: ",
+                                                                style: TextStyle(
+                                                                    color: kgolder),
+                                                              ),
+                                                              Text(
+                                                                "Designation: ",
+                                                                style: TextStyle(
+                                                                    color: kgolder),
+                                                              ),
+                                                              Text(
+                                                                "Phone: ",
+                                                                style: TextStyle(
+                                                                    color: kgolder),
+                                                              ),
+                                                              Text(
+                                                                "Email : ",
+                                                                style: TextStyle(
+                                                                    color: kgolder),
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 15),
+                                                              Text(
+                                                                "Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                style: TextStyle(
+                                                                    color: kgolder),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                      height: 15),
-                                                  Container(
-                                                    width: Get
-                                                        .width,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius
-                                                          .all(
-                                                          Radius
-                                                              .circular(
-                                                              8)),
-                                                      gradient: LinearGradient(
-                                                          colors: [
-                                                            kgradientYellow,
-                                                            kgolder2
-                                                          ]),
-                                                      border: Border
-                                                          .all(
-                                                        color: kgolder,
-                                                        width: 2,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: EdgeInsets
-                                                          .all(
-                                                          10.0),
-                                                      child: Text(
-                                                          "Reason:\nLoremipsum dola sit \namet connector adsipising elit "),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height: 15),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .end,
-                                                    children: [
+                                                      SizedBox(
+                                                          height: 15),
                                                       Container(
-                                                        height: 30,
+                                                        width: Get
+                                                            .width,
                                                         decoration: BoxDecoration(
                                                           borderRadius: BorderRadius
                                                               .all(
                                                               Radius
                                                                   .circular(
-                                                                  10)),
-                                                          color: kgolder,
+                                                                  8)),
+                                                          gradient: LinearGradient(
+                                                              colors: [
+                                                                kgradientYellow,
+                                                                kgolder2
+                                                              ]),
+                                                          border: Border
+                                                              .all(
+                                                            color: kgolder,
+                                                            width: 2,
+                                                          ),
                                                         ),
                                                         child: Padding(
                                                           padding: EdgeInsets
-                                                              .only(
-                                                              left: 8,
-                                                              right: 8),
-                                                          child: Center(
-                                                              child: Text(
-                                                                "Reject",
-                                                                style: TextStyle(
-                                                                    color: kblack),
-                                                              )),
+                                                              .all(
+                                                              10.0),
+                                                          child: Text(
+                                                              "Reason:\nLoremipsum dola sit \namet connector adsipising elit "),
                                                         ),
                                                       ),
-                                                      InkWell(
-                                                        onTap: (){
-                                                          Get.back();
-                                                        },
-                                                        child: Container(
-                                                          height: 30,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius
-                                                                .all(
-                                                                Radius
-                                                                    .circular(
-                                                                    10)),
+                                                      SizedBox(
+                                                          height: 15),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment
+                                                            .end,
+                                                        children: [
+                                                          Container(
+                                                            height: 30,
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius
+                                                                  .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                      10)),
+                                                              color: kgolder,
+                                                            ),
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                  left: 8,
+                                                                  right: 8),
+                                                              child: Center(
+                                                                  child: Text(
+                                                                    "Reject",
+                                                                    style: TextStyle(
+                                                                        color: kblack),
+                                                                  )),
+                                                            ),
                                                           ),
-                                                          child: Padding(
-                                                            padding: EdgeInsets
-                                                                .only(
-                                                                left: 8,
-                                                                right: 8),
-                                                            child: Center(
-                                                                child: Text(
-                                                                  "Cancel",
-                                                                  style: TextStyle(
-                                                                      color: kgolder),
-                                                                )),
+                                                          InkWell(
+                                                            onTap: (){
+                                                              Get.back();
+                                                            },
+                                                            child: Container(
+                                                              height: 30,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius
+                                                                    .all(
+                                                                    Radius
+                                                                        .circular(
+                                                                        10)),
+                                                              ),
+                                                              child: Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                    left: 8,
+                                                                    right: 8),
+                                                                child: Center(
+                                                                    child: Text(
+                                                                      "Cancel",
+                                                                      style: TextStyle(
+                                                                          color: kgolder),
+                                                                    )),
+                                                              ),
+                                                            ),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
+                                              radius: 50);
+                                        },
+                                        child:
+                                        Container(
+                                          height:
+                                          30,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius
+                                                  .all(
+                                                  Radius
+                                                      .circular(
+                                                      10)),
+                                              color: kGray3,
+                                              border: Border
+                                                  .all(
+                                                color: kblack,
+                                                width: 2,
+                                              )),
+                                          child:
+                                          Padding(
+                                            padding:
+                                            EdgeInsets
+                                                .only(
+                                                left: 8,
+                                                right: 8),
+                                            child: Center(
+                                                child: Text(
+                                                  "Reject",
+                                                  style: TextStyle(
+                                                      color: kgolder,
+                                                      fontSize: 18),
+                                                )),
                                           ),
-                                          radius: 50);
-                                    },
-                                    child:
-                                    Container(
-                                      height:
-                                      30,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius
-                                              .all(
-                                              Radius
-                                                  .circular(
-                                                  10)),
-                                          color: kGray3,
-                                          border: Border
-                                              .all(
-                                            color: kblack,
-                                            width: 2,
-                                          )),
-                                      child:
-                                      Padding(
-                                        padding:
-                                        EdgeInsets
-                                            .only(
-                                            left: 8,
-                                            right: 8),
-                                        child: Center(
-                                            child: Text(
-                                              "Reject",
-                                              style: TextStyle(
-                                                  color: kgolder,
-                                                  fontSize: 18),
-                                            )),
+                                        ),
                                       ),
-                                    ),
-                                  ),
+                                    ],
+                                  )
                                 ],
-                              )
+                              ),
+
+
                             ],
                           ),
-
-
-                        ],
                       ),
+
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               colors: [ kgradientYellow,kgolder2]
@@ -604,255 +631,466 @@ class _CorsesState extends State<Corses> {
                     ),
                     SizedBox(height: 15,),
                     Container(
-                      height: 180,
                       width: Get.width,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 35,
-                            width:
-                            Get.width,
-                            decoration:
-                            BoxDecoration(
-                                borderRadius:
-                                BorderRadius
-                                    .all(
-                                    Radius
-                                        .circular(
-                                        8)),
-                                gradient:
-                                LinearGradient(
-                                    colors: [
-                                      kGray2,
-                                      kblack
-                                    ]),
-                                border:
-                                Border
-                                    .all(
-                                  color:
-                                  kgolder,
-                                  width:
-                                  2,
-                                )),
-                            child: Row(
-                              children: [
-                                Center(
-                                  child:
-                                  Padding(
-                                    padding:
-                                    EdgeInsets
-                                        .only(
-                                        left: 10.0),
+                      child: Padding(
+                        padding:  EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 35,
+                              width:
+                              Get.width,
+                              decoration:
+                              BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius
+                                      .all(
+                                      Radius
+                                          .circular(
+                                          8)),
+                                  gradient:
+                                  LinearGradient(
+                                      colors: [
+                                        kGray2,
+                                        kblack
+                                      ]),
+                                  border:
+                                  Border
+                                      .all(
+                                    color:
+                                    kgolder,
+                                    width:
+                                    2,
+                                  )),
+                              child: Row(
+                                children: [
+                                  Center(
                                     child:
-                                    Text(
-                                      "Courses 2",
-                                      style: TextStyle(
-                                          color: kgolder,
-                                          fontSize: 20),
+                                    Padding(
+                                      padding:
+                                      EdgeInsets
+                                          .only(
+                                          left: 10.0),
+                                      child:
+                                      Text(
+                                        "Courses 2",
+                                        style: TextStyle(
+                                            color: kgolder,
+                                            fontSize: 20),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 5,),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-                                children: [
-                                  Text(
-                                    "Phone:",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "9553439168",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-                                children: [
-                                  Text(
-                                    "From",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "16/08/2022 12.00 am",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-                                children: [
-                                  Text(
-                                    "To",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "25/08/2022 12.00 am",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                children: [
-                                  Text(
-                                    "Replacment type ",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "Temporary",
-                                    style: TextStyle(
-                                        color:
-                                        kblack,
-                                        fontWeight:
-                                        FontWeight
-                                            .bold,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                  height:
-                                  15),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .end,
-                                children: [
-                                  InkWell(
-                                    onTap:
-                                        () {
-                                      Get.defaultDialog(
-                                          title: "",
+                            SizedBox(height: 5,),
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceBetween,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment
+                                      .start,
+                                  children: [
+                                    Text(
+                                      "Phone:",
+                                      style: TextStyle(
+                                          color:
+                                          kblack,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          fontSize: 18),
+                                    ),
+                                    Text(
+                                      "9553439168",
+                                      style: TextStyle(
+                                          color:
+                                          kblack,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceBetween,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment
+                                      .start,
+                                  children: [
+                                    Text(
+                                      "From",
+                                      style: TextStyle(
+                                          color:
+                                          kblack,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          fontSize: 18),
+                                    ),
+                                    Text(
+                                      "16/08/2022 12.00 am",
+                                      style: TextStyle(
+                                          color:
+                                          kblack,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceBetween,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment
+                                      .start,
+                                  children: [
+                                    Text(
+                                      "To",
+                                      style: TextStyle(
+                                          color:
+                                          kblack,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          fontSize: 18),
+                                    ),
+                                    Text(
+                                      "25/08/2022 12.00 am",
+                                      style: TextStyle(
+                                          color:
+                                          kblack,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Replacment type ",
+                                      style: TextStyle(
+                                          color:
+                                          kblack,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          fontSize: 18),
+                                    ),
+                                    Text(
+                                      "Temporary",
+                                      style: TextStyle(
+                                          color:
+                                          kblack,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                    height:
+                                    15),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .end,
+                                  children: [
+                                    InkWell(
+                                      onTap:
+                                          () {
+                                        Get.defaultDialog(
+                                            title: "",
 
-                                          titleStyle: TextStyle(color: kgolder),
-                                          titlePadding: EdgeInsets.only(right: 100,top: 5),
-                                          backgroundColor: Colors.transparent,
+                                            titleStyle: TextStyle(color: kgolder),
+                                            titlePadding: EdgeInsets.only(right: 100,top: 5),
+                                            backgroundColor: Colors.transparent,
 
-                                          content: Container(
-                                            width: Get.width,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                                              gradient: LinearGradient(
-                                                  colors: [ kGray3,kblack]
+                                            content: Container(
+                                              width: Get.width,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                gradient: LinearGradient(
+                                                    colors: [ kGray3,kblack]
+                                                ),
+                                                border: Border.all(
+                                                  color:kgolder,
+                                                  width: 2,
+                                                ),
                                               ),
-                                              border: Border.all(
-                                                color:kgolder,
-                                                width: 2,
+                                              child: Padding(
+                                                padding:   EdgeInsets.all(10),
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
+                                                              SizedBox(height: 15),
+                                                              Text("Emp ID: ",style: TextStyle(color:kgolder ),),
+                                                              Text("Designation: ",style: TextStyle(color:kgolder ),),
+                                                              Text("Phone: ",style: TextStyle(color:kgolder ),),
+                                                              Text("Email : ",style: TextStyle(color:kgolder ),),
+                                                              SizedBox(height: 15),
+                                                              Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                                style: TextStyle(color:kgolder ),),
+
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: 15),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: [
+                                                          Container(
+                                                            height: 30,
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                              color: kgolder,
+
+                                                            ),
+                                                            child:Padding(
+                                                              padding:  EdgeInsets.only(left: 8,right: 8),
+                                                              child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
+                                                            ) ,
+                                                          ),
+                                                          InkWell(
+                                                            onTap: (){
+                                                              Get.back();
+                                                            },
+                                                            child: Padding(
+                                                              padding:  EdgeInsets.only(left: 8,right: 8),
+                                                              child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                            child: Padding(
-                                              padding:   EdgeInsets.all(10),
-                                              child: SingleChildScrollView(
+                                            radius: 50
+                                        );
+                                      },
+                                      child:
+                                      Container(
+                                        height:
+                                        30,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius
+                                                .all(
+                                                Radius
+                                                    .circular(
+                                                    10)),
+                                            color: kGray3,
+                                            border: Border
+                                                .all(
+                                              color: kblack,
+                                              width: 2,
+                                            )),
+                                        child:
+                                        Padding(
+                                          padding:
+                                          EdgeInsets
+                                              .only(
+                                              left: 8,
+                                              right: 8),
+                                          child: Center(
+                                              child: Text(
+                                                "Approve",
+                                                style: TextStyle(
+                                                    color: kgolder,
+                                                    fontSize: 18),
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                      10,
+                                    ),
+                                    InkWell(
+                                      onTap:
+                                          () {
+                                        Get
+                                            .defaultDialog(
+                                            title: "",
+                                            titleStyle: TextStyle(
+                                                color: kgolder),
+                                            titlePadding: EdgeInsets
+                                                .only(
+                                                right: 100,
+                                                top: 5),
+                                            backgroundColor: Colors
+                                                .transparent,
+                                            content: Container(
+                                              width: Get
+                                                  .width,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius
+                                                    .all(
+                                                    Radius
+                                                        .circular(
+                                                        8)),
+                                                gradient: LinearGradient(
+                                                    colors: [
+                                                      kGray3,
+                                                      kblack
+                                                    ]),
+                                                border: Border
+                                                    .all(
+                                                  color: kgolder,
+                                                  width: 2,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets
+                                                    .all(
+                                                    10),
                                                 child: Column(
                                                   children: [
                                                     Row(
-                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment
+                                                          .start,
                                                       children: [
                                                         Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment
+                                                              .start,
                                                           children: [
-                                                            Text("Fahad Kharadi",style: TextStyle(color:kgolder ),),
-                                                            SizedBox(height: 15),
-                                                            Text("Emp ID: ",style: TextStyle(color:kgolder ),),
-                                                            Text("Designation: ",style: TextStyle(color:kgolder ),),
-                                                            Text("Phone: ",style: TextStyle(color:kgolder ),),
-                                                            Text("Email : ",style: TextStyle(color:kgolder ),),
-                                                            SizedBox(height: 15),
-                                                            Text("Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
-                                                              style: TextStyle(color:kgolder ),),
-
+                                                            Text(
+                                                              "Fahad Kharadi",
+                                                              style: TextStyle(
+                                                                  color: kgolder),
+                                                            ),
+                                                            SizedBox(
+                                                                height: 15),
+                                                            Text(
+                                                              "Emp ID: ",
+                                                              style: TextStyle(
+                                                                  color: kgolder),
+                                                            ),
+                                                            Text(
+                                                              "Designation: ",
+                                                              style: TextStyle(
+                                                                  color: kgolder),
+                                                            ),
+                                                            Text(
+                                                              "Phone: ",
+                                                              style: TextStyle(
+                                                                  color: kgolder),
+                                                            ),
+                                                            Text(
+                                                              "Email : ",
+                                                              style: TextStyle(
+                                                                  color: kgolder),
+                                                            ),
+                                                            SizedBox(
+                                                                height: 15),
+                                                            Text(
+                                                              "Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
+                                                              style: TextStyle(
+                                                                  color: kgolder),
+                                                            ),
                                                           ],
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(height: 15),
+                                                    SizedBox(
+                                                        height: 15),
+                                                    Container(
+                                                      width: Get
+                                                          .width,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius
+                                                            .all(
+                                                            Radius
+                                                                .circular(
+                                                                8)),
+                                                        gradient: LinearGradient(
+                                                            colors: [
+                                                              kgradientYellow,
+                                                              kgolder2
+                                                            ]),
+                                                        border: Border
+                                                            .all(
+                                                          color: kgolder,
+                                                          width: 2,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: EdgeInsets
+                                                            .all(
+                                                            10.0),
+                                                        child: Text(
+                                                            "Reason:\nLoremipsum dola sit \namet connector adsipising elit "),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                        height: 15),
                                                     Row(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      mainAxisAlignment: MainAxisAlignment
+                                                          .end,
                                                       children: [
                                                         Container(
                                                           height: 30,
                                                           decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                            borderRadius: BorderRadius
+                                                                .all(
+                                                                Radius
+                                                                    .circular(
+                                                                    10)),
                                                             color: kgolder,
-
                                                           ),
-                                                          child:Padding(
-                                                            padding:  EdgeInsets.only(left: 8,right: 8),
-                                                            child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
-                                                          ) ,
+                                                          child: Padding(
+                                                            padding: EdgeInsets
+                                                                .only(
+                                                                left: 8,
+                                                                right: 8),
+                                                            child: Center(
+                                                                child: Text(
+                                                                  "Reject",
+                                                                  style: TextStyle(
+                                                                      color: kblack),
+                                                                )),
+                                                          ),
                                                         ),
                                                         InkWell(
+
                                                           onTap: (){
                                                             Get.back();
                                                           },
                                                           child: Padding(
-                                                            padding:  EdgeInsets.only(left: 8,right: 8),
-                                                            child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
+                                                            padding: EdgeInsets
+                                                                .only(
+                                                                left: 8,
+                                                                right: 8),
+                                                            child: Center(
+                                                                child: Text(
+                                                                  "Cancel",
+                                                                  style: TextStyle(
+                                                                      color: kgolder),
+                                                                )),
                                                           ),
                                                         ),
                                                       ],
@@ -861,256 +1099,47 @@ class _CorsesState extends State<Corses> {
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          radius: 50
-                                      );
-                                    },
-                                    child:
-                                    Container(
-                                      height:
-                                      30,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius
-                                              .all(
-                                              Radius
-                                                  .circular(
-                                                  10)),
-                                          color: kGray3,
-                                          border: Border
-                                              .all(
-                                            color: kblack,
-                                            width: 2,
-                                          )),
+                                            radius: 50);
+                                      },
                                       child:
-                                      Padding(
-                                        padding:
-                                        EdgeInsets
-                                            .only(
-                                            left: 8,
-                                            right: 8),
-                                        child: Center(
-                                            child: Text(
-                                              "Approve",
-                                              style: TextStyle(
-                                                  color: kgolder,
-                                                  fontSize: 18),
+                                      Container(
+                                        height:
+                                        30,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius
+                                                .all(
+                                                Radius
+                                                    .circular(
+                                                    10)),
+                                            color: kGray3,
+                                            border: Border
+                                                .all(
+                                              color: kblack,
+                                              width: 2,
                                             )),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width:
-                                    10,
-                                  ),
-                                  InkWell(
-                                    onTap:
-                                        () {
-                                      Get
-                                          .defaultDialog(
-                                          title: "",
-                                          titleStyle: TextStyle(
-                                              color: kgolder),
-                                          titlePadding: EdgeInsets
+                                        child:
+                                        Padding(
+                                          padding:
+                                          EdgeInsets
                                               .only(
-                                              right: 100,
-                                              top: 5),
-                                          backgroundColor: Colors
-                                              .transparent,
-                                          content: Container(
-                                            width: Get
-                                                .width,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius
-                                                  .all(
-                                                  Radius
-                                                      .circular(
-                                                      8)),
-                                              gradient: LinearGradient(
-                                                  colors: [
-                                                    kGray3,
-                                                    kblack
-                                                  ]),
-                                              border: Border
-                                                  .all(
-                                                color: kgolder,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets
-                                                  .all(
-                                                  10),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment
-                                                            .start,
-                                                        children: [
-                                                          Text(
-                                                            "Fahad Kharadi",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          SizedBox(
-                                                              height: 15),
-                                                          Text(
-                                                            "Emp ID: ",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          Text(
-                                                            "Designation: ",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          Text(
-                                                            "Phone: ",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          Text(
-                                                            "Email : ",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                          SizedBox(
-                                                              height: 15),
-                                                          Text(
-                                                            "Request Details: \nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc\nLorem Epsumcscvscsbcscsccscscsc",
-                                                            style: TextStyle(
-                                                                color: kgolder),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                      height: 15),
-                                                  Container(
-                                                    width: Get
-                                                        .width,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius
-                                                          .all(
-                                                          Radius
-                                                              .circular(
-                                                              8)),
-                                                      gradient: LinearGradient(
-                                                          colors: [
-                                                            kgradientYellow,
-                                                            kgolder2
-                                                          ]),
-                                                      border: Border
-                                                          .all(
-                                                        color: kgolder,
-                                                        width: 2,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: EdgeInsets
-                                                          .all(
-                                                          10.0),
-                                                      child: Text(
-                                                          "Reason:\nLoremipsum dola sit \namet connector adsipising elit "),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height: 15),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .end,
-                                                    children: [
-                                                      Container(
-                                                        height: 30,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius
-                                                              .all(
-                                                              Radius
-                                                                  .circular(
-                                                                  10)),
-                                                          color: kgolder,
-                                                        ),
-                                                        child: Padding(
-                                                          padding: EdgeInsets
-                                                              .only(
-                                                              left: 8,
-                                                              right: 8),
-                                                          child: Center(
-                                                              child: Text(
-                                                                "Reject",
-                                                                style: TextStyle(
-                                                                    color: kblack),
-                                                              )),
-                                                        ),
-                                                      ),
-                                                      InkWell(
-
-                                                        onTap: (){
-                                                          Get.back();
-                                                        },
-                                                        child: Padding(
-                                                          padding: EdgeInsets
-                                                              .only(
-                                                              left: 8,
-                                                              right: 8),
-                                                          child: Center(
-                                                              child: Text(
-                                                                "Cancel",
-                                                                style: TextStyle(
-                                                                    color: kgolder),
-                                                              )),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          radius: 50);
-                                    },
-                                    child:
-                                    Container(
-                                      height:
-                                      30,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius
-                                              .all(
-                                              Radius
-                                                  .circular(
-                                                  10)),
-                                          color: kGray3,
-                                          border: Border
-                                              .all(
-                                            color: kblack,
-                                            width: 2,
-                                          )),
-                                      child:
-                                      Padding(
-                                        padding:
-                                        EdgeInsets
-                                            .only(
-                                            left: 8,
-                                            right: 8),
-                                        child: Center(
-                                            child: Text(
-                                              "Reject",
-                                              style: TextStyle(
-                                                  color: kgolder,
-                                                  fontSize: 18),
-                                            )),
+                                              left: 8,
+                                              right: 8),
+                                          child: Center(
+                                              child: Text(
+                                                "Reject",
+                                                style: TextStyle(
+                                                    color: kgolder,
+                                                    fontSize: 18),
+                                              )),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -1125,11 +1154,30 @@ class _CorsesState extends State<Corses> {
                     ),
                   ],
                 ),
-              )
+              ),
+
             ],
           ),
         ),
       ),
     );
   }
+
+  TextFormField buildTextFormField(string) {
+    return TextFormField(
+                      decoration: InputDecoration(
+                        hintText: string,
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: InputBorder.none,
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: kgolder2)
+                        ),
+                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color:kgolder2))
+                      ),
+                    );
+  }
+  Widget builDatePicket() => CupertinoDatePicker(initialDateTime: dateTime,
+  mode: CupertinoDatePickerMode.date, onDateTimeChanged: (dateTime) =>
+    setState(() => this.dateTime=dateTime),
+  );
 }

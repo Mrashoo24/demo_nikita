@@ -17,8 +17,10 @@ import 'BenchList/benchlist_page.dart';
 import 'Components/api.dart';
 import 'Components/models.dart';
 
+import 'Enquiry.dart';
 import 'Homepage/homepage.dart';
 import 'Leaves/administrative_leave.dart';
+import 'MujahidHR/chat screen.dart';
 import 'MujahidHR/hrdasshboard.dart';
 import 'MujahidHR/privacypolicy.dart';
 import 'Mujahidthursday/adminleave.dart';
@@ -173,7 +175,7 @@ class _MyAppState extends State<MyApp> {
         )
 
       ),
-      home: PrivacyPolicy()
+      home: HRDassboard()
     );
   }
 }

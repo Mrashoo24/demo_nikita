@@ -5,7 +5,9 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../Components/constants.dart';
 import '../Mujahidthursday/leaves.dart';
+import '../Mujahidthursday/managerscreen.dart';
 import '../Mujahidthursday/reeeports.dart';
+import '../mannan HR screen/hrservies.dart';
 import 'hrcoursesa.dart';
 import 'services2.dart';
 import 'announcement.dart';
@@ -132,7 +134,7 @@ class _HRDassboardState extends State<HRDassboard> {
                                   },
                                   child: InkWell(
                                       onTap: (){
-                                        Get.to(Anounncement());
+                                        Get.to(ManagerScreeen());
                                        },
                                       child: buildContainer("assets/certificate.png","Announcement"))),
                               InkWell(
@@ -151,7 +153,7 @@ class _HRDassboardState extends State<HRDassboard> {
                             children: [
                               InkWell(
                                   onTap: (){
-                                    Get.to(Services2());
+                                    Get.to(HRServices());
                                   },
                                   child: buildContainer("assets/bennnchlist.png","HR Services")),
                               InkWell(

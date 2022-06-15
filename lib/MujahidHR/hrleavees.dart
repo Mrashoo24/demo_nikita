@@ -74,7 +74,7 @@ class _HRLeaavesState extends State<HRLeaaves> {
                 ),
                 SizedBox(height: 40,),
                 Padding(
-                  padding:   EdgeInsets.only(left: 30),
+                  padding:   EdgeInsets.only(left: 20,right: 20),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -94,6 +94,8 @@ class _HRLeaavesState extends State<HRLeaaves> {
                         BuilLeaveCard("Rocky"),
                         SizedBox(height: 15),
                         BuilLeaveCard("Julie"),
+                        SizedBox(height: 15),
+                        BuilLeaveCard("Mujahidul islam"),
                       ],
                     ),
                   ),
@@ -106,16 +108,37 @@ class _HRLeaavesState extends State<HRLeaaves> {
     );
   }
 
-  Row BuilLeaveCard(string) {
-    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+   BuilLeaveCard(string) {
+    return Container(
+      height: 35,
+
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+          border:
+          Border
+              .all(
+            color:
+            kgolder,
+            width:
+            1,
+          )) ,
 
 
-                      children: [
-                        Icon(Icons.person,color: kgolder,size: 25,),
-                        SizedBox(width: 50,),
-                        Text(string,style: TextStyle(color: kgradientYellow,fontSize: 20),)
-                      ],
-                    );
+
+
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15.0,top: 5),
+        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+
+
+                          children: [
+                            Icon(Icons.person,color: kgolder,size: 25,),
+                            SizedBox(width: 50,),
+                            Text(string,style: TextStyle(color: kgradientYellow,fontSize: 20),)
+                          ],
+                        ),
+      ),
+    );
   }
 }
