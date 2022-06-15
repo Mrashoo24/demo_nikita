@@ -25,12 +25,12 @@ class _CorsesState extends State<Corses> {
             },
             child: Padding(
               padding: EdgeInsets.only(left: 10.0),
-              child: Icon(Icons.arrow_back, color: kgradientYellow),
+              child: Icon(Icons.arrow_back, color: kblack),
             ),
           ),
           leadingWidth: 35,
           title: Text(
-            "Courses ",
+            "Courses",
             style: TextStyle(
                 color: kblack, fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -51,16 +51,24 @@ class _CorsesState extends State<Corses> {
         ),
         body: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [kGray3,kblack]
+              gradient:LinearGradient(
+                colors: [
+                  Colors.grey,
+                  Colors.black,
+
+                  Colors.grey,
+                  Colors.black,
+                  //add more colors for gradient
+                ],
+                begin: Alignment.topRight, //begin of the gradient color
+                end: Alignment.bottomLeft,
               ),
-              borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),bottomLeft: Radius.circular(15))
           ),
 
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 25.0),
+                padding: const EdgeInsets.only(top: 25,left: 15,right: 15),
                 child: Column(
                   children: [
                     Container(
@@ -306,17 +314,14 @@ class _CorsesState extends State<Corses> {
                                                             child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
                                                           ) ,
                                                         ),
-                                                        Container(
-                                                          height: 30,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
-
-
-                                                          ),
-                                                          child:Padding(
+                                                        InkWell(
+                                                          onTap: (){
+                                                            Get.back();
+                                                          },
+                                                          child: Padding(
                                                             padding:  EdgeInsets.only(left: 8,right: 8),
                                                             child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                          ) ,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -510,26 +515,31 @@ class _CorsesState extends State<Corses> {
                                                               )),
                                                         ),
                                                       ),
-                                                      Container(
-                                                        height: 30,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius
-                                                              .all(
-                                                              Radius
-                                                                  .circular(
-                                                                  10)),
-                                                        ),
-                                                        child: Padding(
-                                                          padding: EdgeInsets
-                                                              .only(
-                                                              left: 8,
-                                                              right: 8),
-                                                          child: Center(
-                                                              child: Text(
-                                                                "Cancel",
-                                                                style: TextStyle(
-                                                                    color: kgolder),
-                                                              )),
+                                                      InkWell(
+                                                        onTap: (){
+                                                          Get.back();
+                                                        },
+                                                        child: Container(
+                                                          height: 30,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius
+                                                                .all(
+                                                                Radius
+                                                                    .circular(
+                                                                    10)),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: EdgeInsets
+                                                                .only(
+                                                                left: 8,
+                                                                right: 8),
+                                                            child: Center(
+                                                                child: Text(
+                                                                  "Cancel",
+                                                                  style: TextStyle(
+                                                                      color: kgolder),
+                                                                )),
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
@@ -836,17 +846,14 @@ class _CorsesState extends State<Corses> {
                                                             child: Center(child: Text("Approve",style: TextStyle(color: kblack,fontSize:18),)),
                                                           ) ,
                                                         ),
-                                                        Container(
-                                                          height: 30,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
-
-
-                                                          ),
-                                                          child:Padding(
+                                                        InkWell(
+                                                          onTap: (){
+                                                            Get.back();
+                                                          },
+                                                          child: Padding(
                                                             padding:  EdgeInsets.only(left: 8,right: 8),
                                                             child: Center(child: Text("Cancel",style: TextStyle(color: kgolder,fontSize:18),)),
-                                                          ) ,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -1040,15 +1047,11 @@ class _CorsesState extends State<Corses> {
                                                               )),
                                                         ),
                                                       ),
-                                                      Container(
-                                                        height: 30,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius
-                                                              .all(
-                                                              Radius
-                                                                  .circular(
-                                                                  10)),
-                                                        ),
+                                                      InkWell(
+
+                                                        onTap: (){
+                                                          Get.back();
+                                                        },
                                                         child: Padding(
                                                           padding: EdgeInsets
                                                               .only(
@@ -1107,8 +1110,6 @@ class _CorsesState extends State<Corses> {
                               )
                             ],
                           ),
-
-
                         ],
                       ),
                       decoration: BoxDecoration(
@@ -1122,19 +1123,11 @@ class _CorsesState extends State<Corses> {
                           )
                       ),
                     ),
-
-
-
                   ],
                 ),
               )
-            ]
-
-
-
-            ,
+            ],
           ),
-
         ),
       ),
     );

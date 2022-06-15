@@ -19,6 +19,8 @@ import 'Components/models.dart';
 
 import 'Homepage/homepage.dart';
 import 'Leaves/administrative_leave.dart';
+import 'MujahidHR/hrdasshboard.dart';
+import 'MujahidHR/privacypolicy.dart';
 import 'Mujahidthursday/adminleave.dart';
 import 'Mujahidthursday/benchlist.dart';
 import 'Mujahidthursday/leaves.dart';
@@ -26,7 +28,7 @@ import 'Mujahidthursday/managerscreen.dart';
 import 'Related sites/related_sites.dart';
 import 'Services/Services.dart';
 import 'mannan HR screen/hrservies.dart';
-import 'mannan HR screen/services2.dart';
+import 'MujahidHR/services2.dart';
 
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -171,7 +173,7 @@ class _MyAppState extends State<MyApp> {
         )
 
       ),
-      home: Services2()
+      home: PrivacyPolicy()
     );
   }
 }
