@@ -668,6 +668,25 @@ class AllApi {
     }
   }
 
+  Future<List<ServicesModel>?> getServicesManager({
+    @required String? companyId,
+    @required String? verify,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugGetServicesManager?companyId=$companyId&verify=$verify");
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+    if (body != '[]' && response.statusCode == 200) {
+      List list = body;
+      Iterable<ServicesModel> servicesList = list.map((e) {
+        return ServicesModel().fromJson(e);
+      });
+      return servicesList.toList();
+    } else {
+      return null;
+    }
+  }
+
   Future<File> loadFile({@required String? url, @required fileName}) async {
     final response = await http.get(Uri.parse(url!));
     final bytes = response.bodyBytes;
@@ -709,6 +728,25 @@ class AllApi {
   }) async {
     var url = Uri.parse(
         "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugGetEmployeeLeaveRequests?refId=$refId&verify=$verify");
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+    if (body != '[]' && response.statusCode == 200) {
+      List list = body;
+      Iterable<EmployeeLeaveRequestsModel> requests = list.map((e) {
+        return EmployeeLeaveRequestsModel().fromJson(e);
+      });
+      return requests.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<EmployeeLeaveRequestsModel>?> getManagerLeaveRequests({
+    @required String? companyId,
+    @required String? verify,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getEmployeeLeaveRequests?companyId=$companyId&verify=$verify");
     var response = await http.get(url);
     var body = json.decode(response.body);
     if (body != '[]' && response.statusCode == 200) {
@@ -991,4 +1029,327 @@ class AllApi {
       return null;
     }
   }
+
+  Future<String> approveService({
+    @required String? refId,
+    @required String? certificateName,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugApproveService?refId=$refId&certificateName=$certificateName");
+    var response = await http.put(url);
+    var body = json.decode(response.body);
+    if (body == 'approved') {
+      return 'approved';
+    } else {
+      return 'failed';
+    }
+  }
+
+  Future<String> rejectService({
+    @required String? refId,
+    @required String? certificateName,
+    @required String? reason,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugRejectService?refId=$refId&certificateName=$certificateName&reason=$reason");
+    var response = await http.put(url);
+    var body = json.decode(response.body);
+    if (body == 'rejected') {
+      return 'rejected';
+    } else {
+      return 'failed';
+    }
+  }
+
+
+  Future<List<ReportModel>?> getDelayReportList({
+    @required String? companyid,
+    @required String ?employeeName,
+    @required String? fromDate,
+    @required String? toDate,
+    @required String? status,
+  }) async {
+    var getUserUrl =
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/getDelayReports?companyId=$companyid&empname=$employeeName&status=$status";
+
+    var response = await http.get(Uri.parse(getUserUrl));
+
+    if (response.statusCode == 200) {
+      List preResponseList = json.decode(response.body);
+
+      var requestList = preResponseList.where((element) {
+        return DateFormat("yyyy-MM-dd").parse(element['date']).isAfter(
+          DateFormat("yyyy-MM-dd").parse(fromDate!).subtract(
+            const Duration(days: 1),
+          ),
+        ) &&
+            DateFormat("yyyy-MM-dd").parse(element['date']).isBefore(
+              DateFormat("yyyy-MM-dd").parse(toDate!).add(
+                const Duration(days: 1),
+              ),
+            );
+      });
+      Iterable<ReportModel> requests = requestList.map((e) {
+        return ReportModel().fromJson(e);
+      });
+      return requests.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<OutGeoReportModel>?> getOutGeoReport({
+    @required String? fromDate,
+    @required String? toDate,
+    @required String? companyId,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/getOutGeoReport?companyid=$companyId");
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+    if (body != '[]' && response.statusCode == 200) {
+      List preResponseList = body;
+
+      var responseList = preResponseList.where(
+            (element) {
+          return DateFormat("dd-MM-yyyy")
+              .parse(element['date'])
+              .isAfter(DateFormat("dd-MM-yyyy").parse(fromDate!)) ||
+              DateFormat("dd-MM-yyyy")
+                  .parse(element['date'])
+                  .isBefore(DateFormat("dd-MM-yyyy").parse(toDate!));
+        },
+      );
+
+      Iterable<OutGeoReportModel> reportList = responseList.map((e) {
+        return OutGeoReportModel().fromJson(e);
+      });
+      return reportList.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<AdminLeavesModel>?> getAdminLeavesReport({
+    @required String? companyId,
+    @required String? fromDate,
+    @required String? toDate,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/getAdminLeaveReport?companyid=$companyId");
+
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+    if (body != '[]' && response.statusCode == 200) {
+      List preResponseList = body;
+      var responseList = preResponseList.where(
+            (element) {
+          return DateFormat("dd-MM-yyyy")
+              .parse(element['date'])
+              .isAfter(DateFormat("dd-MM-yyyy").parse(fromDate!)) ||
+              DateFormat("dd-MM-yyyy")
+                  .parse(element['date'])
+                  .isBefore(DateFormat("dd-MM-yyyy").parse(toDate!));
+        },
+      );
+
+      Iterable<AdminLeavesModel> reportList = responseList.map((e) {
+        return AdminLeavesModel().fromJson(e);
+      });
+      return reportList.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<ServicesModel>?> getServicesReport({
+    @required String? companyId,
+    @required String? fromDate,
+    @required String? toDate,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/getServiceReport?companyId=$companyId");
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+    if (body != '[]' && response.statusCode == 200) {
+      List preResponseList = body;
+
+      var responseList = preResponseList.where(
+            (element) {
+          return DateFormat("yyyy-MM-dd")
+              .parse(element['date'])
+              .isAfter(DateFormat("yyyy-MM-dd").parse(fromDate!)) ||
+              DateFormat("yyyy-MM-dd")
+                  .parse(element['date'])
+                  .isBefore(DateFormat("yyyy-MM-dd").parse(toDate!));
+        },
+      );
+
+      Iterable<ServicesModel> reportList = responseList.map((e) {
+        return ServicesModel().fromJson(e);
+      });
+      return reportList.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<ReportModel>?> getDailyReport(
+      String? companyid, String? date, String? status) async {
+    var getUserUrl =
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/getDailyReports?companyid=$companyid";
+
+    var response = await http.get(Uri.parse(getUserUrl));
+
+    if (response.statusCode == 200) {
+      List prelist = json.decode(response.body);
+
+      var requestList = prelist.where((element) {
+        return DateFormat("yyyy-MM-dd").parse(element['date']) ==
+            DateFormat("yyyy-MM-dd").parse(date!);
+      });
+
+      Iterable<ReportModel> requests = requestList.map((e) {
+        return ReportModel().fromJson(e);
+      });
+      return requests.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<String> approveBenchList({@required String? benchId}) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugApproveBenchList?benchId=$benchId");
+    var response = await http.put(url);
+    var body = json.decode(response.body);
+    if (body == 'approved') {
+      return 'approved';
+    } else {
+      return 'failed';
+    }
+  }
+
+  Future<String> rejectBenchList(
+      {@required String? benchId, @required String? reason}) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugRejectBenchList?benchId=$benchId&reason=$reason");
+    var response = await http.put(url);
+    var body = json.decode(response.body);
+    if (body == 'rejected') {
+      return 'rejected';
+    } else {
+      return 'failed';
+    }
+  }
+
+  Future<List<BenchListModel>?> getBenchList({
+    @required String? verify,
+    @required String? companyId,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugGetBenchListManager?verify=$verify&companyId=$companyId");
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+    if (response.statusCode == 200 && body != '[]') {
+      List requestList = body;
+      Iterable<BenchListModel> benchList = requestList.map((e) {
+        return BenchListModel().fromJson(e);
+      });
+      return benchList.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<UserModel?> getUserByName({@required String? name}) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getUserByName?name=$name");
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+
+    if (body != "null" && response.statusCode == 200) {
+      Map<String, dynamic> responseModel = body;
+      var userModel = UserModel().fromJson(responseModel);
+      return userModel;
+    } else {
+      return null;
+    }
+  }
+
+  Future<String> approveAdminLeave({
+    @required String? refId,
+    @required String? companyId,
+    @required String? employeeName,
+    @required String? empId,
+    @required String ?days,
+    @required String? from,
+    @required String? to,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugApproveAdminLeave");
+    var response = await http.post(url, body: {
+      'refid': refId,
+      'companyid': companyId,
+      'Name': employeeName,
+      'empid': empId,
+      'days': days,
+      'verify': '1',
+      'from': from,
+      'to': to,
+      'date': DateFormat('dd-MM-yyyy').format(DateTime.now()),
+    });
+    var body = json.decode(response.body);
+    if (body == 'approved') {
+      return 'approved';
+    } else {
+      return 'failed';
+    }
+  }
+
+  Future<String> incrementAdminLeave({
+    @required String? refId,
+    @required String? companyId,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugIncrementAdminLeave?refId=$refId&companyId=$companyId");
+    var response = await http.put(url);
+    var body = json.decode(response.body);
+    if (body == 'approved') {
+      return 'approved';
+    } else {
+      return 'failed';
+    }
+  }
+
+  Future<String> approveLeaveRequest({
+    @required String? requestId,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/approveLeaveRequest?requestId=$requestId");
+    var response = await http.put(url);
+    var body = json.decode(response.body);
+    if (body == 'approved') {
+      return 'approved';
+    } else {
+      return 'failed';
+    }
+  }
+
+  Future<String> rejectLeaveReuest({
+    @required String? requestId,
+    @required String? reason,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/rejectLeaveRequest?requestId=$requestId&reason=$reason");
+    var response = await http.put(url);
+    var body = json.decode(response.body);
+    if (body == 'rejected') {
+      return 'rejected';
+    } else {
+      return 'failed';
+    }
+  }
+
+
 }

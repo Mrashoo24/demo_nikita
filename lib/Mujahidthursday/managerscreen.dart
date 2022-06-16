@@ -1,3 +1,4 @@
+import 'package:demo_nikita/Homepage/homepage.dart';
 import 'package:demo_nikita/Mujahidthursday/reeeports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,24 +6,58 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../Components/constants.dart';
+import '../Components/models.dart';
 import 'adminleave.dart';
 import 'benchlist.dart';
 import 'certtifiicates.dart';
 import 'leaves.dart';
 
 class ManagerScreeen extends StatefulWidget {
-  const ManagerScreeen({Key? key}) : super(key: key);
+  final UserModel userModel;
+
+  const ManagerScreeen({Key? key, required this.userModel}) : super(key: key);
 
   @override
   _ManagerScreeenState createState() => _ManagerScreeenState();
 }
 
 class _ManagerScreeenState extends State<ManagerScreeen> {
+  bool managerScreen = true;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return managerScreen ?
+    SafeArea(
       child: Container(
         child: Scaffold(
+          floatingActionButton: InkWell(
+            onTap: (){
+              setState((){
+                managerScreen = !managerScreen;
+              });
+            },
+            child: Container(
+
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              child: FittedBox(
+                  fit: BoxFit.none,
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      boxShadow: [BoxShadow(color: kgolder,blurRadius: 15)],
+                      color: kgolder,
+                    ),
+                    child: Center(
+                        child: Image.asset("assets/bgcircle.png",fit: BoxFit.fitWidth,)),
+                  )
+              ),
+            ),
+          ),
           body: Stack(
               children: [
                 Container(
@@ -128,12 +163,12 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                                   },
                                   child: InkWell(
                                       onTap: (){
-                                        Get.to(Certtifiicates());
+                                        Get.to(Certtifiicates(userModel: widget.userModel,));
                                       },
                                       child: buildContainer("assets/certificate.png","Certificates"))),
                               InkWell(
                                   onTap: (){
-                                    Get.to(Reeports());
+                                    Get.to(Reeports(userModel: widget.userModel,));
                                   },
                                   child: buildContainer("assets/reporhhts.png","Reports")),
                             ],
@@ -145,12 +180,12 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                             children: [
                               InkWell(
                                   onTap: (){
-                                    Get.to(BenchListNew());
+                                    Get.to(BenchListNew(userModel: widget.userModel,));
                                   },
                                   child: buildContainer("assets/bennnchlist.png","Benchlist")),
                               InkWell(
                                   onTap: (){
-                                    Get.to(AdminLeavesss());
+                                    Get.to(AdminLeavesss(userModel: widget.userModel,));
                                   },
                                   child: buildContainer("assets/adminleave.png","Administrative Leave")),
                             ],
@@ -164,7 +199,7 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                               InkWell(
                                   onTap: (){
 
-                                    Get.to(LeaveRequest1());
+                                    Get.to(LeaveRequest1(userModel: widget.userModel,));
 
                                   },
                                   child: buildContainer("assets/leavess.png","Leaves")),
@@ -173,31 +208,7 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                           ),
 
                           SizedBox(height: 30),
-                          Padding(
-                            padding:  EdgeInsets.only(left: 295.0),
-                            child: Container(
 
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(50)),
-                              ),
-                              child: FittedBox(
-                                  fit: BoxFit.none,
-                                  child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                                      boxShadow: [BoxShadow(color: kgolder,blurRadius: 15)],
-                                      color: kgolder,
-                                    ),
-                                    child: Center(
-                                        child: Image.asset("assets/bgcircle.png",fit: BoxFit.fitWidth,)),
-                                  )
-                              ),
-                            ),
-                          ),
                           SizedBox(height: 30),
                         ],
                       ),
@@ -209,7 +220,9 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
           ),
         ),
       ),
-    );
+    )
+    : Welcome(userModel: widget.userModel,)
+    ;
   }
 
   Container buildContainer(String image, String tabname) {

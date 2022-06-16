@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Components/api.dart';
 import '../Components/models.dart';
+import '../Mujahidthursday/managerscreen.dart';
 
 class SplashScreeen extends StatefulWidget {
   const SplashScreeen({Key? key}) : super(key: key);
@@ -53,7 +54,7 @@ class _SplashScreeenState extends State<SplashScreeen> {
         loggein != true
             ?  Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
         :
-        Get.to(Welcome(userModel: user1),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
+        Get.to(user1!.designation == 'manager' ? ManagerScreeen(    userModel: user1,) :Welcome(userModel: user1),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
         ;
 
 

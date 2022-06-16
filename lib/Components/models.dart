@@ -70,7 +70,7 @@ class UserModel {
         companyId: json['companyid'],
         hoursOfShift: json['hours_of_shift'],
         reportingTime: json['reporting_time'],
-        adminLeaves: json['admin_leaves'],
+        adminLeaves: json['admin_leaves'] ?? '0',
         maternityPermit: json['maternity_permit'],
         studyPermit: json['study_permit'],
         hrId: json['hrid'],
@@ -293,7 +293,7 @@ class BenchListModel {
       verify,
       companyId,
       benchId,
-      timeStamp;
+      timeStamp,reason;
 
   BenchListModel({
     this.benchId,
@@ -315,7 +315,7 @@ class BenchListModel {
     this.userPhone,
     this.verify,
     this.companyId,
-    this.timeStamp,
+    this.timeStamp,this.reason
   });
 
   fromJson(Map<String, dynamic> json) {
@@ -340,6 +340,8 @@ class BenchListModel {
       verify: json['verify'],
       companyId: json['companyid'],
       timeStamp: json['timestamp'],
+      reason: json['reason'],
+
     );
   }
 
@@ -594,33 +596,35 @@ class PresentCoursesModel {
 
 class ServicesModel {
   String? refid;
-  String? certid;
+  String? serviceid;
   String? date;
   String? verify;
   String? companyId;
   String ?certificateName;
-  String ?fileName;String? reason;
+  String ?fileName;String? reason; String? empname;
 
   ServicesModel({
     this.refid,
-    this.certid,
+    this.serviceid,
     this.date,
     this.verify,
     this.companyId,
     this.certificateName,
-    this.fileName,this.reason
+    this.fileName,this.reason,this.empname
   });
 
   fromJson(Map<String, dynamic> json) {
     return ServicesModel(
       refid: json['refid'],
-      certid: json['certid'],
+      serviceid: json['serviceid'],
       date: json['date'],
       verify: json['verify'],
       companyId: json['companyid'],
       certificateName: json['certificatename'],
       fileName: json['filename'],
-      reason: json['reason']
+      reason: json['reason'],
+      empname: json['empname'],
+
     );
   }
 
@@ -628,12 +632,13 @@ class ServicesModel {
     // ignore: unnecessary_new, prefer_collection_literals
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['refid'] = refid;
-    data['certid'] = certid;
+    data['serviceid'] = serviceid;
     data['date'] = date;
     data['verify'] = verify;
     data['companyId'] = companyId;
     data['certificatename'] = certificateName;
     data['filename'] = fileName;
+    data['empname'] = empname;
 
     return data;
   }
@@ -841,6 +846,170 @@ class DynamicServiceRequestModel {
     data['verify'] = verify;
     data['serdynid'] = serdynid;
     data['filename'] = fileName;
+    return data;
+  }
+}
+
+class ReportsModel {
+  String? empId,
+      companyId,
+      status,
+      checkOutDifference,
+      checkInDelayInHours,
+      checkInDelayInMinutes,
+      timeStamp,
+      checkInTime,
+      checkOutTime,
+      employeeName,
+      date;
+
+  ReportsModel({
+    this.checkInDelayInHours,
+    this.checkInDelayInMinutes,
+    this.checkOutDifference,
+    this.companyId,
+    this.empId,
+    this.status,
+    this.timeStamp,
+    this.checkInTime,
+    this.checkOutTime,
+    this.date,
+    this.employeeName,
+  });
+
+  fromJson(Map<String, dynamic> json) {
+    return ReportsModel(
+      companyId: json['companyid'],
+      checkInDelayInHours: json['check_in_delay_in_hours'],
+      checkInDelayInMinutes: json['check_in_delay_in_minutes'],
+      checkOutDifference: json['check_out_difference'],
+      status: json['status'],
+      empId: json['empid'],
+      timeStamp: json['timestamp'],
+      checkInTime: json['checkin'],
+      checkOutTime: json['checkout'],
+      date: json['date'],
+      employeeName: json['empname'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    // ignore: unnecessary_new, prefer_collection_literals
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    data['companyid'] = companyId;
+    data['check_in_delay_in_hours'] = checkInDelayInHours;
+    data['check_in_delay_in_minutes'] = checkInDelayInMinutes;
+    data['check_out_difference'] = checkOutDifference;
+    data['status'] = status;
+    data['empid'] = empId;
+    data['timestamp'] = timeStamp;
+    data['checkin'] = checkInTime;
+    data['checkout'] = checkOutTime;
+    data['date'] = date;
+    data['empname'] = employeeName;
+
+    return data;
+  }
+}
+
+class OutGeoReportModel {
+  String? refId, date, longitude, latitude, empname;
+
+  OutGeoReportModel(
+      {this.refId, this.date, this.latitude, this.longitude, this.empname});
+
+  fromJson(Map<String, dynamic> json) {
+    return OutGeoReportModel(
+      date: json['date'],
+      latitude: json['lat'],
+      longitude: json['lon'],
+      refId: json['refid'],
+      empname: json['empname'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    // ignore: unnecessary_new, prefer_collection_literals
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    data['date'] = date;
+    data['lat'] = latitude;
+    data['lon'] = longitude;
+    data['refid'] = refId;
+
+    return data;
+  }
+}
+
+class ReportModel {
+  String? timestamp;
+  String? empid;
+  String? companyid;
+  String? status;
+  String? checkOutDifference;
+  String? checkInDelayInHours;
+  String? checkInDelayInMinutes;
+  String? checkin;
+  String? checkout;
+  String? date;
+  String? empname;
+  String? designation;
+  String? workingStatus;
+  String? reason;
+
+  ReportModel({
+    this.timestamp,
+    this.empid,
+    this.companyid,
+    this.status,
+    this.checkOutDifference,
+    this.checkInDelayInHours,
+    this.checkInDelayInMinutes,
+    this.checkin,
+    this.checkout,
+    this.date,
+    this.empname,
+    this.designation,
+    this.workingStatus,
+    this.reason,
+  });
+
+  fromJson(Map<String, dynamic> json) {
+    return ReportModel(
+      timestamp: json['timestamp'],
+      empid: json['empid'],
+      companyid: json['companyid'],
+      status: json['status'],
+      checkOutDifference: json['check_out_difference'],
+      checkInDelayInHours: json['check_in_delay_in_hours'],
+      checkInDelayInMinutes: json['check_in_delay_in_minutes'],
+      checkin: json['checkin'],
+      checkout: json['checkout'],
+      date: json['date'],
+      empname: json['empname'],
+      designation: json['designation'],
+      workingStatus: json['workingstatus'],
+      reason: json['reason'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    // ignore: unnecessary_new, prefer_collection_literals
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['timestamp'] = timestamp;
+    data['empid'] = empid;
+    data['companyid'] = companyid;
+    data['status'] = status;
+    data['check_out_difference'] = checkOutDifference;
+    data['check_in_delay_in_hours'] = checkInDelayInHours;
+    data['check_in_delay_in_minutes'] = checkInDelayInMinutes;
+    data['checkin'] = checkin;
+    data['checkout'] = checkout;
+    data['date'] = date;
+    data['empname'] = empname;
+    data['workingstatus'] = workingStatus;
+    data['reason'] = reason;
     return data;
   }
 }

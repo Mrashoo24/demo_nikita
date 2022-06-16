@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Components/api.dart';
+import '../Mujahidthursday/managerscreen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -89,9 +90,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           children: [
 
-                            buildTextFormField(email,'Email Id',Icons.email ),
+                            buildTextFormField( email,'Email Id',Icons.email ),
 
-                            buildTextFormField(password,'Password',Icons.lock),
+                            buildTextFormField( password,'Password',Icons.lock ),
 
                             Align(
                               alignment: Alignment.centerRight,
@@ -121,19 +122,66 @@ class _LoginPageState extends State<LoginPage> {
                                   var result =
                                       await AllApi().getUser(email.text);
 
+                                  print('designationofuser = ${result.designation}');
                                   if (password.text == result.pass &&
                                       email.text == result.email) {
-                                    if(result.designation == 'hr' || result.designation == 'manager'){
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content:
-                                          Text('You cannot login with this email'),
-                                        ),
+                                    if(result.designation == 'manager'
+                                        // || result.designation == 'hr'
+                                    ){
+
+
+                                      var token = await FirebaseMessaging
+                                          .instance
+                                          .getToken();
+                                      var tokenResult =
+                                      await AllApi().putToken(
+                                        email: email.text,
+                                        token: token,
                                       );
-                                      setState(() {
-                                        loading = false;
-                                      });
+                                      if (tokenResult == 'success') {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content:
+                                            Text('Sign in succesful.'),
+                                          ),
+                                        );
+
+                                        var pref = await SharedPreferences.getInstance();
+
+                                        pref.setBool("loggedin", true);
+
+                                        pref.setString(
+                                            "user", jsonEncode(result));
+
+                                        setState(() {
+                                          loading = false;
+                                        });
+
+                                        Get.to(ManagerScreeen(    userModel: result,),transition: Transition.rightToLeft);
+
+                                      } else {
+                                        setState(() {
+                                          loading = false;
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Something went wrong. Try again.',
+                                            ),
+                                          ),
+                                        );
+                                      }                                      // ScaffoldMessenger.of(context)
+                                      //     .showSnackBar(
+                                      //   const SnackBar(
+                                      //     content:
+                                      //     Text('You cannot login with this email'),
+                                      //   ),
+                                      // );
+                                      // setState(() {
+                                      //   loading = false;
+                                      // });
                                     }else{
                                       var token = await FirebaseMessaging
                                           .instance
@@ -177,7 +225,8 @@ class _LoginPageState extends State<LoginPage> {
                                             ),
                                           ),
                                         );
-                                      }}
+                                      }
+                                    }
                                   } else {
                                     setState(() {
                                       loading = false;

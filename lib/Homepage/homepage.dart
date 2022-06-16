@@ -6,6 +6,7 @@ import 'package:demo_nikita/Components/constants.dart';
 import 'package:demo_nikita/Courses/hrenrollcourses.dart';
 import 'package:demo_nikita/Courses/requests.dart';
 import 'package:demo_nikita/Homepage/mainhomepage.dart';
+import 'package:demo_nikita/Mujahidthursday/managerscreen.dart';
 import 'package:demo_nikita/Related%20sites/related_sites.dart';
 import 'package:demo_nikita/Reports/reports.dart';
 import 'package:demo_nikita/Services/Services.dart';
@@ -74,6 +75,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   late Size buttonSize;
   late Offset buttonPosition;
   bool isMenuOpen = false;
+  bool managerScreen = false;
 
 
 // For overlau
@@ -214,8 +216,45 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
       RelatedSites(userModel: widget.userModel,)
     ];
 
-    return SafeArea(
+    print('managerScreen = $managerScreen');
+    return
+      managerScreen ?
+      ManagerScreeen(userModel: widget.userModel!)
+          :
+      SafeArea(
         child: Scaffold(
+          floatingActionButton: widget.userModel!.designation != 'manager' ? null : Padding(
+            padding: const EdgeInsets.only(bottom: 50.0),
+            child: InkWell(
+              onTap: (){
+                setState((){
+                  managerScreen = !managerScreen;
+                });
+              },
+              child: Container(
+
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                child: FittedBox(
+                    fit: BoxFit.none,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        boxShadow: [BoxShadow(color: kgolder,blurRadius: 15)],
+                        color: kgolder,
+                      ),
+                      child: Center(
+                          child: Image.asset("assets/bgcircle.png",fit: BoxFit.fitWidth,)),
+                    )
+                ),
+              ),
+            ),
+          ),
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
