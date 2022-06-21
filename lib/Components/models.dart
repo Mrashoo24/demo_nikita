@@ -392,7 +392,7 @@ class AdminLeavesModel {
     return AdminLeavesModel(
       companyId: json['companyid'],
       days: json['days'],
-      employeeName: json['empname'],
+      employeeName: json['Name'],
       refId: json['refid'],
       verify: json['verify'],
       empId: json['empid'],

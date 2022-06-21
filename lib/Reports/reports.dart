@@ -1,7 +1,10 @@
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
 import '../Components/api.dart';
@@ -56,6 +59,36 @@ class _ReportsState extends State<Reports> {
                   ),
                 ),
                 title: Container(margin:EdgeInsets.only(left: 15),child: Text("Reports",style: TextStyle(color: kgolder),)),
+                actions : [
+
+
+                  Padding(
+                    padding:  EdgeInsets.all(15.0),
+                    child: Container(
+                      height: 10,
+                      width: 20,
+                      child: CustomPopupMenu(
+                        menuBuilder: () => GestureDetector(
+                          child: _buildAvatar(true, 300),
+                          onLongPress: () {
+                            print("onLongPress");
+                          },
+                          onTap: () {
+                            print("onTap");
+                          },
+                        ),
+                        barrierColor: Colors.transparent,
+                        pressType: PressType.singleClick,
+                        arrowColor:  Colors.black54,
+                        arrowSize: 15,
+                        position: PreferredPosition.bottom,
+                        child: Icon(Icons.info,color: kgolder,),
+                      ),
+
+                    ),
+                  ),
+
+                ],
                 titleSpacing: 5,
                 shadowColor: Colors.transparent,
               ),
@@ -977,4 +1010,164 @@ class _ReportsState extends State<Reports> {
                       ),
                     );
   }
+  Widget _buildAvatar(bool isMe, double size) {
+    return
+      ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child:
+        Container(
+
+            decoration: BoxDecoration(
+
+                color:  Colors.black.withOpacity(0.8) ,
+                border: Border.all(color: kgolder,width: 3),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            width: Get.width*0.6,
+            // height: Get.height*0.15,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Text("Check In",style: TextStyle(color: kgolder),),
+                        SizedBox(height: 15),
+
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                color: kblack),
+                            color: kgolder,
+                            borderRadius: BorderRadius.all(Radius.circular(9),),
+                          ),
+                          child: Padding(
+                            padding:   EdgeInsets.only(left: 7.4,right: 7.4,top: 4,bottom: 4),
+                            child: Text("Perfect",style: TextStyle(fontSize: 15),),
+                          ),
+
+                        ),
+                        SizedBox(height: 5),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                color: kblack),
+color: kGreen,
+                            borderRadius: BorderRadius.all(Radius.circular(9),),
+                          ),
+                          child: Padding(
+                            padding:   EdgeInsets.only(left: 14,right: 14,top: 4,bottom: 4),
+                            child: Text("Early",style: TextStyle(fontSize: 15),),
+                          ),
+
+                        ),
+                        SizedBox(height: 5),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                color: kblack),
+                            color: kred,
+                            borderRadius: BorderRadius.all(Radius.circular(9),),
+                          ),
+                          child: Padding(
+                            padding:   EdgeInsets.only(left: 15.5,right: 15.5,top: 4,bottom: 4),
+                            child: Text("Late",style: TextStyle(fontSize: 15),),
+                          ),
+
+                        ),
+
+                      ],
+                    ),
+                     Container(
+
+                         height: Get.height*0.2,
+                         width: 3,
+                       decoration: BoxDecoration(
+                           gradient: LinearGradient(
+                             begin: Alignment.topCenter,
+                             end: Alignment.bottomCenter,
+                             colors: [
+                               kgolder,
+                               kgradientYellow,
+                               kgolder
+                             ],
+
+                           )
+                       ),
+                         //child: VerticalDivider(color: kgolder,thickness: 2,endIndent: 5,indent: 5,)
+                     ),
+                    Column(
+                      children: [
+                        Text("Check Out",style: TextStyle(color: kgolder),),
+                        SizedBox(height: 15),
+
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                color: kblack),
+                            color: kgolder,
+                            borderRadius: BorderRadius.all(Radius.circular(9),),
+                          ),
+                          child: Padding(
+                            padding:   EdgeInsets.only(left: 7.4,right: 7.4,top: 4,bottom: 4),
+                            child: Text("Perfect",style: TextStyle(fontSize: 15),),
+                          ),
+
+                        ),
+                        SizedBox(height: 5),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                color: kblack),
+                            color: kred,
+                            borderRadius: BorderRadius.all(Radius.circular(9),),
+                          ),
+                          child: Padding(
+                            padding:   EdgeInsets.only(left: 14,right: 14,top: 4,bottom: 4),
+                            child: Text("Early",style: TextStyle(fontSize: 15),),
+                          ),
+
+                        ),
+                        SizedBox(height: 5),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                color: kblack),
+                            color: kGreen,
+                            borderRadius: BorderRadius.all(Radius.circular(9),),
+                          ),
+                          child: Padding(
+                            padding:   EdgeInsets.only(left: 15.5,right: 15.5,top: 4,bottom: 4),
+                            child: Text("Late",style: TextStyle(fontSize: 15),),
+                          ),
+
+                        ),
+
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Text("OT: Over Time",style: TextStyle(color: kgolder ),)
+              ],
+            ),
+          ),
+
+          // Icon(
+          //   isMe ? Icons.face : Icons.tag_faces,
+          //   color: Colors.white,
+          // ),
+        ),
+      );
+  }
+
 }

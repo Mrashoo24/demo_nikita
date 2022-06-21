@@ -120,7 +120,7 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
                                       child: CircleAvatar(
                                         radius: 7,
                                         backgroundColor: Colors.redAccent[400],
-                                        child: Text("54",style: TextStyle(color: Colors.white,fontSize: 8),),
+                                        child: Text("0",style: TextStyle(color: Colors.white,fontSize: 8),),
                                       ),
                                     )
                                   ])
@@ -203,7 +203,7 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
 
                                   },
                                   child: buildContainer("assets/leavess.png","Leaves")),
-                              buildContainer("assets/otherservice.png","Other Services"),
+                              // buildContainer("assets/otherservice.png","Other Services"),
                             ],
                           ),
 
@@ -252,7 +252,10 @@ class _ManagerScreeenState extends State<ManagerScreeen> {
           children: [
             Image.asset(image,color: Colors.black),
             SizedBox(height: 10,),
-            Text(tabname)
+            Padding(
+              padding:  EdgeInsets.all(8.0),
+              child: Text(tabname),
+            )
           ],
         ),
       ),

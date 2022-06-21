@@ -22,7 +22,7 @@ import 'Homepage/homepage.dart';
 import 'Leaves/administrative_leave.dart';
 import 'MujahidHR/chat screen.dart';
 import 'MujahidHR/hrdasshboard.dart';
-import 'MujahidHR/privacypolicy.dart';
+
 import 'Mujahidthursday/adminleave.dart';
 import 'Mujahidthursday/benchlist.dart';
 import 'Mujahidthursday/leaves.dart';
@@ -175,7 +175,13 @@ class _MyAppState extends State<MyApp> {
         )
 
       ),
-      home: SplashScreeen()
+      home: SplashScreeen(),
+     builder: (context, child) {
+      return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: child!,
+      );
+    },
     );
   }
 }

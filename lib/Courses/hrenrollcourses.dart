@@ -78,7 +78,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                     indicator: BoxDecoration(
                         color: kgolder,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: kblack,width: 3)
+                        border: Border.all(color: kblack,width: 2)
                     ),
                     unselectedLabelColor: kgolder,
                     tabs: [
@@ -647,10 +647,10 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                               child: Column(
                                 children: [
                                   Container(
-                                    height: 35,
+
                                     width: Get.width,
                                     child: Padding(
-                                      padding:   EdgeInsets.only(left: 8.0,top: 6),
+                                      padding:   EdgeInsets.only(left: 8.0,top: 6,bottom: 6),
                                       child: Text(coursesModel.title!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                     ),
                                     decoration: BoxDecoration(
@@ -665,18 +665,18 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                                   SizedBox(height: 10,),
                                   Row(
                                     children: [
-                                      Text(coursesModel.venue!,style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 20 ),),
+                                      Text(coursesModel.venue!,style: TextStyle(fontWeight: FontWeight.bold,color: kgolder,fontSize: 15 ),),
                                     ],
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(coursesModel.date!,style: TextStyle(fontWeight: FontWeight.bold,color: kgolder, fontSize: 20),),
+                                      Text(coursesModel.date!,style: TextStyle(fontWeight: FontWeight.bold,color: kgolder, fontSize: 15),),
 
                                       Container(
                                         child: Padding(
                                           padding:   EdgeInsets.only(left: 8,right: 8,top: 3,bottom: 3),
-                                          child: Text("Register",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                                          child: Text("Register",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                         ),
                                         decoration: BoxDecoration(
                                             color: kgolder,

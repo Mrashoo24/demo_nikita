@@ -81,7 +81,7 @@ class _RequestsState extends State<Requests> {
               child: Column(
                 children: [
                   Container(
-                    height: screenHeight / 5.5,
+                    // height: screenHeight / 5.5,
                     width: Get.width,
                     decoration: BoxDecoration(
                       gradient:  LinearGradient(
@@ -106,27 +106,28 @@ class _RequestsState extends State<Requests> {
                             ],
                           ),
                           SizedBox(height: 8,),
-                          Padding(
-                            padding:   EdgeInsets.all(8.0),
-                            child: TabBar(
+                          TabBar(
+                            labelStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight:FontWeight.w600),
+                            labelColor: Colors.black,
+                            unselectedLabelColor:  kgolder,
+                            indicator: BoxDecoration(
+                                color: kgolder,
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(12),
+                                    bottomLeft: Radius.circular(12)),
 
-                              labelStyle: TextStyle(
-                                fontSize: 20,
-                                fontWeight:FontWeight.w600),
-                              labelColor: Colors.black,
-                              unselectedLabelColor:  kgolder,
-                              indicator: BoxDecoration(
-                                  color: kgolder,
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(12),
-                                      bottomLeft: Radius.circular(12))
-                              ),
-                              tabs: [
-                                Tab(child: Text("Request",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),),
-                                // Tab(child: Text("Request",style: TextStyle(fontSize: 16),),),
-                                Tab(child: Text("History",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),),
-                              ],
+                              border: Border.all(
+                                width: 2)
+
+
                             ),
+                            tabs: [
+                              Tab(child: Text("Request",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),),
+                              // Tab(child: Text("Request",style: TextStyle(fontSize: 16),),),
+                              Tab(child: Text("History",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),),
+                            ],
                           ),
                         ],
                       ),
@@ -458,7 +459,7 @@ class _RequestsState extends State<Requests> {
                 snapshot.requireData as List<EmployeeLeaveRequestsModel>;
 
             return Container(
-              margin: EdgeInsets.only(bottom: 10),
+              margin: EdgeInsets.all( 5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),topLeft: Radius.circular(15)),
                gradient: LinearGradient(

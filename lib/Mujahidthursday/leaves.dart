@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -190,7 +191,20 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                     itemCount: _listTabRequests!.length,
                     itemBuilder: (context, index) {
 
-                      return pendingCard(_listTabRequests![index]);
+                      return  AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 700),
+                        child: SlideAnimation(
+                          duration: Duration(milliseconds: 500),
+                          horizontalOffset: 200.0,
+                          child: FadeInAnimation(
+                              child:      pendingCard(_listTabRequests![index])
+                          ),
+                        ),
+                      );
+
+
+
 
 
                     }
@@ -229,7 +243,20 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                 return ListView.builder(
                     itemCount: _listTabRequests!.length,
                     itemBuilder: (context, index) {
-                      return acceptedCard(_listTabRequests![index]);
+                      return  AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 700),
+                        child: SlideAnimation(
+                          duration: Duration(milliseconds: 500),
+                          horizontalOffset: 200.0,
+                          child: FadeInAnimation(
+                              child:      acceptedCard(_listTabRequests![index])
+                          ),
+                        ),
+                      );
+
+
+
 
 
                     }
@@ -268,7 +295,17 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                 return ListView.builder(
                     itemCount: _listTabRequests!.length,
                     itemBuilder: (context, index) {
-                      return rejectedCard(  _listTabRequests![index]);
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 700),
+                        child: SlideAnimation(
+                          duration: Duration(milliseconds: 500),
+                          horizontalOffset: 200.0,
+                          child: FadeInAnimation(
+                              child:    rejectedCard(  _listTabRequests![index])
+                          ),
+                        ),
+                      );
 
 
                     }
@@ -767,7 +804,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                               children: [
                                 Text("Details: ",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
                                 Container(
-                                    width: 150,
+                                    // width: 150,
                                     child: Text(servicesModel!.details!,style: TextStyle(color: kblack, fontWeight: FontWeight.bold),)),
                               ],
                             ),

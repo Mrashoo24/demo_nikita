@@ -44,7 +44,7 @@ class DigitalClock extends StatefulWidget {
 class _DigitalClockState extends State<DigitalClock> {
   late DateTime _dateTime;
 
-  late Timer _timer;
+  Timer? _timer ;
 
   @override
   void initState() {
@@ -72,7 +72,7 @@ class _DigitalClockState extends State<DigitalClock> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer!.cancel();
     super.dispose();
   }
 

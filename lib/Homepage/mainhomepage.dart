@@ -69,7 +69,7 @@ class _MainHomePageState extends State<MainHomePage>
   var _vicinityLoading = false;
   late String latereason;
   late String gotreason;
-  late TextEditingController reasonController;
+   TextEditingController reasonController = TextEditingController();
 
   late File image;
   late int _announcementCount;
@@ -836,16 +836,6 @@ var widthofcontainer = 20.0;
 
   @override
   Widget build(BuildContext context) {
-    // Widget arrow = ClipPath(
-    //   child: Container(
-    //     width: 20,
-    //     height: 10,
-    //     color: Colors.black54,
-    //
-    //   ),
-    //   clipper: ArrowClipper(),
-    // );
-
 
     return SingleChildScrollView(
       child: FutureBuilder(
@@ -914,6 +904,7 @@ var widthofcontainer = 20.0;
 
 
 
+
             // Timer(Duration(milliseconds: 1000),(){
             //
             //   var newNumber = Random().nextInt(3) +1;
@@ -966,7 +957,7 @@ var widthofcontainer = 20.0;
                    print('width = $widthofcontainer');
 
                    workingStatus = report["workingstatus"];
-
+              _status =  report["status"];
               //
               //   });
               // var splitDateAndTime = dateAndTime.split(' ');
@@ -1080,10 +1071,11 @@ var widthofcontainer = 20.0;
                             ],
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 10,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -1095,10 +1087,11 @@ var widthofcontainer = 20.0;
                                       "Welcome,\n${widget.userModel!.name!}",
                                       style: TextStyle(
                                           fontSize: 30, color: kgolder),
+                                      textScaleFactor: 1,
                                     ),
                                   ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Align(
                                         alignment: Alignment.centerLeft,
@@ -1108,27 +1101,87 @@ var widthofcontainer = 20.0;
                                               fontSize: 15, color: kgolder),
                                         ),
                                       ),
-                                      Icon(
-                                        Icons.keyboard_arrow_down_sharp,
-                                        color: kgolder,
-                                      )
+
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        width: Get.width*0.6,
+                                        child: ExpansionTile(
+                                          // tilePadding: EdgeInsets.only(left: 16),
+                                          trailing:  SizedBox.shrink(),
+                                          expandedCrossAxisAlignment: CrossAxisAlignment.center,
+                                          collapsedIconColor: kgolder,
+                                          iconColor: kgolder,
+                                          collapsedBackgroundColor:Colors.transparent,
+                                          backgroundColor: Colors.transparent,
+                                          title: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Icon(Icons.keyboard_arrow_down,color: kgolder,),
+                                            ],
+                                          ),
+                                          tilePadding: EdgeInsets.only(left: 25),
+                                          children:  [
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+
+                                              children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                            "Phone: ${widget.userModel!.phoneNumber!}      ",
+                                              style: TextStyle(
+                                                  fontSize: 15, color: kgolder),
+                                            ),
+                                          ],
+                                        ),
+                                                Text(
+                                                  "Email: ${widget.userModel!.email!}      ",
+                                                  style: TextStyle(
+                                                      fontSize: 15,  color: kgolder),
+                                                ),
+                                                Text(
+                                                  "Designation: ${widget.userModel!.designation!}      ",
+                                                  style: TextStyle(
+                                                      fontSize: 15, color: kgolder),
+                                                ),
+                                              ],
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
+                              CircleAvatar(
+                                backgroundColor: kgolder,
+                                radius:55,
                                 child: CircleAvatar(
+                                  radius: 45,
                                   backgroundColor: kgolder,
-                                  radius: 58,
-                                  child: CircleAvatar(
-                                    radius: 55,
-                                    backgroundColor: kgolder,
-                                    backgroundImage:
-                                        NetworkImage('${mainurl}assets/images/employee/profile/${widget.userModel!.image}',),
-                                  ),
+                                  backgroundImage:
+                                  NetworkImage('${mainurl}assets/images/employee/profile/${widget.userModel!.image}',),
                                 ),
                               ),
+
+                              // Padding(
+                              //   padding: const EdgeInsets.only(right: 8.5),
+                              //   child: CircleAvatar(
+                              //     backgroundColor: kgolder,
+                              //     radius:35,
+                              //     child: CircleAvatar(
+                              //       radius: 55,
+                              //       backgroundColor: kgolder,
+                              //       backgroundImage:
+                              //       NetworkImage('${mainurl}assets/images/employee/profile/${widget.userModel!.image}',),
+                              //     ),
+                              //   ),
+                              // ),
+                              ///profilepic
                             ],
                           ),
                         ],
@@ -1174,7 +1227,7 @@ var widthofcontainer = 20.0;
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                            height: 30,
+                                            // height: 30,
                                             child: Center(
                                               child: Padding(
                                                 padding: const EdgeInsets.all(8.0),
@@ -1827,13 +1880,14 @@ var widthofcontainer = 20.0;
   Expanded buildAttendenceCard(title, count,int index) {
     return Expanded(
       child: Container(
+        height: 150,
         decoration: BoxDecoration(
           border: Border.all(width: 2, color: kgolder),
-          color:index.isEven ? Colors.white.withOpacity(0.3) : Colors.grey.withOpacity(0.2),
+          color:index.isEven ? Colors.white.withOpacity(0.3) : Colors.blueGrey.withOpacity(0.2),
           borderRadius: BorderRadius.circular(15),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 10),
@@ -1843,14 +1897,15 @@ var widthofcontainer = 20.0;
                     fontSize: 20, fontWeight: FontWeight.bold, color: kgolder),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomRight,
+            Positioned(
+              right: -5,
+              bottom: -30,
               child: Padding(
                 padding: const EdgeInsets.only(top: 12, right: 10),
                 child: Text(
                   count,
                   style: TextStyle(
-                      fontSize: 90,
+                      fontSize: 100,
                       color: kgolder,
                       fontWeight: FontWeight.bold),
                 ),

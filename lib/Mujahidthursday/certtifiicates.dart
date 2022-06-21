@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -227,7 +228,19 @@ class _CerttifiicatesState extends State<Certtifiicates> {
 
     if (_listTabServices![index].fileName != null) {
 
-      return pendingCard(_listTabServices![index]);
+      return  AnimationConfiguration.staggeredList(
+        position: index,
+        duration: const Duration(milliseconds: 700),
+        child: SlideAnimation(
+          duration: Duration(milliseconds: 500),
+          horizontalOffset: 200.0,
+          child: FadeInAnimation(
+            child:pendingCard(_listTabServices![index]),
+          ),
+        ),
+      );
+
+        ;
 
     }else{
       return Container();
@@ -271,7 +284,19 @@ class _CerttifiicatesState extends State<Certtifiicates> {
                     itemBuilder: (context, index) {
 
                       if (_listTabServices![index].fileName != null) {
-                        return acceptedCard(_listTabServices![index]);
+                        return  AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 700),
+                          child: SlideAnimation(
+                            duration: Duration(milliseconds: 500),
+                            horizontalOffset: 200.0,
+                            child: FadeInAnimation(
+                              child:acceptedCard(_listTabServices![index])
+                            ),
+                          ),
+                        );
+
+
                       }else{
                         return Container();
                       }
@@ -314,7 +339,19 @@ class _CerttifiicatesState extends State<Certtifiicates> {
                     itemBuilder: (context, index) {
 
                       if (_listTabServices![index].fileName != null) {
-                        return rejectedCard(  _listTabServices![index]);
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 700),
+                          child: SlideAnimation(
+                            duration: Duration(milliseconds: 500),
+                            horizontalOffset: 200.0,
+                            child: FadeInAnimation(
+                                child:rejectedCard(  _listTabServices![index])
+                            ),
+                          ),
+                        );
+
+
                       }else{
                         return Container();
                       }

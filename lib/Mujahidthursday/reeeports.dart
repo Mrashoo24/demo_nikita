@@ -565,9 +565,13 @@ class _ReeportsState extends State<Reeports> {
                     colors: [kGray3, kblack, kGray3,  kblack,],
 
                   ),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15))),
+                  // borderRadius: BorderRadius.only(
+                  //     bottomRight: Radius.circular(15),
+                  //     bottomLeft: Radius.circular(15)
+                  //
+                  // )
+
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

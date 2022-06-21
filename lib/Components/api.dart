@@ -846,8 +846,12 @@ class AllApi {
         "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/getEnquiries?empEmail=$empEmail&companyId=$companyId");
     var response = await http.get(url);
     var body = json.decode(response.body);
+
+
     if (body != '[]' && response.statusCode == 200) {
       List responseList = body;
+
+      print (responseList);
       Iterable<EnquiryModel> enquiries = responseList.map((e) {
         return EnquiryModel().fromJson(e);
       });

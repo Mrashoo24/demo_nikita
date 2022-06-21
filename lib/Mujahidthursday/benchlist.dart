@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -167,7 +168,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                     child: Text(
                                                       "Pending",
                                                       style: TextStyle(
-                                                          fontSize: 18,
+                                                          // fontSize: 18,
                                                           fontFamily: 'Typo Round',
                                                           fontWeight:
                                                           FontWeight.w400),
@@ -177,7 +178,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                     child: Text(
                                                       "Accepted",
                                                       style: TextStyle(
-                                                          fontSize: 18,
+                                                          // fontSize: 18,
                                                           fontFamily: 'Typo Round',
                                                           fontWeight:
                                                           FontWeight.w400),
@@ -187,7 +188,7 @@ class _BenchListNewState extends State<BenchListNew> {
                                                     child: Text(
                                                       "Rejected",
                                                       style: TextStyle(
-                                                          fontSize: 18,
+                                                          // fontSize: 18,
                                                           fontFamily: 'Typo Round',
                                                           fontWeight:
                                                           FontWeight.w400),),),],),),),
@@ -243,6 +244,7 @@ class _BenchListNewState extends State<BenchListNew> {
                     'Nothing to show here.',
                     style: TextStyle(
                       fontSize: 22,
+                      color: kgolder
                     ),
                   ),
                 );
@@ -254,7 +256,20 @@ class _BenchListNewState extends State<BenchListNew> {
                     itemCount: _listTabRequests!.length,
                     itemBuilder: (context, index) {
 
-                        return pendingCard(_listTabRequests![index]);
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 700),
+                          child: SlideAnimation(
+                            duration: Duration(milliseconds: 500),
+                            horizontalOffset: 200.0,
+                            child: FadeInAnimation(
+                              child:pendingCard(_listTabRequests![index])
+                            ),
+                          ),
+                        );
+
+
+
 
 
                     }
@@ -290,10 +305,26 @@ class _BenchListNewState extends State<BenchListNew> {
                 var servicesList = snapshot.data;
                 _listTabRequests = servicesList;
 
+
                 return ListView.builder(
                     itemCount: _listTabRequests!.length,
                     itemBuilder: (context, index) {
-                      return acceptedCard(_listTabRequests![index]);
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 700),
+                        child: SlideAnimation(
+                          duration: Duration(milliseconds: 500),
+                          horizontalOffset: 200.0,
+                          child: FadeInAnimation(
+                              child:  acceptedCard(_listTabRequests![index])
+                          ),
+                        ),
+                      );
+
+
+
+
+
 
 
                     }
@@ -332,9 +363,17 @@ class _BenchListNewState extends State<BenchListNew> {
                 return ListView.builder(
                     itemCount: _listTabRequests!.length,
                     itemBuilder: (context, index) {
- return rejectedCard(  _listTabRequests![index]);
-
-
+ return AnimationConfiguration.staggeredList(
+   position: index,
+   duration: const Duration(milliseconds: 700),
+   child: SlideAnimation(
+     duration: Duration(milliseconds: 500),
+     horizontalOffset: 200.0,
+     child: FadeInAnimation(
+         child:  rejectedCard(  _listTabRequests![index])
+     ),
+   ),
+ );
                     }
                 );
               }

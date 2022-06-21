@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'package:intl/intl.dart';
 
@@ -650,31 +652,114 @@ class _BenchListState extends State<BenchList> {
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.black,
-            title: const Text('Bench List',style: TextStyle(color: kgolder),),
-            bottom: TabBar(
-              indicatorWeight: 3,
-              indicatorColor: kgolder,
-              unselectedLabelColor: Colors.white38,
-              tabs: const [
-                Tab(
-                  // text: 'Request Form',
-                  child: Text('Request Form',style: TextStyle(color: kgolder),),
+          // backgroundColor: Colors.transparent,
+          // appBar: AppBar(
+          //   automaticallyImplyLeading: false,
+          //   backgroundColor: Colors.black,
+          //   title: const Text('Bench List',style: TextStyle(color: kgolder),),
+          //   bottom: TabBar(
+          //     indicator: BoxDecoration(
+          //         color: kgolder,
+          //         borderRadius: BorderRadius.only(
+          //             bottomRight: Radius.circular(12),
+          //             bottomLeft: Radius.circular(12)),
+          //
+          //         border: Border.all(
+          //             width: 2)
+          //
+          //
+          //     ),
+          //     tabs: const [
+          //       Tab(
+          //         // text: 'Request Form',
+          //         child: Text('Request Form',style: TextStyle(color: kblack),),
+          //       ),
+          //       Tab(
+          //         child: Text('Request',style: TextStyle(color: kblack),),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient:  LinearGradient(
+                colors: [kgolder, Colors.yellow.shade100 ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,),
+
+            ),
+
+            child: Column(
+              children: [
+
+                Container(
+                  // height: screenHeight / 5.5,
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                    gradient:  LinearGradient(
+                      colors: [Colors.black, Colors.grey.shade600],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15)),
+                  ),
+                  child: Container(
+
+                    child: Column(
+                      children: [
+                        SizedBox(height: 15),
+                        Row(
+                          children: [
+                            SizedBox( width: 10,),
+                            InkWell(
+                                onTap: (){
+                                  // Get.back();
+                                },
+                                child: Icon(Icons.arrow_back,color: kgolder,)),
+                            SizedBox(width: 15),
+                            Text("Bench List",style: TextStyle(color: kgolder,fontSize: 18),)
+                          ],
+                        ),
+                        SizedBox(height: 8,),
+                        TabBar(
+                          indicator: BoxDecoration(
+                              color: kgolder,
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(12),
+                                  bottomLeft: Radius.circular(12)),
+
+                              border: Border.all(
+                                  width: 2)
+
+
+                          ),
+                          tabs: const [
+                            Tab(
+                              // text: 'Request Form',
+                              child: Text('Request Form',style: TextStyle(color: kblack),),
+                            ),
+                            Tab(
+                              child: Text('Request',style: TextStyle(color: kblack),),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                Tab(
-                  child: Text('Request',style: TextStyle(color: kgolder),),
+                Container(
+                  child: Expanded(
+                    child: TabBarView(
+                      children: [
+                        _requestForm(),
+                        _acceptedRequests(),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
-          body: TabBarView(
-            children: [
-              _requestForm(),
-              _acceptedRequests(),
-            ],
           ),
         ),
       ),

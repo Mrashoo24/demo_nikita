@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
+import 'package:demo_nikita/Authentication/loginpage.dart';
 import 'package:demo_nikita/Components/clockWidget.dart';
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:demo_nikita/Courses/hrenrollcourses.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../BenchList/benchlist_page.dart';
 import '../Components/Arrow/arrowclipper.dart';
@@ -76,7 +78,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   late Offset buttonPosition;
   bool isMenuOpen = false;
   bool managerScreen = false;
-
+  CustomPopupMenuController popupControler = CustomPopupMenuController();
 
 // For overlau
 
@@ -347,17 +349,16 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                       // },
 
 
-                      child
+                      child: SafeArea(
+                        child: Scaffold(
 
-                          : Scaffold(
 
+                          body:
+                          Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
 
-                        body:
-                        Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-
-                            listofwidget[selectedIndex],
+                              listofwidget[selectedIndex],
 //               Positioned(
 //                 bottom: 100,
 //                 child: Container(
@@ -382,101 +383,108 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 //                   ),
 //                 ),
 //               ),
-                            Container(
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent
-                                // image: DecorationImage(
-                                //   image: AssetImage('assets/bg.jpg'),
-                                //   fit: BoxFit.cover,
-                                // ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      color: Colors.black,
-                                      height: 60,
+                              Container(
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent
+                                  // image: DecorationImage(
+                                  //   image: AssetImage('assets/bg.jpg'),
+                                  //   fit: BoxFit.cover,
+                                  // ),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                        color: Colors.black,
+                                        height: 60,
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        buildBNBCards('Services','assets/icons/services.png',0),
-                                        buildBNBCards('Enquiry','assets/icons/enquiry.png',1),
-                                        buildBNBCards('Home','assets/icons/home.png',2),
-                                        buildBNBCards('Reports','assets/icons/reportssss.png',3),
-                                        // buildBNBCards2('More','assets/icons/more.png',4),
-                                        CustomPopupMenu(
-                                          menuBuilder: () => GestureDetector(
-                                            child: _buildAvatar(true, 300),
-                                            onLongPress: () {
-                                              print("onLongPress");
-                                            },
-                                            onTap: () {
-                                              print("onTap");
-                                            },
-                                          ),
-                                          barrierColor: Colors.transparent,
-                                          pressType: PressType.singleClick,
-                                          arrowColor:  Colors.black54,
-                                          arrowSize: 15,
-                                          position: PreferredPosition.top,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              selectedCard == 'More' ?  Container(
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          buildBNBCards('Services','assets/icons/services.png',0),
+                                          buildBNBCards('Enquiry','assets/icons/enquiry.png',1),
+                                          buildBNBCards('Home','assets/icons/home.png',2),
 
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.black,
-                                                    border: Border.all(color: kgolder,width: 2)
+                                          buildBNBCards('Reports','assets/report.png',3),
+                                          // buildBNBCards2('More','assets/icons/more.png',4),
+                                          SizedBox(width: 10,),
+                                          CustomPopupMenu(
+                                            controller: popupControler,
+                                            menuBuilder: () => GestureDetector(
+                                              child: _buildAvatar(true, 300),
+                                              onLongPress: () {
+                                                print("onLongPress");
+                                              },
+                                              onTap: () {
+
+
+                                                print("onTap");
+                                              },
+                                            ),
+                                            barrierColor: Colors.transparent,
+                                            pressType: PressType.singleClick,
+                                            arrowColor:  Colors.black54,
+                                            arrowSize: 15,
+                                            position: PreferredPosition.top,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                selectedCard == 'More' ?  Container(
+
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.black,
+                                                      border: Border.all(color: kgolder,width: 2)
+                                                  ),
+                                                  child: Container(
+                                                      padding: EdgeInsets.all(8),
+                                                      // width: 60,
+                                                      // height: 60,
+                                                      child: Image.asset('assets/icons/more.png',fit: BoxFit.fill,)
+                                                  ),
+                                                )  :
+                                                InkWell(
+                                                  onTap: (){
+
+                                                    popupControler.showMenu();
+                                                    setState(() {
+                                                      selectedCard = 'More';
+                                                      selectedIndex = 4;
+                                                      //  index == 4 ?
+                                                      // isMenuOpen ? closeMenu() :
+                                                      //    openMenu()
+                                                      //      :
+                                                    });
+
+                                                  },
+                                                  child: Container(
+
+                                                      width: 30,
+                                                      height: 30,
+                                                      child: Image.asset('assets/icons/more.png',fit: BoxFit.fill,)),
                                                 ),
-                                                child: Container(
-                                                    padding: EdgeInsets.all(8),
-                                                    width: 60,
-                                                    height: 60,
-                                                    child: Image.asset('assets/icons/reportssss.png',fit: BoxFit.fill,)
-                                                ),
-                                              )  :
-                                              InkWell(
-                                                onTap: (){
-                                                  setState(() {
-                                                    selectedCard = 'More';
-                                                    selectedIndex = 4;
-                                                    //  index == 4 ?
-                                                    // isMenuOpen ? closeMenu() :
-                                                    //    openMenu()
-                                                    //      :
-
-                                                  });
-                                                },
-                                                child
-                                                    : Container(
-
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: Image.asset('assets/icons/more.png',fit: BoxFit.fill,)),
-                                              ),
-                                              Text('More',style: TextStyle(color: kgolder,fontSize:  14),),
-                                            ],
+                                                Text('More',style: TextStyle(color: kgolder,fontSize:  14),),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(width: 10,)
-                                      ],
-                                    ),
-                                  )
-                                ],
+                                          SizedBox(width: 30,),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          backgroundColor: Colors.transparent,
                         ),
-                        backgroundColor: Colors.transparent,
                       ),
                     ),
                   ),
@@ -503,7 +511,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
           borderRadius: BorderRadius.circular(10)
         ),
         width: Get.width*0.7,
-        height: Get.height*0.25,
+        height: Get.height*0.20,
         child:GridView.count(
           padding: EdgeInsets.symmetric(horizontal: 10),
           crossAxisCount: 3,
@@ -530,8 +538,8 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     return Expanded(
       child: InkWell(
 
-        onTap: (){
-          setState(() {
+        onTap: () async {
+         setState(() {
             selectedCard = title;
            //  index == 4 ?
            // isMenuOpen ? closeMenu() :
@@ -558,14 +566,14 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                     padding: EdgeInsets.all(8),
                     width: 60,
                     height: 60,
-                    child: Image.asset(image,fit: BoxFit.fill,)
+                    child: Image.asset(image,fit: BoxFit.fill,color: kgolder,)
                 ),
               )  :
               Container(
 
                   width: 30,
                   height: 30,
-                  child: Image.asset(image,fit: BoxFit.fill,)),
+                  child: Image.asset(image,fit: BoxFit.fill,color: kgolder,)),
               Text(title,style: TextStyle(color: kgolder,fontSize:  selectedIndex == index ? 16 : 14),),
             ],
           ),
@@ -649,6 +657,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     return InkWell(
 
       onTap: (){
+        popupControler.hideMenu();
         setState(() {
           selectedCard = title;
           //  index == 4 ?
@@ -780,7 +789,8 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
             Divider(color: kgolder,height: 20,),
             builDrawerWidget('Related Sites',9),
             Divider(color: kgolder,height: 20,),
-
+            builDrawerWidget('Logout',10),
+            Divider(color: kgolder,height: 20,),
 
           ],
         ),
@@ -790,7 +800,17 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
    builDrawerWidget(title,index) {
     return InkWell(
-      onTap: (){
+      onTap: index == 10 ?
+
+          () async {
+        var pref = await  SharedPreferences.getInstance();
+
+        pref.clear();
+        Get.offAll(LoginPage());
+
+      } :
+          () async {
+
         setState(() {
           selectedCard = title;
           //  index == 4 ?
@@ -799,6 +819,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
           //      :
           selectedIndex = index;
         });
+
       },
       child: Container(
         decoration: selectedIndex == index ? BoxDecoration(

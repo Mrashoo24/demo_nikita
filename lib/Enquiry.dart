@@ -2,6 +2,7 @@ import 'package:demo_nikita/Components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import 'Components/api.dart';
 import 'Components/models.dart';
@@ -20,8 +21,11 @@ class _EnquiryChatState extends State<EnquiryChat> {
   final _messageController = TextEditingController();
 
   var _message = '';
+   bool iconsmessage = false;
 
-  Widget _messageBox({
+
+
+   Widget _messageBox({
     required String text,
     required bool isMe,
     required String timeStamp,
@@ -83,26 +87,62 @@ class _EnquiryChatState extends State<EnquiryChat> {
             return kprogressbar;
           }
           var enquiries = snapshot.data;
+
+
+          // List<Map> myList = [
+          //   { 'description' : 'adam'
+          //     ,'subject':"Reply",
+          //     'timeStamp' : '2022-06-17'
+          //   },
+          //   { 'description' : 'ifredom'
+          //     ,'subject':"Reply",
+          //     'timeStamp' : '2022-06-15'
+          //   },
+          // ];
+
+          enquiries!.sort((a, b) {
+
+
+            DateTime tempDate =  DateFormat("dd-MM-yyyy hh:mm a").parse(b.timeStamp!);
+            DateTime tempDate2 =  DateFormat("dd-MM-yyyy hh:mm a").parse(a.timeStamp!);
+            ///yyyy-MM-
+            print ("$tempDate");
+
+            // var newDate =  DateFormat("yyyy-MM-dd hh:mm a").format(tempDate);
+            // var newDate2 =  DateFormat("yyyy-MM-dd hh:mm a").format(tempDate2);
+            // ///yyyy-MM-
+
+            return  tempDate.compareTo(tempDate2);
+
+      //      print ("$newDate");
+
+            // return newDate.toString().compareTo(newDate2.toString());
+
+          } );
+
+          /// sort List<Map<String,dynamic>>
+
           return ListView.builder(
             reverse: true,
             itemCount: enquiries!.length,
             itemBuilder: (context, index) {
 
-              return AnimationConfiguration.staggeredList(
-                position: index,
-                duration: const Duration(milliseconds: 700),
-                child: SlideAnimation(
-                  duration: Duration(milliseconds: 500),
-                  horizontalOffset: 200.0,
-                  child: FadeInAnimation(
-                    child: _messageBox(
-                      text: enquiries[index].description!,
-                      isMe: !enquiries[index].subject!.contains('Reply'),
-                      timeStamp: enquiries[index].timeStamp!,
-                    ),
-                  ),
-                ),
+              return _messageBox(
+                text: enquiries[index].description!,
+                isMe: !enquiries[index].subject!.contains('Reply'),
+                timeStamp: enquiries[index].timeStamp!,
               );
+              //   AnimationConfiguration.staggeredList(
+              //   position: index,
+              //   duration: const Duration(milliseconds: 300),
+              //   child: SlideAnimation(
+              //     duration: Duration(milliseconds: 100),
+              //     horizontalOffset: 200.0,
+              //     child: FadeInAnimation(
+              //       child:
+              //     ),
+              //   ),
+              // );
             },
           );
         },
@@ -111,6 +151,7 @@ class _EnquiryChatState extends State<EnquiryChat> {
   }
 
   Widget _messageBar() {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -169,18 +210,26 @@ class _EnquiryChatState extends State<EnquiryChat> {
               setState(() {
                 _message = value;
               });
+
             },
           ),
         ),
-        Expanded(
+      iconsmessage ? kprogressbar : Expanded(
+        ///       iconsmessage(value is true or false) ?(if value) kprogressbar :(else) Expanded(
+
+
+        ///
           child: IconButton(
+
 
             icon: Center(
               child: const Icon(
                 Icons.send_rounded,
               ),
             ),
+
             onPressed: _message.trim().isEmpty ? null : _sendMessage,
+
           ),
         ),
       ],
@@ -228,6 +277,9 @@ class _EnquiryChatState extends State<EnquiryChat> {
   }
 
   void _sendMessage() async {
+     setState(() {
+       iconsmessage = true;
+     });
     var toEmail = '';
     final _subject = 'Enquiry email by ${widget.userModel!.name}';
     FocusScope.of(context).unfocus();
@@ -257,6 +309,7 @@ class _EnquiryChatState extends State<EnquiryChat> {
     _messageController.clear();
     setState(() {
       _message = '';
+      iconsmessage = false;
     });
   }
 }
