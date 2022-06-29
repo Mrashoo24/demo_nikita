@@ -142,6 +142,8 @@ class _ReportsState extends State<Reports> {
                                     onTap: (){
                                       DatePicker.showDatePicker(context,
                                           showTitleActions: true,
+                                          theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                                           minTime: DateTime.now()
                                               .subtract(const Duration(days: 120)),
                                           maxTime: DateTime(2050, 6, 7), onChanged: (date) {
@@ -209,6 +211,8 @@ class _ReportsState extends State<Reports> {
                                     onTap: (){
                                       DatePicker.showDatePicker(context,
                                           showTitleActions: true,
+                                          theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                                           minTime: DateTime.now().subtract(Duration(days: 365)),
                                           maxTime: DateTime(2050, 6, 7), onChanged: (date) {
                                             setState(() {
@@ -338,6 +342,8 @@ class _ReportsState extends State<Reports> {
                                     onTap: (){
                                       DatePicker.showDatePicker(context,
                                           showTitleActions: true,
+                                          theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                                           minTime: DateTime.now()
                                               .subtract(const Duration(days: 120)),
                                           maxTime: DateTime(2050, 6, 7), onChanged: (date) {
@@ -404,6 +410,8 @@ class _ReportsState extends State<Reports> {
                                   InkWell(
                                     onTap: (){
                                       DatePicker.showDatePicker(context,
+                                          theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                                           showTitleActions: true,
                                           minTime: DateTime.now().subtract(Duration(days: 365)),
                                           maxTime: DateTime(2050, 6, 7), onChanged: (date) {
@@ -532,6 +540,8 @@ class _ReportsState extends State<Reports> {
                                   InkWell(
                                     onTap: (){
                                       DatePicker.showDatePicker(context,
+                                          theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                                           showTitleActions: true,
                                           minTime: DateTime.now()
                                               .subtract(const Duration(days: 120)),
@@ -599,6 +609,8 @@ class _ReportsState extends State<Reports> {
                                   InkWell(
                                     onTap: (){
                                       DatePicker.showDatePicker(context,
+                                          theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                                           showTitleActions: true,
                                           minTime: DateTime.now().subtract(Duration(days: 365)),
                                           maxTime: DateTime(2050, 6, 7), onChanged: (date) {
@@ -731,6 +743,8 @@ class _ReportsState extends State<Reports> {
                                     onTap: (){
                                       DatePicker.showDatePicker(context,
                                           showTitleActions: true,
+                                          theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                                           minTime: DateTime.now()
                                               .subtract(const Duration(days: 120)),
                                           maxTime: DateTime(2050, 6, 7), onChanged: (date) {
@@ -798,6 +812,8 @@ class _ReportsState extends State<Reports> {
                                     onTap: (){
                                       DatePicker.showDatePicker(context,
                                           showTitleActions: true,
+                                          theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                                           minTime: DateTime.now().subtract(Duration(days: 365)),
                                           maxTime: DateTime(2050, 6, 7), onChanged: (date) {
                                             setState(() {

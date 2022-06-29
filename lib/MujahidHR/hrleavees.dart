@@ -1,143 +1,195 @@
+import 'package:demo_nikita/Components/api.dart';
+import 'package:demo_nikita/MujahidHR/hrenquiryDetail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../Components/constants.dart';
+import '../Components/models.dart';
 
-class HRLeaaves extends StatefulWidget {
-  const HRLeaaves({Key? key}) : super(key: key);
+class HREnquiry extends StatefulWidget {
+  final UserModel usermodel;
+
+  const HREnquiry({Key? key, required this.usermodel}) : super(key: key);
 
   @override
-  State<HRLeaaves> createState() => _HRLeaavesState();
+  State<HREnquiry> createState() => _HREnquiryState();
 }
 
-class _HRLeaavesState extends State<HRLeaaves> {
+class _HREnquiryState extends State<HREnquiry> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child:Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient:LinearGradient(
-                  colors: [
-                    Colors.grey,
-                    Colors.black,
+      child:Container(
+        decoration: BoxDecoration(
+          gradient:LinearGradient(
+            colors: [
+              Colors.grey,
+              Colors.black,
 
-                    Colors.grey,
-                    Colors.black,
-                    //add more colors for gradient
-                  ],
-                  begin: Alignment.topRight, //begin of the gradient color
-                  end: Alignment.bottomLeft,
-                ),
+              Colors.grey,
+              Colors.black,
+              //add more colors for gradient
+            ],
+            begin: Alignment.topRight, //begin of the gradient color
+            end: Alignment.bottomLeft,
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            leading: InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Icon(Icons.arrow_back, color: kblack),
               ),
             ),
-            Column(
+            leadingWidth: 35,
+            title: Text(
+              "Enquiry",
+              style: TextStyle(
+                  color: kblack, fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(8),
+                    bottomLeft: Radius.circular(8))),
+            toolbarHeight: 55,
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [kgolder2,kgradientYellow,kgolder2]
+                  ),
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),bottomLeft: Radius.circular(15))
+              ),
+            ),
+            backgroundColor: kGray3,
+            // bottom: TabBar(
+            //   indicator: BoxDecoration(
+            //       color: kblack,
+            //       borderRadius: BorderRadius.only(
+            //           bottomRight: Radius.circular(12),
+            //           bottomLeft: Radius.circular(12)),
+            //
+            //       border: Border.all(
+            //           width: 2)
+            //
+            //
+            //   ),
+            //   labelColor: kgolder2,
+            //   unselectedLabelColor: kblack,
+            //   tabs: const [
+            //     Tab(
+            //       child: Text('Upcoming'),
+            //     ),
+            //     Tab(
+            //       child: Text('Completed'),
+            //     ),
+            //   ],
+            // ),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
               children: [
-                Container(
-                  height: 60,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),
-                    gradient:LinearGradient(
-                        colors: [
-                          kgolder,
-                          kgradientYellow,
-                          kgolder
-                          //add more colors for gradient
-                        ],
-                        begin: Alignment.centerLeft, //begin of the gradient color
-                        end: Alignment.centerRight, //end of the gradient color
-                        stops: [0,  0.6,11] //stops for individual color
-                      //set the stops number equal to numbers of color
-                    ),
-                  ),
-                  child: Padding(
-                    padding:   EdgeInsets.only(left: 14),
-                    child: Row(
-
-                      children: [
-                        InkWell(
-                            onTap: (){
-                              Get.back();
-                            },
-                            child: Icon(Icons.arrow_back, color: kblack)),
-                        SizedBox(width: 10,),
-                        Text("Enquiry",style: TextStyle(
-    color: kblack, fontSize: 20, fontWeight: FontWeight.bold),),
-                      ],
-                    ),
-                  ),
-                ),
                 SizedBox(height: 40,),
                 Padding(
                   padding:   EdgeInsets.only(left: 20,right: 20),
                   child: SingleChildScrollView(
-                    child: Column(
-                      children: [
+                    child: FutureBuilder<List<EnquiryModel>?>(
+                        future: AllApi().getAllEnquiries(
+                          hrId: widget.usermodel.empId!,
+                          companyId: widget.usermodel.companyId!,
+                        ),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return kprogressbar;
+                          } else if (snapshot.data!.isEmpty) {
+                            return const Center(
+                              child: Text('Nothing to show here.'),
+                            );
+                          }
+                         else {
+                            var users = snapshot.data;
 
-                        BuilLeaveCard("Abrar"),
-                        SizedBox(height: 15),
-                        BuilLeaveCard("Manager"),
-                        SizedBox(height: 15),
-                        BuilLeaveCard("Arsalan khan"),
-                        SizedBox(height: 15),
-                        BuilLeaveCard("Fahad"),
-                        SizedBox(height: 15),
-                        BuilLeaveCard("Mannan"),
-                        SizedBox(height: 15),
-                        BuilLeaveCard("Sam"),
-                        SizedBox(height: 15),
-                        BuilLeaveCard("Rocky"),
-                        SizedBox(height: 15),
-                        BuilLeaveCard("Julie"),
-                        SizedBox(height: 15),
-                        BuilLeaveCard("Mujahidul islam"),
-                      ],
+                            List listOfUsers =[];
+                            Set userUids = {};
+
+                            for (var element in users!) {
+                              userUids.add(element.refId );
+                            }
+                            listOfUsers =   userUids.toList();
+
+
+
+
+
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: listOfUsers.length ,
+                              itemBuilder: (context, index) {
+
+                                var userModel1 = users.firstWhere((element) => element.refId == listOfUsers[index]);
+
+
+                                return BuilLeaveCard(userModel1.empName,userModel1);
+                              },
+                            );
+                          }
+                      }
                     ),
                   ),
                 )
               ],
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
   }
 
-   BuilLeaveCard(string) {
-    return Container(
-      height: 35,
+   BuilLeaveCard(string,EnquiryModel userModel) {
+    return InkWell(
+      onTap: () async {
 
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-          border:
-          Border
-              .all(
-            color:
-            kgolder,
-            width:
-            1,
-          )) ,
+        UserModel userModelNew = await AllApi().getUser(userModel.refId!);
+
+        Get.to(HREnquiryChat(userModel: userModelNew));
+      },
+      child: Container(
 
 
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+            border:
+            Border
+                .all(
+              color:
+              kgolder,
+              width:
+              1,
+            )) ,
 
 
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15.0,top: 5),
-        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
 
 
-                          children: [
-                            Icon(Icons.person,color: kgolder,size: 25,),
-                            SizedBox(width: 50,),
-                            Text(string,style: TextStyle(color: kgradientYellow,fontSize: 20),)
-                          ],
-                        ),
+        child: Padding(
+          padding: const EdgeInsets.all( 10),
+          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+
+                            children: [
+                              Icon(Icons.person,color: kgolder,size: 25,),
+                              SizedBox(width: 50,),
+                              Text(string,style: TextStyle(color: kgradientYellow,fontSize: 20),)
+                            ],
+                          ),
+        ),
       ),
     );
   }

@@ -19,13 +19,15 @@ class UserModel {
       studyPermit,
       maternityPermit,
       hrId,
-      hrName,
+      hrName,      joinDate,
+
       image;
   Map<String, dynamic>? location;
   bool? allow_checkin;
 
   UserModel({
-    this.address,
+    this.address,    this.joinDate,
+
     this.allotedOffice,
     this.designation,
     this.leaves,
@@ -75,7 +77,8 @@ class UserModel {
         studyPermit: json['study_permit'],
         hrId: json['hrid'],
         hrName: json['hrname'],
-        managerid: json['managerid'],
+        managerid: json['managerid'],      joinDate: json['joindate'],
+
         image: json['image']);
   }
 
@@ -85,7 +88,8 @@ class UserModel {
 
     data['Address'] = address;
     data['allotted_office'] = allotedOffice;
-    data['designation'] = designation;
+    data['designation'] = designation;    data['joindate'] = joinDate;
+
     data['leaves'] = leaves;
     data['manager'] = manager;
     data['Name'] = name;
@@ -110,8 +114,10 @@ class UserModel {
   }
 }
 
-class CoursesModel {
-  String? title, date, hrId, companyId, venue, courseId;
+class   CoursesModel {
+  String? title, date, hrId, companyId, venue, courseId
+  ,empid,checkin,checkout,emp_name,emp_phone;
+
 
   CoursesModel({
     this.date,
@@ -120,6 +126,12 @@ class CoursesModel {
     this.hrId,
     this.venue,
     this.courseId,
+    this.checkin,
+    this.checkout,
+    this.emp_name,
+    this.emp_phone,
+    this.empid
+
   });
 
   fromJson(Map<String, dynamic> json) {
@@ -130,6 +142,11 @@ class CoursesModel {
       hrId: json['hrid'],
       venue: json['venue'],
       courseId: json['courseid'],
+      checkin: json['checkin'],
+      checkout: json['checkout'],
+      emp_name: json['emp_name'],
+      emp_phone: json['emp_phone'],
+      empid: json['emp_id'],
     );
   }
 
@@ -143,6 +160,11 @@ class CoursesModel {
     data['hrid'] = hrId;
     data['venue'] = venue;
     data['courseid'] = courseId;
+    data['checkin'] = checkin;
+    data['checkout'] = checkout;
+    data['emp_name'] = emp_name;
+    data['emp_phone'] = emp_phone;
+    data['empid'] = empid;
 
     return data;
   }
@@ -497,6 +519,7 @@ class AnnounceModel {
   String? timestamp;
   String? companyId;
   String? hr;
+  String? announcementId;
 
   AnnounceModel({
     this.image,
@@ -504,7 +527,7 @@ class AnnounceModel {
     this.text,
     this.timestamp,
     this.companyId,
-    this.hr,
+    this.hr,this.announcementId
   });
 
   fromJson(Map<String, dynamic> json) {
@@ -515,6 +538,8 @@ class AnnounceModel {
       timestamp: json['timestamp'],
       companyId: json['companyid'],
       hr: json['hr'],
+      announcementId: json['announcementid'],
+
     );
   }
 
@@ -527,6 +552,7 @@ class AnnounceModel {
     data['timestamp'] = timestamp;
     data['companyid'] = companyId;
     data['hr'] = hr;
+    data['announcementid'] = announcementId;
 
     return data;
   }

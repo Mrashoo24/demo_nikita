@@ -33,5 +33,48 @@ String adminurl = 'http://admin.faizeetech.com';
 
 
 
+ Container buildGoldenTextfield(title,onChangeFunction) {
+  return
+    Container(
+      margin: EdgeInsets.only(bottom: 10),
+      width: Get.width,
+      decoration: BoxDecoration(
+        borderRadius:
+        BorderRadius.all(
+            Radius.circular(
+                8)),
+        gradient:
+        LinearGradient(
+            colors: [
+              kgradientYellow,
+              kgolder2
+            ]),
+        border: Border.all(
+          color: kgolder,
+          width: 2,
+        ),
+      ),
+      child: TextFormField(
+        decoration: InputDecoration(
+            hintText: title,
+
+            filled: true,
+            fillColor: Colors.transparent,
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please fill this value';
+          }
+          return null;
+        },
+        onSaved: onChangeFunction,
+      ),
+    );
+}
+
+
+
+
 
 ///astagfirullah astagfirullah astagfirullah astagfirullah astagfirullah

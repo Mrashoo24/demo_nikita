@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:demo_nikita/Homepage/homepage.dart';
+import 'package:demo_nikita/MujahidHR/hrdasshboard.dart';
 import 'package:demo_nikita/demo.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -127,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                                   if (password.text == result.pass &&
                                       email.text == result.email) {
                                     if(result.designation == 'manager'
-                                        // || result.designation == 'hr'
+                                        || result.designation == 'hr'
                                     ){
 
 
@@ -159,7 +160,9 @@ class _LoginPageState extends State<LoginPage> {
                                           loading = false;
                                         });
 
-                                        Get.to(ManagerScreeen(    userModel: result,),transition: Transition.rightToLeft);
+                                        result.designation == 'hr' ?
+                                        Get.to(HRDassboard( usermodel: result,),transition: Transition.rightToLeft)
+                                            : Get.to(ManagerScreeen(    userModel: result,),transition: Transition.rightToLeft);
 
                                       } else {
                                         setState(() {

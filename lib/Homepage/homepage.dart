@@ -7,6 +7,7 @@ import 'package:demo_nikita/Components/constants.dart';
 import 'package:demo_nikita/Courses/hrenrollcourses.dart';
 import 'package:demo_nikita/Courses/requests.dart';
 import 'package:demo_nikita/Homepage/mainhomepage.dart';
+import 'package:demo_nikita/MujahidHR/hrdasshboard.dart';
 import 'package:demo_nikita/Mujahidthursday/managerscreen.dart';
 import 'package:demo_nikita/Related%20sites/related_sites.dart';
 import 'package:demo_nikita/Reports/reports.dart';
@@ -78,6 +79,8 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   late Offset buttonPosition;
   bool isMenuOpen = false;
   bool managerScreen = false;
+  bool hrscreen = false;
+
   CustomPopupMenuController popupControler = CustomPopupMenuController();
 
 // For overlau
@@ -222,10 +225,49 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     return
       managerScreen ?
       ManagerScreeen(userModel: widget.userModel!)
+          :       hrscreen ?
+      HRDassboard(usermodel: widget.userModel!)
           :
       SafeArea(
         child: Scaffold(
-          floatingActionButton: widget.userModel!.designation != 'manager' ? null : Padding(
+          floatingActionButton: widget.userModel!.designation != 'manager' ?
+          widget.userModel!.designation != 'hr' ?
+        null
+              :
+          Padding(
+            padding: const EdgeInsets.only(bottom: 50.0),
+            child: InkWell(
+              onTap: (){
+                setState((){
+                  hrscreen = !hrscreen;
+                });
+              },
+              child: Container(
+
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                child: FittedBox(
+                    fit: BoxFit.none,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        boxShadow: [BoxShadow(color: kgolder,blurRadius: 15)],
+                        color: kgolder,
+                      ),
+                      child: Center(
+                          child: Image.asset("assets/bgcircle.png",fit: BoxFit.fitWidth,)),
+                    )
+                ),
+              ),
+            ),
+          )
+              :
+          Padding(
             padding: const EdgeInsets.only(bottom: 50.0),
             child: InkWell(
               onTap: (){

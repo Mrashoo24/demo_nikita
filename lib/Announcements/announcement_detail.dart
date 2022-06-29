@@ -9,6 +9,7 @@ import '../Components/api.dart';
 import '../Components/models.dart';
 
 class AnnouncementDetail extends StatefulWidget {
+
   final AnnounceModel? announceModel;
   const AnnouncementDetail({Key? key, this.announceModel}) : super(key: key);
 

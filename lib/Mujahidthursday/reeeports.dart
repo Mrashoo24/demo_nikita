@@ -731,6 +731,8 @@ class _ReeportsState extends State<Reeports> {
                           onTap: (){
                             DatePicker.showDatePicker(
                               context,
+                              theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                               showTitleActions: true,
                               minTime: DateTime.now()
                                   .subtract(const Duration(days: 120)),
@@ -814,6 +816,8 @@ class _ReeportsState extends State<Reeports> {
                           onTap: (){
                             DatePicker.showDatePicker(
                               context,
+                              theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+
                               showTitleActions: true,
                               minTime: DateTime.now()
                                   .subtract(const Duration(days: 120)),

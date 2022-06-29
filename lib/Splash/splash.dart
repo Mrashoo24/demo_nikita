@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:demo_nikita/Authentication/loginpage.dart';
 import 'package:demo_nikita/Components/constants.dart';
 import 'package:demo_nikita/Homepage/homepage.dart';
+import 'package:demo_nikita/MujahidHR/hrdasshboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,8 +55,10 @@ class _SplashScreeenState extends State<SplashScreeen> {
         loggein != true
             ?  Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
         :
-        Get.to(user1!.designation == 'manager' ? ManagerScreeen(    userModel: user1,) :Welcome(userModel: user1),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
-        ;
+        Get.to(user1!.designation == 'manager' ?
+        ManagerScreeen( userModel: user1,) :
+        user1.designation == 'hr' ? HRDassboard( usermodel: user1,) :
+        Welcome(userModel: user1),transition: Transition.rightToLeft,duration: Duration(seconds: 2));
 
 
     });

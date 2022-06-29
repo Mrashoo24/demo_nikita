@@ -1356,4 +1356,264 @@ class AllApi {
   }
 
 
+  Future<void> deleteAnnouncement(
+      {required String companyid, required String announcementId}) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/deleteAnnouncement?companyid=$companyid&announcementid=$announcementId");
+
+    var response = await http.delete(url);
+
+    if (response.statusCode != 200) {
+      Fluttertoast.showToast(
+        msg: response.reasonPhrase!,
+      );
+    }
+  }
+
+  Future<void> postAddAnnounce({
+    required String name,
+    required String text,
+    required String companyid,
+    required String imageName,
+  }) async {
+    var announcementId = 'ANNOUNCE' + DateTime.now().microsecond.toString();
+    var postAddAnnounceUrl = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugPostAddAnnouncements");
+
+    var response = await http.post(postAddAnnounceUrl, body: {
+      'name': name,
+      'text': text,
+      'timestamp': DateFormat('yyyy-MM-dd hh:mm a').format(DateTime.now()),
+      'companyid': companyid,
+      'announcementid': announcementId,
+      'image': imageName,
+    });
+    if (response.statusCode == 200) {
+      return;
+    } else {
+      Fluttertoast.showToast(msg: response.body);
+    }
+  }
+
+  Future<String> setImage(File file) async {
+    var url = Uri.parse("http://faizeetech.com/pdf-upload.php");
+
+    String value1 = "";
+
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(http.MultipartFile(
+        'file', file.readAsBytes().asStream(), file.lengthSync(),
+        filename: file.path));
+    await request.send().then((response) async {
+      if (response.statusCode == 200) {
+        response.stream
+            .transform(utf8.decoder)
+            .listen((value) {})
+            .onData((data) {
+          value1 = data;
+        });
+        return value1;
+      } else {
+        value1 = "Error";
+        return value1;
+      }
+    });
+    return value1;
+  }
+
+
+
+  Future<void> editAnnouncement({
+    required String name,
+    required String text,
+    required String companyid,
+    required String imageName,
+    required String announcementId,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/editAnnouncement?announcementid=$announcementId&companyid=$companyid");
+
+    var response = await http.put(url, body: {
+      'name': name,
+      'text': text,
+      'image': imageName,
+    });
+    Fluttertoast.showToast(msg: response.body);
+  }
+
+  Future<List<EnquiryModel>?> getAllEnquiries({
+    required String hrId,
+    required String companyId,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getAllEnquiries?hrId=$hrId&companyId=$companyId");
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+    if (body != '[]' && response.statusCode == 200) {
+      List responseList = body;
+      Iterable<EnquiryModel> enquiries = responseList.map((e) {
+        return EnquiryModel().fromJson(e);
+      });
+      return enquiries.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<UserModel?> getUserByRefId({required String refId}) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/getUserByRefId?refId=$refId");
+    var response = await http.get(url);
+    var body = json.decode(response.body);
+
+    if (body != "null" && response.statusCode == 200) {
+      Map<String, dynamic> responseModel = body;
+      var userModel = UserModel().fromJson(responseModel);
+      return userModel;
+    } else {
+      return null;
+    }
+  }
+
+  Future<String> putCertificateName(
+      {required String companyId,
+        required String refId,
+        required String fileName,
+        String? date,
+        String? certificatename}) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugPutCertificateName?companyId=$companyId&refId=$refId&fileName=$fileName&certificatename=$certificatename&date=$date");
+    var response = await http.put(url);
+    var body = json.decode(response.body);
+    if (body == 'updated') {
+      return 'updated';
+    } else {
+      return 'failed';
+    }
+  }
+
+  Future<List<CoursesModel>?> getHRCourses({
+    required String companyid,
+    required String hrId,
+  }) async {
+    var getAnnounceUrl = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugGetCoursesHr?companyid=$companyid&hrid=$hrId");
+
+    var response = await http.get(getAnnounceUrl);
+    if (response.statusCode == 200) {
+      List announceList = json.decode(response.body);
+      Iterable<CoursesModel> announce = announceList.map((e) {
+        return CoursesModel().fromJson(e);
+      });
+      return announce.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<CoursesModel>?> getCoursesDetails({
+    required String companyid,
+    required String courseId,
+  }) async {
+    var getAnnounceUrl = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/getCourseDetail?companyid=$companyid&courseid=$courseId");
+    var response = await http.get(getAnnounceUrl);
+
+    if (response.statusCode == 200) {
+      List announceList = json.decode(response.body);
+      print('coarselist  = $announceList');
+      Iterable<CoursesModel> announce = announceList.map((e) {
+        return CoursesModel().fromJson(e);
+      });
+      return announce.toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future postCourses({
+    required CoursesModel coursesModel,
+    required String hrName,
+  }) async {
+    var courseId = 'COURSE' + DateTime.now().microsecond.toString();
+
+    var url = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugPostAddHrCourses");
+
+    var response = await http.post(url, body: {
+      "title": coursesModel.title,
+      "date": coursesModel.date,
+      "companyid": coursesModel.companyId,
+      "venue": coursesModel.venue,
+      "hrid": coursesModel.hrId,
+      'courseid': courseId,
+      'hrname': hrName,
+    });
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return null;
+    }
+  }
+
+  Future deleteCourses(String companyid, String name) async {
+    var getAnnounceUrl = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/deleteCourses?companyid=$companyid&title=$name");
+
+    var response = await http.get(getAnnounceUrl);
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return null;
+    }
+  }
+
+  Future updateCheckinCourses(CoursesModel coursesModel) async {
+    var getAnnounceUrl = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugPresentHrCourses");
+
+    var a={
+      "companyid": coursesModel.companyId,
+    "empid": coursesModel.empid,
+    'courseid': coursesModel.courseId,
+    "checkin": coursesModel.checkin,
+    };
+
+    print('update rmp = $a');
+
+    var response = await http.put(getAnnounceUrl, body: {
+      "companyid": coursesModel.companyId,
+      "empid": coursesModel.empid,
+      'courseid': coursesModel.courseId,
+      "checkin": coursesModel.checkin,
+    });
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return null;
+    }
+  }
+
+
+  Future updateCheckoutCourses(CoursesModel coursesModel) async {
+    var getAnnounceUrl = Uri.parse(
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/getuser/incoming_webhook/debugPresentHrCourses");
+
+    var response = await http.put(getAnnounceUrl, body: {
+      "companyid": coursesModel.companyId,
+      "empid": coursesModel.empid,
+      'courseid': coursesModel.courseId,
+      "checkout": coursesModel.checkout,
+    });
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return null;
+    }
+  }
+
 }
