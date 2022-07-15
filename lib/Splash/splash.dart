@@ -53,9 +53,9 @@ class _SplashScreeenState extends State<SplashScreeen> {
 
 
         loggein != true
-            ?  Get.to(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
+            ?  Get.offAll(LoginPage(),transition: Transition.rightToLeft,duration: Duration(seconds: 2))
         :
-        Get.to(user1!.designation == 'manager' ?
+        Get.offAll(user1!.designation == 'manager' ?
         ManagerScreeen( userModel: user1,) :
         user1.designation == 'hr' ? HRDassboard( usermodel: user1,) :
         Welcome(userModel: user1),transition: Transition.rightToLeft,duration: Duration(seconds: 2));

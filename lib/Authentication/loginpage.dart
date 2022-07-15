@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                                         });
 
                                         result.designation == 'hr' ?
-                                        Get.to(HRDassboard( usermodel: result,),transition: Transition.rightToLeft)
+                                        Get.offAll(HRDassboard( usermodel: result,),transition: Transition.rightToLeft)
                                             : Get.to(ManagerScreeen(    userModel: result,),transition: Transition.rightToLeft);
 
                                       } else {
@@ -215,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                                           loading = false;
                                         });
 
-                                        Get.to(Welcome(    userModel: result,),transition: Transition.rightToLeft);
+                                        Get.offAll(Welcome(    userModel: result,),transition: Transition.rightToLeft);
 
                                       } else {
                                         setState(() {

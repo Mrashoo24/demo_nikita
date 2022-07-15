@@ -43,14 +43,6 @@ class _AnnouncementState extends State<Announcement> {
     return _isValid;
   }
 
-  bool _trySubmitEdit() {
-    FocusScope.of(context).unfocus();
-    final _isValid = _formKeyEdit.currentState!.validate();
-    if (_isValid) {
-      _formKeyEdit.currentState!.save();
-    }
-    return _isValid;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -415,8 +407,8 @@ class _AnnouncementState extends State<Announcement> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  var _canSubmit = _trySubmitEdit();
-                                  if (_canSubmit && image != null) {
+                                  // var _canSubmit = _trySubmitEdit();
+                                  if (image != null) {
                                     setState1(() {
                                       _isLoading = true;
                                     });
@@ -431,6 +423,9 @@ class _AnnouncementState extends State<Announcement> {
                                       _isLoading = false;
                                       image = null;
                                       imageName = '';
+                                    });
+                                    setState((){
+
                                     });
                                     Get.back();
                                   } else {
@@ -448,7 +443,7 @@ class _AnnouncementState extends State<Announcement> {
                                   ),
                                   child:Padding(
                                     padding:  EdgeInsets.only(left: 8,right: 8),
-                                    child: Center(child: Text("Edit",style: TextStyle(color: kblack,fontSize:18),)),
+                                    child: Center(child: Text("Add",style: TextStyle(color: kblack,fontSize:18),)),
                                   ) ,
                                 ),
                               ),
@@ -511,6 +506,8 @@ class _AnnouncementState extends State<Announcement> {
                         return null;
                       },
                       onSaved: onChangeFunction,
+                      onChanged: onChangeFunction,
+
                     ),
                   );
   }
@@ -605,8 +602,8 @@ class _AnnouncementState extends State<Announcement> {
                           children: [
                             InkWell(
                               onTap: () async {
-                                var _canSubmit = _trySubmitEdit();
-                                if (_canSubmit && image != null) {
+                               // var _canSubmit = _trySubmitEdit();
+                                if ( image != null) {
                                   setState1(() {
                                     _isLoading = true;
                                   });
