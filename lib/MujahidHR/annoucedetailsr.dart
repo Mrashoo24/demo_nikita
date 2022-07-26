@@ -150,12 +150,21 @@ class _AnnouncementDetailHRState extends State<AnnouncementDetailHR> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                widget.announceModel!.text!,
-                                style: TextStyle(color: kblack,fontWeight: FontWeight.bold),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    widget.announceModel!.text!,
+                                    style: TextStyle(color: kblack,fontWeight: FontWeight.bold,fontSize: 20),
+                                  ),
+                                  Text(
+                                    widget.announceModel!.timestamp!,
+                                    style: TextStyle(color: kblack),
+                                  ),
+                                ],
                               ),
                               Text(
-                                widget.announceModel!.timestamp!,
+                                'aasdasdasdadadasdasdasdadadadadasdadasdasdasdasdasdasdasdasdadadadadasdasdasdsadsadasdasdadadasdasdsadasdasdasdasdasdadasd',
                                 style: TextStyle(color: kblack),
                               ),
                             ],

@@ -37,6 +37,49 @@
             {
               "client_id": "1012156795825-qe4d1vv026bdh70h9msctpluilsmkffm.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1012156795825-1fansom1nf9eq2nhaq484g7s7mki6bln.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ak.hudur"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012156795825:android:3e98b2d5e2f0f3db860b90",
+        "android_client_info": {
+          "package_name": "com.ak.hudurapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012156795825-qe4d1vv026bdh70h9msctpluilsmkffm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj2zI3jHvpNpQzsLqCxrgDhZCP45-hJE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012156795825-qe4d1vv026bdh70h9msctpluilsmkffm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1012156795825-1fansom1nf9eq2nhaq484g7s7mki6bln.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ak.hudur"
+              }
             }
           ]
         }

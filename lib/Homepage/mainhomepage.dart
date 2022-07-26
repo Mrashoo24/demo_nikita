@@ -1025,7 +1025,7 @@ var widthofcontainer = 20.0;
                                 width: Get.width * 0.3,
                                 height: 50,
                                 child: Text(
-                                  companydetails!['cname'],
+                                  companydetails!['cname'] ?? '',
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       color: Colors.red,

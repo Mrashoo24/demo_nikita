@@ -11,7 +11,7 @@ import '../Mujahidthursday/reeeports.dart';
 import 'hrcoursesa.dart';
 import 'services2.dart';
 import 'announcement.dart';
-import 'hrleavees.dart';
+import 'hrenquirymain.dart';
 import 'hrreporrts.dart';
 import 'hrservices.dart';
 
@@ -119,18 +119,24 @@ class _HRDassboardState extends State<HRDassboard> {
                                 fontWeight: FontWeight.bold
 
                             ),),
-                            Stack(
-                                children:[
-                                  Icon(Icons.notifications,size: 30,),
-                                  Padding(
-                                    padding:  EdgeInsets.only(left: 17,top: 4),
-                                    child: CircleAvatar(
-                                      radius: 7,
-                                      backgroundColor: Colors.redAccent[400],
-                                      child: Text("54",style: TextStyle(color: Colors.white,fontSize: 8),),
-                                    ),
-                                  )
-                                ])
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SizedBox(),
+                                Stack(
+                                    children:[
+                                      Icon(Icons.notifications,size: 30,),
+                                      Padding(
+                                        padding:  EdgeInsets.only(left: 17,top: 4),
+                                        child: CircleAvatar(
+                                          radius: 7,
+                                          backgroundColor: Colors.redAccent[400],
+                                          child: Text("54",style: TextStyle(color: Colors.white,fontSize: 8),),
+                                        ),
+                                      )
+                                    ]),
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -174,7 +180,7 @@ class _HRDassboardState extends State<HRDassboard> {
                                 onTap: (){
                                   Get.to(HREnquiry(usermodel: widget.usermodel,));
                                 },
-                                child: buildContainer("assets/leavess.png","HR Enquiry")),
+                                child: buildContainer("assets/icons/enquiry.png","Enquiry")),
                           ],
                         ),
 
@@ -188,12 +194,12 @@ class _HRDassboardState extends State<HRDassboard> {
                                 onTap: (){
                                   Get.to(ServicesHR(userModel: widget.usermodel,));
                                 },
-                                child: buildContainer("assets/bennnchlist.png","HR Services")),
+                                child: buildContainer("assets/bennnchlist.png","Certificates")),
                             InkWell(
                                 onTap: (){
                                     Get.to(HRCourses(userModel: widget.usermodel));
                                 },
-                                child: buildContainer("assets/adminleave.png","HR Courses")),
+                                child: buildContainer("assets/adminleave.png","Courses")),
                           ],
                         ),
 
@@ -255,7 +261,10 @@ class _HRDassboardState extends State<HRDassboard> {
         padding:  EdgeInsets.only(top: 17),
         child: Column(
           children: [
-            Image.asset(image,color: Colors.black),
+            Container(
+                height: 80,
+                width: 80,
+                child: ClipRRect(child: Image.asset(image,color: Colors.black,fit: BoxFit.fill,))),
             SizedBox(height: 10,),
             Text(tabname)
           ],

@@ -60,7 +60,7 @@ List<RelatedSitesModel>? _relatedSites;
               return kprogressbar;
             }
             if (snapshot.data!.isEmpty) {
-              return const Text('Nothing to show here.');
+              return const Text('No Records');
             }
             var relatedSitesList = snapshot.data;
 

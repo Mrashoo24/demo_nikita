@@ -53,6 +53,7 @@ String adminurl = 'http://admin.faizeetech.com';
           color: kgolder,
           width: 2,
         ),
+
       ),
       child: TextFormField(
         decoration: InputDecoration(
@@ -60,7 +61,9 @@ String adminurl = 'http://admin.faizeetech.com';
 
             filled: true,
             fillColor: Colors.transparent,
-            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+            disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
         ),
         validator: (value) {
           if (value!.isEmpty) {
@@ -69,8 +72,73 @@ String adminurl = 'http://admin.faizeetech.com';
           return null;
         },
         onSaved: onChangeFunction,
+        onChanged: onChangeFunction,
       ),
     );
+}
+
+Container buildMultiGoldenTextfield(title,onChangeFunction) {
+  return
+    Container(
+      margin: EdgeInsets.only(bottom: 10),
+      width: Get.width,
+      decoration: BoxDecoration(
+        borderRadius:
+        BorderRadius.all(
+            Radius.circular(
+                8)),
+        gradient:
+        LinearGradient(
+            colors: [
+              kgradientYellow,
+              kgolder2
+            ]),
+        border: Border.all(
+          color: kgolder,
+          width: 2,
+        ),
+
+      ),
+      child: TextFormField(
+          minLines: 1,
+        maxLines: 3,
+        decoration: InputDecoration(
+            hintText: title,
+
+            filled: true,
+            fillColor: Colors.transparent,
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+            disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please fill this value';
+          }
+          return null;
+        },
+        onSaved: onChangeFunction,
+        onChanged: onChangeFunction,
+      ),
+    );
+}
+
+Container buildGradientFloating() {
+  return Container(
+    height: double.infinity,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      gradient: LinearGradient(
+          colors: [kgolder2,kgradientYellow,kgolder2]
+      ),
+      // borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),bottomLeft: Radius.circular(15))
+    ),
+    child: Icon(
+      Icons.add,
+      color: kblack,
+    ),
+  );
 }
 
 

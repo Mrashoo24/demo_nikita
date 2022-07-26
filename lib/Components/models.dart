@@ -19,9 +19,11 @@ class UserModel {
       studyPermit,
       maternityPermit,
       hrId,
-      hrName,      joinDate,
+      hrName,
+      joinDate,
 
       image;
+  dynamic macid;
   Map<String, dynamic>? location;
   bool? allow_checkin;
 
@@ -50,7 +52,7 @@ class UserModel {
     this.hrId,
     this.hrName,
     this.image,
-    this.managerid,
+    this.managerid,this.macid
   });
 
   fromJson(Map<String, dynamic> json) {
@@ -77,8 +79,9 @@ class UserModel {
         studyPermit: json['study_permit'],
         hrId: json['hrid'],
         hrName: json['hrname'],
-        managerid: json['managerid'],      joinDate: json['joindate'],
-
+        managerid: json['managerid'],
+        joinDate: json['joindate'],
+        macid: json['macid'] == {"\$undefined":true} ? '' :  json['macid'],
         image: json['image']);
   }
 
@@ -109,6 +112,7 @@ class UserModel {
     data['study_permit'] = studyPermit;
     data['hrid'] = hrId;
     data['hrname'] = hrName;
+    data['macid'] = macid;
 
     return data;
   }

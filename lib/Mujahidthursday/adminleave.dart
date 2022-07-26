@@ -369,7 +369,7 @@ class _NewAdminState extends State<AdminLeavesss> {
                                     height: MediaQuery.of(context).size.height,
                                     alignment: Alignment.center,
                                     child: const Text(
-                                      'Nothing to show here.',
+                                      'No Records',
                                       style: TextStyle(
                                         fontSize: 22,
                                         color: kgolder

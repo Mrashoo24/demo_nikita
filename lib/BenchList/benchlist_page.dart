@@ -79,11 +79,15 @@ class _BenchListState extends State<BenchList> {
                       mode: Mode.MENU,
                       items: employeeList.map((e) => e.name).toList(),
                       showSearchBox: true,
-                      // onChanged: (String? value) {
+                      // onChanged: (value) {
                       //   setState(() {
-                      //     _employeeName = value as String;
+                      //     _employeeName = (value as String?)! ;
                       //   });
                       // },
+                      onChanged: (String? data) => setState((){
+                        _employeeName = data!;
+                      }),
+
                       selectedItem: _employeeName,
                       dropdownSearchDecoration:  InputDecoration(
                         label: Text('Select Employee'),
@@ -106,6 +110,9 @@ class _BenchListState extends State<BenchList> {
                         },
                         onSaved: (value) {
                           _jobDescription = value as String;
+                        },
+                        onChanged: (value) {
+                          _jobDescription = value;
                         },
                         decoration:  InputDecoration(
                           label: Text('Job Description',style: TextStyle(color: kblack),),
@@ -250,73 +257,77 @@ class _BenchListState extends State<BenchList> {
                     if (_employeeDetails != null)
                       Column(
                         children: [
-                          Card(
-                            elevation: 5,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8.0),
-                              ),
+                          Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      kGray2,
+                                      kblack
+                                    ]
+                                ),
+                                borderRadius:BorderRadius.circular(10),
+                                border: Border.all(color: kgolder,width: 3)
                             ),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Employee Details:',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Employee Details:',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,color: kgolder
                                   ),
-                                  const SizedBox(
-                                    height: 5,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Name: ${_employeeDetails!.name}',
+                                  style: const TextStyle(
+                                    fontSize: 16,color: kgolder
                                   ),
-                                  Text(
-                                    'Name: ${_employeeDetails!.name}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Id: ${_employeeDetails!.empId}',
+                                  style: const TextStyle(
+                                    fontSize: 16,color: kgolder
                                   ),
-                                  const SizedBox(
-                                    height: 5,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Phone: ${_employeeDetails!.phoneNumber}',
+                                  style: const TextStyle(
+                                    fontSize: 16,color: kgolder
                                   ),
-                                  Text(
-                                    'Id: ${_employeeDetails!.empId}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Email: ${_employeeDetails!.email}',
+                                  style: const TextStyle(
+                                    fontSize: 16,color: kgolder
                                   ),
-                                  const SizedBox(
-                                    height: 5,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Manager: ${_employeeDetails!.manager}',
+                                  style: const TextStyle(
+                                    fontSize: 16,color: kgolder
                                   ),
-                                  Text(
-                                    'Phone: ${_employeeDetails!.phoneNumber}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Email: ${_employeeDetails!.email}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Manager: ${_employeeDetails!.manager}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(
@@ -334,7 +345,7 @@ class _BenchListState extends State<BenchList> {
                                 ),
                               ),
                             ),
-                            child: const Text('Submit'),
+                            child: const Text('Submit',style: TextStyle(color: kblack),),
                             onPressed: () async {
                               final canSubmit = _trySubmit();
                               if (canSubmit) {
@@ -378,12 +389,13 @@ class _BenchListState extends State<BenchList> {
                               }
                             },
                           ),
+                          const SizedBox(
+                            height: 100,
+                          ),
                         ],
                       ),
                     if (_isLoading)
-                      Center(
-                        child: Image.asset("assets/Images/loading.gif"),
-                      ),
+                      kprogressbar,
                     if (!_isLoading && _employeeDetails == null)
                       ElevatedButton(
                         child: const Text('Search',style: TextStyle(color: kblack),),
@@ -401,6 +413,7 @@ class _BenchListState extends State<BenchList> {
                         ),
                         onPressed: () async {
                           final canSearch = _trySubmit();
+                          print('gotdetail = $_employeeName = ');
                           if (canSearch && _employeeName != 'Select Employee') {
                             setState(() {
                               _isLoading = true;
@@ -413,22 +426,25 @@ class _BenchListState extends State<BenchList> {
                               _isLoading = false;
                             });
                             if (_employeeDetails == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'Employee details were not found. Please check the name and try again.',
-                                  ),
-                                ),
-                              );
+                              Fluttertoast.showToast(msg: 'Please Fill All Details1');
+
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   const SnackBar(
+                              //     content: Text(
+                              //       'Employee details were not found. Please check the name and try again.',
+                              //     ),
+                              //   ),
+                              // );
                             }
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Please fill all the details.',
-                                ),
-                              ),
-                            );
+                            Fluttertoast.showToast(msg: 'Please Fill All Details');
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     content: Text(
+                            //       'Please fill all the details.',
+                            //     ),
+                            //   ),
+                            // );
                           }
                         },
                       ),
@@ -507,7 +523,7 @@ class _BenchListState extends State<BenchList> {
                 );
               } else if (snapshot.data!.isEmpty) {
                 return const Center(
-                  child: Text('Nothing to show here.'),
+                  child: Text('No Records'),
                 );
               } else {
                 var list = snapshot.data;
@@ -712,11 +728,11 @@ class _BenchListState extends State<BenchList> {
                         Row(
                           children: [
                             SizedBox( width: 10,),
-                            InkWell(
-                                onTap: (){
-                                  // Get.back();
-                                },
-                                child: Icon(Icons.arrow_back,color: kgolder,)),
+                            // InkWell(
+                            //     onTap: (){
+                            //       // Get.back();
+                            //     },
+                            //     child: Icon(Icons.arrow_back,color: kgolder,)),
                             SizedBox(width: 15),
                             Text("Bench List",style: TextStyle(color: kgolder,fontSize: 18),)
                           ],

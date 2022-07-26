@@ -565,14 +565,6 @@ class _HRCoursesState extends State<HRCourses> {
     );
   }
 
-  bool _trySubmit() {
-    FocusScope.of(context).unfocus();
-    var _isValid = _formkey.currentState!.validate();
-    if (_isValid) {
-      _formkey.currentState!.save();
-    }
-    return _isValid;
-  }
 
   void _addCourse() {
     bool _isLoading = false;
@@ -661,6 +653,7 @@ class _HRCoursesState extends State<HRCourses> {
                                         DateFormat('yyyy-MM-dd hh:mm a')
                                             .format(date);
                                   });
+
                                 },
                                 currentTime: DateTime.now(),
                                 locale: LocaleType.en,
@@ -674,8 +667,8 @@ class _HRCoursesState extends State<HRCourses> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  var _canSubmit = _trySubmit();
-                                  if (_canSubmit && dateSelected != null) {
+
+                                  if (dateSelected != null) {
                                     setState1(() {
                                       _isLoading = true;
                                     });
@@ -693,6 +686,7 @@ class _HRCoursesState extends State<HRCourses> {
                                       _isLoading = false;
                                     });
                                     Get.back();
+                                    setState((){});
                                   } else {
                                     Fluttertoast.showToast(
                                       msg: 'Please fill all the details.',
@@ -708,7 +702,7 @@ class _HRCoursesState extends State<HRCourses> {
                                   ),
                                   child:Padding(
                                     padding:  EdgeInsets.only(left: 8,right: 8),
-                                    child: Center(child: Text("Edit",style: TextStyle(color: kblack,fontSize:18),)),
+                                    child: Center(child: Text("Add",style: TextStyle(color: kblack,fontSize:18),)),
                                   ) ,
                                 ),
                               ),

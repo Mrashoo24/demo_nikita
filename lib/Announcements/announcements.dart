@@ -58,7 +58,7 @@ class _AnnouncementsState extends State<Announcements> {
               return kprogressbar;
             } else if (snapshot.data!.isEmpty) {
               return const Center(
-                child: Text('Nothing to show here.'),
+                child: Text('No Records'),
               );
             }
             var announcementList = snapshot.data;

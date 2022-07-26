@@ -202,7 +202,7 @@ class _ServicesHRState extends State<ServicesHR> {
                   height: MediaQuery.of(context).size.height,
                   alignment: Alignment.center,
                   child: const Text(
-                    'Nothing to show here.',
+                    'No Records',
                     style: TextStyle(
                       fontSize: 22,
                     ),
@@ -258,7 +258,7 @@ class _ServicesHRState extends State<ServicesHR> {
                   height: MediaQuery.of(context).size.height,
                   alignment: Alignment.center,
                   child: const Text(
-                    'Nothing to show here.',
+                    'No Records',
                     style: TextStyle(
                       fontSize: 22,
                     ),

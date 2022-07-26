@@ -57,6 +57,12 @@ class _AnnouncementState extends State<Announcement> {
             Colors.black,
             //add more colors for gradient
           ],
+          stops: [
+            0.2,
+            0.8,
+            0.4,
+            0.2
+          ],
           begin: Alignment.topRight, //begin of the gradient color
           end: Alignment.bottomLeft,
         ),
@@ -136,10 +142,22 @@ class _AnnouncementState extends State<Announcement> {
                               Radius.circular(12.0),
                             ),
                           ),
-                          contentPadding: const EdgeInsets.all(12.0),
+                          contentPadding:  EdgeInsets.symmetric(horizontal: 12.0,vertical: 2),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.remove_red_eye_rounded,
+                                ),
+                                onPressed: () {
+                                  Get.to(
+                                        () => AnnouncementDetailHR(
+                                      announceModel: announceList[index],
+                                    ),
+                                  );
+                                },
+                              ),
                               IconButton(
                                 icon: const Icon(
                                   Icons.edit,
@@ -163,18 +181,7 @@ class _AnnouncementState extends State<Announcement> {
                                   );
                                 },
                               ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.remove_red_eye_rounded,
-                                ),
-                                onPressed: () {
-                                  Get.to(
-                                        () => AnnouncementDetailHR(
-                                      announceModel: announceList[index],
-                                    ),
-                                  );
-                                },
-                              ),
+
                             ],
                           ),
                           title: Text(
@@ -203,16 +210,16 @@ class _AnnouncementState extends State<Announcement> {
               }),
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            color: kblack,
-          ),
           onPressed: _addAnnouncement,
-          backgroundColor: kgolder2,
+          child: buildGradientFloating(),
+          // backgroundColor: kgolder2,
+
         ),
       ),
     );
   }
+
+
 
   void _deleteAnnouncement({
     required List<AnnounceModel> announceList,
@@ -220,7 +227,7 @@ class _AnnouncementState extends State<Announcement> {
   }) {
     bool _isLoading = false;
     Get.defaultDialog(
-        title: "Delete Announcement",
+        title: "",
 
         titleStyle: TextStyle(color: kgolder),
         titlePadding: EdgeInsets.only(right: 100,top: 5),
@@ -351,42 +358,14 @@ class _AnnouncementState extends State<Announcement> {
                           buildGoldenTextfield('Title', (value){
                             _title = value;
                           }),
-                          buildGoldenTextfield('Description', (value){
+                          buildMultiGoldenTextfield('Description', (value){
                             _description = value;
                           }),
                           image == null
                               ?
 
                           InkWell(
-                            child: Container(
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.all(
-                                    Radius.circular(
-                                        8)),
-                                gradient:
-                                LinearGradient(
-                                    colors: [
-                                      kgradientYellow,
-                                      kgolder2
-                                    ]),
-                                border: Border.all(
-                                  color: kgolder,
-                                  width: 2,
-                                ),
-                              ),
-                              child: TextFormField(
-                                enabled: false,
-                                decoration: InputDecoration(
-                                    hintText: 'Image',
-
-                                    filled: true,
-                                    fillColor: Colors.transparent,
-                                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
-                                ),
-                              ),
-                            ),
+                            child: Text('Upload Image',style: TextStyle(color: kgolder),),
                             onTap: () async {
                               addImage = await _imagePicker();
                               setState1(() {
@@ -405,7 +384,7 @@ class _AnnouncementState extends State<Announcement> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              InkWell(
+                             _isLoading ? kprogressbar :  InkWell(
                                 onTap: () async {
                                   // var _canSubmit = _trySubmitEdit();
                                   if (image != null) {
@@ -470,47 +449,7 @@ class _AnnouncementState extends State<Announcement> {
     );
   }
 
-  Container buildGoldenTextfield(title,onChangeFunction) {
-    return
-      Container(
-        margin: EdgeInsets.only(bottom: 10),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                      BorderRadius.all(
-                          Radius.circular(
-                              8)),
-                      gradient:
-                      LinearGradient(
-                          colors: [
-                            kgradientYellow,
-                            kgolder2
-                          ]),
-                      border: Border.all(
-                        color: kgolder,
-                        width: 2,
-                      ),
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: title,
 
-                          filled: true,
-                          fillColor: Colors.transparent,
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please fill this value';
-                        }
-                        return null;
-                      },
-                      onSaved: onChangeFunction,
-                      onChanged: onChangeFunction,
-
-                    ),
-                  );
-  }
 
 
   void editAnnnoucement({required String announcementId}){
@@ -546,42 +485,14 @@ class _AnnouncementState extends State<Announcement> {
                         buildGoldenTextfield('Title', (value){
                           _title = value;
                         }),
-                        buildGoldenTextfield('Description', (value){
+                        buildMultiGoldenTextfield('Description1', (value){
                           _description = value;
                         }),
                         image == null
                             ?
 
                         InkWell(
-                          child: Container(
-                            width: Get.width,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(
-                                  Radius.circular(
-                                      8)),
-                              gradient:
-                              LinearGradient(
-                                  colors: [
-                                    kgradientYellow,
-                                    kgolder2
-                                  ]),
-                              border: Border.all(
-                                color: kgolder,
-                                width: 2,
-                              ),
-                            ),
-                            child: TextFormField(
-                              enabled: false,
-                              decoration: InputDecoration(
-                                  hintText: 'Image',
-
-                                  filled: true,
-                                  fillColor: Colors.transparent,
-                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
-                              ),
-                            ),
-                          ),
+                          child: Text('Upload Image',style: TextStyle(color: kgolder),),
                           onTap: () async {
                             addImage = await _imagePicker();
                             setState1(() {
@@ -600,7 +511,7 @@ class _AnnouncementState extends State<Announcement> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            InkWell(
+                          _isLoading ? kprogressbar :  InkWell(
                               onTap: () async {
                                // var _canSubmit = _trySubmitEdit();
                                 if ( image != null) {
@@ -621,6 +532,7 @@ class _AnnouncementState extends State<Announcement> {
                                     imageName = '';
                                   });
                                   Get.back();
+                                  setState((){});
                                 } else {
                                   Fluttertoast.showToast(
                                     msg: 'Please upload photo.',

@@ -148,6 +148,7 @@ class _RequestsState extends State<Requests> {
                             //
                             //   ],
                             // ),
+                            ///Second Tab
                             DefaultTabController(
                                 length: 3,
                                 child: Scaffold(
@@ -218,7 +219,7 @@ class _RequestsState extends State<Requests> {
                                                       return kprogressbar;
                                                     } else if (snapshot.data!.isEmpty) {
                                                       return const Center(
-                                                        child: Text('Nothing to show here.'),
+                                                        child: Text('No Records'),
                                                       );
                                                     }
                                                     var list = snapshot.requireData;
@@ -272,7 +273,7 @@ class _RequestsState extends State<Requests> {
                                                         return kprogressbar;
                                                       } else if (snapshot.data!.isEmpty) {
                                                         return const Center(
-                                                          child: Text('Nothing to show here.'),
+                                                          child: Text('No Records'),
                                                         );
                                                       }
                                                       var list = snapshot.requireData;
@@ -326,7 +327,7 @@ class _RequestsState extends State<Requests> {
                                                         return kprogressbar;
                                                       } else if (snapshot.data!.isEmpty) {
                                                         return const Center(
-                                                          child: Text('Nothing to show here.'),
+                                                          child: Text('No Records'),
                                                         );
                                                       }
                                                       var list = snapshot.requireData;
@@ -640,6 +641,7 @@ class _RequestsState extends State<Requests> {
         required   String totalLeaveHours,
         required   String remainingHours,
         required   String totalCountConsumed,required List<EmployeeLeaveRequestsModel> leavedata}) {
+    textFieldValues.clear();
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -795,8 +797,12 @@ class _RequestsState extends State<Requests> {
                                       ),
                                       style: TextStyle(color: kgolder),
                                       onSaved: (value) {
-                                        textFieldValues.add(value);
+                                        textFieldValues.add({details[index]:value});
                                       },
+
+                                      // onChanged: (value) {
+                                      //   textFieldValues.add({details[index]:value});
+                                      // },
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Please fill out this field';

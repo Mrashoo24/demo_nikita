@@ -33,22 +33,35 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
     return Container(
       constraints: BoxConstraints(maxWidth: Get.width*0.5),
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+
       child: Card(
         color: isMe ? Colors.black.withOpacity(0.6) : kgolder,
 
         shape: isMe
-            ?  RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-              30
-          ),
+            ?
+        RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
+
+            side: BorderSide(color: kgolder2)
         )
             :  RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-              30
+
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+            bottomRight: Radius.circular(30),
           ),
+
+          side: BorderSide(color: kblack)
         ),
         child: Container(
           padding: const EdgeInsets.all(12.0),
+
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,7 +294,7 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
       iconsmessage = true;
     });
     var toEmail = '';
-    final _subject = 'Enquiry email by ${widget.userModel!.name}';
+    final _subject = 'Reply to Enquiry email by ${widget.userModel!.name}';
     FocusScope.of(context).unfocus();
     var users = await _allApi.getAllUsers(
       companyId: widget.userModel!.companyId!,

@@ -107,9 +107,10 @@ class _HREnquiryState extends State<HREnquiry> {
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
                             return kprogressbar;
-                          } else if (snapshot.data!.isEmpty) {
+                          } else
+                            if (snapshot.data!.isEmpty) {
                             return const Center(
-                              child: Text('Nothing to show here.'),
+                              child: Text('No Records'),
                             );
                           }
                          else {
@@ -161,18 +162,31 @@ class _HREnquiryState extends State<HREnquiry> {
         Get.to(HREnquiryChat(userModel: userModelNew));
       },
       child: Container(
-
+            margin: EdgeInsets.only(top: 8),
 
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+         // borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderRadius:
+            BorderRadius
+                .all(
+                Radius
+                    .circular(
+                    8)),
+            gradient:
+            LinearGradient(
+                colors: [
+                  kgradientYellow,
+                  kgolder
+                ]),
             border:
             Border
                 .all(
               color:
               kgolder,
               width:
-              1,
-            )) ,
+              2,
+            )
+        ) ,
 
 
 
@@ -184,9 +198,9 @@ class _HREnquiryState extends State<HREnquiry> {
 
 
                             children: [
-                              Icon(Icons.person,color: kgolder,size: 25,),
+                              Icon(Icons.person,color: kblack,size: 25,),
                               SizedBox(width: 50,),
-                              Text(string,style: TextStyle(color: kgradientYellow,fontSize: 20),)
+                              Text(string,style: TextStyle(color: kblack,fontSize: 20),)
                             ],
                           ),
         ),

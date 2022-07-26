@@ -57,8 +57,9 @@ class _ServiceDetailsHRState extends State<ServiceDetailsHR> {
 
   void _writeWithoutSalary({
     required UserModel? employeeDetails,
-    required Map<String, String> fields,
+    required Map<String, String> fields,companyDetails
   }) {
+    print('withputsalary print $fields');
     _certificatePdf.addPage(
       pdf.MultiPage(
         pageFormat: PdfPageFormat.a4,
@@ -77,7 +78,7 @@ class _ServiceDetailsHRState extends State<ServiceDetailsHR> {
                         ' M',
                   ),
                   pdf.Text(
-                    'Number: ' + fields['certificateNumber']!! + ' m',
+                    'Number: ' + fields['certificateNumber']! + ' m',
                   ),
                 ],
               ),
@@ -96,7 +97,7 @@ class _ServiceDetailsHRState extends State<ServiceDetailsHR> {
             pdf.Paragraph(
               margin: const pdf.EdgeInsets.only(top: 12.0),
               text: '''
-Sharjah Education Council certifies the Government of Sharjah that the employee ${employeeDetails!.name} - ${fields['nationality']} Nationality, we have worked since "${employeeDetails.joinDate} M" and currently fill the job of  "${employeeDetails.designation}" Sheremains at the helm to date.
+${companyDetails['cname']} certifies that the employee ${employeeDetails!.name} - ${fields['nationality']} Nationality, we have worked since "${employeeDetails.joinDate} M" and currently fill the job of  "${employeeDetails.designation}" Sheremains at the helm to date.
 ''',
             ),
             pdf.Paragraph(
@@ -121,8 +122,8 @@ And you are very kind with respect and appreciation.
             
 
 
-A. Mohammed Ahmed Al-Mulla
-Sharjah Education Council
+${companyDetails['mname']}
+${companyDetails['cname']}
             ''',
                 style: pdf.TextStyle(
                   fontSize: 20,
@@ -156,7 +157,7 @@ Reviews:
 
   void _writeTotalSalary({
     required UserModel employeeDetails,
-    required Map<String, String> fields,
+    required Map<String, String> fields,companyDetails
   }) {
     _certificatePdf.addPage(
       pdf.MultiPage(
@@ -195,7 +196,7 @@ Reviews:
             pdf.Paragraph(
               margin: const pdf.EdgeInsets.only(top: 12.0),
               text: '''
-Sharjah Education Council certifies the Government of Sharjah that the employee ${employeeDetails.name} - a Emirati national, has been working for us since "${employeeDetails.joinDate} M" and currently holds the position of  "${employeeDetails.designation}" And you get a total monthly salary and the amount of it ${totalSalaryFields['totalMonthlySalary']} Only a dirham for others - and still on top of its work to date.
+${companyDetails['cname']} that the employee ${employeeDetails.name} - a Emirati national, has been working for us since "${employeeDetails.joinDate} M" and currently holds the position of  "${employeeDetails.designation}" And you get a total monthly salary and the amount of it ${totalSalaryFields['totalMonthlySalary']} Only a dirham for others - and still on top of its work to date.
 ''',
             ),
             pdf.Paragraph(
@@ -220,8 +221,8 @@ And you are very kind with respect and appreciation.
             
 
 
-A. Mohammed Ahmed Al-Mulla
-Sharjah Education Council
+${companyDetails['mname']}
+${companyDetails['cname']}
             ''',
                 style: pdf.TextStyle(
                   fontSize: 20,
@@ -255,7 +256,7 @@ Reviews:
 
   void _writeDetailedSalary({
     required UserModel employeeDetails,
-    required Map<String, String> fields,
+    required Map<String, String> fields,companyDetails
   }) {
     _certificatePdf.addPage(
       pdf.MultiPage(
@@ -292,7 +293,7 @@ Reviews:
             pdf.Paragraph(
               margin: const pdf.EdgeInsets.only(top: 12.0),
               text: '''
-The Sharjah Education Council of the Government of Sharjah testifies that ${employeeDetails.name}, an Emirati national, has been working for us since ${employeeDetails.joinDate} and remains at the helm to date, and the following are their job data:''',
+The ${companyDetails['cname']} testifies that ${employeeDetails.name}, an Emirati national, has been working for us since ${employeeDetails.joinDate} and remains at the helm to date, and the following are their job data:''',
             ),
             pdf.Table.fromTextArray(
               data: [
@@ -359,7 +360,7 @@ The Sharjah Education Council of the Government of Sharjah testifies that ${empl
                 ],
                 [
                   'Workplace',
-                  'Sharjah',
+                  '${companyDetails['address']}',
                 ],
               ],
               border: pdf.TableBorder.all(),
@@ -381,8 +382,8 @@ The person was given this certificate at their request without the Chamber takin
             
 
 
-A. Mohammed Ahmed Al-Mulla
-Sharjah Education Council
+${companyDetails['mname']}
+${companyDetails['cname']}
             ''',
               style: pdf.TextStyle(
                 fontSize: 20,
@@ -574,7 +575,7 @@ Sharjah Education Council
                               ),
                             ),
                           ),
-                          ElevatedButton(
+                          _certificate != null ?   ElevatedButton(
                             style: ButtonStyle(
                               backgroundColor:
                                   MaterialStateProperty.all(kgolder2),
@@ -594,7 +595,7 @@ Sharjah Education Council
                               ),
                             ),
                             onPressed: onPressedSend,
-                          ),
+                          ) : SizedBox.shrink(),
                         ],
                       ),
           ],
@@ -603,16 +604,16 @@ Sharjah Education Council
     );
   }
 
-  bool _trySubmit() {
-    FocusScope.of(context).unfocus();
-    final isValid = _formKey.currentState!.validate();
-    if (isValid) {
-      _formKey.currentState!.save();
-    }
-    return isValid;
-  }
+  // bool _trySubmit() {
+  //   FocusScope.of(context).unfocus();
+  //   final isValid = _formKey.currentState!.validate();
+  //   if (isValid) {
+  //     _formKey.currentState!.save();
+  //   }
+  //   return isValid;
+  // }
 
-  _detailedSalaryForm({required UserModel employeeDetails}) {
+  _detailedSalaryForm({required UserModel employeeDetails,companyDetails}) {
     return     Get.defaultDialog(
         title: 'Details',
 
@@ -642,59 +643,98 @@ Sharjah Education Council
                       child: Column(
                         children: [
                           buildGoldenTextfield('M.B./...../.....', (value){
-                            detailedSalaryFields
-                                .addAll({'certificateNumber': value!});
+                            print('valueofcerti = $value');
+                            setState1((){
+                              detailedSalaryFields
+                                  .addAll({'certificateNumber': value!});
+                            });
+
                           }),
                           buildGoldenTextfield('Job', (value){
-                            detailedSalaryFields.addAll({'job': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'job': value!});
+                            });
+
                           }),
                           buildGoldenTextfield('Grade', (value){
-                            detailedSalaryFields.addAll({'grade': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'grade': value!});
+                            });
+
                           }),
 
                           buildGoldenTextfield('Contract Status', (value){
-                            detailedSalaryFields.addAll({'contractStatus': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'contractStatus': value!});
+                            });
+
                           }),
 
 
                           buildGoldenTextfield('Base Salary', (value){
-                            detailedSalaryFields.addAll({'baseSalary': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'baseSalary': value!});
+                            });
+
                           }),
 
                           buildGoldenTextfield('Cost of Living', (value){
-                            detailedSalaryFields.addAll({'costOfLiving': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'costOfLiving': value!});
+                            });
+
                           }),
 
                           buildGoldenTextfield('Social Allowance', (value){
-                            detailedSalaryFields.addAll({'socialAllowance': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'socialAllowance': value!});
+                            });
                           }),
 
                           buildGoldenTextfield('Total', (value){
-                            detailedSalaryFields.addAll({'total': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'total': value!});
+                            });
+
                           }),
 
                           buildGoldenTextfield('Discount Insurance', (value){
-                            detailedSalaryFields.addAll({'discountInsurance': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'discountInsurance': value!});
+                            });
+
+
                           }),
 
                           buildGoldenTextfield('Net', (value){
-                            detailedSalaryFields.addAll({'net': value!});
+                            setState1((){
+                              detailedSalaryFields.addAll({'net': value!});
+                            });
+
+
                           }),
 
                           buildGoldenTextfield('Housing Allowance', (value){
-                            detailedSalaryFields
-                                .addAll({'housingAllowance': value!});
+                            setState1((){
+
+                              detailedSalaryFields
+                                  .addAll({'housingAllowance': value!});                            });
+
                           }),
 
                           buildGoldenTextfield('To present', (value){
-                            detailedSalaryFields
-                                .addAll({'toPresent': value!});
+                            setState1((){
+                              detailedSalaryFields
+                                  .addAll({'toPresent': value!});                      });
+                          
                           }),
 
-                          buildGoldenTextfield('To present', (value){
-                            detailedSalaryFields
-                                .addAll({'toPresent': value!});
-                          }),
+                          // buildGoldenTextfield('To present', (value){
+                          //
+                          //
+                          //   detailedSalaryFields
+                          //       .addAll({'toPresent': value!});
+                          // }),
 
                           SizedBox(height: 15),
                           Row(
@@ -702,15 +742,16 @@ Sharjah Education Council
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  final canSubmit = _trySubmit();
-                                  if (canSubmit) {
+                                  // final canSubmit = _trySubmit();
+
                                     Navigator.of(context).pop();
                                     _writeDetailedSalary(
                                       employeeDetails: employeeDetails,
-                                      fields: detailedSalaryFields,
+                                      fields: detailedSalaryFields,companyDetails:companyDetails
                                     );
                                     await _savePdf();
-                                  }
+                                    print('file = $_certificate');
+
                                 },
                                 child: Container(
                                   height: 30,
@@ -749,7 +790,7 @@ Sharjah Education Council
 
   }
 
-   _totalSalaryForm({required UserModel employeeDetails}) {
+   _totalSalaryForm({required UserModel employeeDetails,companyDetails}) {
     return     Get.defaultDialog(
         title: 'Details',
 
@@ -794,15 +835,15 @@ Sharjah Education Council
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  final canSubmit = _trySubmit();
-                                  if (canSubmit) {
+                                  // final canSubmit = _trySubmit();
+
                                     Navigator.of(context).pop();
                                     _writeTotalSalary(
                                       employeeDetails: employeeDetails,
-                                      fields: totalSalaryFields,
+                                      fields: totalSalaryFields,companyDetails:companyDetails
                                     );
                                     await _savePdf();
-                                  }
+
                                 },
                                 child: Container(
                                   height: 30,
@@ -842,7 +883,7 @@ Sharjah Education Council
 
   }
 
-   _withoutSalaryForm({required UserModel employeeDetails}) {
+   _withoutSalaryForm({required UserModel employeeDetails,companyDetails}) {
 
     return     Get.defaultDialog(
         title: 'Details',
@@ -873,14 +914,23 @@ Sharjah Education Council
                       child: Column(
                         children: [
                           buildGoldenTextfield('M.B./...../.....', (value){
-                            detailedSalaryFields
-                                .addAll({'certificateNumber': value!});
+                            setState1((){
+                              withoutSalaryFields
+                                  .addAll({'certificateNumber': value!});
+                            });
+
                           }),
                           buildGoldenTextfield('Nationality', (value){
-                            withoutSalaryFields.addAll({'nationality': value!});
+                            setState1((){
+                              withoutSalaryFields.addAll({'nationality': value!});
+                            });
+
                           }),
                           buildGoldenTextfield('To present', (value){
-                            withoutSalaryFields.addAll({'toPresent': value!});
+                            setState1((){
+                              withoutSalaryFields.addAll({'toPresent': value!});
+                            });
+
                           }),
                           SizedBox(height: 15),
                           Row(
@@ -888,15 +938,15 @@ Sharjah Education Council
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  final canSubmit = _trySubmit();
-                                  if (canSubmit) {
-                                    Navigator.of(context).pop();
+                                  // final canSubmit = _trySubmit();
+
+
                                     _writeWithoutSalary(
                                       employeeDetails: employeeDetails,
-                                      fields: withoutSalaryFields,
+                                      fields: withoutSalaryFields,companyDetails:companyDetails
                                     );
                                     await _savePdf();
-                                  }
+                                    Navigator.of(context).pop();
                                 },
                                 child: Container(
                                   height: 30,
@@ -987,6 +1037,9 @@ Sharjah Education Council
                 padding: const EdgeInsets.all(8.0),
                 child: _buildCard(
                   onPressedFillDetails: () async {
+              var companyDetails =       await AllApi().getCompanyDetails(companyid: widget.userModel!.companyId);
+
+
                     var employeeDetails = await _allApi.getUserByRefId(
                       refId: widget.servicesList.refid!,
                     );
@@ -995,19 +1048,20 @@ Sharjah Education Council
                         .toLowerCase()
                         .contains('certificate with detailed salary')) {
                       _detailedSalaryForm(
-                        employeeDetails: employeeDetails!,
+                        employeeDetails: employeeDetails!,companyDetails :companyDetails
                       );
                     } else if (widget.servicesList.certificateName!
                         .toLowerCase()
                         .contains('certificate with total salary')) {
                       _totalSalaryForm(
-                        employeeDetails: employeeDetails!,
+                        employeeDetails: employeeDetails!,companyDetails :companyDetails
                       );
                     } else if (widget.servicesList.certificateName!
                         .toLowerCase()
                         .contains('certificate without salary')) {
                       _withoutSalaryForm(
                         employeeDetails: employeeDetails!,
+                        companyDetails :companyDetails
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
