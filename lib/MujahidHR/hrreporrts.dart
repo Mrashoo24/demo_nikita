@@ -559,11 +559,17 @@ class _HRReportState extends State<HRReport> {
               dropDownEmployee.removeWhere((element) => element == null);
               return Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [kGray3, kblack, kGray3,  kblack,],
+                  gradient:LinearGradient(
+                    colors: [
+                      Colors.grey,
+                      Colors.black,
 
+                      Colors.grey,
+                      Colors.black,
+                      //add more colors for gradient
+                    ],
+                    begin: Alignment.topRight, //begin of the gradient color
+                    end: Alignment.bottomLeft,
                   ),
                   // borderRadius: BorderRadius.only(
                   //     bottomRight: Radius.circular(15),

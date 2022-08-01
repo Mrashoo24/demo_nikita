@@ -72,14 +72,19 @@ class _ServicesHRState extends State<ServicesHR> {
             child: Scaffold(
               body: Container(
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        kGray3,
-                        kblack,
-                      ],
-                    )),
+                  gradient:LinearGradient(
+                    colors: [
+                      Colors.grey,
+                      Colors.black,
+
+                      Colors.grey,
+                      Colors.black,
+                      //add more colors for gradient
+                    ],
+                    begin: Alignment.topRight, //begin of the gradient color
+                    end: Alignment.bottomLeft,
+                  ),
+                ),
                 child: Column(
                   children: [
                     SizedBox(height: 10),
@@ -119,10 +124,10 @@ class _ServicesHRState extends State<ServicesHR> {
                                               indicator: BoxDecoration(
                                                 color: kGray2,
                                                 borderRadius: BorderRadius.all(
-                                                    Radius.circular(8)),
+                                                    Radius.circular(5)),
                                                 border: Border.all(
                                                   color: kgolder,
-                                                  width: 2,
+                                                  width: 1,
                                                 ),
                                               ),
                                               tabs: [

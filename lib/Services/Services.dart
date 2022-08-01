@@ -76,7 +76,7 @@ class _ServicesState extends State<Services> {
               ),
             ),
               Container(
-                height: 50,
+                height: 48,
                 decoration: BoxDecoration(
                   gradient:  LinearGradient(
                       begin: Alignment.topCenter,
@@ -88,8 +88,8 @@ class _ServicesState extends State<Services> {
                       ]
                   ),
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight:  Radius.circular(20)
+                      bottomLeft: Radius.circular(18),
+                      bottomRight:  Radius.circular(18)
                   ),
                 ),
                 child: TabBar(
@@ -97,7 +97,7 @@ class _ServicesState extends State<Services> {
                   indicator: BoxDecoration(
                       color: kgolder,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: kblack,width: 3)
+                      border: Border.all(color: kblack,width: 1)
                   ),
                   unselectedLabelColor: kgolder,
                   tabs: [
@@ -156,8 +156,10 @@ class _ServicesState extends State<Services> {
                                 image: DecorationImage(
                                   image: AssetImage("assets/bg.jpg"),
                                   fit: BoxFit.cover
-                                )
+                                ),
+
                               ),
+
                             ),
                             Container(
                               margin: EdgeInsets.all(8),
@@ -167,7 +169,7 @@ class _ServicesState extends State<Services> {
                                   borderRadius: BorderRadius.all(
                                       Radius.circular(10)
                                   ),
-                                  border: Border.all(color: kblack,width: 2)
+                                  border: Border.all(color: kblack,width: 1)
                               ),
                               child: TabBar(
                                 padding: EdgeInsets.all(2),

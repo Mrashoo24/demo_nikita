@@ -34,8 +34,9 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
       constraints: BoxConstraints(maxWidth: Get.width*0.5),
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
 
+
       child: Card(
-        color: isMe ? Colors.black.withOpacity(0.6) : kgolder,
+        color: isMe ? Colors.black.withOpacity(0.6) : Colors.transparent,
 
         shape: isMe
             ?
@@ -61,6 +62,21 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
         ),
         child: Container(
           padding: const EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            gradient:LinearGradient(
+              colors: [
+                kgradientYellow,
+                kdarkyellow,
+
+                kgradientYellow,
+                kdarkyellow,
+                //add more colors for gradient
+              ],
+              begin: Alignment.topRight, //begin of the gradient color
+              end: Alignment.bottomLeft,
+            ),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30),bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30))
+          ),
 
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -70,14 +86,14 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
                 text,
                 style:  TextStyle(
                     fontSize: 17,
-                    color: isMe ? kgolder : Colors.black
+                    color: isMe ? Colors.black : Colors.black
                 ),
               ),
               Text(
                 timeStamp,
                 style:  TextStyle(
                     fontSize: 12,
-                    color: isMe ? kgolder : Colors.black
+                    color: isMe ? Colors.black : Colors.black
                 ),
               ),
             ],

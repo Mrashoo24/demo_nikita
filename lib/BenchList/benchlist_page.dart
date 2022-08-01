@@ -70,30 +70,31 @@ class _BenchListState extends State<BenchList> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
 
-                    DropdownSearch(
-                      emptyBuilder: (context, searchEntry) => Center(
-                        child: Text(
-                          "No results found for '$searchEntry'",
-                        ),
-                      ),
-                      mode: Mode.MENU,
-                      items: employeeList.map((e) => e.name).toList(),
-                      showSearchBox: true,
-                      // onChanged: (value) {
-                      //   setState(() {
-                      //     _employeeName = (value as String?)! ;
-                      //   });
-                      // },
-                      onChanged: (String? data) => setState((){
-                        _employeeName = data!;
-                      }),
+                    // DropdownSearch(
+                    //   emptyBuilder: (context, searchEntry) => Center(
+                    //     child: Text(
+                    //       "No results found for '$searchEntry'",
+                    //     ),
+                    //   ),
+                    //   mode: Mode.MENU,
+                    //   items: employeeList.map((e) => e.name).toList(),
+                    //   showSearchBox: true,
+                    //   // onChanged: (value) {
+                    //   //   setState(() {
+                    //   //     _employeeName = (value as String?)! ;
+                    //   //   });
+                    //   // },
+                    //   onChanged: (String? data) => setState((){
+                    //     _employeeName = data!;
+                    //   }),
+                    //
+                    //   selectedItem: _employeeName,
+                    //   dropdownSearchDecoration:  InputDecoration(
+                    //     label: Text('Select Employee'),
+                    //     // icon: Image.asset('assets/Images/employee.png',width: 40,height: 40,),
+                    //   ),
+                    // ),
 
-                      selectedItem: _employeeName,
-                      dropdownSearchDecoration:  InputDecoration(
-                        label: Text('Select Employee'),
-                        // icon: Image.asset('assets/Images/employee.png',width: 40,height: 40,),
-                      ),
-                    ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.15,

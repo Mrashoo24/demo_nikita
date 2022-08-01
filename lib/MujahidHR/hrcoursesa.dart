@@ -111,69 +111,145 @@ class _HRCoursesState extends State<HRCourses> {
                             ),
                           );
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [kgradientYellow, kgolder2]),
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              border: Border.all(
-                                color: kgolder,
-                                width: 2,
-                              )),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            contentPadding: const EdgeInsets.all(12.0),
-                            trailing: IconButton(
-                              onPressed: () {
-                                _deleteCourse(
-                                  coursesList: coursesList,
-                                  index: index,
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.delete,
-                                color: kblack,
-                              ),
-                            ),
-                            title: Text(
-                              coursesList[index]!.title!,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [kgradientYellow, kgolder2]),
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                border: Border.all(
+                                  color: kgolder,
+                                  width: 2,
+                                )),
+                            child: Column(
                               children: [
-                                Text(
-                                  "Time: ${coursesList[index].date}",
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "Venue: ${coursesList[index].venue}",
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                FutureBuilder<List<CoursesModel>?>(
-                                  future: AllApi().getCoursesDetails(
-                                    companyid: widget.userModel.companyId!,
-                                    courseId: coursesList[index].courseId!,
+
+                                ListTile(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
-                                  builder: (context, snapshot1) {
-                                    if (!snapshot1.hasData) {
-                                      return kprogressbar;
-                                    }
-                                    List<CoursesModel> empList =
-                                        snapshot1.requireData!;
-                                    return Text(
-                                      "Total Employees Registered: ${empList.length}",
-                                    );
-                                  },
+                                  contentPadding: const EdgeInsets.only(left: 8.0,right: 8,bottom: 8),
+                                  // trailing: IconButton(
+                                  //   onPressed: () {
+                                  //     _deleteCourse(
+                                  //       coursesList: coursesList,
+                                  //       index: index,
+                                  //     );
+                                  //   },
+                                  //   icon: const Icon(
+                                  //     Icons.delete,
+                                  //     color: kblack,
+                                  //   ),
+                                  // ),
+                                  // title: Container(
+                                  //   width: Get.width,
+                                  //   decoration: BoxDecoration(
+                                  //       borderRadius:
+                                  //       BorderRadius.all(Radius.circular(8)),
+                                  //       gradient:
+                                  //       LinearGradient(colors: [kGray3, kblack]),
+                                  //       border: Border.all(
+                                  //         color: kgolder,
+                                  //         width: 2,
+                                  //       )),
+                                  //
+                                  //
+                                  //   child: Padding(
+                                  //     padding:   EdgeInsets.all(7.0),
+                                  //     child: Text(
+                                  //       coursesList[index]!.title!,
+                                  //       style:   TextStyle(
+                                  //         fontSize: 20,
+                                  //         fontWeight: FontWeight.bold,
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  subtitle: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: Get.width,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(8)),
+                                            gradient:
+                                            LinearGradient(colors: [kGray3, kblack]),
+                                            border: Border.all(
+                                              color: kgolder,
+                                              width: 2,
+                                            )),
+
+
+                                        child: Padding(
+                                          padding:   EdgeInsets.all(7.0),
+                                          child: Text(
+                                            coursesList[index]!.title!,
+                                            style:   TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: kgolder
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Time: ${coursesList[index].date}",
+                                             style: TextStyle(
+                                          color: kblack,
+                                          fontWeight: FontWeight.bold),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              _deleteCourse(
+                                                coursesList: coursesList,
+                                                index: index,
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              Icons.delete,
+                                              color: kblack,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      // const SizedBox(
+                                      //   height: 5,
+                                      // ),
+                                      Text(
+                                        "Venue: ${coursesList[index].venue}",
+                                        style: TextStyle(
+                                            color: kblack,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      FutureBuilder<List<CoursesModel>?>(
+                                        future: AllApi().getCoursesDetails(
+                                          companyid: widget.userModel.companyId!,
+                                          courseId: coursesList[index].courseId!,
+                                        ),
+                                        builder: (context, snapshot1) {
+                                          if (!snapshot1.hasData) {
+                                            return kprogressbar;
+                                          }
+                                          List<CoursesModel> empList =
+                                              snapshot1.requireData!;
+                                          return Text(
+                                            "Total Employees Registered: ${empList.length}",
+                                            style: TextStyle(
+                                                color: kblack,
+                                                fontWeight: FontWeight.bold),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -262,6 +338,7 @@ class _HRCoursesState extends State<HRCourses> {
                     },
                   ),
                 ),
+                SizedBox(height: 10,),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 80.0),
                   child: ListView.builder(
@@ -285,98 +362,135 @@ class _HRCoursesState extends State<HRCourses> {
                               ),
                             );
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  kgolder2,
-                                  kgradientYellow,
-                                  kgolder2
-                                ]),
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(8)),
-                                border: Border.all(
-                                  color: kblack,
-                                  width: 2,
-                                )),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              contentPadding: const EdgeInsets.all(12.0),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  _deleteCourse(
-                                    coursesList: _completedCourses!,
-                                    index: index,
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: kblack,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    kgolder2,
+                                    kgradientYellow,
+                                    kgolder2
+                                  ]),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(8)),
+                                  border: Border.all(
+                                    color: kblack,
+                                    width: 2,
+                                  )),
+                              child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
-                              ),
-                              title: Text(
-                                _completedCourses![index].title!,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Time: ${_completedCourses![index].date!}",
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    "Venue: ${_completedCourses![index].venue!}",
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  FutureBuilder<List<CoursesModel>?>(
-                                    future: AllApi().getCoursesDetails(
-                                      companyid: widget.userModel.companyId!,
-                                      courseId:
-                                      _completedCourses![index].courseId!,
+                                contentPadding: const EdgeInsets.only(left: 8.0,right: 8,bottom: 8),
+                                 subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width : Get.width,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(8)),
+                                          gradient:
+                                          LinearGradient(colors: [kGray3, kblack]),
+                                          border: Border.all(
+                                            color: kgolder,
+                                            width: 2,
+                                          )),
+                                      child: Padding(
+                                        padding:   EdgeInsets.all(7.0),
+                                        child: Text(
+                                          _completedCourses![index].title!,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: kgolder
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    builder: (context, snapshot1) {
-                                      if (!snapshot1.hasData) {
-                                        return kprogressbar;
-                                      }
-                                      List<CoursesModel> empList =
-                                          snapshot1.requireData!;
-                                      var presentCount = 0;
-                                      var absentCount = 0;
-                                      for (int i = 0; i < empList.length; i++) {
-                                        if (empList[i].checkin != "") {
-                                          presentCount++;
-                                        } else {
-                                          absentCount++;
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Time: ${_completedCourses![index].date!}",
+                                          style: TextStyle(
+                                              color: kblack,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            _deleteCourse(
+                                              coursesList: _completedCourses!,
+                                              index: index,
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: kblack,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    Text(
+                                      "Venue: ${_completedCourses![index].venue!}",
+                                      style: TextStyle(
+                                          color: kblack,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    // const SizedBox(
+                                    //   height: 5,
+                                    // ),
+                                    FutureBuilder<List<CoursesModel>?>(
+                                      future: AllApi().getCoursesDetails(
+                                        companyid: widget.userModel.companyId!,
+                                        courseId:
+                                        _completedCourses![index].courseId!,
+                                      ),
+                                      builder: (context, snapshot1) {
+                                        if (!snapshot1.hasData) {
+                                          return kprogressbar;
                                         }
-                                      }
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Total Employees Registered: ${empList.length}",
-                                          ),
-                                          Text(
-                                            "Total Employees Present: $presentCount",
-                                          ),
-                                          Text(
-                                            "Total Employees Absent: $absentCount",
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ],
+                                        List<CoursesModel> empList =
+                                            snapshot1.requireData!;
+                                        var presentCount = 0;
+                                        var absentCount = 0;
+                                        for (int i = 0; i < empList.length; i++) {
+                                          if (empList[i].checkin != "") {
+                                            presentCount++;
+                                          } else {
+                                            absentCount++;
+                                          }
+                                        }
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Total Employees Registered: ${empList.length}",
+                                              style: TextStyle(
+                                                  color: kblack,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Total Employees Present: $presentCount",
+                                              style: TextStyle(
+                                                  color: kblack,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Total Employees Absent: $absentCount",
+                                              style: TextStyle(
+                                                  color: kblack,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -387,6 +501,7 @@ class _HRCoursesState extends State<HRCourses> {
                     },
                   ),
                 ),
+
               ],
             ),
           );
@@ -445,14 +560,19 @@ class _HRCoursesState extends State<HRCourses> {
 
                   body: Container(
                     decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [
-                            kGray3,
-                            kblack,
-                          ],
-                        )),
+                      gradient:LinearGradient(
+                        colors: [
+                          Colors.grey,
+                          Colors.black,
+
+                          Colors.grey,
+                          Colors.black,
+                          //add more colors for gradient
+                        ],
+                        begin: Alignment.topRight, //begin of the gradient color
+                        end: Alignment.bottomLeft,
+                      ),
+                    ),
                     child: Column(
                       children: [
                         SizedBox(height: 10),
@@ -494,7 +614,7 @@ class _HRCoursesState extends State<HRCourses> {
                                                 Radius.circular(8)),
                                             border: Border.all(
                                               color: kgolder,
-                                              width: 2,
+                                              width: 1,
                                             ),
                                           ),
                                           tabs: [
@@ -535,6 +655,7 @@ class _HRCoursesState extends State<HRCourses> {
                                       child: TabBarView(
                                         children: [
                                           _upcomingCoursesList(),
+
                                           _completedCoursesList(),
                                         ],
                                       ),
@@ -551,13 +672,30 @@ class _HRCoursesState extends State<HRCourses> {
                 ),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(
-                Icons.add,
-                color: kblack,
+            floatingActionButton: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient:LinearGradient(
+                  colors: [
+
+                    kgolder,
+                    kgradientYellow,
+                    kgolder,
+                    kgradientYellow
+                    //add more colors for gradient
+                  ],
+                  begin: Alignment.topRight, //begin of the gradient color
+                  end: Alignment.bottomLeft,
+                ),
               ),
-              backgroundColor: kgolder2,
-              onPressed: _addCourse,
+              child: FloatingActionButton(
+                child: Icon(
+                  Icons.add,
+                  color: kblack,
+                ),
+                backgroundColor: Colors.transparent,
+                onPressed: _addCourse,
+              ),
             ),
           ),
         ),
@@ -599,9 +737,11 @@ class _HRCoursesState extends State<HRCourses> {
                           buildGoldenTextfield('Venue', (value){
                             _title = value;
                           }),
+
                           buildGoldenTextfield('Description', (value){
                             _venue = value;
-                          }),
+                          }
+                          ),
 
                           InkWell(
                             child: Container(
@@ -730,10 +870,12 @@ class _HRCoursesState extends State<HRCourses> {
 
   }
 
-  void _deleteCourse({
+  void _deleteCourse(
+      {
     required List<CoursesModel> coursesList,
     required int index,
-  }) {
+  }
+  ) {
     bool _isLoading = false;
     showDialog(
       barrierDismissible: false,

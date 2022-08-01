@@ -57,12 +57,6 @@ class _AnnouncementState extends State<Announcement> {
             Colors.black,
             //add more colors for gradient
           ],
-          stops: [
-            0.2,
-            0.8,
-            0.4,
-            0.2
-          ],
           begin: Alignment.topRight, //begin of the gradient color
           end: Alignment.bottomLeft,
         ),

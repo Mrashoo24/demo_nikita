@@ -596,7 +596,8 @@ ${companyDetails['cname']}
                             ),
                             onPressed: onPressedSend,
                           ) : SizedBox.shrink(),
-                        ],
+
+                         ],
                       ),
           ],
         ),
@@ -987,128 +988,130 @@ ${companyDetails['cname']}
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              kGray3,
-              kblack,
-            ],
-          )),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Icon(Icons.arrow_back, color: kblack),
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                kGray3,
+                kblack,
+              ],
+            )),
+        child: Scaffold(
+          appBar: AppBar(
+            leading: InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Icon(Icons.arrow_back, color: kblack),
+              ),
             ),
-          ),
-          leadingWidth: 25,
-          title: Text(
-            widget.servicesList.empname!,
-            style: TextStyle(
-                color: kblack, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(15),
-                  bottomLeft: Radius.circular(15))),
-          toolbarHeight: 55,
-          backgroundColor: kgolder2,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [kgolder2, kgradientYellow, kgolder2]),
+            leadingWidth: 25,
+            title: Text(
+              widget.servicesList.empname!,
+              style: TextStyle(
+                  color: kblack, fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(15),
                     bottomLeft: Radius.circular(15))),
+            toolbarHeight: 55,
+            backgroundColor: kgolder2,
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [kgolder2, kgradientYellow, kgolder2]),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15))),
+            ),
           ),
-        ),
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: _buildCard(
-                  onPressedFillDetails: () async {
-              var companyDetails =       await AllApi().getCompanyDetails(companyid: widget.userModel!.companyId);
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildCard(
+                    onPressedFillDetails: () async {
+                var companyDetails =       await AllApi().getCompanyDetails(companyid: widget.userModel!.companyId);
 
 
-                    var employeeDetails = await _allApi.getUserByRefId(
-                      refId: widget.servicesList.refid!,
-                    );
+                      var employeeDetails = await _allApi.getUserByRefId(
+                        refId: widget.servicesList.refid!,
+                      );
 
-                    if (widget.servicesList.certificateName!
-                        .toLowerCase()
-                        .contains('certificate with detailed salary')) {
-                      _detailedSalaryForm(
-                        employeeDetails: employeeDetails!,companyDetails :companyDetails
-                      );
-                    } else if (widget.servicesList.certificateName!
-                        .toLowerCase()
-                        .contains('certificate with total salary')) {
-                      _totalSalaryForm(
-                        employeeDetails: employeeDetails!,companyDetails :companyDetails
-                      );
-                    } else if (widget.servicesList.certificateName!
-                        .toLowerCase()
-                        .contains('certificate without salary')) {
-                      _withoutSalaryForm(
-                        employeeDetails: employeeDetails!,
-                        companyDetails :companyDetails
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            '''
+                      if (widget.servicesList.certificateName!
+                          .toLowerCase()
+                          .contains('certificate with detailed salary')) {
+                        _detailedSalaryForm(
+                          employeeDetails: employeeDetails!,companyDetails :companyDetails
+                        );
+                      } else if (widget.servicesList.certificateName!
+                          .toLowerCase()
+                          .contains('certificate with total salary')) {
+                        _totalSalaryForm(
+                          employeeDetails: employeeDetails!,companyDetails :companyDetails
+                        );
+                      } else if (widget.servicesList.certificateName!
+                          .toLowerCase()
+                          .contains('certificate without salary')) {
+                        _withoutSalaryForm(
+                          employeeDetails: employeeDetails!,
+                          companyDetails :companyDetails
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              '''
 No template has been provided for the requested certificate.''',
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                  },
-                  onPressedSend: _certificate != null
-                      ? () async {
-                          if (_certificate != null) {
-                            var result = await _allApi.setFile(_certificate!);
+                        );
+                      }
+                    },
+                    onPressedSend: _certificate != null
+                        ? () async {
+                            if (_certificate != null) {
+                              var result = await _allApi.setFile(_certificate!);
 
-                            var documentNameSent =
-                                await _allApi.putCertificateName(
-                              companyId: widget.userModel.companyId!,
-                              refId: widget.servicesList.refid!,
-                              fileName: _fileName!,date: widget.servicesList.date,certificatename: widget.servicesList.certificateName
-                            );
+                              var documentNameSent =
+                                  await _allApi.putCertificateName(
+                                companyId: widget.userModel.companyId!,
+                                refId: widget.servicesList.refid!,
+                                fileName: _fileName!,date: widget.servicesList.date,certificatename: widget.servicesList.certificateName
+                              );
 
-                            if (documentNameSent == 'updated' &&
-                                result == '1') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Document Sent.'),
-                                ),
-                              );
-                              setState(() {
-                                sent = true;
-                              });
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Failed to send document.'),
-                                ),
-                              );
+                              if (documentNameSent == 'updated' &&
+                                  result == '1') {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Document Sent.'),
+                                  ),
+                                );
+                                setState(() {
+                                  sent = true;
+                                });
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Failed to send document.'),
+                                  ),
+                                );
+                              }
                             }
                           }
-                        }
-                      : null,
+                        : null,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
