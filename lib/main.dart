@@ -31,6 +31,7 @@ import 'Related sites/related_sites.dart';
 import 'Services/Services.dart';
 import 'mannan HR screen/hrservies.dart';
 import 'MujahidHR/services2.dart';
+import 'mjumattermos.dart';
 
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -175,7 +176,7 @@ class _MyAppState extends State<MyApp> {
         )
 
       ),
-      home: SplashScreeen(),
+      home:SplashScreeen(),
      builder: (context, child) {
       return MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

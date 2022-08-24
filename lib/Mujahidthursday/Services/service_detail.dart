@@ -38,7 +38,7 @@ class _ServiceDetailsHRState extends State<ServiceDetailsHR> {
   Map<String, String> withoutSalaryFields = {};
   bool sent = false;
   //
-   Dio? dio = Dio();
+  Dio? dio = Dio();
   bool isloadingfile = false;
   Directory? directory;
 
@@ -518,87 +518,87 @@ ${companyDetails['cname']}
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             widget.servicesList.fileName == '' ||
-                    widget.servicesList.fileName != null
+                widget.servicesList.fileName != null
                 ? InkWell(
-                    onTap: () async {
-                      await viewPDF(
-                          'http://faizeetech.com/pdf/${widget.servicesList.fileName}',
-                          '${widget.servicesList.fileName}');
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          "View PDF 1",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      color: kgolder2,
-                    ),
-                  )
+              onTap: () async {
+                await viewPDF(
+                    'http://faizeetech.com/pdf/${widget.servicesList.fileName}',
+                    '${widget.servicesList.fileName}');
+              },
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "View PDF 1",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                color: kgolder2,
+              ),
+            )
                 : sent
-                    ? InkWell(
-                        onTap: () async {
-                          await viewPDF(
-                              'http://faizeetech.com/pdf/${widget.servicesList.fileName}',
-                              '${widget.servicesList.fileName}');
-                        },
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text("View PDF 3",
-                                style: TextStyle(color: Colors.white)),
-                          ),
-                          color: kgolder2,
-                        ),
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: onPressedFillDetails,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(10)),
-                                  color: kGray2,
-                                  border: Border.all(
-                                    color: kblack,
-                                    width: 2,
-                                  )),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: const Text(
-                                  'Fill Details',
-                                  style: TextStyle(fontSize: 18,color: kgolder2),
-                                ),
-                              ),
-                            ),
-                          ),
-                          _certificate != null ?   ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(kgolder2),
-                              shape: MaterialStateProperty.all(
-                                const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: const Text(
-                                'Send',
-                                style: TextStyle(fontSize: 18,color: kblack),
-                              ),
-                            ),
-                            onPressed: onPressedSend,
-                          ) : SizedBox.shrink(),
-
-                         ],
+                ? InkWell(
+              onTap: () async {
+                await viewPDF(
+                    'http://faizeetech.com/pdf/${widget.servicesList.fileName}',
+                    '${widget.servicesList.fileName}');
+              },
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text("View PDF 3",
+                      style: TextStyle(color: Colors.white)),
+                ),
+                color: kgolder2,
+              ),
+            )
+                : Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: onPressedFillDetails,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(10)),
+                        color: kGray2,
+                        border: Border.all(
+                          color: kblack,
+                          width: 2,
+                        )),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: const Text(
+                        'Fill Details',
+                        style: TextStyle(fontSize: 18,color: kgolder2),
                       ),
+                    ),
+                  ),
+                ),
+                _certificate != null ?   ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all(kgolder2),
+                    shape: MaterialStateProperty.all(
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Text(
+                      'Send',
+                      style: TextStyle(fontSize: 18,color: kblack),
+                    ),
+                  ),
+                  onPressed: onPressedSend,
+                ) : SizedBox.shrink(),
+
+              ],
+            ),
           ],
         ),
       ),
@@ -727,7 +727,7 @@ ${companyDetails['cname']}
                             setState1((){
                               detailedSalaryFields
                                   .addAll({'toPresent': value!});                      });
-                          
+
                           }),
 
                           // buildGoldenTextfield('To present', (value){
@@ -745,13 +745,13 @@ ${companyDetails['cname']}
                                 onTap: () async {
                                   // final canSubmit = _trySubmit();
 
-                                    Navigator.of(context).pop();
-                                    _writeDetailedSalary(
+                                  Navigator.of(context).pop();
+                                  _writeDetailedSalary(
                                       employeeDetails: employeeDetails,
                                       fields: detailedSalaryFields,companyDetails:companyDetails
-                                    );
-                                    await _savePdf();
-                                    print('file = $_certificate');
+                                  );
+                                  await _savePdf();
+                                  print('file = $_certificate');
 
                                 },
                                 child: Container(
@@ -791,7 +791,7 @@ ${companyDetails['cname']}
 
   }
 
-   _totalSalaryForm({required UserModel employeeDetails,companyDetails}) {
+  _totalSalaryForm({required UserModel employeeDetails,companyDetails}) {
     return     Get.defaultDialog(
         title: 'Details',
 
@@ -838,12 +838,12 @@ ${companyDetails['cname']}
                                 onTap: () async {
                                   // final canSubmit = _trySubmit();
 
-                                    Navigator.of(context).pop();
-                                    _writeTotalSalary(
+                                  Navigator.of(context).pop();
+                                  _writeTotalSalary(
                                       employeeDetails: employeeDetails,
                                       fields: totalSalaryFields,companyDetails:companyDetails
-                                    );
-                                    await _savePdf();
+                                  );
+                                  await _savePdf();
 
                                 },
                                 child: Container(
@@ -884,7 +884,7 @@ ${companyDetails['cname']}
 
   }
 
-   _withoutSalaryForm({required UserModel employeeDetails,companyDetails}) {
+  _withoutSalaryForm({required UserModel employeeDetails,companyDetails}) {
 
     return     Get.defaultDialog(
         title: 'Details',
@@ -942,12 +942,12 @@ ${companyDetails['cname']}
                                   // final canSubmit = _trySubmit();
 
 
-                                    _writeWithoutSalary(
+                                  _writeWithoutSalary(
                                       employeeDetails: employeeDetails,
                                       fields: withoutSalaryFields,companyDetails:companyDetails
-                                    );
-                                    await _savePdf();
-                                    Navigator.of(context).pop();
+                                  );
+                                  await _savePdf();
+                                  Navigator.of(context).pop();
                                 },
                                 child: Container(
                                   height: 30,
@@ -1039,7 +1039,7 @@ ${companyDetails['cname']}
                   padding: const EdgeInsets.all(8.0),
                   child: _buildCard(
                     onPressedFillDetails: () async {
-                var companyDetails =       await AllApi().getCompanyDetails(companyid: widget.userModel!.companyId);
+                      var companyDetails =       await AllApi().getCompanyDetails(companyid: widget.userModel!.companyId);
 
 
                       var employeeDetails = await _allApi.getUserByRefId(
@@ -1050,20 +1050,20 @@ ${companyDetails['cname']}
                           .toLowerCase()
                           .contains('certificate with detailed salary')) {
                         _detailedSalaryForm(
-                          employeeDetails: employeeDetails!,companyDetails :companyDetails
+                            employeeDetails: employeeDetails!,companyDetails :companyDetails
                         );
                       } else if (widget.servicesList.certificateName!
                           .toLowerCase()
                           .contains('certificate with total salary')) {
                         _totalSalaryForm(
-                          employeeDetails: employeeDetails!,companyDetails :companyDetails
+                            employeeDetails: employeeDetails!,companyDetails :companyDetails
                         );
                       } else if (widget.servicesList.certificateName!
                           .toLowerCase()
                           .contains('certificate without salary')) {
                         _withoutSalaryForm(
-                          employeeDetails: employeeDetails!,
-                          companyDetails :companyDetails
+                            employeeDetails: employeeDetails!,
+                            companyDetails :companyDetails
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -1078,35 +1078,35 @@ No template has been provided for the requested certificate.''',
                     },
                     onPressedSend: _certificate != null
                         ? () async {
-                            if (_certificate != null) {
-                              var result = await _allApi.setFile(_certificate!);
+                      if (_certificate != null) {
+                        var result = await _allApi.setFile(_certificate!);
 
-                              var documentNameSent =
-                                  await _allApi.putCertificateName(
-                                companyId: widget.userModel.companyId!,
-                                refId: widget.servicesList.refid!,
-                                fileName: _fileName!,date: widget.servicesList.date,certificatename: widget.servicesList.certificateName
-                              );
+                        var documentNameSent =
+                        await _allApi.putCertificateName(
+                            companyId: widget.userModel.companyId!,
+                            refId: widget.servicesList.refid!,
+                            fileName: _fileName!,date: widget.servicesList.date,certificatename: widget.servicesList.certificateName
+                        );
 
-                              if (documentNameSent == 'updated' &&
-                                  result == '1') {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Document Sent.'),
-                                  ),
-                                );
-                                setState(() {
-                                  sent = true;
-                                });
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Failed to send document.'),
-                                  ),
-                                );
-                              }
-                            }
-                          }
+                        if (documentNameSent == 'updated' &&
+                            result == '1') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Document Sent.'),
+                            ),
+                          );
+                          setState(() {
+                            sent = true;
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Failed to send document.'),
+                            ),
+                          );
+                        }
+                      }
+                    }
                         : null,
                   ),
                 ),

@@ -25,11 +25,7 @@ class _HREnquiryState extends State<HREnquiry> {
         decoration: BoxDecoration(
           gradient:LinearGradient(
             colors: [
-              Colors.grey,
-              Colors.black,
-
-              Colors.grey,
-              Colors.black,
+              kGray3, kblack, kGray3,  kblack,
               //add more colors for gradient
             ],
             begin: Alignment.topRight, //begin of the gradient color

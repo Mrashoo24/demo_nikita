@@ -49,8 +49,9 @@ class _HRCoursesState extends State<HRCourses> {
         } else {
           return ListView(
             children: [
+
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(left: 20.0,right: 20),
                 child: TextFormField(
                   style: TextStyle(color: kgolder2),
 
@@ -215,6 +216,7 @@ class _HRCoursesState extends State<HRCourses> {
                                               color: kblack,
                                             ),
                                           ),
+
                                         ],
                                       ),
                                       // const SizedBox(
@@ -302,7 +304,7 @@ class _HRCoursesState extends State<HRCourses> {
             child: ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(left: 20.0,right: 20),
                   child: TextFormField(
                     style: TextStyle(color: kgolder2),
                     decoration: const InputDecoration(
@@ -397,46 +399,80 @@ class _HRCoursesState extends State<HRCourses> {
                                             width: 2,
                                           )),
                                       child: Padding(
-                                        padding:   EdgeInsets.all(7.0),
-                                        child: Text(
-                                          _completedCourses![index].title!,
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: kgolder
-                                          ),
+                                        padding:   EdgeInsets.only(left: 7.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              _completedCourses![index].title!,
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                // fontWeight: FontWeight.bold,
+                                                color: kgolder
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () {
+                                                _deleteCourse(
+                                                  coursesList: _completedCourses!,
+                                                  index: index,
+                                                );
+                                              },
+                                              icon: const Icon(
+                                                Icons.delete,
+                                                color: kgolder,size: 20,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
+                                    SizedBox(height: 15),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Time: ${_completedCourses![index].date!}",
+                                          "Time: ",
+                                          style: TextStyle(
+                                              color: kblack,
+                                              fontWeight: FontWeight.bold
+                                          ),
+                                        ),Text(
+                                          "${_completedCourses![index].date!}",
                                           style: TextStyle(
                                               color: kblack,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        IconButton(
-                                          onPressed: () {
-                                            _deleteCourse(
-                                              coursesList: _completedCourses!,
-                                              index: index,
-                                            );
-                                          },
-                                          icon: const Icon(
-                                            Icons.delete,
-                                            color: kblack,
-                                          ),
-                                        ),
+                                        // IconButton(
+                                        //   onPressed: () {
+                                        //     _deleteCourse(
+                                        //       coursesList: _completedCourses!,
+                                        //       index: index,
+                                        //     );
+                                        //   },
+                                        //   icon: const Icon(
+                                        //     Icons.delete,
+                                        //     color: kblack,
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
 
-                                    Text(
-                                      "Venue: ${_completedCourses![index].venue!}",
-                                      style: TextStyle(
-                                          color: kblack,
-                                          fontWeight: FontWeight.bold),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Venue: ",
+                                          style: TextStyle(
+                                              color: kblack,
+                                              fontWeight: FontWeight.bold),
+                                        ), Text(
+                                          "${_completedCourses![index].venue!}",
+                                          style: TextStyle(
+                                              color: kblack,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
                                     ),
                                     // const SizedBox(
                                     //   height: 5,
@@ -467,23 +503,53 @@ class _HRCoursesState extends State<HRCourses> {
                                           crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              "Total Employees Registered: ${empList.length}",
-                                              style: TextStyle(
-                                                  color: kblack,
-                                                  fontWeight: FontWeight.bold),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Total Employees Registered: ",
+                                                  style: TextStyle(
+                                                      color: kblack,
+                                                      fontWeight: FontWeight.bold),
+                                                ), Text(
+                                                  "${empList.length}",
+                                                  style: TextStyle(
+                                                      color: kblack,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              "Total Employees Present: $presentCount",
-                                              style: TextStyle(
-                                                  color: kblack,
-                                                  fontWeight: FontWeight.bold),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Total Employees Present: ",
+                                                  style: TextStyle(
+                                                      color: kblack,
+                                                      fontWeight: FontWeight.bold),
+                                                ),Text(
+                                                  "$presentCount",
+                                                  style: TextStyle(
+                                                      color: kblack,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              "Total Employees Absent: $absentCount",
-                                              style: TextStyle(
-                                                  color: kblack,
-                                                  fontWeight: FontWeight.bold),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Total Employees Absent: ",
+                                                  style: TextStyle(
+                                                      color: kblack,
+                                                      fontWeight: FontWeight.bold),
+                                                ), Text(
+                                                  "$absentCount",
+                                                  style: TextStyle(
+                                                      color: kblack,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         );
@@ -562,11 +628,7 @@ class _HRCoursesState extends State<HRCourses> {
                     decoration: BoxDecoration(
                       gradient:LinearGradient(
                         colors: [
-                          Colors.grey,
-                          Colors.black,
-
-                          Colors.grey,
-                          Colors.black,
+                          kGray3, kblack, kGray3,  kblack,
                           //add more colors for gradient
                         ],
                         begin: Alignment.topRight, //begin of the gradient color
@@ -646,9 +708,9 @@ class _HRCoursesState extends State<HRCourses> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
+                                  // SizedBox(
+                                  //   height: 1,
+                                  // ),
 
                                   Container(
                                     child: Expanded(
@@ -678,14 +740,11 @@ class _HRCoursesState extends State<HRCourses> {
                 gradient:LinearGradient(
                   colors: [
 
-                    kgolder,
-                    kgradientYellow,
-                    kgolder,
-                    kgradientYellow
+                    kgolder2, kgradientYellow, kgolder2
                     //add more colors for gradient
                   ],
-                  begin: Alignment.topRight, //begin of the gradient color
-                  end: Alignment.bottomLeft,
+                  // begin: Alignment.topRight, //begin of the gradient color
+                  // end: Alignment.bottomLeft,
                 ),
               ),
               child: FloatingActionButton(
@@ -776,7 +835,7 @@ class _HRCoursesState extends State<HRCourses> {
                             onTap: () async {
                               DatePicker.showDateTimePicker(
                                 context,
-                                theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+                                theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black),itemStyle: TextStyle(color: Colors.black) ),
                                 showTitleActions: true,
                                 minTime: DateTime.now(),
                                 maxTime: DateTime(2050, 6, 7),

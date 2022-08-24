@@ -71,11 +71,7 @@ class _HRDassboardState extends State<HRDassboard> {
                 decoration: BoxDecoration(
                   gradient:LinearGradient(
                     colors: [
-                      Colors.grey,
-                      Colors.black,
-
-                      Colors.grey,
-                      Colors.black,
+                      kGray3, kblack, kGray3,  kblack,
                       //add more colors for gradient
                     ],
                     begin: Alignment.topRight, //begin of the gradient color
@@ -109,7 +105,7 @@ class _HRDassboardState extends State<HRDassboard> {
                         ),
                       ),
                       child: Padding(
-                        padding:  EdgeInsets.only(left: 80),
+                        padding:  EdgeInsets.only(left: 145),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -122,7 +118,7 @@ class _HRDassboardState extends State<HRDassboard> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                SizedBox(),
+                                 SizedBox(width: 80,),
                                 Stack(
                                     children:[
                                       Icon(Icons.notifications,size: 30,),
@@ -162,7 +158,7 @@ class _HRDassboardState extends State<HRDassboard> {
                           //set the stops number equal to numbers of color
                         ),
                       ),
-                      child: Center(child: Text("HR",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),)),
+                      child: Center(child: Text("HR",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)),
                     ),
 
                     SizedBox(height: 20),
@@ -180,7 +176,7 @@ class _HRDassboardState extends State<HRDassboard> {
                                 onTap: (){
                                   Get.to(HREnquiry(usermodel: widget.usermodel,));
                                 },
-                                child: buildContainer("assets/icons/enquiry.png","Enquiry")),
+                                child: buildContainer("assets/neewnquiry.png","Enquiry")),
                           ],
                         ),
 

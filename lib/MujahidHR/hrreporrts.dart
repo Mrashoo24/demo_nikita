@@ -561,11 +561,7 @@ class _HRReportState extends State<HRReport> {
                 decoration: BoxDecoration(
                   gradient:LinearGradient(
                     colors: [
-                      Colors.grey,
-                      Colors.black,
-
-                      Colors.grey,
-                      Colors.black,
+                      kGray3, kblack, kGray3,  kblack,
                       //add more colors for gradient
                     ],
                     begin: Alignment.topRight, //begin of the gradient color
@@ -739,7 +735,7 @@ class _HRReportState extends State<HRReport> {
                             onTap: (){
                               DatePicker.showDatePicker(
                                 context,
-                                theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+                                theme:DatePickerTheme(backgroundColor: kgradientYellow,doneStyle: TextStyle(color: Colors.black)),
 
                                 showTitleActions: true,
                                 minTime: DateTime.now()
@@ -824,7 +820,7 @@ class _HRReportState extends State<HRReport> {
                             onTap: (){
                               DatePicker.showDatePicker(
                                 context,
-                                theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+                                theme:DatePickerTheme(backgroundColor: kgradientYellow,doneStyle: TextStyle(color: Colors.black)),
 
                                 showTitleActions: true,
                                 minTime: DateTime.now()

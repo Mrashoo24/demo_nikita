@@ -1,4 +1,5 @@
 import 'package:demo_nikita/Components/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
@@ -23,8 +24,6 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
   var _message = '';
   bool iconsmessage = false;
 
-
-
   Widget _messageBox({
     required String text,
     required bool isMe,
@@ -48,7 +47,8 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
               bottomRight: Radius.circular(30),
             ),
 
-            side: BorderSide(color: kgolder2)
+            side: BorderSide(color: kgolder2),
+
         )
             :  RoundedRectangleBorder(
 
@@ -62,20 +62,32 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
         ),
         child: Container(
           padding: const EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
+          decoration:
+          isMe? BoxDecoration(
             gradient:LinearGradient(
               colors: [
-                kgradientYellow,
-                kdarkyellow,
-
-                kgradientYellow,
-                kdarkyellow,
+                kGray3, kblack, kGray3,  kblack,
                 //add more colors for gradient
               ],
               begin: Alignment.topRight, //begin of the gradient color
               end: Alignment.bottomLeft,
             ),
             borderRadius: BorderRadius.only(topRight: Radius.circular(30),bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30))
+          ) :
+          BoxDecoration(
+              gradient:LinearGradient(
+                colors: [
+                  kgradientYellow,
+                  kdarkyellow,
+
+                  kgradientYellow,
+                  kdarkyellow,
+                  //add more colors for gradient
+                ],
+                begin: Alignment.topRight, //begin of the gradient color
+                end: Alignment.bottomLeft,
+              ),
+              borderRadius: BorderRadius.only(topRight: Radius.circular(30),bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30))
           ),
 
           child: Column(
@@ -86,14 +98,14 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
                 text,
                 style:  TextStyle(
                     fontSize: 17,
-                    color: isMe ? Colors.black : Colors.black
+                    color: isMe ? kgolder : Colors.black
                 ),
               ),
               Text(
                 timeStamp,
                 style:  TextStyle(
                     fontSize: 12,
-                    color: isMe ? Colors.black : Colors.black
+                    color: isMe ? kgolder : Colors.black
                 ),
               ),
             ],
@@ -186,9 +198,10 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
       children: [
         Container(
           margin: const EdgeInsets.all(8.0),
-          width: MediaQuery.of(context).size.width * 0.85,
-          height: MediaQuery.of(context).size.height * 0.08,
+          width: MediaQuery.of(context).size.width * 0.82,
+          height: MediaQuery.of(context).size.height * 0.06,
           child: TextField(
+
             controller: _messageController,
             autocorrect: true,
             enableSuggestions: true,
@@ -198,10 +211,13 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
             maxLines: null,
             minLines: null,
             expands: true,
+
             decoration:  InputDecoration(
               hintText: 'Type your message',
+              hintStyle:   TextStyle(color: kgolder),
               filled: true,
-              fillColor: Colors.transparent,
+              contentPadding: EdgeInsets.only(left: 8,top:2,bottom: 2 ),
+              fillColor: kGray2,
               enabledBorder:OutlineInputBorder(
                 borderSide: BorderSide(
                     color: kgolder
@@ -235,6 +251,7 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
                 ),
               ),
             ),
+            style: TextStyle(color: kgolder),
             onChanged: (value) {
               setState(() {
                 _message = value;
@@ -248,17 +265,10 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
 
 
           ///
-          child: IconButton(
+          child: InkWell(
+            onTap: _message.trim().isEmpty ? null : _sendMessage,
 
-
-            icon: Center(
-              child: const Icon(
-                Icons.send_rounded,
-              ),
-            ),
-
-            onPressed: _message.trim().isEmpty ? null : _sendMessage,
-
+            child: Image.asset('assets/sennt.png',height: 42,),
           ),
         ),
       ],
@@ -293,6 +303,7 @@ class _HREnquiryChatState extends State<HREnquiryChat> {
           title: Container(margin:EdgeInsets.only(left: 15),child: Text("Enquiry",style: TextStyle(color: kgolder),)),
           titleSpacing: 5,
           shadowColor: Colors.transparent,
+          iconTheme: IconThemeData(color: kgolder),
         ),
         backgroundColor: Colors.transparent,
         body: Column(
