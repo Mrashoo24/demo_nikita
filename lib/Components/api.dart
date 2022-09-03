@@ -746,7 +746,7 @@ class AllApi {
     @required String? verify,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/getEmployeeLeaveRequests?companyId=$companyId&verify=$verify");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getEmployeeLeaveRequests?companyId=$companyId&verify=$verify");
     var response = await http.get(url);
     var body = json.decode(response.body);
     if (body != '[]' && response.statusCode == 200) {
@@ -820,7 +820,7 @@ class AllApi {
     @required String? empId,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/removeCourseEnrollment?courseId=$courseId&empId=$empId");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/removeCourseEnrollment?courseId=$courseId&empId=$empId");
     var response = await http.get(url);
     print(response.body);
     var body = json.decode(response.body);
@@ -866,7 +866,7 @@ class AllApi {
     @required String? fileName,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/putAttachment?companyId=$companyId&requestId=$requestId&fileName=$fileName");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/putAttachment?companyId=$companyId&requestId=$requestId&fileName=$fileName");
     var response = await http.put(url);
     var body = json.decode(response.body);
     if (body == 'updated') {
@@ -883,7 +883,7 @@ class AllApi {
       @required String? refid,
       String? financial_month}) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/getLeaveCounts?verify=$verify&companyid=$companyid&refid=$refid&title=$title");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getLeaveCounts?verify=$verify&companyid=$companyid&refid=$refid&title=$title");
     var response = await http.get(url);
     print(url);
     var body = json.decode(response.body);
@@ -903,25 +903,40 @@ class AllApi {
   Future<List<AttendanceReportModel>> getAttendenceCounts({
     @required String? empname,
     @required String? companyid,
+    required String month,
+    required String date,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/getAttendenceCounts?companyid=$companyid&empname=$empname");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getAttendenceCounts?companyid=$companyid&empname=$empname");
 
     var response = await http.get(url);
 
     print(url);
 
     var body = json.decode(response.body);
-
+    print('bodyofattendence = $body');
     if (body != '[]' && response.statusCode == 200) {
       List responseList = body;
 
-      print(body);
+
 
       Iterable<AttendanceReportModel> adminLeaves = responseList.map((e) {
         return AttendanceReportModel().fromJson(e);
       });
 
+
+     adminLeaves = adminLeaves.where((element) {
+        var convertedDate = DateFormat('yyyy-MM-dd').parse(element.date!);
+        print('convertedDate ${convertedDate.month } ${convertedDate.year}');
+        print('current ${month } ${date}');
+
+
+
+       return convertedDate.month.toString() == month &&
+        convertedDate.year.toString() == date;
+
+      });
+      print('adminLeaves ${adminLeaves.toList()}');
       return adminLeaves.toList();
     } else {
       return [];
@@ -934,10 +949,13 @@ class AllApi {
     @required String? refid,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/getCountofLeaves?verify=$verify&companyid=$companyid&refid=$refid");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getCountofLeaves?verify=$verify&companyid=$companyid&refid=$refid");
     var response = await http.get(url);
     print(url);
+
     var body = json.decode(response.body);
+
+    print(body);
     if (body != '[]' && response.statusCode == 200) {
       List responseList = body;
 
@@ -955,7 +973,7 @@ class AllApi {
     @required String? companyid,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/getCompanyDetails?companyid=$companyid");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getCompanyDetails?companyid=$companyid");
     var response = await http.get(url);
     print(url);
     var body = json.decode(response.body);
@@ -967,7 +985,7 @@ class AllApi {
     @required String? companyId,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/getDynamicServices?companyid=$companyId");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getDynamicServices?companyid=$companyId");
     var response = await http.get(url);
     var body = json.decode(response.body);
     if (body != '[]' && response.statusCode == 200) {
@@ -993,7 +1011,7 @@ class AllApi {
   }) async {
     var serviceId = 'SERVICE' + DateTime.now().microsecond.toString();
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/postDynamicService");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/postDynamicService");
 
     var response = await http.post(
       url,
@@ -1019,7 +1037,7 @@ class AllApi {
     @required String? verify,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/getDynamicServiceRequestEmployee?refid=$refId&companyid=$companyId&verify=$verify");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getDynamicServiceRequestEmployee?refid=$refId&companyid=$companyId&verify=$verify");
     var response = await http.get(url);
     var body = json.decode(response.body);
     if (body != '[]' && response.statusCode == 200) {
@@ -1268,7 +1286,7 @@ class AllApi {
 
   Future<UserModel?> getUserByName({@required String? name}) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/getUserByName?name=$name");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getUserByName?name=$name");
     var response = await http.get(url);
     var body = json.decode(response.body);
 
@@ -1330,7 +1348,7 @@ class AllApi {
     @required String? requestId,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/approveLeaveRequest?requestId=$requestId");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/approveLeaveRequest?requestId=$requestId");
     var response = await http.put(url);
     var body = json.decode(response.body);
     if (body == 'approved') {
@@ -1345,7 +1363,7 @@ class AllApi {
     @required String? reason,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/rejectLeaveRequest?requestId=$requestId&reason=$reason");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/rejectLeaveRequest?requestId=$requestId&reason=$reason");
     var response = await http.put(url);
     var body = json.decode(response.body);
     if (body == 'rejected') {
@@ -1359,7 +1377,7 @@ class AllApi {
   Future<void> deleteAnnouncement(
       {required String companyid, required String announcementId}) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/deleteAnnouncement?companyid=$companyid&announcementid=$announcementId");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/deleteAnnouncement?companyid=$companyid&announcementid=$announcementId");
 
     var response = await http.delete(url);
 
@@ -1431,7 +1449,7 @@ class AllApi {
     required String announcementId,
   }) async {
     var url = Uri.parse(
-        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudurapp/incoming_webhook/editAnnouncement?announcementid=$announcementId&companyid=$companyid");
+        "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/editAnnouncement?announcementid=$announcementId&companyid=$companyid");
 
     var response = await http.put(url, body: {
       'name': name,
