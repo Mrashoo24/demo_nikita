@@ -1157,14 +1157,32 @@ var widthofcontainer = 20.0;
                                   ),
                                 ],
                               ),
-                              CircleAvatar(
-                                backgroundColor: kgolder,
-                                radius:55,
-                                child: CircleAvatar(
-                                  radius: 45,
-                                  backgroundColor: kgolder,
-                                  backgroundImage:
-                                  NetworkImage('${mainurl}assets/images/employee/profile/${widget.userModel!.image}',),
+                              Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [Colors.black, kGray7],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+
+                                  ),
+                                  borderRadius: BorderRadius.circular(100)
+                                ),
+                                child: Container(
+                                  height: 100,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                    gradient: LinearGradient(
+
+                                      colors: [kgolder2, Colors.white,kgolder2],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+
+                                    ),
+                                  ),
+                                  padding: EdgeInsets.all(8),
+                                  child:  ClipRRect(child: Image.network('${mainurl}assets/images/employee/profile/${widget.userModel!.image}',fit: BoxFit.fill,)),
+
                                 ),
                               ),
 

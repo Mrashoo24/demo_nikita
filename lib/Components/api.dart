@@ -1619,7 +1619,7 @@ class AllApi {
 
   Future<String?> sendMacRequest(UserModel userModel) async {
     var getAnnounceUrl = Uri.parse(
-        "https://us-east-1.aws.data.mongodb-api.com/app/application-0-ffegf/endpoint/hudurapp/sendMacRequest");
+        "https://us-east-1.aws.data.mongodb-api.com/app/application-0-ffegf/endpoint/hudur/sendMacRequest");
 
     var response = await http.post(getAnnounceUrl,
     body: {
