@@ -604,9 +604,9 @@ class _ReeportsState extends State<Reeports> {
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: DropdownButtonFormField(
-                        dropdownColor: kDarkGolder,
+                        dropdownColor: kgolder,
                           decoration: InputDecoration(
-                              fillColor: kDarkGolder,
+                              fillColor: kgolder,
 
                               icon: Align(
                                   alignment: Alignment.centerRight,
@@ -667,7 +667,7 @@ class _ReeportsState extends State<Reeports> {
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: DropdownButtonFormField(
-                          dropdownColor: kDarkGolder,
+                          dropdownColor: kgolder,
                           decoration: InputDecoration(
                               fillColor: kgolder,
                               icon: Align(

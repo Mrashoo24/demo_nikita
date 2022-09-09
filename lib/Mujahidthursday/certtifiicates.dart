@@ -1116,7 +1116,7 @@ class _CerttifiicatesState extends State<Certtifiicates> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 15),
+
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.end,
                         //   children: [
@@ -1703,7 +1703,7 @@ class _CerttifiicatesState extends State<Certtifiicates> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 5),
                         Row(
                           children: [
                             Text(

@@ -453,7 +453,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                                           buildBNBCards('Enquiry','assets/icons/enquiry.png',1),
                                           buildBNBCards('Home','assets/icons/home.png',2),
 
-                                          buildBNBCards('Reports','assets/report.png',3),
+                                          buildBNBCards('Reports','assets/icons/reports.png',3),
                                           // buildBNBCards2('More','assets/icons/more.png',4),
                                           SizedBox(width: 10,),
                                           CustomPopupMenu(
@@ -609,14 +609,14 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
                     padding: EdgeInsets.all(8),
                     width: 60,
                     height: 60,
-                    child: Image.asset(image,fit: BoxFit.fill,color: kgolder,)
+                    child: Image.asset(image,fit: BoxFit.fill)
                 ),
               )  :
               Container(
 
                   width: 30,
                   height: 30,
-                  child: Image.asset(image,fit: BoxFit.fill,color: kgolder,)),
+                  child: Image.asset(image,fit: BoxFit.fill)),
               Text(title,style: TextStyle(color: kgolder,fontSize:  selectedIndex == index ? 16 : 14),),
             ],
           ),

@@ -691,7 +691,7 @@ class _HrEnrollCoursesState extends State<HrEnrollCourses> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+
 
 
                       ],

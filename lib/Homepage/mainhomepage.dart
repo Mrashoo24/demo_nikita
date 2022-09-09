@@ -84,7 +84,25 @@ class _MainHomePageState extends State<MainHomePage>
   late LocationData _locationData;
 
   var selectedDate = DateTime.now().year.toString();
-  var selectedMonth = 07.toString();
+  var selectedMonth = DateTime.now().month.toString();
+
+  var mapofMonth = {
+    'January' : '01',
+    'February': '02',
+    'March' : '03', 'April' :'04',
+    'May' : '05',
+    'June' : '06',
+    'July' : '07',
+    'August' : '08',
+    'September' : '09',
+    'October' : '10',
+    'November' : '11',
+    'Decemeber' : '12'
+  };
+
+
+  var selectedMonthName = 'January';
+
 
 
   Future<LocationData?> getUserLocation() async {
@@ -122,6 +140,15 @@ class _MainHomePageState extends State<MainHomePage>
   void initState() {
     // TODO: implement initState
     super.initState();
+
+
+    selectedMonthName =  mapofMonth.keys.firstWhere(
+            (k) {
+              var s = selectedMonth.length == 1 ? '0' + selectedMonth : selectedMonth;
+              return mapofMonth[k] == s ;
+            });
+
+
     getUserLocation().then((value) {
       setState(() {
         _locationData = value!;
@@ -131,6 +158,10 @@ class _MainHomePageState extends State<MainHomePage>
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
 
     _arrowAnimation = Tween(begin: 0.0, end: 0.0).animate(_animationController);
+
+     Timer.periodic(Duration(seconds: 60), (Timer t) => setState((){}));
+
+
   }
 
   @override
@@ -836,11 +867,14 @@ class _MainHomePageState extends State<MainHomePage>
             ),
             AllApi().getAttendenceCounts(
                 empname: widget.userModel!.name,
-                companyid: widget.userModel!.companyId, month: selectedMonth, date: selectedDate,),
+                companyid: widget.userModel!.companyId, month: selectedMonth.startsWith('0') ? selectedMonth.replaceAll('0', '')
+              : selectedMonth
+              , date: selectedDate,),
             AllApi().getHomeLeavesCount(
                 verify: '1',
                 companyid: widget.userModel!.companyId,
-                refid: widget.userModel!.refId)
+                refid: widget.userModel!.refId, date: selectedDate, month: selectedMonth.startsWith('0') ? selectedMonth.replaceAll('0', '')
+                : selectedMonth)
           ]),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -885,6 +919,8 @@ class _MainHomePageState extends State<MainHomePage>
             attendencecount.forEach((element) {
               workinghours += double.parse(element.checkOutDifference!);
             });
+
+            List<AnnounceModel> listofannouncement = listOfFuture[1];
 
             // Timer(Duration(milliseconds: 1000),(){
             //
@@ -1005,15 +1041,17 @@ class _MainHomePageState extends State<MainHomePage>
                                 ),
                               ),
                               Container(
-                                width: Get.width * 0.3,
+                                width: Get.width * 0.6,
                                 height: 50,
-                                child: Text(
-                                  companydetails!['cname'] ?? '',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w900),
+                                child: Center(
+                                  child: Text(
+                                    companydetails!['cname'] ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900),
+                                  ),
                                 ),
                               ),
                               InkWell(
@@ -1042,7 +1080,7 @@ class _MainHomePageState extends State<MainHomePage>
                                             child: Padding(
                                           padding: const EdgeInsets.all(3.0),
                                           child: Text(
-                                            '03',
+                                            listofannouncement.length.toString(),
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 8),
@@ -1153,17 +1191,6 @@ class _MainHomePageState extends State<MainHomePage>
                               Container(
                                 decoration: BoxDecoration(
                                     gradient: LinearGradient(
-                                      colors: [Colors.black, kGray7],
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                    ),
-                                    borderRadius: BorderRadius.circular(100)),
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    gradient: LinearGradient(
                                       colors: [
                                         kgolder2,
                                         Colors.white,
@@ -1172,13 +1199,31 @@ class _MainHomePageState extends State<MainHomePage>
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
                                     ),
+                                    borderRadius: BorderRadius.circular(100)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          kgolder2,
+                                          Colors.white,
+                                          kgolder2
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ),
+                                      image: DecorationImage(image:  NetworkImage(
+            '${mainurl}assets/images/employee/profile/${widget.userModel!.image}',
+
+            ))
+                                    ),
+                                    padding: EdgeInsets.all(8),
+
                                   ),
-                                  padding: EdgeInsets.all(8),
-                                  child: ClipRRect(
-                                      child: Image.network(
-                                    '${mainurl}assets/images/employee/profile/${widget.userModel!.image}',
-                                    fit: BoxFit.fill,
-                                  )),
                                 ),
                               ),
 
@@ -1207,7 +1252,6 @@ class _MainHomePageState extends State<MainHomePage>
                   ),
                   Container(
                     width: Get.width,
-                    color: Colors.black,
                     child: Stack(
                       children: [
                         Container(
@@ -1840,6 +1884,54 @@ class _MainHomePageState extends State<MainHomePage>
                                                     SizedBox(
                                                       width: 10,
                                                     ),
+                                                    Container(
+                                                      padding: EdgeInsets.symmetric(horizontal: 5,vertical: 0),
+
+                                                      decoration: BoxDecoration(
+                                                          color: kgolder,
+                                                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                          border: Border.all(color: Colors.black)
+                                                      ),
+                                                      child: DropdownButton<String>(
+                                                        items: <String>[
+                                                          'January',
+                                                          'February',
+                                                          'March', 'April',
+                                                          'May',
+                                                          'June',
+                                                          'July',
+                                                          'August',
+                                                          'September',
+                                                          'October',
+                                                          'November',
+                                                          'Decemeber'
+                                                        ].map((String value) {
+                                                          return DropdownMenuItem<String>(
+                                                            value: value,
+                                                            child: Text(value),
+                                                          );
+                                                        }).toList(),
+
+
+                                                        value: selectedMonthName,
+                                                          icon:  CircleAvatar(
+                                                          backgroundColor: kblack,
+                                                          minRadius: 5,
+            child: Image.asset("assets/icons/dropdown.png",color: kgolder,)),
+
+                                                        onChanged: (value) {
+
+                                                          setState((){
+                                                            selectedMonthName = value!;
+                                                            selectedMonth =  mapofMonth[selectedMonthName].toString();
+                                                          });
+
+                                                          print('selvalue = $selectedMonth');
+
+                                                        },
+                                                      ),
+                                                    )
+
                                                   ],
                                                 ),
                                                 SizedBox(

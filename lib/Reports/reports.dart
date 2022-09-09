@@ -284,10 +284,9 @@ class _ReportsState extends State<Reports> {
                                 child: Container(
                                   margin: EdgeInsets.only(bottom: 80),
                                   child: FutureBuilder<List<AttendanceReportModel>?>(
-                                      future: _allApi.getCheckInHistory(
+                                      future: _allApi.getCheckInHistoryAll(
                                         empId: widget.userModel!.empId,
                                         companyId: widget.userModel!.companyId,
-                                        status: currentindex == 0 ? 'perfect' : 'perfect',
                                             // : _selectedFilter == 'Late'
                                             // ? 'late'
                                             // : 'perfect',

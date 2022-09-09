@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../Announcements/announcements.dart';
+import '../Components/api.dart';
 import '../Components/constants.dart';
 import '../Components/models.dart';
 import '../Homepage/homepage.dart';
@@ -115,22 +117,46 @@ class _HRDassboardState extends State<HRDassboard> {
                                 fontWeight: FontWeight.bold
 
                             ),),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                  SizedBox(width: 80,),
-                                Stack(
-                                    children:[
-                                      Icon(Icons.notifications,size: 30,),
-                                      Padding(
-                                        padding:  EdgeInsets.only(left: 17,top: 4),
-                                        child: CircleAvatar(
-                                          radius: 7,
-                                          backgroundColor: Colors.redAccent[400],
-                                          child: Text("54",style: TextStyle(color: Colors.white,fontSize: 8),),
-                                        ),
-                                      )
-                                    ]),
+                                FutureBuilder<List<AnnounceModel>>(
+                                  future: AllApi().getAnnounce(
+                                  companyId: widget.usermodel.companyId,
+                                ),
+                                  builder: (context, snapshot) {
+
+                                    if (!snapshot.hasData) {
+                                      return Container();
+                                    }
+
+
+
+                                    return InkWell(
+                                      onTap: () {
+                                        Get.to(
+                                              () => Announcements(
+                                            userModel: widget.usermodel,
+                                          ),
+                                        );
+                                      },
+                                      child: Stack(
+                                          children:[
+                                            Icon(Icons.notifications,size: 30,),
+                                            Padding(
+                                              padding:  EdgeInsets.only(left: 17,top: 4),
+                                              child: CircleAvatar(
+                                                radius: 7,
+                                                backgroundColor: Colors.redAccent[400],
+                                                child: Text(snapshot.requireData.length.toString(),style: TextStyle(color: Colors.white,fontSize: 8),),
+                                              ),
+                                            )
+                                          ]),
+                                    );
+                                  }
+                                ),
                               ],
                             )
                           ],

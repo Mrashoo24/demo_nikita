@@ -17,38 +17,78 @@ class EnquiryChat extends StatefulWidget {
 }
 
 class _EnquiryChatState extends State<EnquiryChat> {
-   final _allApi = AllApi();
+  final _allApi = AllApi();
   final _messageController = TextEditingController();
 
   var _message = '';
-   bool iconsmessage = false;
+  bool iconsmessage = false;
 
-
-
-   Widget _messageBox({
+  Widget _messageBox({
     required String text,
     required bool isMe,
     required String timeStamp,
   }) {
     return Container(
-     constraints: BoxConstraints(maxWidth: Get.width*0.5),
+      constraints: BoxConstraints(maxWidth: Get.width*0.5),
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+
+
       child: Card(
-        color: isMe ? Colors.black.withOpacity(0.6) : kgolder,
+        color: isMe ? Colors.black.withOpacity(0.6) : Colors.transparent,
 
         shape: isMe
-            ?  RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            30
+            ?
+        RoundedRectangleBorder(
+
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+            bottomRight: Radius.circular(30),
           ),
+
+          side: BorderSide(color: kgolder2),
+
         )
             :  RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-              30
-          ),
+
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
+
+            side: BorderSide(color: kblack)
         ),
         child: Container(
           padding: const EdgeInsets.all(12.0),
+          decoration:
+          isMe? BoxDecoration(
+              gradient:LinearGradient(
+                colors: [
+                  kGray3, kblack, kGray3,  kblack,
+                  //add more colors for gradient
+                ],
+                begin: Alignment.topRight, //begin of the gradient color
+                end: Alignment.bottomLeft,
+              ),
+              borderRadius: BorderRadius.only(topRight: Radius.circular(30),bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30))
+          ) :
+          BoxDecoration(
+              gradient:LinearGradient(
+                colors: [
+                  kgradientYellow,
+                  kdarkyellow,
+
+                  kgradientYellow,
+                  kdarkyellow,
+                  //add more colors for gradient
+                ],
+                begin: Alignment.topRight, //begin of the gradient color
+                end: Alignment.bottomLeft,
+              ),
+              borderRadius: BorderRadius.only(topRight: Radius.circular(30),bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30))
+          ),
+
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,15 +96,15 @@ class _EnquiryChatState extends State<EnquiryChat> {
               Text(
                 text,
                 style:  TextStyle(
-                  fontSize: 17,
-                  color: isMe ? kgolder : Colors.black
-                 ),
+                    fontSize: 17,
+                    color: isMe ? kgolder : Colors.black
+                ),
               ),
               Text(
                 timeStamp,
                 style:  TextStyle(
-                  fontSize: 12,
-                  color: isMe ? kgolder : Colors.black
+                    fontSize: 12,
+                    color: isMe ? kgolder : Colors.black
                 ),
               ),
             ],
@@ -114,7 +154,7 @@ class _EnquiryChatState extends State<EnquiryChat> {
 
             return  tempDate.compareTo(tempDate2);
 
-      //      print ("$newDate");
+            //      print ("$newDate");
 
             // return newDate.toString().compareTo(newDate2.toString());
 
@@ -157,9 +197,21 @@ class _EnquiryChatState extends State<EnquiryChat> {
       children: [
         Container(
           margin: const EdgeInsets.all(8.0),
-          width: MediaQuery.of(context).size.width * 0.85,
-          height: MediaQuery.of(context).size.height * 0.08,
+          width: MediaQuery.of(context).size.width * 0.82,
+          height: MediaQuery.of(context).size.height * 0.06,
+          decoration: BoxDecoration(
+            gradient:LinearGradient(
+              colors: [
+                kGray3, kblack, kGray3,  kblack,
+                //add more colors for gradient
+              ],
+              begin: Alignment.topRight, //begin of the gradient color
+              end: Alignment.bottomLeft,
+            ),
+            borderRadius: BorderRadius.circular(15)
+          ),
           child: TextField(
+
             controller: _messageController,
             autocorrect: true,
             enableSuggestions: true,
@@ -169,9 +221,12 @@ class _EnquiryChatState extends State<EnquiryChat> {
             maxLines: null,
             minLines: null,
             expands: true,
+
             decoration:  InputDecoration(
               hintText: 'Type your message',
+              hintStyle:   TextStyle(color: kgolder),
               filled: true,
+              contentPadding: EdgeInsets.only(left: 8,top:2,bottom: 2 ),
               fillColor: Colors.transparent,
               enabledBorder:OutlineInputBorder(
                 borderSide: BorderSide(
@@ -206,6 +261,7 @@ class _EnquiryChatState extends State<EnquiryChat> {
                 ),
               ),
             ),
+            style: TextStyle(color: kgolder),
             onChanged: (value) {
               setState(() {
                 _message = value;
@@ -214,22 +270,15 @@ class _EnquiryChatState extends State<EnquiryChat> {
             },
           ),
         ),
-      iconsmessage ? kprogressbar : Expanded(
-        ///       iconsmessage(value is true or false) ?(if value) kprogressbar :(else) Expanded(
+        iconsmessage ? kprogressbar : Expanded(
+          ///       iconsmessage(value is true or false) ?(if value) kprogressbar :(else) Expanded(
 
 
-        ///
-          child: IconButton(
+          ///
+          child: InkWell(
+            onTap: _message.trim().isEmpty ? null : _sendMessage,
 
-
-            icon: Center(
-              child: const Icon(
-                Icons.send_rounded,
-              ),
-            ),
-
-            onPressed: _message.trim().isEmpty ? null : _sendMessage,
-
+            child: Image.asset('assets/sennt.png',height: 42,),
           ),
         ),
       ],
@@ -247,6 +296,7 @@ class _EnquiryChatState extends State<EnquiryChat> {
       ),
       child: Scaffold(
         appBar:AppBar(
+
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -259,17 +309,18 @@ class _EnquiryChatState extends State<EnquiryChat> {
                 )
             ),
           ),
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           title: Container(margin:EdgeInsets.only(left: 15),child: Text("Enquiry",style: TextStyle(color: kgolder),)),
           titleSpacing: 5,
           shadowColor: Colors.transparent,
+          iconTheme: IconThemeData(color: kgolder),
         ),
         backgroundColor: Colors.transparent,
         body: Column(
           children: [
             _chatWindow(),
             _messageBar(),
-            SizedBox(height: Get.height*0.15,),
+            SizedBox(height: 80,)
           ],
         ),
       ),
@@ -277,11 +328,11 @@ class _EnquiryChatState extends State<EnquiryChat> {
   }
 
   void _sendMessage() async {
-     setState(() {
-       iconsmessage = true;
-     });
+    setState(() {
+      iconsmessage = true;
+    });
     var toEmail = '';
-    final _subject = 'Enquiry email by ${widget.userModel!.name}';
+    final _subject = 'Reply to Enquiry email by ${widget.userModel!.name}';
     FocusScope.of(context).unfocus();
     var users = await _allApi.getAllUsers(
       companyId: widget.userModel!.companyId!,

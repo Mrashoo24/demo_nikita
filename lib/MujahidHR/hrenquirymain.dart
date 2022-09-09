@@ -150,57 +150,72 @@ class _HREnquiryState extends State<HREnquiry> {
   }
 
    BuilLeaveCard(string,EnquiryModel userModel) {
-    return InkWell(
-      onTap: () async {
+    return FutureBuilder<UserModel?>(
+      future: AllApi().getemployeeBenchList(name: string),
+      builder: (context, snapshot) {
 
-        UserModel userModelNew = await AllApi().getUser(userModel.refId!);
+        if(!snapshot.hasData){
+          return SizedBox();
+        }
 
-        Get.to(HREnquiryChat(userModel: userModelNew));
-      },
-      child: Container(
-            margin: EdgeInsets.only(top: 8),
+        UserModel userModel1 = snapshot.requireData!;
 
-        decoration: BoxDecoration(
-         // borderRadius: BorderRadius.all(Radius.circular(5)),
-            borderRadius:
-            BorderRadius
-                .all(
-                Radius
-                    .circular(
-                    8)),
-            gradient:
-            LinearGradient(
-                colors: [
-                  kgradientYellow,
-                  kgolder
-                ]),
-            border:
-            Border
-                .all(
-              color:
-              kgolder,
-              width:
-              2,
-            )
-        ) ,
+        return InkWell(
+          onTap: () async {
+
+            UserModel userModelNew = await AllApi().getUser(userModel.refId!);
+
+            Get.to(HREnquiryChat(userModel: userModelNew));
+          },
+          child: Container(
+                margin: EdgeInsets.only(top: 8),
+
+            decoration: BoxDecoration(
+             // borderRadius: BorderRadius.all(Radius.circular(5)),
+                borderRadius:
+                BorderRadius
+                    .all(
+                    Radius
+                        .circular(
+                        8)),
+                gradient:
+                LinearGradient(
+                    colors: [
+                      kgradientYellow,
+                      kgolder
+                    ]),
+                border:
+                Border
+                    .all(
+                  color:
+                  kgolder,
+                  width:
+                  2,
+                )
+            ) ,
 
 
 
 
-        child: Padding(
-          padding: const EdgeInsets.all( 10),
-          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+            child: Padding(
+              padding: const EdgeInsets.all( 10),
+              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
 
 
-                            children: [
-                              Icon(Icons.person,color: kblack,size: 25,),
-                              SizedBox(width: 50,),
-                              Text(string,style: TextStyle(color: kblack,fontSize: 20),)
-                            ],
-                          ),
-        ),
-      ),
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: kblack,
+                                    backgroundImage: NetworkImage('${mainurl}assets/images/employee/profile/${userModel1.image}'),
+                                  ),
+                                  SizedBox(width: 50,),
+                                  Text(string,style: TextStyle(color: kblack,fontSize: 20),)
+                                ],
+                              ),
+            ),
+          ),
+        );
+      }
     );
   }
 }

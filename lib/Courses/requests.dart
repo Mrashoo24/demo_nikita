@@ -124,9 +124,9 @@ class _RequestsState extends State<Requests> {
 
                             ),
                             tabs: [
-                              Tab(child: Text("Request",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),),
+                              Tab(child: Text("Request",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.bold),),),
                               // Tab(child: Text("Request",style: TextStyle(fontSize: 16),),),
-                              Tab(child: Text("History",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.w400),),),
+                              Tab(child: Text("History",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.bold),),),
                             ],
                           ),
                         ],
@@ -185,9 +185,9 @@ class _RequestsState extends State<Requests> {
                                                 ),
                                                 unselectedLabelColor: kblack,
                                                 tabs: [
-                                                  Text("Pending"),
-                                                  Text("Accepted"),
-                                                  Text("Rejected",style: TextStyle(fontSize: 13),)
+                                                  Text("Pending",style: TextStyle(fontSize: 16,fontFamily:'Typo Round',fontWeight: FontWeight.bold),),
+                                                  Text("Accepted",style: TextStyle(fontSize: 16,fontFamily:'Typo Round',fontWeight: FontWeight.bold),),
+                                                  Text("Rejected",style: TextStyle(fontSize: 16,fontFamily:'Typo Round',fontWeight: FontWeight.bold),)
                                                 ],
                                               ),
                                             ),
@@ -650,11 +650,12 @@ class _RequestsState extends State<Requests> {
         return StatefulBuilder(
           builder: (context, setStateDialog) {
             return AlertDialog(
-              backgroundColor: Colors.black,
-              title: isLoading ? null : const Text('Details',style: TextStyle(color: kgolder),),
+                backgroundColor: Colors.transparent,
+              elevation: 0,
               content: isLoading
                   ? Container(
                 height: MediaQuery.of(context).size.height * 0.05,
+
                 alignment: Alignment.center,
                 child: Row(
                   children: const [
@@ -666,451 +667,492 @@ class _RequestsState extends State<Requests> {
                   ],
                 ),
               )
-                  : SingleChildScrollView(
+                  : Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        kblack ,
+                        kGray
+                      ]
+                  ),
+                ),
+                    child: SingleChildScrollView(
                 child: Form(
-                  key: _formkey,
-                  child: Column(
-                    children: [
-                      Text('Number of Count: $totalCountConsumed',style: TextStyle(color: kgolder),),
-                      limit == '0'
-                          ? SizedBox()
-                          : Text(
-                          'Leaves Pending: ${(double.parse(limit) - double.parse(totalCountConsumed)).round()}',style: TextStyle(color: kgolder),),
-                      hourslimit == '0'
-                          ? SizedBox()
-                          : Text(
-                          'Total Hours Consumed: $totalLeaveHours',style: TextStyle(color: kgolder),),
-                      hourslimit == '0'
-                          ? SizedBox()
-                          : Text(
-                          'Total Hours Remaining: $remainingHours',style: TextStyle(color: kgolder),),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        child: Column(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              child: TextFormField(
-                                enabled: false,
-                                decoration: InputDecoration(
-                                  hintText: _selectedFromDate == ''
-                                      ? 'From'
-                                      : _selectedFromDate,
-                                  hintStyle: const TextStyle(
-                                    color: kgolder,
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                DatePicker.showDateTimePicker(
-                                  context,
-                                  showTitleActions: true,
-                                  minTime: DateTime.now(),
-                                  maxTime: DateTime(2050, 6, 7),
-                                  onChanged: (date) {
-                                    setStateDialog(() {
-                                      _selectedFromDate =
-                                          DateFormat('dd/MM/yyyy hh:mm a')
-                                              .format(date);
-                                    });
-                                  },
-                                  onConfirm: (date) {
-                                    setStateDialog(() {
-                                      _selectedFromDate =
-                                          DateFormat('dd/MM/yyyy hh:mm a')
-                                              .format(date);
-                                    });
-                                  },
-                                  currentTime: DateTime.now(),
-                                  locale: LocaleType.en,
-                                );
-                              },
-                            ),
-                            InkWell(
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  hintText: _selectedToDate == ''
-                                      ? 'To'
-                                      : _selectedToDate,
-                                  hintStyle: const TextStyle(
-                                    color: kgolder,
-                                  ),
-                                ),
-                                enabled: false,
-                              ),
-                              onTap: () {
-                                DatePicker.showDateTimePicker(
-                                  context,
-                                  showTitleActions: true,
-                                  minTime: DateTime.now(),
-                                  maxTime: DateTime(2050, 6, 7),
-                                  onChanged: (date) {
-                                    setStateDialog(() {
-                                      _selectedToDate =
-                                          DateFormat('dd/MM/yyyy hh:mm a')
-                                              .format(date);
-                                    });
-                                  },
-                                  onConfirm: (date) {
-                                    setStateDialog(() {
-                                      _selectedToDate =
-                                          DateFormat('dd/MM/yyyy hh:mm a')
-                                              .format(date);
-                                    });
-                                  },
-                                  currentTime: DateTime.now(),
-                                  locale: LocaleType.en,
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (details.isNotEmpty)
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height:
-                          MediaQuery.of(context).size.height * 0.25,
-                          child: ListView.builder(
-                            itemCount: details.length,
-                            itemBuilder: (ctx, index) {
-                             return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 700),
-                                child: SlideAnimation(
-                                  duration: Duration(milliseconds: 500),
-                                  horizontalOffset: 200.0,
-                                  child: FadeInAnimation(
-                                    child: TextFormField(
-                                      decoration: InputDecoration(
-                                          hintText: details[index],
-                                          hintStyle: TextStyle(color: kgolder),
-                                          border: UnderlineInputBorder(borderSide: BorderSide(color: kgolder)),
-                                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-                                          ,
-                                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-                                          ,
-                                          disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-
+                    key: _formkey,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                              'Number of Count: $totalCountConsumed',style: TextStyle(color: kgolder),),
+                          limit == '0'
+                              ? SizedBox()
+                              : Text(
+                              'Leaves Pending: ${(double.parse(limit) - double.parse(totalCountConsumed)).round()}',style: TextStyle(color: kgolder),),
+                          hourslimit == '0'
+                              ? SizedBox()
+                              : Text(
+                              'Total Hours Consumed: $totalLeaveHours',style: TextStyle(color: kgolder),),
+                          hourslimit == '0'
+                              ? SizedBox()
+                              : Text(
+                              'Total Hours Remaining: $remainingHours',style: TextStyle(color: kgolder),),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.15,
+                            child: Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                  child: TextFormField(
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: _selectedFromDate == ''
+                                          ? 'From'
+                                          : _selectedFromDate,
+                                      hintStyle: const TextStyle(
+                                        color: kgolder,
                                       ),
-                                      style: TextStyle(color: kgolder),
-                                      onSaved: (value) {
-                                        textFieldValues.add({details[index]:value});
-                                      },
-
-                                      // onChanged: (value) {
-                                      //   textFieldValues.add({details[index]:value});
-                                      // },
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Please fill out this field';
-                                        }
-                                        return null;
-                                      },
                                     ),
                                   ),
+                                  onTap: () {
+                                    DatePicker.showDateTimePicker(
+                                      context,
+                                      showTitleActions: true,
+                                      minTime: DateTime.now(),
+                                      maxTime: DateTime(2050, 6, 7),
+                                      onChanged: (date) {
+                                        setStateDialog(() {
+                                          _selectedFromDate =
+                                              DateFormat('dd/MM/yyyy hh:mm a')
+                                                  .format(date);
+                                        });
+                                      },
+                                      onConfirm: (date) {
+                                        setStateDialog(() {
+                                          _selectedFromDate =
+                                              DateFormat('dd/MM/yyyy hh:mm a')
+                                                  .format(date);
+                                        });
+                                      },
+                                      currentTime: DateTime.now(),
+                                      locale: LocaleType.en,
+                                    );
+                                  },
                                 ),
-                              );
-
-                            },
+                                InkWell(
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      hintText: _selectedToDate == ''
+                                          ? 'To'
+                                          : _selectedToDate,
+                                      hintStyle: const TextStyle(
+                                        color: kgolder,
+                                      ),
+                                    ),
+                                    enabled: false,
+                                  ),
+                                  onTap: () {
+                                    DatePicker.showDateTimePicker(
+                                      context,
+                                      showTitleActions: true,
+                                      minTime: DateTime.now(),
+                                      maxTime: DateTime(2050, 6, 7),
+                                      onChanged: (date) {
+                                        setStateDialog(() {
+                                          _selectedToDate =
+                                              DateFormat('dd/MM/yyyy hh:mm a')
+                                                  .format(date);
+                                        });
+                                      },
+                                      onConfirm: (date) {
+                                        setStateDialog(() {
+                                          _selectedToDate =
+                                              DateFormat('dd/MM/yyyy hh:mm a')
+                                                  .format(date);
+                                        });
+                                      },
+                                      currentTime: DateTime.now(),
+                                      locale: LocaleType.en,
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      if (attachments.isNotEmpty)
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: const Text('Attachments',style: TextStyle(color: kgolder),),
-                        ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      if (attachments.isNotEmpty && _attachment == null)
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height:
-                          MediaQuery.of(context).size.height * 0.25,
-                          child: InkWell(
-                            child: ListView.builder(
-                              itemCount: attachments.length,
-                              itemBuilder: (context, index) {
-                                return AnimationConfiguration.staggeredList(
-                                  position: index,
-                                  duration: const Duration(milliseconds: 700),
-                                  child: SlideAnimation(
-                                    duration: Duration(milliseconds: 500),
-                                    horizontalOffset: 200.0,
-                                    child: FadeInAnimation(
-                                      child:TextFormField(
-                                        enabled: false,
-                                        decoration: InputDecoration(
-                                            hintText: attachments[index],
-                                            hintStyle: TextStyle(color: kgolder),
-                                            border: UnderlineInputBorder(borderSide: BorderSide(color: kgolder)),
-                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-                                            ,
-                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
-                                            ,
-                                            disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                          if (details.isNotEmpty)
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                              MediaQuery.of(context).size.height * 0.25,
+                              child: ListView.builder(
+                                itemCount: details.length,
+                                itemBuilder: (ctx, index) {
+                                 return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 700),
+                                    child: SlideAnimation(
+                                      duration: Duration(milliseconds: 500),
+                                      horizontalOffset: 200.0,
+                                      child: FadeInAnimation(
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                              hintText: details[index],
+                                              hintStyle: TextStyle(color: kgolder),
+                                              border: UnderlineInputBorder(borderSide: BorderSide(color: kgolder)),
+                                              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                              ,
+                                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                              ,
+                                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+
+                                          ),
+                                          style: TextStyle(color: kgolder),
+                                          onSaved: (value) {
+                                            textFieldValues.add({details[index]:value});
+                                          },
+
+                                          // onChanged: (value) {
+                                          //   textFieldValues.add({details[index]:value});
+                                          // },
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please fill out this field';
+                                            }
+                                            return null;
+                                          },
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+
+                                },
+                              ),
                             ),
-                            onTap: () async {
-                              final result =
-                              await FilePicker.platform.pickFiles();
-                              if (result == null) {
-                                return;
-                              } else {
-                                final file = result.files.first;
-                                final newFile = await saveFile(file);
-                                setStateDialog(() {
-                                  _attachment = newFile;
-                                  _attachmentPlatformFile = file;
-                                });
-                              }
-                            },
+                          const SizedBox(
+                            height: 10,
                           ),
-                        ),
-                      if (_attachment != null && attachments.isNotEmpty)
-                        _buildFile(),
-                    ],
-                  ),
-                ),
-              ),
-              actions: isLoading
-                  ? null
-                  : [
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(kgolder)
-                  ),
-                  onPressed: () async {
-                    var requestId =
-                        'REQ' + DateTime.now().microsecond.toString();
-                    var _canSubmit = _trySubmit();
-                    if (attachments.isEmpty) {
-                      if (_canSubmit &&
-                          (_selectedFromDate != '' &&
-                              _selectedToDate != '')) {
-                        setStateDialog(() {
-                          isLoading = true;
-                        });
-
-                        if (countbased == '1') {
-                          if (double.parse(totalCountConsumed) <
-                              double.parse(limit)) {
-                            if (hourslimit == '0') {
-                              print('no limits');
-
-                              sendLeaveRequest(requestId, title);
-                            } else {
-                              if (double.parse(totalLeaveHours) <
-                                  double.parse(hourslimit)) {
-                                print(
-                                    'difeerence ${DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedToDate).difference(DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedFromDate)).inHours}');
-
-                                if (DateFormat('dd/MM/yyyy hh:mm a')
-                                    .parse(_selectedToDate)
-                                    .difference(DateFormat(
-                                    'dd/MM/yyyy hh:mm a')
-                                    .parse(_selectedFromDate))
-                                    .inHours <
-                                    double.parse(hourslimit)) {
-                                  sendLeaveRequest(requestId, title);
-                                } else {
-                                  setStateDialog(() {
-                                    isLoading = false;
-                                  });
-
-                                  Fluttertoast.showToast(
-                                      msg: 'Exceeding Hours Limit');
-                                }
-                              } else {
-                                setStateDialog(() {
-                                  isLoading = false;
-                                });
-
-                                Fluttertoast.showToast(
-                                    msg: 'Hours Limit Exhausted');
-                              }
-                            }
-                          } else {
-                            setStateDialog(() {
-                              isLoading = false;
-                            });
-                            Fluttertoast.showToast(
-                                msg: 'Count Limit Exhausted');
-                          }
-                        } else {
-                          if (hourslimit == '0') {
-                            sendLeaveRequest(requestId, title);
-                          } else {
-                            if (double.parse(totalLeaveHours) <
-                                double.parse(hourslimit)) {
-                              print(
-                                  'difeerence ${DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedToDate).difference(DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedFromDate)).inHours}');
-
-                              if (DateFormat('dd/MM/yyyy hh:mm a')
-                                  .parse(_selectedToDate)
-                                  .difference(
-                                  DateFormat('dd/MM/yyyy hh:mm a')
-                                      .parse(_selectedFromDate))
-                                  .inHours <
-                                  double.parse(hourslimit)) {
-                                sendLeaveRequest(requestId, title);
-                              } else {
-                                setStateDialog(() {
-                                  isLoading = false;
-                                });
-
-                                Fluttertoast.showToast(
-                                    msg: 'Exceeding Hours Limit');
-                              }
-                            } else {
-                              setStateDialog(() {
-                                isLoading = false;
-                              });
-                              Fluttertoast.showToast(
-                                  msg: 'Hours Limit Exhausted');
-                            }
-                          }
-                        }
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please fill all the details.'),
+                          if (attachments.isNotEmpty)
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: const Text('Attachments',style: TextStyle(color: kgolder),),
+                            ),
+                          const SizedBox(
+                            height: 10,
                           ),
-                        );
-                      }
-                    } else {
-                      if (_attachment != null) {
-                        if (_canSubmit &&
-                            (_selectedFromDate != '' &&
-                                _selectedToDate != '')) {
-                          setStateDialog(() {
-                            isLoading = true;
-                          });
-
-                          if (countbased == '1') {
-                            if (double.parse(totalCountConsumed) <
-                                double.parse(limit)) {
-                              if (hourslimit == '0') {
-                                print('no limits');
-
-                                sendfileleaverequest(requestId, title,
-                                    setStateDialog, isLoading);
-                              } else {
-                                if (double.parse(totalLeaveHours) <
-                                    double.parse(hourslimit)) {
-                                  print(
-                                      'difeerence ${DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedToDate).difference(DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedFromDate)).inHours}');
-
-                                  if (DateFormat('dd/MM/yyyy hh:mm a')
-                                      .parse(_selectedToDate)
-                                      .difference(DateFormat(
-                                      'dd/MM/yyyy hh:mm a')
-                                      .parse(_selectedFromDate))
-                                      .inHours <
-                                      double.parse(hourslimit)) {
-                                    sendfileleaverequest(requestId, title,
-                                        setStateDialog, isLoading);
+                          if (attachments.isNotEmpty && _attachment == null)
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                              MediaQuery.of(context).size.height * 0.25,
+                              child: InkWell(
+                                child: ListView.builder(
+                                  itemCount: attachments.length,
+                                  itemBuilder: (context, index) {
+                                    return AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration: const Duration(milliseconds: 700),
+                                      child: SlideAnimation(
+                                        duration: Duration(milliseconds: 500),
+                                        horizontalOffset: 200.0,
+                                        child: FadeInAnimation(
+                                          child:TextFormField(
+                                            enabled: false,
+                                            decoration: InputDecoration(
+                                                hintText: attachments[index],
+                                                hintStyle: TextStyle(color: kgolder),
+                                                border: UnderlineInputBorder(borderSide: BorderSide(color: kgolder)),
+                                                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                                ,
+                                                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                                ,
+                                                disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kgolder))
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                onTap: () async {
+                                  final result =
+                                  await FilePicker.platform.pickFiles();
+                                  if (result == null) {
+                                    return;
                                   } else {
+                                    final file = result.files.first;
+                                    final newFile = await saveFile(file);
                                     setStateDialog(() {
-                                      isLoading = false;
+                                      _attachment = newFile;
+                                      _attachmentPlatformFile = file;
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                          if (_attachment != null && attachments.isNotEmpty)
+                            _buildFile(),
+                          isLoading
+                              ? SizedBox()
+                              : Row(
+                              children:[
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(kgolder)
+                              ),
+                              onPressed: () async {
+                                var requestId =
+                                    'REQ' + DateTime.now().microsecond.toString();
+                                var _canSubmit = _trySubmit();
+                                if (attachments.isEmpty) {
+                                  if (_canSubmit &&
+                                      (_selectedFromDate != '' &&
+                                          _selectedToDate != '')) {
+                                    setStateDialog(() {
+                                      isLoading = true;
                                     });
 
-                                    Fluttertoast.showToast(
-                                        msg: 'Exceeding Hours Limit');
+                                    if (countbased == '1') {
+                                      if (double.parse(totalCountConsumed) <
+                                          double.parse(limit)) {
+                                        if (hourslimit == '0') {
+                                          print('no limits');
+
+                                          sendLeaveRequest(requestId, title);
+                                        } else {
+                                          if (double.parse(totalLeaveHours) <
+                                              double.parse(hourslimit)) {
+                                            print(
+                                                'difeerence ${DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedToDate).difference(DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedFromDate)).inHours}');
+
+                                            if (DateFormat('dd/MM/yyyy hh:mm a')
+                                                .parse(_selectedToDate)
+                                                .difference(DateFormat(
+                                                'dd/MM/yyyy hh:mm a')
+                                                .parse(_selectedFromDate))
+                                                .inHours <
+                                                double.parse(hourslimit)) {
+                                              sendLeaveRequest(requestId, title);
+                                            } else {
+                                              setStateDialog(() {
+                                                isLoading = false;
+                                              });
+
+                                              Fluttertoast.showToast(
+                                                  msg: 'Exceeding Hours Limit');
+                                            }
+                                          } else {
+                                            setStateDialog(() {
+                                              isLoading = false;
+                                            });
+
+                                            Fluttertoast.showToast(
+                                                msg: 'Hours Limit Exhausted');
+                                          }
+                                        }
+                                      } else {
+                                        setStateDialog(() {
+                                          isLoading = false;
+                                        });
+                                        Fluttertoast.showToast(
+                                            msg: 'Count Limit Exhausted');
+                                      }
+                                    } else {
+                                      if (hourslimit == '0') {
+                                        sendLeaveRequest(requestId, title);
+                                      } else {
+                                        if (double.parse(totalLeaveHours) <
+                                            double.parse(hourslimit)) {
+                                          print(
+                                              'difeerence ${DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedToDate).difference(DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedFromDate)).inHours}');
+
+                                          if (DateFormat('dd/MM/yyyy hh:mm a')
+                                              .parse(_selectedToDate)
+                                              .difference(
+                                              DateFormat('dd/MM/yyyy hh:mm a')
+                                                  .parse(_selectedFromDate))
+                                              .inHours <
+                                              double.parse(hourslimit)) {
+                                            sendLeaveRequest(requestId, title);
+                                          } else {
+                                            setStateDialog(() {
+                                              isLoading = false;
+                                            });
+
+                                            Fluttertoast.showToast(
+                                                msg: 'Exceeding Hours Limit');
+                                          }
+                                        } else {
+                                          setStateDialog(() {
+                                            isLoading = false;
+                                          });
+                                          Fluttertoast.showToast(
+                                              msg: 'Hours Limit Exhausted');
+                                        }
+                                      }
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Please fill all the details.'),
+                                      ),
+                                    );
                                   }
                                 } else {
-                                  setStateDialog(() {
-                                    isLoading = false;
-                                  });
-                                  Fluttertoast.showToast(
-                                      msg: 'Hours Limit Exhausted');
-                                }
-                              }
-                            } else {
-                              setStateDialog(() {
-                                isLoading = false;
-                              });
-                              Fluttertoast.showToast(
-                                  msg: 'Counts Limit Exhausted');
-                            }
-                          } else {
-                            if (hourslimit == '0') {
-                              sendfileleaverequest(requestId, title,
-                                  setStateDialog, isLoading);
-                            } else {
-                              if (double.parse(totalLeaveHours) <
-                                  double.parse(hourslimit)) {
-                                print(
-                                    'difeerence ${DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedToDate).difference(DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedFromDate)).inHours}');
+                                  if (_attachment != null) {
+                                    if (_canSubmit &&
+                                        (_selectedFromDate != '' &&
+                                            _selectedToDate != '')) {
+                                      setStateDialog(() {
+                                        isLoading = true;
+                                      });
 
-                                if (DateFormat('dd/MM/yyyy hh:mm a')
-                                    .parse(_selectedToDate)
-                                    .difference(DateFormat(
-                                    'dd/MM/yyyy hh:mm a')
-                                    .parse(_selectedFromDate))
-                                    .inHours <
-                                    double.parse(hourslimit)) {
-                                  sendfileleaverequest(requestId, title,
-                                      setStateDialog, isLoading);
-                                } else {
-                                  setStateDialog(() {
-                                    isLoading = false;
-                                  });
+                                      if (countbased == '1') {
+                                        if (double.parse(totalCountConsumed) <
+                                            double.parse(limit)) {
+                                          if (hourslimit == '0') {
+                                            print('no limits');
 
-                                  Fluttertoast.showToast(
-                                      msg: 'Exceeding Hours Limit');
+                                            sendfileleaverequest(requestId, title,
+                                                setStateDialog, isLoading);
+                                          } else {
+                                            if (double.parse(totalLeaveHours) <
+                                                double.parse(hourslimit)) {
+                                              print(
+                                                  'difeerence ${DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedToDate).difference(DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedFromDate)).inHours}');
+
+                                              if (DateFormat('dd/MM/yyyy hh:mm a')
+                                                  .parse(_selectedToDate)
+                                                  .difference(DateFormat(
+                                                  'dd/MM/yyyy hh:mm a')
+                                                  .parse(_selectedFromDate))
+                                                  .inHours <
+                                                  double.parse(hourslimit)) {
+                                                sendfileleaverequest(requestId, title,
+                                                    setStateDialog, isLoading);
+                                              } else {
+                                                setStateDialog(() {
+                                                  isLoading = false;
+                                                });
+
+                                                Fluttertoast.showToast(
+                                                    msg: 'Exceeding Hours Limit');
+                                              }
+                                            } else {
+                                              setStateDialog(() {
+                                                isLoading = false;
+                                              });
+                                              Fluttertoast.showToast(
+                                                  msg: 'Hours Limit Exhausted');
+                                            }
+                                          }
+                                        } else {
+                                          setStateDialog(() {
+                                            isLoading = false;
+                                          });
+                                          Fluttertoast.showToast(
+                                              msg: 'Counts Limit Exhausted');
+                                        }
+                                      } else {
+                                        if (hourslimit == '0') {
+                                          sendfileleaverequest(requestId, title,
+                                              setStateDialog, isLoading);
+                                        } else {
+                                          if (double.parse(totalLeaveHours) <
+                                              double.parse(hourslimit)) {
+                                            print(
+                                                'difeerence ${DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedToDate).difference(DateFormat('dd/MM/yyyy hh:mm a').parse(_selectedFromDate)).inHours}');
+
+                                            if (DateFormat('dd/MM/yyyy hh:mm a')
+                                                .parse(_selectedToDate)
+                                                .difference(DateFormat(
+                                                'dd/MM/yyyy hh:mm a')
+                                                .parse(_selectedFromDate))
+                                                .inHours <
+                                                double.parse(hourslimit)) {
+                                              sendfileleaverequest(requestId, title,
+                                                  setStateDialog, isLoading);
+                                            } else {
+                                              setStateDialog(() {
+                                                isLoading = false;
+                                              });
+
+                                              Fluttertoast.showToast(
+                                                  msg: 'Exceeding Hours Limit');
+                                            }
+                                          } else {
+                                            setStateDialog(() {
+                                              isLoading = false;
+                                            });
+                                            Fluttertoast.showToast(
+                                                msg: 'Hours Limit Exhausted');
+                                          }
+                                        }
+                                      }
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                          Text('Please fill all the details.'),
+                                        ),
+                                      );
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Please provide attachment.'),
+                                      ),
+                                    );
+                                  }
                                 }
-                              } else {
-                                setStateDialog(() {
-                                  isLoading = false;
-                                });
-                                Fluttertoast.showToast(
-                                    msg: 'Hours Limit Exhausted');
-                              }
-                            }
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content:
-                              Text('Please fill all the details.'),
+                              },
+                              child: const Text('Submit',style: TextStyle(color: Colors.black),),
                             ),
-                          );
-                        }
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please provide attachment.'),
-                          ),
-                        );
-                      }
-                    }
-                  },
-                  child: const Text('Submit',style: TextStyle(color: Colors.black),),
-                ),
-                TextButton(
+                            TextButton(
 
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: const Text('Cancel',style: TextStyle(color: kgolder),),
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: const Text('Cancel',style: TextStyle(color: kgolder),),
+                            ),
+                          ]),
+                        ],
+                      ),
+                    ),
                 ),
-              ],
+              ),
+                  ),
             );
           },
         );
+
       },
+    );
+  }
+
+  newDesugn(title,value){
+   return  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: kgolder),),
+        Container(
+          height: 35,
+          width: 200,
+
+          child: Padding(
+            padding:   EdgeInsets.all(4),
+            child: Text(value,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+          ),
+          decoration: BoxDecoration(
+              color: kgolder,
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              border: Border.all(width: 3,color: Colors.black)
+          ),
+        ),
+      ],
     );
   }
 

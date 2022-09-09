@@ -380,7 +380,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("Date :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                              Text("16/04/2022",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                              Text(servicesModel.date!,style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
                             ],
                           ),
                           Row(
@@ -388,7 +388,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("From :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                              Text("12:00 AM",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                              Text(servicesModel.from!,style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
                             ],
                           ),
                           Row(
@@ -396,7 +396,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("To :",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                              Text("12:00 AM",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                              Text(servicesModel.to!,style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
                             ],
                           ),
                           SizedBox(height: 15),
@@ -593,6 +593,10 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                       ],
                                                     ),
                                                     SizedBox(height: 15),
+                                                    Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: Text("Reason :",style: TextStyle(color:kgolder ),)),
+
                                                     Container(
                                                       width: Get.width,
                                                       decoration: BoxDecoration(
@@ -607,7 +611,18 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                                                       ),
                                                       child: Padding(
                                                         padding:   EdgeInsets.all(10.0),
-                                                        child: Text("Reason:\nLoremipsum dola sit \namet connector adsipising elit "),
+                                                        child:TextFormField(
+                                                          decoration: InputDecoration(
+                                                         filled: true,
+                                                            fillColor: Colors.transparent
+                                                          ),
+                                                          onChanged: (value){
+                                                            setState(() {
+
+                                                              _reason = value;
+                                                            });
+                                                          },
+                                                        )
                                                       ),
                                                     ),
                                                     SizedBox(height: 15),
@@ -795,22 +810,7 @@ class _LeaveRequest1State extends State<LeaveRequest1> {
                             Text(servicesModel!.date!,style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Details: ",style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                                Container(
-                                    // width: 150,
-                                    child: Text(servicesModel!.details!,style: TextStyle(color: kblack, fontWeight: FontWeight.bold),)),
-                              ],
-                            ),
-
-                          ],
-                        ),
                         SizedBox(height: 15),
 
 

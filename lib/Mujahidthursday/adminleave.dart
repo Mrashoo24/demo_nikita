@@ -25,6 +25,8 @@ class _NewAdminState extends State<AdminLeavesss> {
   UserModel? employeeDetails;
   String? dateSelected;
   String? todateSelected;
+  DateTime? dateSelectedfrm;
+  DateTime? todateSelectedfrm;
 
   var _isLoading = false;
   var selectedEmployee = '';
@@ -45,372 +47,393 @@ class _NewAdminState extends State<AdminLeavesss> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
 
-        appBar:  AppBar(
-
-          leading:  InkWell(
-            onTap: (){
-              Get.back();
-            },
-            child: Padding(
-              padding:   EdgeInsets.only(left: 10.0),
-              child: Icon(Icons.arrow_back,color: kblack),
-            ),
-          ),
-          leadingWidth: 25,
-          title: Text('Administrative Leave',style: TextStyle(color:kblack,fontWeight: FontWeight.bold),),
-
-
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [ kgolder2,kgradientYellow,kgolder2]
-              ),
-            ),
-          ),
-
-          toolbarHeight: 55,
-          elevation: 0,
-        ),
+        // appBar:  AppBar(
+        //   leading:  InkWell(
+        //     onTap: (){
+        //       Get.back();
+        //     },
+        //     child: Padding(
+        //       padding:   EdgeInsets.only(left: 10.0),
+        //       child: Icon(Icons.arrow_back,color: kblack),
+        //     ),
+        //   ),
+        //   leadingWidth: 25,
+        //   title: Text('Administrative Leave',style: TextStyle(color:kblack,fontWeight: FontWeight.bold),),
+        //
+        //
+        //   flexibleSpace: Container(
+        //     decoration: BoxDecoration(
+        //       gradient: LinearGradient(
+        //           colors: [ kgolder2,kgradientYellow,kgolder2]
+        //       ),
+        //     ),
+        //   ),
+        //
+        //   toolbarHeight: 55,
+        //   elevation: 0,
+        // ),
 
         body: DefaultTabController(
           length: 2,
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            body: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
+          child: SafeArea(
+            child: Scaffold(
+              resizeToAvoidBottomInset: true,
+              body: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
 
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [kGray3, kblack, kGray3,  kblack,]
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [kGray3, kblack, kGray3,  kblack,]
+                  ),
+
                 ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [ kgolder2,kgradientYellow,kgolder2]
+                        ),
 
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [ kgolder2,kgradientYellow,kgolder2]
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15),
+                            bottomRight: Radius.circular(15)),
                       ),
-
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(15),
-                          bottomRight: Radius.circular(15)),
-                    ),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          TabBar(
-                            labelStyle: TextStyle(
-                                fontSize: 20,
-                                fontWeight:FontWeight.w600),
-                            labelColor: kgolder2,
-                            unselectedLabelColor:  kblack,
-                            indicator: BoxDecoration(
-                              color: kgolder,
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(14),
-                                  bottomLeft: Radius.circular(14)),
-                              border: Border.all(
-                                color:kgolder,
-                                width: 2,
-                              ),
-                              gradient: LinearGradient(
-
-                                  begin: Alignment.topRight,
-                                  end: Alignment.bottomLeft,
-                                  colors: [   kblack, kGray3,]
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 55,
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      Get.back();
+                                    },
+                                    child: Padding(
+                                      padding:   EdgeInsets.only(left: 10.0),
+                                      child: Icon(Icons.arrow_back,color: kblack),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Text('Administrative Leave',style: TextStyle(color:kblack,fontWeight: FontWeight.bold),),
+                                ],
                               ),
                             ),
-                            tabs: [
-                              Tab(child: Text("Search",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.bold),),),
-                              // Tab(child: Text("Request",style: TextStyle(fontSize: 16),),),
-                              Tab(child: Text("Alloted",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.bold),),),
-                            ],
-                          ),
-                        ],
+
+                            TabBar(
+                              labelStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight:FontWeight.w600),
+
+                              labelColor: kgolder2,
+                              unselectedLabelColor:  kblack,
+                              indicator: BoxDecoration(
+                                color: kgolder,
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(14),
+                                    bottomLeft: Radius.circular(14)),
+                                border: Border.all(
+                                  color:kgolder,
+                                  width: 2,
+                                ),
+                                gradient: LinearGradient(
+
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                    colors: [   kblack, kGray3,]
+                                ),
+                              ),
+                              tabs: [
+                                Tab(child: Text("Search",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.bold),),),
+                                // Tab(child: Text("Request",style: TextStyle(fontSize: 16),),),
+                                Tab(child: Text("Alloted",style: TextStyle(fontSize: 18,fontFamily:'Typo Round',fontWeight: FontWeight.bold),),),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    child: Expanded(
-                      child: TabBarView(
-                          children :[
-                            Padding(
-                        padding:   EdgeInsets.all(8.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              InkWell(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(Radius.circular(9),),
-                                              ),
-                                              child: ExpansionTile(
-                                                onExpansionChanged: (expanding){
-                                                  print('expanded $expanding');
-                                                  setState((){
-                                                    isExpanded = false;
-                                                  });
-                                                },
-                                                key: expansionTile,
-                                                // tilePadding: EdgeInsets.only(left: 16),
-                                                trailing:  SizedBox.shrink(),
-                                                expandedCrossAxisAlignment: CrossAxisAlignment.center,
-                                                collapsedIconColor: kblack,
-                                                iconColor: kblack,
-                                                collapsedBackgroundColor:Colors.transparent,
-                                                backgroundColor: Colors.transparent,
-                                                title:  SingleChildScrollView(
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          width: 2,
-                                                          color: kgolder),
-                                                      gradient: LinearGradient(
-                                                          colors: [ kgradientYellow,kgolder2]
-                                                      ),
-                                                      borderRadius: BorderRadius.all(Radius.circular(9),),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:  EdgeInsets.all(8.0),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text( selectedEmployee == '' ?  'Select Employee' : selectedEmployee,style: TextStyle(color: kblack,fontSize: 19,fontWeight:FontWeight.bold),),
-                                                          Icon(Icons.keyboard_arrow_down,color: kblack,)
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
+                    Container(
+                      child: Expanded(
+                        child: TabBarView(
+                            children :[
+                              Padding(
+                          padding:   EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                InkWell(
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.all(Radius.circular(9),),
                                                 ),
-                                                tilePadding: EdgeInsets.only(left: 25),
-                                                children:  [
-                                                  isExpanded ? Container(height: 0,) :  Container(
-                                                      margin: EdgeInsets.only(left: 25,right: 30),
-                                                    width: Get.width,
-                                                    decoration: BoxDecoration(
+                                                child: ExpansionTile(
+                                                  onExpansionChanged: (expanding){
+                                                    print('expanded $expanding');
+                                                    setState((){
+                                                      isExpanded = false;
+                                                    });
+                                                  },
+                                                  key: expansionTile,
+                                                  // tilePadding: EdgeInsets.only(left: 16),
+                                                  trailing:  SizedBox.shrink(),
+                                                  expandedCrossAxisAlignment: CrossAxisAlignment.center,
+                                                  collapsedIconColor: kblack,
+                                                  iconColor: kblack,
+                                                  collapsedBackgroundColor:Colors.transparent,
+                                                  backgroundColor: Colors.transparent,
+                                                  title:  SingleChildScrollView(
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            width: 2,
+                                                            color: kgolder),
                                                         gradient: LinearGradient(
                                                             colors: [ kgradientYellow,kgolder2]
                                                         ),
-                                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                        border: Border.all(
-                                                          color:kgolder,
-                                                          width: 2,
-                                                        )
-                                                    ),
-                                                    child:   Padding(
-                                                      padding:   EdgeInsets.all(5),
-                                                      child: Column(
-                                                        children: [
-                                                          Container(
-
-                                                            width: Get.width,
-                                                            decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                                gradient: LinearGradient(
-                                                                    colors: [ kGray3,kblack]
-                                                                ),
-                                                                border: Border.all(
-                                                                  color:kgolder,
-                                                                  width: 2,
-                                                                )
-                                                            ),
-                                                            child: TextFormField(
-                                                              onChanged: (value){
-                                                                setState((){
-
-                                                                });
-                                                              },
-                                                              controller: searchController,
-                                                              style: TextStyle(color: kgolder2),
-                                                              cursorColor: kgolder2,
-                                                              decoration: InputDecoration(
-                                                                isDense: true,
-                                                                contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                                                                  filled: true,
-                                                                  fillColor: Colors.transparent,
-                                                                hintText: 'Search...',
-                                                                hintStyle: TextStyle(color: kgolder2),
-                                                                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                                                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
-
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(height: 10),
-                                                          Padding(
-                                                            padding: const EdgeInsets.all(8.0),
-                                                            child: FutureBuilder<List<UserModel>?> (
-                                                                future: AllApi().getAllUsers(
-                                                                  companyId: widget.userModel.companyId,
-                                                                ),
-                                                                builder: (context, snapshot) {
-                                                                  if (!snapshot.hasData) {
-                                                                    return kprogressbar;
-                                                                  }
-                                                                  List<UserModel> employeeList = snapshot.data!;
-
-                                                                  print('controller = ${
-                                                                  searchController.text
-                                                                  }');
-                                                                  employeeList = searchController.text.isNotEmpty ?
-                                                                      employeeList.where((element) => element.name!.toLowerCase().contains(searchController.text.toLowerCase())).toList()
-                                                                  : employeeList
-                                                                  ;
-
-                                                                return Container(
-                                                                  height: 200,
-                                                                  child: ListView.builder(
-                                                                    shrinkWrap: true,
-                                                                    itemCount: employeeList.length,
-                                                                    itemBuilder: (context, index) {
-
-                                                                      return
-                                                                        InkWell(
-                                                                          onTap: (){
-
-                                                                            setState((){
-                                                                          selectedEmployee = employeeList[index].name!;
-                                                                          isExpanded = true;
-
-                                                                            });
-
-                                                                          },
-                                                                          child: Padding(
-                                                                            padding: const EdgeInsets.only(bottom: 10.0),
-                                                                            child: Text(employeeList[index].name!,style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
-                                                                          ),
-                                                                        );
-
-                                                                    }
-                                                                  ),
-                                                                );
-                                                              }
-                                                            ),
-                                                          ),
-                                                        ],
+                                                        borderRadius: BorderRadius.all(Radius.circular(9),),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:  EdgeInsets.all(8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text( selectedEmployee == '' ?  'Select Employee' : selectedEmployee,style: TextStyle(color: kblack,fontSize: 19,fontWeight:FontWeight.bold),),
+                                                            Icon(Icons.keyboard_arrow_down,color: kblack,)
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
+                                                  tilePadding: EdgeInsets.only(left: 25),
+                                                  children:  [
+                                                    isExpanded ? Container(height: 0,) :  Container(
+                                                        margin: EdgeInsets.only(left: 25,right: 30),
+                                                      width: Get.width,
+                                                      decoration: BoxDecoration(
+                                                          gradient: LinearGradient(
+                                                              colors: [ kgradientYellow,kgolder2]
+                                                          ),
+                                                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                          border: Border.all(
+                                                            color:kgolder,
+                                                            width: 2,
+                                                          )
+                                                      ),
+                                                      child:   Padding(
+                                                        padding:   EdgeInsets.all(5),
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
 
-                                                ],
+                                                              width: Get.width,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                                  gradient: LinearGradient(
+                                                                      colors: [ kGray3,kblack]
+                                                                  ),
+                                                                  border: Border.all(
+                                                                    color:kgolder,
+                                                                    width: 2,
+                                                                  )
+                                                              ),
+                                                              child: TextFormField(
+                                                                onChanged: (value){
+                                                                  setState((){
+
+                                                                  });
+                                                                },
+                                                                controller: searchController,
+                                                                style: TextStyle(color: kgolder2),
+                                                                cursorColor: kgolder2,
+                                                                decoration: InputDecoration(
+                                                                  isDense: true,
+                                                                  contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                                                                    filled: true,
+                                                                    fillColor: Colors.transparent,
+                                                                  hintText: 'Search...',
+                                                                  hintStyle: TextStyle(color: kgolder2),
+                                                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                                                                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent))
+
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: 10),
+                                                            Padding(
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: FutureBuilder<List<UserModel>?> (
+                                                                  future: AllApi().getAllUsers(
+                                                                    companyId: widget.userModel.companyId,
+                                                                  ),
+                                                                  builder: (context, snapshot) {
+                                                                    if (!snapshot.hasData) {
+                                                                      return kprogressbar;
+                                                                    }
+                                                                    List<UserModel> employeeList = snapshot.data!;
+
+                                                                    print('controller = ${
+                                                                    searchController.text
+                                                                    }');
+                                                                    employeeList = searchController.text.isNotEmpty ?
+                                                                        employeeList.where((element) => element.name!.toLowerCase().contains(searchController.text.toLowerCase())).toList()
+                                                                    : employeeList
+                                                                    ;
+
+                                                                  return Container(
+                                                                    height: 200,
+                                                                    child: ListView.builder(
+                                                                      shrinkWrap: true,
+                                                                      itemCount: employeeList.length,
+                                                                      itemBuilder: (context, index) {
+
+                                                                        return
+                                                                          InkWell(
+                                                                            onTap: (){
+
+                                                                              setState((){
+                                                                            selectedEmployee = employeeList[index].name!;
+                                                                            isExpanded = true;
+
+                                                                              });
+
+                                                                            },
+                                                                            child: Padding(
+                                                                              padding: const EdgeInsets.only(bottom: 10.0),
+                                                                              child: Text(employeeList[index].name!,style: TextStyle(color: kblack, fontWeight: FontWeight.bold),),
+                                                                            ),
+                                                                          );
+
+                                                                      }
+                                                                    ),
+                                                                  );
+                                                                }
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 10,),
-                              InkWell(
-                                onTap: (){
-                                  if (selectedEmployee != '') {
-                                    _onPressedSearch(
-                                      name: selectedEmployee,
-                                    );
-                                  } else {
-                                    Fluttertoast.showToast(
-                                      msg: 'Please select one employee',
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  height: 40,
-                                  width: 100,
-
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: kblack,
-                                        width: 2),
-                                    color:kgolder,borderRadius: BorderRadius.all(Radius.circular(12),),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('Search',style: TextStyle(color: kblack,fontSize: 18,fontWeight: FontWeight.bold),),
-
                                     ],
                                   ),
                                 ),
-                              ),
+                                SizedBox(height: 10,),
+                                InkWell(
+                                  onTap: (){
+                                    if (selectedEmployee != '') {
+                                      _onPressedSearch(
+                                        name: selectedEmployee,
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: 'Please select one employee',
+                                      );
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 100,
 
-                              employeeDetails != null
-                                  ? detailCard() : SizedBox()
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: kblack,
+                                          width: 2),
+                                      color:kgolder,borderRadius: BorderRadius.all(Radius.circular(12),),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text('Search',style: TextStyle(color: kblack,fontSize: 18,fontWeight: FontWeight.bold),),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+                                employeeDetails != null
+                                    ? detailCard() : SizedBox()
 
 
 
 
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                            FutureBuilder<List<AdminLeavesModel>?>(
-                                future: AllApi().getAdminLeaves(
-                                  verify: '1',
-                                  companyId: widget.userModel.companyId,
-                                ),
-                              builder: (context, snapshot) {
+                              FutureBuilder<List<AdminLeavesModel>?>(
+                                  future: AllApi().getAdminLeaves(
+                                    verify: '1',
+                                    companyId: widget.userModel.companyId,
+                                  ),
+                                builder: (context, snapshot) {
 
-                                if (!snapshot.hasData) {
-                                  return kprogressbar;
-                                } else if (snapshot.data!.isEmpty) {
-                                  return Container(
-                                    height: MediaQuery.of(context).size.height,
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      'No Records',
-                                      style: TextStyle(
-                                        fontSize: 22,
-                                        color: kgolder
+                                  if (!snapshot.hasData) {
+                                    return kprogressbar;
+                                  } else if (snapshot.data!.isEmpty) {
+                                    return Container(
+                                      height: MediaQuery.of(context).size.height,
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        'No Records',
+                                        style: TextStyle(
+                                          fontSize: 22,
+                                          color: kgolder
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }else{
+                                    );
+                                  }else{
 
-                                  var adminLeaves = snapshot.data;
-                                  _allotedList = adminLeaves;
+                                    var adminLeaves = snapshot.data;
+                                    _allotedList = adminLeaves;
 
-                                  return ListView.builder(
-                                      itemCount: _allotedList!.length,
-                                      itemBuilder: (context, index) {
-                                      return
-                                        AnimationConfiguration.staggeredList(
-                                          position: index,
-                                          duration: const Duration(milliseconds: 700),
-                                          child: SlideAnimation(
-                                            duration: Duration(milliseconds: 500),
-                                            horizontalOffset: 200.0,
-                                            child: FadeInAnimation(
-                                                child:     buildAllotedCard(adminLeaves![index])
+                                    return ListView.builder(
+                                        itemCount: _allotedList!.length,
+                                        itemBuilder: (context, index) {
+                                        return
+                                          AnimationConfiguration.staggeredList(
+                                            position: index,
+                                            duration: const Duration(milliseconds: 700),
+                                            child: SlideAnimation(
+                                              duration: Duration(milliseconds: 500),
+                                              horizontalOffset: 200.0,
+                                              child: FadeInAnimation(
+                                                  child:     buildAllotedCard(adminLeaves![index])
+                                              ),
                                             ),
-                                          ),
-                                        );
+                                          );
 
 
 
-                                    }
-                                  );
+                                      }
+                                    );
+                                  }
+
+
                                 }
-
-
-                              }
-                            )
-                          ]
+                              )
+                            ]
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -573,13 +596,8 @@ class _NewAdminState extends State<AdminLeavesss> {
         Navigator.of(context).pop();
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Administrative leave can only be alloted once in a year.',
-          ),
-        ),
-      );
+      Fluttertoast.showToast(msg: 'Administrative leave can only be alloted once in a year.');
+
     }
   }
 
@@ -702,20 +720,22 @@ class _NewAdminState extends State<AdminLeavesss> {
               onTap: (){
                 DatePicker.showDatePicker(
                   context,
-                  theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+                  theme:DatePickerTheme(backgroundColor: kgolder,doneStyle: TextStyle(color: Colors.black)),
 
                   showTitleActions: true,
                   minTime: DateTime.now()
-                      .subtract(const Duration(days: 120)),
+                     ,
                   maxTime: DateTime(2050, 6, 7),
                   onChanged: (date) {
                     setState(() {
                       dateSelected = date.toString();
+                      dateSelectedfrm = date;
                     });
                   },
                   onConfirm: (date) {
                     setState(() {
                       dateSelected = date.toString();
+                      dateSelectedfrm = date;
                     });
                   },
                   currentTime: DateTime.now(),
@@ -755,7 +775,7 @@ class _NewAdminState extends State<AdminLeavesss> {
         SizedBox(height: 10,),
         Row(
           children: [
-            Text('To',style: TextStyle(color: kgolder2,fontSize: 19,fontWeight:FontWeight.bold),),
+            Text('To',style: TextStyle(color: kgolder,fontSize: 19,fontWeight:FontWeight.bold),),
           ],
         ),
         SizedBox(height: 10,),
@@ -777,20 +797,26 @@ class _NewAdminState extends State<AdminLeavesss> {
               onTap: (){
                 DatePicker.showDatePicker(
                   context,
-                  theme:DatePickerTheme(backgroundColor: kgolder2,doneStyle: TextStyle(color: Colors.black)),
+                  theme:DatePickerTheme(
+                      backgroundColor: kgolder2,
+                      doneStyle: TextStyle(color: Colors.black)),
 
                   showTitleActions: true,
                   minTime: DateTime.now()
-                      .subtract(const Duration(days: 120)),
+                   ,
                   maxTime: DateTime(2050, 6, 7),
                   onChanged: (date) {
                     setState(() {
                       todateSelected = date.toString();
+                      todateSelectedfrm = date;
+
                     });
                   },
                   onConfirm: (date) {
                     setState(() {
                       todateSelected = date.toString();
+                      todateSelectedfrm = date;
+
                     });
                   },
                   currentTime: DateTime.now(),
@@ -830,10 +856,10 @@ class _NewAdminState extends State<AdminLeavesss> {
         SizedBox(height: 10,),
         Row(
           children: [
-            Text('No of Days',style: TextStyle(color: kgolder2,fontSize: 19,fontWeight:FontWeight.bold),),
+            Text('No of Days',style: TextStyle(color: kgolder,fontSize: 19,fontWeight:FontWeight.bold),),
           ],
         ),
-        Container(
+     dateSelectedfrm == null || todateSelectedfrm == null ? SizedBox() :   Container(
           height: 45,
 
           decoration: BoxDecoration(
@@ -850,7 +876,7 @@ class _NewAdminState extends State<AdminLeavesss> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('DD/MM/YYY',style: TextStyle(color: kblack,fontSize: 19,fontWeight:FontWeight.bold),),
+                Text(todateSelectedfrm!.difference(dateSelectedfrm!).inDays.toString(),style: TextStyle(color: kblack,fontSize: 19,fontWeight:FontWeight.bold),),
                 Icon(Icons.keyboard_arrow_down,color: kblack,)
               ],
             ),
@@ -862,7 +888,7 @@ class _NewAdminState extends State<AdminLeavesss> {
           onTap: (){
             if (dateSelected != null ) {
               _onPressedAllot(
-                numberOfDays: 0.toString(),
+                numberOfDays:todateSelectedfrm!.difference(dateSelectedfrm!).inDays.toString(),
                 from: dateSelected,
                 to: todateSelected,
               );

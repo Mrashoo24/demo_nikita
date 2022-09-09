@@ -541,6 +541,13 @@ class _BenchListState extends State<BenchList> {
                         companyId: widget.userModel!.companyId,
                         empId: widget.userModel!.empId,
                       );
+
+                      refreshList!.sort((a,b)=>
+                          DateFormat('yyyy-MM-dd hh:mm a').format(DateFormat('dd-MM-yyyy hh:mm a').parse(a.timeStamp!) )
+                          .compareTo( DateFormat('yyyy-MM-dd hh:mm a').format(DateFormat('dd-MM-yyyy hh:mm a').parse(b.timeStamp!) ))
+
+                      );
+
                       setState(() {
                         _historyList = refreshList;
                       });
@@ -582,6 +589,20 @@ class _BenchListState extends State<BenchList> {
                                         MainAxisAlignment.spaceBetween,
                                         children: [
                                           const Text(
+                                            'Date: ',
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                          Text(
+                                            _historyList![index].timeStamp!,
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
                                             'Employee Name: ',
                                             style: TextStyle(color: kgolder),
                                           ),
@@ -605,16 +626,31 @@ class _BenchListState extends State<BenchList> {
                                           )
                                         ],
                                       ),
+
                                       Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                         children: [
                                           const Text(
-                                            'Date: ',
+                                            'From Date: ',
                                             style: TextStyle(color: kgolder),
                                           ),
                                           Text(
-                                            _historyList![index].timeStamp!,
+                                            _historyList![index].from!,
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'To Date: ',
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                          Text(
+                                            _historyList![index].to!,
                                             style: TextStyle(color: kgolder),
                                           ),
                                         ],
@@ -634,6 +670,45 @@ class _BenchListState extends State<BenchList> {
                                                 ? 'Pending'
                                                 : 'Rejected',
                                             style: TextStyle(color: kgolder),
+                                          ),
+
+                                        ],
+                                      ),
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Replacement Type: ',
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                          Text(
+                                            _historyList![index].replacementType!,
+                                            maxLines: 3,
+                                            style: TextStyle(color: kgolder),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                           Flexible(
+                                             flex:5,
+                                             child: Text(
+                                              'Job Description: ',
+                                              style: TextStyle(color: kgolder),
+                                          ),
+                                           ),
+                                          Flexible(
+                                            flex: 3,
+                                            child: Text(
+                                              _historyList![index].jobDescription!,
+                                              maxLines: 3,
+                                              style: TextStyle(color: kgolder),
+                                            ),
                                           ),
                                         ],
                                       ),

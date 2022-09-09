@@ -93,7 +93,12 @@ List<RelatedSitesModel>? _relatedSites;
    buildContainer(String title,String subtitle, String bottomtitle) {
     return InkWell(onTap: (){
       setState(() {
-        selectedTitle = title;
+        if(selectedTitle == title){
+          selectedTitle = '';
+        }else{
+          selectedTitle = title;
+        }
+
       });
 
     },

@@ -380,6 +380,46 @@ class AllApi {
     return null;
   }
 
+  Future<List<AttendanceReportModel>?> getCheckInHistoryAll({
+    @required String? empId,
+    @required String? companyId,
+    @required String? fromDate,
+    @required String? toDate,
+  }) async {
+    var url = Uri.parse(
+        "https://us-east-1.aws.data.mongodb-api.com/app/application-0-ffegf/endpoint/allcheckinhistory?empId=$empId&companyId=$companyId");
+    var response = await http.get(url);
+    print('allresponse = ${response.body}');
+
+    var body = json.decode(response.body);
+    if (response.statusCode == 200 && body != '[]') {
+      List preCheckInHistoryList = body;
+
+      var checkInHistoryList = preCheckInHistoryList.where((element) {
+        return DateFormat("yyyy-MM-dd").parse(element['date']).isAfter(
+          DateFormat("yyyy-MM-dd").parse(fromDate!).subtract(
+            const Duration(days: 1),
+          ),
+        ) &&
+            DateFormat("yyyy-MM-dd").parse(element['date']).isBefore(
+              DateFormat("yyyy-MM-dd").parse(toDate!).add(
+                const Duration(days: 1),
+              ),
+            );
+      });
+
+      Iterable<AttendanceReportModel> checkInHistory =
+      checkInHistoryList.map((e) {
+        return AttendanceReportModel().fromJson(e);
+      });
+      return checkInHistory.toList();
+    }
+    return null;
+  }
+
+
+
+
   Future<void> postEnquiry({
     @required String? subject,
     @required String? description,
@@ -947,6 +987,8 @@ class AllApi {
     @required String? verify,
     @required String? companyid,
     @required String? refid,
+    required String month,
+    required String date,
   }) async {
     var url = Uri.parse(
         "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/application-0-ffegf/service/hudur/incoming_webhook/getCountofLeaves?verify=$verify&companyid=$companyid&refid=$refid");
@@ -959,9 +1001,30 @@ class AllApi {
     if (body != '[]' && response.statusCode == 200) {
       List responseList = body;
 
+
+
       Iterable<EmployeeLeaveRequestsModel> adminLeaves = responseList.map((e) {
+
+
         return EmployeeLeaveRequestsModel().fromJson(e);
+
+
+
       });
+
+      adminLeaves = adminLeaves.where((element) {
+        var convertedDate = DateFormat('yyyy-MM-dd').parse(element.date!);
+        print('convertedDate ${convertedDate.month } ${convertedDate.year}');
+        print('current ${month } ${date}');
+
+
+
+        return convertedDate.month.toString() == month &&
+            convertedDate.year.toString() == date;
+
+      });
+
+
 
       return adminLeaves.toList();
     } else {
